@@ -10454,14 +10454,25 @@ static inline int nohz_kick_needed(struct rq *rq, int *type)
 	set_cpu_sd_state_busy();
 	nohz_balance_exit_idle(cpu);
 
-	if (_nohz_kick_needed(rq, cpu, type))
-		goto need_kick;
+	/*
+	 * None are in tickless mode and hence no need for NOHZ idle load
+	 * balancing.
+	 */
+	if (likely(!atomic_read(&nohz.nr_cpus)))
+		return false;
+
+	if (time_before(now, nohz.next_balance))
+		return false;
+
+	if (rq->nr_running >= 2 &&
+	    (!energy_aware() || cpu_overutilized(cpu)))
+		return true;
 
 #ifndef CONFIG_SCHED_HMP
 	rcu_read_lock();
 	sd = rcu_dereference(per_cpu(sd_busy, cpu));
 
-	if (sd) {
+	if (sd && !energy_aware()) {
 		sgc = sd->groups->sgc;
 		nr_busy = atomic_read(&sgc->nr_busy_cpus);
 
