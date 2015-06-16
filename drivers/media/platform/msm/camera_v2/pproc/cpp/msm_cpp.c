@@ -2851,7 +2851,6 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 		struct msm_cpp_stream_buff_info_t *u_stream_buff_info = NULL;
 		struct msm_cpp_stream_buff_info_t k_stream_buff_info;
 		struct msm_cpp_buff_queue_info_t *buff_queue_info = NULL;
-
 		memset(&k_stream_buff_info, 0, sizeof(k_stream_buff_info));
 		CPP_DBG("VIDIOC_MSM_CPP_ENQUEUE_STREAM_BUFF_INFO\n");
 		if (sizeof(struct msm_cpp_stream_buff_info_t) !=
@@ -2971,8 +2970,10 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 		}
 
 STREAM_BUFF_END:
-		kfree(k_stream_buff_info.buffer_info);
-		kfree(u_stream_buff_info);
+		if (k_stream_buff_info.buffer_info)
+			kfree(k_stream_buff_info.buffer_info);
+		if (u_stream_buff_info)
+			kfree(u_stream_buff_info);
 
 		break;
 	}
