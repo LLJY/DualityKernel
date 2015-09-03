@@ -95,5 +95,5 @@ SCHED_FEAT(FORCE_CPU_THROTTLING_IMMINENT, false)
  * decisions optimizing for energy efficiency.
  */
 #ifdef CONFIG_ENERGY_AWARE
-SCHED_FEAT(ENERGY_AWARE, false)
-#endif
+SCHED_FEAT(ENERGY_AWARE, true)
+#endif)
