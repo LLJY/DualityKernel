@@ -900,6 +900,8 @@ struct sched_group_capacity {
 	 * for a single CPU.
 	 */
 	unsigned int capacity, capacity_orig;
+	unsigned long capacity;
+	unsigned long max_capacity; /* Max per-cpu capacity in group */
 	unsigned long next_update;
 	int imbalance; /* XXX unrelated to capacity but shared group state */
 	/*
