@@ -51,6 +51,13 @@ bool is_display_on()
 	return display_on;
 }
 
+bool display_on = true;
+
+bool is_display_on()
+{
+	return display_on;
+}
+
 void mdss_dsi_panel_pwm_cfg(struct mdss_dsi_ctrl_pdata *ctrl)
 {
 	if (ctrl->pwm_pmi)
