@@ -40,36 +40,6 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/cpufreq_interactive.h>
 
-#ifdef CONFIG_SCHED_HMP
-struct cluster {
-	struct list_head list;
-	struct task_struct *speedchange_task;
-	spinlock_t speedchange_cpumask_lock;
-	cpumask_t speedchange_cpumask;
-	cpumask_t cpus;
-	int id;
-};
-
-static LIST_HEAD(cluster_list_head);
-
-#define for_each_cluster(cluster)	\
-	list_for_each_entry(cluster, &cluster_list_head, list)
-
-#define for_each_cluster_safe(cluster, tmp)	\
-	list_for_each_entry_safe(cluster, tmp,	\
-		&cluster_list_head, list)
-
-static void assign_cluster_ids(void)
-{
-	struct cluster *clstr;
-	int pos = 0;
-
-	for_each_cluster(clstr) {
-		clstr->id = pos;
-		pos++;
-	}
-}
-#endif
 
 struct cpufreq_interactive_policyinfo {
 	struct timer_list policy_timer;
@@ -476,12 +446,9 @@ static void __cpufreq_interactive_timer(unsigned long data, bool is_notif)
 	struct cpufreq_interactive_policyinfo *ppol = per_cpu(polinfo, data);
 	struct cpufreq_interactive_tunables *tunables =
 		ppol->policy->governor_data;
-	struct sched_load *sl = ppol->sl;
 	struct cpufreq_interactive_cpuinfo *pcpu;
 	unsigned int new_freq;
-	unsigned int prev_laf = 0, t_prevlaf;
-	unsigned int pred_laf = 0, t_predlaf = 0;
-	unsigned int prev_chfreq, pred_chfreq, chosen_freq;
+	unsigned int loadadjfreq = 0, tmploadadjfreq;
 	unsigned int index;
 	unsigned long flags;
 	unsigned long max_cpu;
@@ -506,15 +473,13 @@ static void __cpufreq_interactive_timer(unsigned long data, bool is_notif)
 					* ppol->policy->cpuinfo.max_freq;
 			do_div(cputime_speedadj, tunables->timer_rate);
 		} else {
-			now = update_load(cpu);
+			now = update_load(i);
 			delta_time = (unsigned int)
 				(now - pcpu->cputime_speedadj_timestamp);
 			if (WARN_ON_ONCE(!delta_time))
 				continue;
 			cputime_speedadj = pcpu->cputime_speedadj;
 			do_div(cputime_speedadj, delta_time);
-			t_prevlaf = (unsigned int)cputime_speedadj * 100;
-			prev_l = t_prevlaf / ppol->target_freq;
 		}
 		tmploadadjfreq = (unsigned int)cputime_speedadj * 100;
 		pcpu->loadadjfreq = tmploadadjfreq;
@@ -522,9 +487,9 @@ static void __cpufreq_interactive_timer(unsigned long data, bool is_notif)
 						  ppol->policy->cur);
 
 		/* find max of loadadjfreq inside policy */
-		if (t_prevlaf > prev_laf) {
-			prev_laf = t_prevlaf;
-			max_cpu = cpu;
+		if (tmploadadjfreq > loadadjfreq) {
+			loadadjfreq = tmploadadjfreq;
+			max_cpu = i;
 		}
 	}
 	spin_unlock_irqrestore(&ppol->load_lock, flags);
@@ -645,20 +610,10 @@ static void __cpufreq_interactive_timer(unsigned long data, bool is_notif)
 	ppol->target_freq = new_freq;
 	spin_unlock_irqrestore(&ppol->target_freq_lock, flags);
 
-#ifdef CONFIG_SCHED_HMP
-	clstr = ppol->cluster;
-	if (clstr) {
-		spin_lock_irqsave(&clstr->speedchange_cpumask_lock, flags);
-		cpumask_set_cpu(max_cpu, &clstr->speedchange_cpumask);
-		spin_unlock_irqrestore(&clstr->speedchange_cpumask_lock, flags);
-		wake_up_process_no_notif(clstr->speedchange_task);
-	}
-#else
 	spin_lock_irqsave(&speedchange_cpumask_lock, flags);
 	cpumask_set_cpu(max_cpu, &speedchange_cpumask);
 	spin_unlock_irqrestore(&speedchange_cpumask_lock, flags);
 	wake_up_process_no_notif(speedchange_task);
-#endif
 
 rearm:
 	if (!timer_pending(&ppol->policy_timer))
@@ -669,82 +624,12 @@ exit:
 	return;
 }
 
-#ifdef CONFIG_SCHED_HMP
-static void update_cpus_freq_in_mask(cpumask_t *mask)
+
+static void cpufreq_interactive_timer(unsigned long data)
 {
-	struct cpufreq_interactive_policyinfo *ppol;
-	unsigned int cpu;
-
-	for_each_cpu(cpu, mask) {
-		ppol = per_cpu(polinfo, cpu);
-		if (!down_read_trylock(&ppol->enable_sem))
-			continue;
-
-		if (!ppol->governor_enabled) {
-			up_read(&ppol->enable_sem);
-			continue;
-		}
-
-		if (ppol->target_freq != ppol->policy->cur) {
-			trace_cpufreq_interactive_setspeed(cpu,
-				     ppol->target_freq,
-				     ppol->policy->cur);
-			__cpufreq_driver_target(ppol->policy,
-					ppol->target_freq,
-					CPUFREQ_RELATION_H);
-		}
-
-		up_read(&ppol->enable_sem);
-	}
+	__cpufreq_interactive_timer(data, false);
 }
 
-static int speed_change_task_hmp(void *data)
-{
-	struct cluster *clstr = (struct cluster *) data;
-	cpumask_t tmp_mask;
-	unsigned long flags;
-
-	while (1) {
-		set_current_state(TASK_INTERRUPTIBLE);
-		spin_lock_irqsave(&clstr->speedchange_cpumask_lock, flags);
-
-		if (cpumask_empty(&clstr->speedchange_cpumask)) {
-			spin_unlock_irqrestore(
-				&clstr->speedchange_cpumask_lock, flags);
-			schedule();
-
-			if (kthread_should_stop())
-				break;
-
-			spin_lock_irqsave(
-				&clstr->speedchange_cpumask_lock, flags);
-		}
-
-		set_current_state(TASK_RUNNING);
-		tmp_mask = clstr->speedchange_cpumask;
-		cpumask_clear(&clstr->speedchange_cpumask);
-		spin_unlock_irqrestore(
-			&clstr->speedchange_cpumask_lock, flags);
-
-		/*
-		 * Recover if we are on a wrong CPU. It might happen
-		 * because of hot-plug functionality. Affinity mask of
-		 * the process is changed, when there are no any online
-		 * CPU in tsk_cpus_allowed(p).
-		 */
-		if (!cpumask_test_cpu(smp_processor_id(), &clstr->cpus)) {
-			pr_info("change affinity mask on %d CPU, cluster id is %d\n",
-				   smp_processor_id(), clstr->id);
-
-			set_cpus_allowed(current, clstr->cpus);
-		}
-
-		update_cpus_freq_in_mask(&tmp_mask);
-	}
-
-	return 0;
-}
-#else
 static int cpufreq_interactive_speedchange_task(void *data)
 {
 	unsigned int cpu;
@@ -798,56 +683,13 @@ static int cpufreq_interactive_speedchange_task(void *data)
 
 static void cpufreq_interactive_boost(struct cpufreq_interactive_tunables *tunables)
 {
-#ifdef CONFIG_SCHED_HMP
-	struct cluster *clstr;
-#else
 	int i;
-#endif
 	int anyboost = 0;
 	unsigned long flags[2];
 	struct cpufreq_interactive_policyinfo *ppol;
 
 	tunables->boosted = true;
 
-#ifdef CONFIG_SCHED_HMP
-	for_each_cluster(clstr) {
-		cpumask_t cluster_online_cpus = CPU_MASK_NONE;
-		int cfcpu;
-
-		cpumask_and(&cluster_online_cpus, &clstr->cpus, cpu_online_mask);
-		cfcpu = cpumask_first(&cluster_online_cpus);
-		anyboost = 0;
-
-		ppol = per_cpu(polinfo, cfcpu);
-		if (!ppol || tunables != ppol->policy->governor_data)
-			continue;
-
-		spin_lock_irqsave(&clstr->speedchange_cpumask_lock, flags[0]);
-		spin_lock(&ppol->target_freq_lock);
-
-		if (ppol->target_freq < tunables->hispeed_freq) {
-			ppol->target_freq = tunables->hispeed_freq;
-			cpumask_set_cpu(cfcpu, &clstr->speedchange_cpumask);
-			ppol->hispeed_validate_time =
-				ktime_to_us(ktime_get());
-			anyboost = 1;
-		}
-
-		/*
-		 * Set floor freq and (re)start timer for when last
-		 * validated.
-		 */
-
-		ppol->floor_freq = tunables->hispeed_freq;
-		ppol->floor_validate_time = ktime_to_us(ktime_get());
-
-		spin_unlock(&ppol->target_freq_lock);
-		spin_unlock_irqrestore(&clstr->speedchange_cpumask_lock, flags[0]);
-
-		if (anyboost)
-			wake_up_process_no_notif(clstr->speedchange_task);
-	}
-#else
 	spin_lock_irqsave(&speedchange_cpumask_lock, flags[0]);
 
 	for_each_online_cpu(i) {
@@ -879,7 +721,6 @@ static void cpufreq_interactive_boost(struct cpufreq_interactive_tunables *tunab
 
 	if (anyboost)
 		wake_up_process_no_notif(speedchange_task);
-#endif
 }
 
 int load_change_callback(struct notifier_block *nb, unsigned long val,
@@ -1654,88 +1495,6 @@ static struct cpufreq_interactive_tunables *get_tunables(
 		return cached_common_tunables;
 }
 
-#ifdef CONFIG_SCHED_HMP
-static int hmp_register_cluster(cpumask_t *assign_mask)
-{
-	struct cpufreq_interactive_policyinfo *ppol;
-	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
-	struct cluster *clstr;
-	int i;
-
-	/*
-	 * check if already exists or not
-	 */
-	for_each_cluster(clstr) {
-		if (cpumask_intersects(assign_mask, &clstr->cpus))
-			goto leave;
-	}
-
-	clstr = kzalloc(sizeof(*clstr), GFP_KERNEL);
-	if (!clstr)
-		return -ENOMEM;
-
-	/*
-	 * set cluster's mask cpus it is responsible for
-	 */
-	cpumask_copy(&clstr->cpus, assign_mask);
-	spin_lock_init(&clstr->speedchange_cpumask_lock);
-
-	for_each_cpu(i, assign_mask) {
-		ppol = per_cpu(polinfo, i);
-		ppol->cluster = clstr;
-	}
-
-	clstr->speedchange_cpumask = CPU_MASK_NONE;
-	clstr->speedchange_task = kthread_create(speed_change_task_hmp,
-		clstr, "cfinteractive");
-
-	if (IS_ERR(clstr->speedchange_task))
-		return PTR_ERR(clstr->speedchange_task);
-
-	sched_setscheduler_nocheck(clstr->speedchange_task,
-		SCHED_FIFO, &param);
-	get_task_struct(clstr->speedchange_task);
-
-	/*
-	 * add our new cluster to the list
-	 */
-	INIT_LIST_HEAD(&clstr->list);
-	list_add_tail(&clstr->list, &cluster_list_head);
-	assign_cluster_ids();
-
-	wake_up_process_no_notif(clstr->speedchange_task);
-
-	pr_info("-> added cluster_%d with %d CPUs\n",
-		clstr->id, cpumask_weight(&clstr->cpus));
-
-leave:
-	return 0;
-}
-
-static void hmp_unregister_cluster(struct cluster *clstr)
-{
-	struct cpufreq_interactive_policyinfo *ppol;
-	int i;
-
-	if (clstr) {
-		kthread_stop(clstr->speedchange_task);
-		put_task_struct(clstr->speedchange_task);
-
-		for_each_cpu(i, &clstr->cpus) {
-			ppol = per_cpu(polinfo, i);
-			ppol->cluster = NULL;
-		}
-
-		list_del(&clstr->list);
-
-		pr_info("-> remove cluster_%d with %d CPUs\n",
-			   clstr->id, cpumask_weight(&clstr->cpus));
-
-		kzfree(clstr);
-	}
-}
-#endif	/* CONFIG_SCHED_HMP */
-
 static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		unsigned int event)
 {
@@ -1809,14 +1568,6 @@ static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		else
 			cached_common_tunables = tunables;
 
-#ifdef CONFIG_SCHED_HMP
-		mutex_lock(&gov_lock);
-		rc = hmp_register_cluster(policy->related_cpus);
-		mutex_unlock(&gov_lock);
-
-		if (rc)
-			return rc;
-#endif
 		break;
 
 	case CPUFREQ_GOV_POLICY_EXIT:
