@@ -25,6 +25,12 @@ obj-$(CONFIG_IOSCHED_BFQ)	+= bfq-iosched.o
 obj-$(CONFIG_IOSCHED_MAPLE)     += maple-iosched.o
 obj-$(CONFIG_IOSCHED_SWITCHER) += iosched_switcher.o
 obj-$(CONFIG_IOSCHED_FIFO)	+= fifo-iosched.o
+<<<<<<< HEAD
+=======
+obj-$(CONFIG_IOSCHED_SIOPLUS)	+= sioplus-iosched.o
+
+
+>>>>>>> 3a054732dd16... block: add sioplus scheduler
 obj-$(CONFIG_BLOCK_COMPAT)	+= compat_ioctl.o
 obj-$(CONFIG_BLK_CMDLINE_PARSER)	+= cmdline-parser.o
 obj-$(CONFIG_BLK_DEV_INTEGRITY) += bio-integrity.o blk-integrity.o t10-pi.o
