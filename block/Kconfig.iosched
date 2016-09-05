@@ -128,6 +128,12 @@ config IOSCHED_SIOPLUS
 	  basic merging, trying to keep a minimum overhead. It is aimed
 	  mainly for aleatory access devices (eg: flash devices).  
 
+config IOSCHED_TRIPNDROID
+	tristate "Tripndroid"
+	default y
+	---help---
+	  The Trip N Droid scheduler
+
 choice
 	prompt "Default I/O scheduler"
 	default DEFAULT_CFQ
@@ -169,6 +175,9 @@ choice
 	config DEFAULT_SIOPLUS
 		bool "SIOPLUS" if IOSCHED_SIOPLUS=y
 
+	config DEFAULT_TRIPNDROID
+		bool "TRIPNDROID" if IOSCHED_TRIPNDROID=y
+
 endchoice
 
 config DEFAULT_IOSCHED
@@ -179,15 +188,10 @@ config DEFAULT_IOSCHED
 	default "noop" if DEFAULT_NOOP
 	default "fiops" if DEFAULT_FIOPS
 	default "sio" if DEFAULT_SIO
-<<<<<<< HEAD
 	default "maple" if DEFAULT_MAPLE
-=======
 	default "fifo" if DEFAULT_FIFO
-<<<<<<< HEAD
->>>>>>> 42ce0fe774c3... block: add fifo scheduler
-=======
 	default "sioplus" if DEFAULT_SIOPLUS
->>>>>>> 3a054732dd16... block: add sioplus scheduler
+	default "tripndroid" if DEFAULT_TRIPNDROID
 
 endmenu
 
