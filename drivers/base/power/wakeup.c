@@ -527,25 +527,6 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
 	
-	if (!enable_si_ws && !strcmp(ws->name, "sensor_ind"))
-		return;
-
-	if (!enable_msm_hsic_ws && !strcmp(ws->name, "msm_hsic_host"))
-                return;
-
-	if (!wlan_rx_wake && !strcmp(ws->name, "wlan_rx_wake"))
-                return;
-
-	if (!wlan_ctrl_wake && !strcmp(ws->name, "wlan_ctrl_wake"))
-                return;
-
-	if (!wlan_wake && !strcmp(ws->name, "wlan_wake"))
-                return;
-
-	if (wakeup_source_blocker(ws))
-		return;
-
-	/*
 	 * active wakeup source should bring the system
 	 * out of PM_SUSPEND_FREEZE state
 	 */
@@ -863,9 +844,11 @@ void pm_print_active_wakeup_sources(void)
 	list_for_each_entry_rcu(ws, &wakeup_sources, entry) {
 		if (ws->active) {
 			pr_info("active wakeup source: %s\n", ws->name);
-                active = 1;
 			if (!wakeup_source_blocker(ws))
+				pr_info("forcefully deactivate wakeup source: %s\n", ws->name);
+			} else {
 				active = 1;
+			}
 		} else if (!active &&
 			   (!last_activity_ws ||
 			    ktime_to_ns(ws->last_time) >
