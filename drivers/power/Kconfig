@@ -69,6 +69,11 @@ config TEST_POWER
 	help
 	  This driver is used for testing. It's safe to say M here.
 
+config PM_SYNC_BEFORE_SUSPEND
+	bool "Sync file systems before suspend"
+	depends on PM
+	default n
+
 config BATTERY_88PM860X
 	tristate "Marvell 88PM860x battery driver"
 	depends on MFD_88PM860X
