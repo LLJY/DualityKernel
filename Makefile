@@ -354,7 +354,9 @@ include $(srctree)/scripts/Kbuild.include
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
+LD		+= -O3 --strip-debug
 CC		= ccache $(CROSS_COMPILE)gcc
+CC		+= -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
