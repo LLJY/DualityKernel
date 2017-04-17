@@ -297,10 +297,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = ccache gcc
 HOSTCXX      = ccache g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 \
-               -fomit-frame-pointer -fgcse-las -fgraphite -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block \ 
-			   -pipe -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value
-HOSTCXXFLAGS = -O3 -fgcse-las -fgraphite -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -ofast -fomit-frame-pointer -fgcse-las -flto -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value
+HOSTCXXFLAGS = -ofast -fgcse-las -flto -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -356,9 +354,9 @@ include $(srctree)/scripts/Kbuild.include
 # Make variables (CC, etc...)
 AS		        = $(CROSS_COMPILE)as
 LD		        = $(CROSS_COMPILE)ld
-LD		       += -O3 --strip-debug
+LD		       += -ofast --strip-debug
 CC		        = ccache $(CROSS_COMPILE)gcc
-CC		       += -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves
+CC		       += -ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
 CPP		        = $(CC) -E
 AR		        = $(CROSS_COMPILE)ar
 NM		        = $(CROSS_COMPILE)nm
@@ -381,7 +379,7 @@ AFLAGS_MODULE   = $(GRAPHITE)
 LDFLAGS_MODULE  = --strip-debug
 CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4 \ 
                   -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model \ 
-				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
+				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -flto -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
@@ -410,15 +408,14 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -Wno-memset-transposed-args -Wno-unused-const-variable -Wno-misleading-indentation -Wno-tautological-compare \
                    -fgcse-after-reload -fno-delete-null-pointer-checks -ftree-loop-vectorize -ftree-loop-distribute-patterns \
                    -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable= -Wno-misleading-indentation -fgcse-lm \
- 		           -fgcse-sm -fsched-spec-load \
+ 		           -fgcse-sm -fsched-spec-load -flto \
                    -fmodulo-sched-allow-regmoves -ffast-math -funswitch-loops -fpredictive-commoning -fsingle-precision-constant \
 		           -Wno-declaration-after-statement -Wno-format-extra-args -Wno-int-conversion -Wno-discarded-qualifiers \
 		           -fmodulo-sched -fmodulo-sched-allow-regmoves -ffast-math \
 		           -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
 		           -fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		           -fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
-		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4
-				   -mfix-cortex-a53-835769 -mfix-cortex-a53-843419
+		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfix-cortex-a53-835769 -mfix-cortex-a53-843419 -mstrict-align -mcmse
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -630,7 +627,7 @@ KBUILD_CFLAGS	+= $(call cc-option,-fno-delete-null-pointer-checks,)
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
-KBUILD_CFLAGS += -O3
+KBUILD_CFLAGS += -ofast
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning,unused-function)
