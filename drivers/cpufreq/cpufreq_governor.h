@@ -126,7 +126,11 @@ static void *get_cpu_dbs_info_s(int cpu)				\
  * cdbs: common dbs
  * od_*: On-demand governor
  * cs_*: Conservative governor
+<<<<<<< HEAD
+=======
+ * ex_*: ElementalX governor
  * zz_*: ZZMoove governor
+>>>>>>> 464fc5c... cpufreq: add ZZMoove big.LITTLE Edition (bLE) development version as of 09.01.2016
  */
 
 /* Per cpu structures */
@@ -170,6 +174,14 @@ struct cs_cpu_dbs_info_s {
 	unsigned int enable:1;
 };
 
+<<<<<<< HEAD
+=======
+struct ex_cpu_dbs_info_s {
+	struct cpu_dbs_common_info cdbs;
+	unsigned int down_floor;
+	unsigned int enable:1;
+};
+
 struct zz_cpu_dbs_info_s {
 	struct cpu_dbs_common_info cdbs;
 	unsigned int down_skip;
@@ -177,6 +189,7 @@ struct zz_cpu_dbs_info_s {
 	unsigned int enable:1;
 };
 
+>>>>>>> 464fc5c... cpufreq: add ZZMoove big.LITTLE Edition (bLE) development version as of 09.01.2016
 /* Per policy Governors sysfs tunables */
 struct od_dbs_tuners {
 	unsigned int ignore_nice_load;
@@ -196,6 +209,16 @@ struct cs_dbs_tuners {
 	unsigned int freq_step;
 };
 
+<<<<<<< HEAD
+=======
+struct ex_dbs_tuners {
+	unsigned int ignore_nice_load;
+	unsigned int sampling_rate;
+	unsigned int up_threshold;
+	unsigned int down_differential;
+	unsigned int active_floor_freq;
+	unsigned int sampling_down_factor;
+	unsigned int powersave;
 };
 
 struct zz_dbs_tuners {
@@ -214,13 +237,18 @@ struct zz_dbs_tuners {
 	unsigned int afs_threshold4;
 };
 
+>>>>>>> 464fc5c... cpufreq: add ZZMoove big.LITTLE Edition (bLE) development version as of 09.01.2016
 /* Common Governor data across policies */
 struct dbs_data;
 struct common_dbs_data {
 	/* Common across governors */
 	#define GOV_ONDEMAND		0
 	#define GOV_CONSERVATIVE	1
-	#define GOV_ZZMOOVE		    2
+<<<<<<< HEAD
+=======
+	#define GOV_ELEMENTALX		2
+	#define GOV_ZZMOOVE		3
+>>>>>>> 464fc5c... cpufreq: add ZZMoove big.LITTLE Edition (bLE) development version as of 09.01.2016
 	int governor;
 	struct attribute_group *attr_group_gov_sys; /* one governor - system */
 	struct attribute_group *attr_group_gov_pol; /* one governor - policy */
@@ -236,7 +264,11 @@ struct common_dbs_data {
 	void (*gov_dbs_timer)(struct work_struct *work);
 	void (*gov_check_cpu)(int cpu, unsigned int load);
 	int (*init)(struct dbs_data *dbs_data);
+<<<<<<< HEAD
+=======
+	int (*init_ex)(struct dbs_data *dbs_data, struct cpufreq_policy *policy);
 	int (*init_zz)(struct dbs_data *dbs_data, struct cpufreq_policy *policy);
+>>>>>>> 464fc5c... cpufreq: add ZZMoove big.LITTLE Edition (bLE) development version as of 09.01.2016
 	void (*exit)(struct dbs_data *dbs_data);
 
 	/* Governor specific ops, see below */
@@ -247,6 +279,8 @@ struct common_dbs_data {
 struct dbs_data {
 	struct common_dbs_data *cdata;
 	unsigned int min_sampling_rate;
+<<<<<<< HEAD
+=======
 	struct cpufreq_frequency_table *freq_table;
 	bool freq_table_desc;
 	unsigned int freq_table_size;
@@ -259,6 +293,7 @@ struct dbs_data {
 	unsigned int max_scaling_freq_soft;
 	unsigned int scaling_mode_up;
 	unsigned int scaling_mode_down;
+>>>>>>> 464fc5c... cpufreq: add ZZMoove big.LITTLE Edition (bLE) development version as of 09.01.2016
 	int usage_count;
 	void *tuners;
 
