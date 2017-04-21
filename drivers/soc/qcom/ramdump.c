@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/kernel.h>
 #include <linux/workqueue.h>
@@ -29,7 +32,10 @@
 #include <linux/uaccess.h>
 #include <linux/elf.h>
 #include <linux/wait.h>
+<<<<<<< HEAD
 #include <linux/vmalloc.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <soc/qcom/ramdump.h>
 #include <linux/dma-mapping.h>
 #include <linux/of.h>
@@ -172,7 +178,11 @@ static ssize_t ramdump_read(struct file *filep, char __user *buf, size_t count,
 		goto ramdump_done;
 	}
 
+<<<<<<< HEAD
 	alignbuf = vzalloc(copy_size);
+=======
+	alignbuf = kzalloc(copy_size, GFP_KERNEL);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!alignbuf) {
 		pr_err("Ramdump(%s): Unable to alloc mem for aligned buf\n",
 				rd_dev->name);
@@ -210,7 +220,11 @@ static ssize_t ramdump_read(struct file *filep, char __user *buf, size_t count,
 		goto ramdump_done;
 	}
 
+<<<<<<< HEAD
 	vfree(finalbuf);
+=======
+	kfree(finalbuf);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!vaddr && origdevice_mem)
 		dma_unremap(rd_dev->device.parent, origdevice_mem, copy_size);
 
@@ -225,7 +239,11 @@ ramdump_done:
 	if (!vaddr && origdevice_mem)
 		dma_unremap(rd_dev->device.parent, origdevice_mem, copy_size);
 
+<<<<<<< HEAD
 	vfree(finalbuf);
+=======
+	kfree(finalbuf);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	rd_dev->data_ready = 0;
 	*pos = 0;
 	complete(&rd_dev->ramdump_complete);

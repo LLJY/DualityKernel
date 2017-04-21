@@ -809,7 +809,11 @@ static ssize_t governor_store(struct device *dev, struct device_attribute *attr,
 	struct devfreq *df = to_devfreq(dev);
 	int ret;
 	char str_governor[DEVFREQ_NAME_LEN + 1];
+<<<<<<< HEAD
 	const struct devfreq_governor *governor, *prev_gov;
+=======
+	struct devfreq_governor *governor;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	ret = sscanf(buf, "%" __stringify(DEVFREQ_NAME_LEN) "s", str_governor);
 	if (ret != 1)
@@ -832,6 +836,7 @@ static ssize_t governor_store(struct device *dev, struct device_attribute *attr,
 			goto out;
 		}
 	}
+<<<<<<< HEAD
 	prev_gov = df->governor;
 	df->governor = governor;
 	strncpy(df->governor_name, governor->name, DEVFREQ_NAME_LEN);
@@ -843,6 +848,14 @@ static ssize_t governor_store(struct device *dev, struct device_attribute *attr,
 		strncpy(df->governor_name, prev_gov->name, DEVFREQ_NAME_LEN);
 		df->governor->event_handler(df, DEVFREQ_GOV_START, NULL);
 	}
+=======
+	df->governor = governor;
+	strncpy(df->governor_name, governor->name, DEVFREQ_NAME_LEN);
+	ret = df->governor->event_handler(df, DEVFREQ_GOV_START, NULL);
+	if (ret)
+		dev_warn(dev, "%s: Governor %s not started(%d)\n",
+			 __func__, df->governor->name, ret);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 out:
 	mutex_unlock(&devfreq_list_lock);
 
@@ -1095,9 +1108,13 @@ static int __init devfreq_init(void)
 		return PTR_ERR(devfreq_class);
 	}
 
+<<<<<<< HEAD
 	devfreq_wq = alloc_workqueue("devfreq_wq",
 			    WQ_HIGHPRI | WQ_UNBOUND | WQ_FREEZABLE |
 			    WQ_MEM_RECLAIM, 0);
+=======
+	devfreq_wq = create_freezable_workqueue("devfreq_wq");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!devfreq_wq) {
 		class_destroy(devfreq_class);
 		pr_err("%s: couldn't create workqueue\n", __FILE__);

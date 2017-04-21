@@ -130,12 +130,19 @@ struct gadget_config_name {
 	struct list_head list;
 };
 
+<<<<<<< HEAD
+=======
+#define MAX_USB_STRING_LEN	126
+#define MAX_USB_STRING_WITH_NULL_LEN	(MAX_USB_STRING_LEN+1)
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int usb_string_copy(const char *s, char **s_copy)
 {
 	int ret;
 	char *str;
 	char *copy = *s_copy;
 	ret = strlen(s);
+<<<<<<< HEAD
 	if (ret > 126)
 		return -EOVERFLOW;
 
@@ -145,6 +152,21 @@ static int usb_string_copy(const char *s, char **s_copy)
 	if (str[ret - 1] == '\n')
 		str[ret - 1] = '\0';
 	kfree(copy);
+=======
+	if (ret > MAX_USB_STRING_LEN)
+		return -EOVERFLOW;
+
+	if (copy) {
+		str = copy;
+	} else {
+		str = kmalloc(MAX_USB_STRING_WITH_NULL_LEN, GFP_KERNEL);
+		if (!str)
+			return -ENOMEM;
+	}
+	strncpy(str, s, MAX_USB_STRING_WITH_NULL_LEN);
+	if (str[ret - 1] == '\n')
+		str[ret - 1] = '\0';
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	*s_copy = str;
 	return 0;
 }
@@ -1326,7 +1348,11 @@ static void purge_configs_funcs(struct gadget_info *gi)
 			list_move_tail(&f->list, &cfg->func_list);
 			if (f->unbind) {
 				dev_err(&gi->cdev.gadget->dev, "unbind function"
+<<<<<<< HEAD
 						" '%s'/%p\n", f->name, f);
+=======
+						" '%s'/%pK\n", f->name, f);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				f->unbind(c, f);
 			}
 		}
@@ -1511,7 +1537,11 @@ static void android_work(struct work_struct *data)
 	}
 
 	if (!uevent_sent) {
+<<<<<<< HEAD
 		pr_info("%s: did not send uevent (%d %d %p)\n", __func__,
+=======
+		pr_info("%s: did not send uevent (%d %d %pK)\n", __func__,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			gi->connected, gi->sw_connected, cdev->config);
 	}
 }

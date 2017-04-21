@@ -94,5 +94,11 @@ int ocfs2_reflink_xattrs(struct inode *old_inode,
 			 bool preserve_security);
 int ocfs2_init_security_and_acl(struct inode *dir,
 				struct inode *inode,
+<<<<<<< HEAD
 				const struct qstr *qstr);
+=======
+				const struct qstr *qstr,
+				struct posix_acl *default_acl,
+				struct posix_acl *acl);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif /* OCFS2_XATTR_H */

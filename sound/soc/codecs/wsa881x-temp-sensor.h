@@ -31,8 +31,11 @@ struct wsa881x_tz_priv {
 	struct wsa_temp_register *wsa_temp_reg;
 	char name[80];
 	wsa_temp_register_read wsa_temp_reg_read;
+<<<<<<< HEAD
 	struct notifier_block pm_nb;
 	atomic_t is_suspend_spk;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 int wsa881x_get_temp(struct thermal_zone_device *tz_dev, unsigned long *temp);

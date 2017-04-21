@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef __QPNP_PWM_H__
 #define __QPNP_PWM_H__
@@ -146,7 +149,10 @@ struct lut_params {
 	int lut_pause_lo;
 	int ramp_step_ms;
 	int flags;
+<<<<<<< HEAD
 	bool use_duration;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 int pwm_lut_config(struct pwm_device *pwm, int period_us,
@@ -158,6 +164,7 @@ int pwm_lut_config(struct pwm_device *pwm, int period_us,
 int pwm_config_us(struct pwm_device *pwm,
 		int duty_us, int period_us);
 
+<<<<<<< HEAD
 /*
  * lut_config: LUT config
  * @hi_index: LUT high index for ramp
@@ -190,6 +197,8 @@ int pwm_config_period_value(struct pwm_device *pwm,
 int pwm_get_max_pwm_value(struct pwm_device *pwm);
 void pwm_set_max_pwm_value(struct pwm_device *pwm, int max);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Standard APIs supported */
 /*
  * pwm_request - request a PWM device

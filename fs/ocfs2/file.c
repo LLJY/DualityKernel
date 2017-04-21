@@ -1249,18 +1249,29 @@ bail_unlock_rw:
 	if (size_change)
 		ocfs2_rw_unlock(inode, 1);
 bail:
+<<<<<<< HEAD
+=======
+	brelse(bh);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/* Release quota pointers in case we acquired them */
 	for (qtype = 0; qtype < OCFS2_MAXQUOTAS; qtype++)
 		dqput(transfer_to[qtype]);
 
 	if (!status && attr->ia_valid & ATTR_MODE) {
+<<<<<<< HEAD
 		status = ocfs2_acl_chmod(inode, bh);
+=======
+		status = posix_acl_chmod(inode, inode->i_mode);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (status < 0)
 			mlog_errno(status);
 	}
 
+<<<<<<< HEAD
 	brelse(bh);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return status;
 }
 

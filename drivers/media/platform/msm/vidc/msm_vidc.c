@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -25,8 +29,11 @@
 
 #define MAX_EVENTS 30
 
+<<<<<<< HEAD
 extern void lazyplug_enter_lazy(bool enter);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int get_poll_flags(void *instance)
 {
 	struct msm_vidc_inst *inst = instance;
@@ -318,6 +325,13 @@ err_invalid_input:
 static inline void populate_buf_info(struct buffer_info *binfo,
 			struct v4l2_buffer *b, u32 i)
 {
+<<<<<<< HEAD
+=======
+	if (i >= VIDEO_MAX_PLANES) {
+		dprintk(VIDC_ERR, "%s: Invalid input\n", __func__);
+		return;
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	binfo->type = b->type;
 	binfo->fd[i] = b->m.planes[i].reserved[0];
 	binfo->buff_off[i] = b->m.planes[i].reserved[1];
@@ -360,7 +374,11 @@ static struct msm_smem *map_buffer(struct msm_vidc_inst *inst,
 	struct msm_smem *handle = NULL;
 	handle = msm_comm_smem_user_to_kernel(inst,
 				p->reserved[0],
+<<<<<<< HEAD
 				p->reserved[1],
+=======
+				p->length,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				buffer_type);
 	if (!handle) {
 		dprintk(VIDC_ERR,
@@ -388,6 +406,17 @@ static inline bool is_dynamic_output_buffer_mode(struct v4l2_buffer *b,
 		inst->buffer_mode_set[CAPTURE_PORT] == HAL_BUFFER_MODE_DYNAMIC;
 }
 
+<<<<<<< HEAD
+=======
+
+static inline bool is_encoder_input_buffer(struct v4l2_buffer *b,
+				struct msm_vidc_inst *inst)
+{
+	return b->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE &&
+			inst->session_type == MSM_VIDC_ENCODER;
+}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline void save_v4l2_buffer(struct v4l2_buffer *b,
 						struct buffer_info *binfo)
 {
@@ -428,8 +457,15 @@ int map_and_register_buf(struct msm_vidc_inst *inst, struct v4l2_buffer *b)
 		goto exit;
 	}
 
+<<<<<<< HEAD
 	dprintk(VIDC_DBG, "[MAP] Create binfo = %pK fd = %d type = %d\n",
 			binfo, b->m.planes[0].reserved[0], b->type);
+=======
+	dprintk(VIDC_DBG,
+		"[MAP] Create binfo = %pK fd = %d size = %d type = %d\n",
+		binfo, b->m.planes[0].reserved[0],
+		b->m.planes[0].length, b->type);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	for (i = 0; i < b->length; ++i) {
 		rc = 0;
@@ -910,7 +946,12 @@ int msm_vidc_dqbuf(void *instance, struct v4l2_buffer *b)
 
 	for (i = b->length - 1; i >= 0 ; i--) {
 		if (EXTRADATA_IDX(b->length) &&
+<<<<<<< HEAD
 			i == EXTRADATA_IDX(b->length)) {
+=======
+			(i == EXTRADATA_IDX(b->length)) &&
+			!b->m.planes[i].m.userptr) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			continue;
 		}
 		buffer_info = device_to_uvaddr(&inst->registeredbufs,
@@ -1179,6 +1220,10 @@ void *msm_vidc_open(int core_id, int session_type)
 	inst->bit_depth = MSM_VIDC_BIT_DEPTH_8;
 	inst->instant_bitrate = 0;
 	inst->pic_struct = MSM_VIDC_PIC_STRUCT_PROGRESSIVE;
+<<<<<<< HEAD
+=======
+	inst->colour_space = MSM_VIDC_BT601_6_525;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	for (i = SESSION_MSG_INDEX(SESSION_MSG_START);
 		i <= SESSION_MSG_INDEX(SESSION_MSG_END); i++) {
@@ -1219,8 +1264,11 @@ void *msm_vidc_open(int core_id, int session_type)
 
 	setup_event_queue(inst, &core->vdev[session_type].vdev);
 
+<<<<<<< HEAD
     lazyplug_enter_lazy(true);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_lock(&core->lock);
 	list_add_tail(&inst->list, &core->instances);
 	mutex_unlock(&core->lock);
@@ -1298,7 +1346,15 @@ static void cleanup_instance(struct msm_vidc_inst *inst)
 		debugfs_remove_recursive(inst->debugfs_root);
 
 		mutex_lock(&inst->pending_getpropq.lock);
+<<<<<<< HEAD
 		WARN_ON(!list_empty(&inst->pending_getpropq.list));
+=======
+		if (!list_empty(&inst->pending_getpropq.list)) {
+			dprintk(VIDC_ERR,
+				"pending_getpropq not empty\n");
+			WARN_ON(VIDC_DBG_WARN_ENABLE);
+		}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		mutex_unlock(&inst->pending_getpropq.lock);
 	}
 }
@@ -1329,7 +1385,10 @@ int msm_vidc_destroy(struct msm_vidc_inst *inst)
 	pr_info(VIDC_DBG_TAG "Closed video instance: %pK\n",
 			VIDC_MSG_PRIO2STRING(VIDC_INFO), inst);
 	kfree(inst);
+<<<<<<< HEAD
     lazyplug_enter_lazy(false);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 

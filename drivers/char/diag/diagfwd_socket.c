@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -925,9 +929,15 @@ static int diag_socket_read(void *ctxt, unsigned char *buf, int buf_len)
 				      (info->data_ready > 0) || (!info->hdl) ||
 				      (atomic_read(&info->diag_state) == 0));
 	if (err) {
+<<<<<<< HEAD
 		mutex_lock(&driver->diagfwd_channel_mutex);
 		diagfwd_channel_read_done(info->fwd_ctxt, buf, 0);
 		mutex_unlock(&driver->diagfwd_channel_mutex);
+=======
+		mutex_lock(&driver->diagfwd_channel_mutex[info->peripheral]);
+		diagfwd_channel_read_done(info->fwd_ctxt, buf, 0);
+		mutex_unlock(&driver->diagfwd_channel_mutex[info->peripheral]);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return -ERESTARTSYS;
 	}
 
@@ -939,9 +949,15 @@ static int diag_socket_read(void *ctxt, unsigned char *buf, int buf_len)
 		DIAG_LOG(DIAG_DEBUG_PERIPHERALS,
 			 "%s closing read thread. diag state is closed\n",
 			 info->name);
+<<<<<<< HEAD
 		mutex_lock(&driver->diagfwd_channel_mutex);
 		diagfwd_channel_read_done(info->fwd_ctxt, buf, 0);
 		mutex_unlock(&driver->diagfwd_channel_mutex);
+=======
+		mutex_lock(&driver->diagfwd_channel_mutex[info->peripheral]);
+		diagfwd_channel_read_done(info->fwd_ctxt, buf, 0);
+		mutex_unlock(&driver->diagfwd_channel_mutex[info->peripheral]);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return 0;
 	}
 
@@ -1008,10 +1024,17 @@ static int diag_socket_read(void *ctxt, unsigned char *buf, int buf_len)
 	if (total_recd > 0) {
 		DIAG_LOG(DIAG_DEBUG_PERIPHERALS, "%s read total bytes: %d\n",
 			 info->name, total_recd);
+<<<<<<< HEAD
 		mutex_lock(&driver->diagfwd_channel_mutex);
 		err = diagfwd_channel_read_done(info->fwd_ctxt,
 						buf, total_recd);
 		mutex_unlock(&driver->diagfwd_channel_mutex);
+=======
+		mutex_lock(&driver->diagfwd_channel_mutex[info->peripheral]);
+		err = diagfwd_channel_read_done(info->fwd_ctxt,
+						buf, total_recd);
+		mutex_unlock(&driver->diagfwd_channel_mutex[info->peripheral]);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (err)
 			goto fail;
 	} else {
@@ -1024,9 +1047,15 @@ static int diag_socket_read(void *ctxt, unsigned char *buf, int buf_len)
 	return 0;
 
 fail:
+<<<<<<< HEAD
 	mutex_lock(&driver->diagfwd_channel_mutex);
 	diagfwd_channel_read_done(info->fwd_ctxt, buf, 0);
 	mutex_unlock(&driver->diagfwd_channel_mutex);
+=======
+	mutex_lock(&driver->diagfwd_channel_mutex[info->peripheral]);
+	diagfwd_channel_read_done(info->fwd_ctxt, buf, 0);
+	mutex_unlock(&driver->diagfwd_channel_mutex[info->peripheral]);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return -EIO;
 }
 

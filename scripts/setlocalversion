@@ -66,7 +66,11 @@ scm_version()
 			# If only the short version is requested, don't bother
 			# running further git commands
 			if $short; then
+<<<<<<< HEAD
 				echo ""
+=======
+				echo "+"
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				return
 			fi
 			# If we are past a tagged commit (like

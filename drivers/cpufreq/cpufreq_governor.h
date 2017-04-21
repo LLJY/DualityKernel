@@ -126,8 +126,11 @@ static void *get_cpu_dbs_info_s(int cpu)				\
  * cdbs: common dbs
  * od_*: On-demand governor
  * cs_*: Conservative governor
+<<<<<<< HEAD
  * ex_*: ElementalX governor
  * zz_*: ZZMoove governor
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  */
 
 /* Per cpu structures */
@@ -171,6 +174,7 @@ struct cs_cpu_dbs_info_s {
 	unsigned int enable:1;
 };
 
+<<<<<<< HEAD
 struct ex_cpu_dbs_info_s {
 	struct cpu_dbs_common_info cdbs;
 	unsigned int down_floor;
@@ -184,6 +188,8 @@ struct zz_cpu_dbs_info_s {
 	unsigned int enable:1;
 };
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Per policy Governors sysfs tunables */
 struct od_dbs_tuners {
 	unsigned int ignore_nice_load;
@@ -203,6 +209,7 @@ struct cs_dbs_tuners {
 	unsigned int freq_step;
 };
 
+<<<<<<< HEAD
 struct ex_dbs_tuners {
 	unsigned int ignore_nice_load;
 	unsigned int sampling_rate;
@@ -229,14 +236,19 @@ struct zz_dbs_tuners {
 	unsigned int afs_threshold4;
 };
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Common Governor data across policies */
 struct dbs_data;
 struct common_dbs_data {
 	/* Common across governors */
 	#define GOV_ONDEMAND		0
 	#define GOV_CONSERVATIVE	1
+<<<<<<< HEAD
 	#define GOV_ELEMENTALX		2
 	#define GOV_ZZMOOVE		3
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int governor;
 	struct attribute_group *attr_group_gov_sys; /* one governor - system */
 	struct attribute_group *attr_group_gov_pol; /* one governor - policy */
@@ -252,8 +264,11 @@ struct common_dbs_data {
 	void (*gov_dbs_timer)(struct work_struct *work);
 	void (*gov_check_cpu)(int cpu, unsigned int load);
 	int (*init)(struct dbs_data *dbs_data);
+<<<<<<< HEAD
 	int (*init_ex)(struct dbs_data *dbs_data, struct cpufreq_policy *policy);
 	int (*init_zz)(struct dbs_data *dbs_data, struct cpufreq_policy *policy);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	void (*exit)(struct dbs_data *dbs_data);
 
 	/* Governor specific ops, see below */
@@ -264,6 +279,7 @@ struct common_dbs_data {
 struct dbs_data {
 	struct common_dbs_data *cdata;
 	unsigned int min_sampling_rate;
+<<<<<<< HEAD
 	struct cpufreq_frequency_table *freq_table;
 	bool freq_table_desc;
 	unsigned int freq_table_size;
@@ -276,6 +292,8 @@ struct dbs_data {
 	unsigned int max_scaling_freq_soft;
 	unsigned int scaling_mode_up;
 	unsigned int scaling_mode_down;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int usage_count;
 	void *tuners;
 
@@ -295,10 +313,13 @@ struct cs_ops {
 	struct notifier_block *notifier_block;
 };
 
+<<<<<<< HEAD
 struct zz_ops {
 	struct notifier_block *notifier_block;
 };
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline int delay_for_sampling_rate(unsigned int sampling_rate)
 {
 	int delay = usecs_to_jiffies(sampling_rate);

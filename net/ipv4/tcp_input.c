@@ -3326,6 +3326,7 @@ static void tcp_send_challenge_ack(struct sock *sk)
 	static u32 challenge_timestamp;
 	static unsigned int challenge_count;
 	u32 count, now;
+<<<<<<< HEAD
 	now = jiffies / HZ;
 
 	if (now != challenge_timestamp) {
@@ -3333,6 +3334,17 @@ static void tcp_send_challenge_ack(struct sock *sk)
 		challenge_timestamp = now;
 		WRITE_ONCE(challenge_count, half +
 				prandom_u32_max(sysctl_tcp_challenge_ack_limit));
+=======
+
+	/* Check host-wide RFC 5961 rate limit. */
+	now = jiffies / HZ;
+	if (now != challenge_timestamp) {
+		u32 half = (sysctl_tcp_challenge_ack_limit + 1) >> 1;
+
+		challenge_timestamp = now;
+		WRITE_ONCE(challenge_count, half +
+			   prandom_u32_max(sysctl_tcp_challenge_ack_limit));
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	count = READ_ONCE(challenge_count);
 	if (count > 0) {

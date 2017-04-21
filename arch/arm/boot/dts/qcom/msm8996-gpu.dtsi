@@ -65,7 +65,11 @@
 		qcom,base-leakage-coefficient = <34>;
 		qcom,lm-limit = <6000>;
 
+<<<<<<< HEAD
 		qcom,initial-pwrlevel = <3>;
+=======
+		qcom,initial-pwrlevel = <2>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		qcom,idle-timeout = <80>; //msecs
 		/*
@@ -81,6 +85,10 @@
 
 		qcom,gpu-qdss-stm = <0x081c0000 0x40000>; // base addr, size
 
+<<<<<<< HEAD
+=======
+		qcom,tsens-name = "tsens_tz_sensor14";
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/* Trace bus */
 		coresight-id = <300>;
 		coresight-name = "coresight-gfx";

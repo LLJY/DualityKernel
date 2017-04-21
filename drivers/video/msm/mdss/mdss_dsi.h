@@ -10,11 +10,14 @@
  * GNU General Public License for more details.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef MDSS_DSI_H
 #define MDSS_DSI_H
@@ -153,6 +156,10 @@ enum dsi_pm_type {
 #define CTRL_STATE_PANEL_INIT		BIT(0)
 #define CTRL_STATE_MDP_ACTIVE		BIT(1)
 #define CTRL_STATE_DSI_ACTIVE		BIT(2)
+<<<<<<< HEAD
+=======
+#define CTRL_STATE_PANEL_LP		BIT(3)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define DSI_NON_BURST_SYNCH_PULSE	0
 #define DSI_NON_BURST_SYNCH_EVENT	1
@@ -358,10 +365,13 @@ struct dsi_pinctrl_res {
 	struct pinctrl *pinctrl;
 	struct pinctrl_state *gpio_state_active;
 	struct pinctrl_state *gpio_state_suspend;
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct pinctrl_state *touch_state_active;
 	struct pinctrl_state *touch_state_suspend;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 struct panel_horizontal_idle {
@@ -557,9 +567,12 @@ struct mdss_dsi_ctrl_pdata {
 	bool update_phy_timing; /* flag to recalculate PHY timings */
 
 	bool phy_power_off;
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct mdss_panel_specific_pdata *spec_pdata;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 struct dsi_status_data {

@@ -96,7 +96,11 @@ DECLARE_EVENT_CLASS(xhci_log_ctx,
 			((HCC_64BYTE_CONTEXT(xhci->hcc_params) + 1) * 32) *
 			((ctx->type == XHCI_CTX_TYPE_INPUT) + ep_num + 1));
 	),
+<<<<<<< HEAD
 	TP_printk("\nctx_64=%d, ctx_type=%u, ctx_dma=@%llx, ctx_va=@%p",
+=======
+	TP_printk("\nctx_64=%d, ctx_type=%u, ctx_dma=@%llx, ctx_va=@%pK",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			__entry->ctx_64, __entry->ctx_type,
 			(unsigned long long) __entry->ctx_dma, __entry->ctx_va
 	)
@@ -127,7 +131,11 @@ DECLARE_EVENT_CLASS(xhci_log_event,
 		memcpy(__get_dynamic_array(trb), trb_va,
 			sizeof(struct xhci_generic_trb));
 	),
+<<<<<<< HEAD
 	TP_printk("\ntrb_dma=@%llx, trb_va=@%p, status=%08x, flags=%08x",
+=======
+	TP_printk("\ntrb_dma=@%llx, trb_va=@%pK, status=%08x, flags=%08x",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			(unsigned long long) __entry->dma, __entry->va,
 			__entry->status, __entry->flags
 	)

@@ -10,11 +10,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/kernel.h>
 #include <linux/module.h>
@@ -179,7 +182,11 @@
 #define RGB_LED_EN_CTL(base)		(base + 0x46)
 #define RGB_LED_ATC_CTL(base)		(base + 0x47)
 
+<<<<<<< HEAD
 #define RGB_MAX_LEVEL			512
+=======
+#define RGB_MAX_LEVEL			LED_FULL
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define RGB_LED_ENABLE_RED		0x80
 #define RGB_LED_ENABLE_GREEN		0x40
 #define RGB_LED_ENABLE_BLUE		0x20
@@ -255,6 +262,7 @@
 #define NUM_KPDBL_LEDS			4
 #define KPDBL_MASTER_BIT_INDEX		0
 
+<<<<<<< HEAD
 #define RGB_LED_MAX_PAUSE_REG		254
 #define RGB_LED_MAX_PAUSE_TIME		130048
 #define RGB_LED_LUT_MAX_PAUSE		255
@@ -262,6 +270,8 @@
 #define RGB_CURR_DEFAULT_PATTERN	1
 #define RGB_CURR_UNIT_NUM			3
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * enum qpnp_leds - QPNP supported led ids
  * @QPNP_ID_WLED - White led backlight
@@ -317,8 +327,11 @@ enum led_mode {
 	PWM_MODE = 0,
 	LPG_MODE,
 	MANUAL_MODE,
+<<<<<<< HEAD
 	PWM_DIRECT_MODE,
 	LPG_SYNC_MODE,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static u8 wled_debug_regs[] = {
@@ -366,7 +379,10 @@ static u8 gpio_debug_regs[] = {
  *  @default_mode - default mode of LED as set in device tree
  *  @use_blink - use blink sysfs entry
  *  @blinking - device is currently blinking w/LPG mode
+<<<<<<< HEAD
  *  @pwm_channel - pwm channel to be configured for led
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  */
 struct pwm_config_data {
 	struct lut_params	lut_params;
@@ -379,7 +395,10 @@ struct pwm_config_data {
 	bool	pwm_enabled;
 	bool use_blink;
 	bool blinking;
+<<<<<<< HEAD
 	int	pwm_channel;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 /**
@@ -514,12 +533,16 @@ struct kpdbl_config_data {
  *  rgb_config_data - rgb configuration data
  *  @pwm_cfg - device pwm configuration
  *  @enable - bits to enable led
+<<<<<<< HEAD
  *  @single_pwm_value - single color max value
  *  @mix_pwm_value - max color max value
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  */
 struct rgb_config_data {
 	struct pwm_config_data	*pwm_cfg;
 	u8	enable;
+<<<<<<< HEAD
 	u32	single_pwm_value;
 	u32	mix_pwm_value;
 };
@@ -540,6 +563,8 @@ struct rgb_sync {
 	struct spmi_device	*spmi_dev;
 	enum rgb_sync_state	sync_state;
 	struct qpnp_led_data	*led_data[LPG_CHANNEL_MAX];
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 /**
@@ -588,7 +613,10 @@ struct qpnp_led_data {
 	struct rgb_config_data	*rgb_cfg;
 	struct mpp_config_data	*mpp_cfg;
 	struct gpio_config_data	*gpio_cfg;
+<<<<<<< HEAD
 	struct rgb_sync		*rgb_sync;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int			max_current;
 	bool			default_on;
 	bool                    in_order_command_processing;
@@ -601,6 +629,7 @@ static u32 kpdbl_master_period_us;
 DECLARE_BITMAP(kpdbl_leds_in_use, NUM_KPDBL_LEDS);
 static bool is_kpdbl_master_turn_on;
 
+<<<<<<< HEAD
 static int rgb_current_index;
 static int __init rgb_current_setup(char *str)
 {
@@ -614,6 +643,8 @@ static int __init rgb_current_setup(char *str)
 }
 __setup("oemandroidboot.babe137e=", rgb_current_setup);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int
 qpnp_led_masked_write(struct qpnp_led_data *led, u16 addr, u8 mask, u8 val)
 {
@@ -1778,6 +1809,7 @@ static int qpnp_kpdbl_set(struct qpnp_led_data *led)
 	return 0;
 }
 
+<<<<<<< HEAD
 static int qpnp_rgb_set_direct(struct qpnp_led_data *led)
 {
 	struct pwm_period_config pwm_config = {
@@ -1832,15 +1864,20 @@ static int qpnp_rgb_set_direct(struct qpnp_led_data *led)
 	return 0;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int qpnp_rgb_set(struct qpnp_led_data *led)
 {
 	int rc;
 	int duty_us, duty_ns, period_us;
 
+<<<<<<< HEAD
 	if ((led->rgb_cfg->pwm_cfg->mode == PWM_DIRECT_MODE)
 		|| (led->rgb_cfg->pwm_cfg->mode == LPG_SYNC_MODE))
 		return qpnp_rgb_set_direct(led);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (led->cdev.brightness) {
 		if (!led->rgb_cfg->pwm_cfg->blinking)
 			led->rgb_cfg->pwm_cfg->mode =
@@ -2012,7 +2049,11 @@ static int qpnp_led_set_max_brightness(struct qpnp_led_data *led)
 	case QPNP_ID_RGB_RED:
 	case QPNP_ID_RGB_GREEN:
 	case QPNP_ID_RGB_BLUE:
+<<<<<<< HEAD
 		led->cdev.max_brightness = led->max_current;
+=======
+		led->cdev.max_brightness = RGB_MAX_LEVEL;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	case QPNP_ID_LED_MPP:
 		if (led->mpp_cfg->pwm_mode == MANUAL_MODE)
@@ -3042,6 +3083,7 @@ static int qpnp_kpdbl_init(struct qpnp_led_data *led)
 	return 0;
 }
 
+<<<<<<< HEAD
 static void qpnp_rgb_set_duration(struct qpnp_led_data *led)
 {
 	unsigned long long_pause, duration;
@@ -3488,6 +3530,11 @@ static int qpnp_rgb_init(struct qpnp_led_data *led)
 {
 	int rc;
 	int max_pwm_value;
+=======
+static int qpnp_rgb_init(struct qpnp_led_data *led)
+{
+	int rc;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	rc = qpnp_led_masked_write(led, RGB_LED_SRC_SEL(led->base),
 		RGB_LED_SRC_MASK, RGB_LED_SOURCE_VPH_PWR);
@@ -3504,6 +3551,7 @@ static int qpnp_rgb_init(struct qpnp_led_data *led)
 			"Failed to initialize pwm\n");
 		return rc;
 	}
+<<<<<<< HEAD
 
 	if (led->rgb_sync) {
 		led->rgb_sync->led_data[led->rgb_cfg->pwm_cfg->pwm_channel]
@@ -3522,6 +3570,8 @@ static int qpnp_rgb_init(struct qpnp_led_data *led)
 	led->max_current
 		= max_pwm_value ? max_pwm_value : RGB_MAX_LEVEL;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Initialize led for use in auto trickle charging mode */
 	rc = qpnp_led_masked_write(led, RGB_LED_ATC_CTL(led->base),
 		led->rgb_cfg->enable, led->rgb_cfg->enable);
@@ -4202,9 +4252,13 @@ static int qpnp_get_config_kpdbl(struct qpnp_led_data *led,
 static int qpnp_get_config_rgb(struct qpnp_led_data *led,
 				struct device_node *node)
 {
+<<<<<<< HEAD
 	int rc, current_index, i;
 	u32 val, color_variation_max_num;
 	u32 *rgb_current_table;
+=======
+	int rc;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	u8 led_mode;
 	const char *mode;
 
@@ -4245,6 +4299,7 @@ static int qpnp_get_config_rgb(struct qpnp_led_data *led,
 	} else
 		return rc;
 
+<<<<<<< HEAD
 	rc = of_property_read_u32(node,
 				"somc,color_variation_max_num",
 				&color_variation_max_num);
@@ -4321,6 +4376,8 @@ static int qpnp_get_config_rgb(struct qpnp_led_data *led,
 		return 0;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	rc = qpnp_get_config_pwm(led->rgb_cfg->pwm_cfg, led->spmi_dev, node);
 	if (rc < 0)
 		return rc;
@@ -4510,8 +4567,11 @@ static int qpnp_leds_probe(struct spmi_device *spmi)
 	int rc, i, num_leds = 0, parsed_leds = 0;
 	const char *led_label;
 	bool regulator_probe = false;
+<<<<<<< HEAD
 	int prepare_rgb_sync;
 	struct rgb_sync *rgb_sync = NULL;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	node = spmi->dev.of_node;
 	if (node == NULL)
@@ -4531,6 +4591,7 @@ static int qpnp_leds_probe(struct spmi_device *spmi)
 		return -ENOMEM;
 	}
 
+<<<<<<< HEAD
 	rc = of_property_read_u32(node, "qcom,rgb_sync", &prepare_rgb_sync);
 	if (rc < 0)
 		prepare_rgb_sync = 0;
@@ -4554,11 +4615,16 @@ static int qpnp_leds_probe(struct spmi_device *spmi)
 	}
 	dev_err(&spmi->dev, "rgb_sync prepare %d\n", prepare_rgb_sync);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	for_each_child_of_node(node, temp) {
 		led = &led_array[parsed_leds];
 		led->num_leds = num_leds;
 		led->spmi_dev = spmi;
+<<<<<<< HEAD
 		led->rgb_sync = rgb_sync;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		led_resource = spmi_get_resource(spmi, NULL, IORESOURCE_MEM, 0);
 		if (!led_resource) {
@@ -4709,6 +4775,7 @@ static int qpnp_leds_probe(struct spmi_device *spmi)
 
 		}
 
+<<<<<<< HEAD
 		if (led->id == QPNP_ID_RGB_RED ||
 			led->id == QPNP_ID_RGB_GREEN ||
 			led->id == QPNP_ID_RGB_BLUE) {
@@ -4717,6 +4784,8 @@ static int qpnp_leds_probe(struct spmi_device *spmi)
 				goto fail_id_check;
 		}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (led->id == QPNP_ID_LED_MPP) {
 			if (!led->mpp_cfg->pwm_cfg)
 				break;
@@ -4851,8 +4920,11 @@ static int qpnp_leds_remove(struct spmi_device *spmi)
 		case QPNP_ID_RGB_RED:
 		case QPNP_ID_RGB_GREEN:
 		case QPNP_ID_RGB_BLUE:
+<<<<<<< HEAD
 			qpnp_remove_attributes(led_array[i].cdev.dev,
 							rgbled_attrs);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			if (led_array[i].rgb_cfg->pwm_cfg->mode == PWM_MODE)
 				sysfs_remove_group(&led_array[i].cdev.dev->\
 					kobj, &pwm_attr_group);

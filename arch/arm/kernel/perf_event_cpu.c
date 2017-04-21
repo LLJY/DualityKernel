@@ -230,6 +230,10 @@ static struct of_device_id cpu_pmu_of_device_ids[] = {
 	{.compatible = "arm,arm1176-pmu",	.data = armv6_1176_pmu_init},
 	{.compatible = "arm,arm1136-pmu",	.data = armv6_1136_pmu_init},
 	{.compatible = "qcom,krait-pmu",	.data = krait_pmu_init},
+<<<<<<< HEAD
+=======
+	{.compatible = "arm,armv8-pmuv3",	.data = armv8_pmuv3_pmu_init},
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	{},
 };
 

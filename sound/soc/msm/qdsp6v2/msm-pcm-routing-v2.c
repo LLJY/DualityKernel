@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -9,11 +13,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/init.h>
 #include <linux/err.h>
@@ -42,7 +49,10 @@
 #include <sound/audio_effects.h>
 #include <sound/hwdep.h>
 
+<<<<<<< HEAD
 #include "msm-ahc-config.h"
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "msm-pcm-routing-v2.h"
 #include "msm-pcm-routing-devdep.h"
 #include "msm-qti-pp-config.h"
@@ -72,6 +82,7 @@ static uint32_t voc_session_id = ALL_SESSION_VSID;
 static int msm_route_ext_ec_ref;
 static bool is_custom_stereo_on;
 static bool is_ds2_on;
+<<<<<<< HEAD
 static int sony_custom_stereo_mode;
 
 static struct mute_params {
@@ -79,6 +90,8 @@ static struct mute_params {
 	uint32_t flag_ch1;
 	uint32_t flag_ch2;
 } mute = {0, 0, 0};
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 enum {
 	MADNONE,
@@ -191,6 +204,7 @@ static void msm_pcm_routing_cfg_pp(int port_id, int copp_idx, int topology,
 		pr_debug("%s: TOPOLOGY_ID_AUDIOSPHERE\n", __func__);
 		msm_qti_pp_asphere_init(port_id, copp_idx);
 		break;
+<<<<<<< HEAD
 	case ADM_CMD_COPP_OPENOPOLOGY_ID_SPEAKER_STEREO_AUDIO_COPP_SOMC_HP:
 		if (port_id == AHC_PORT_ID) {
 			pr_debug("%s: AHC supporting topology 0x%X\n",
@@ -198,6 +212,8 @@ static void msm_pcm_routing_cfg_pp(int port_id, int copp_idx, int topology,
 			msm_routing_ahc_set_copp_idx(copp_idx);
 		}
 		break;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		/* custom topology specific feature param handlers */
 		break;
@@ -233,6 +249,7 @@ static void msm_pcm_routing_deinit_pp(int port_id, int topology)
 		pr_debug("%s: TOPOLOGY_ID_AUDIOSPHERE\n", __func__);
 		msm_qti_pp_asphere_deinit(port_id);
 		break;
+<<<<<<< HEAD
 	case ADM_CMD_COPP_OPENOPOLOGY_ID_SPEAKER_STEREO_AUDIO_COPP_SOMC_HP:
 		if (port_id == AHC_PORT_ID) {
 			pr_debug("%s: AHC supporting topology 0x%X\n",
@@ -240,6 +257,8 @@ static void msm_pcm_routing_deinit_pp(int port_id, int topology)
 			msm_routing_ahc_set_copp_idx(-1);
 		}
 		break;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		/* custom topology specific feature deinit handlers */
 		break;
@@ -250,6 +269,7 @@ static void msm_pcm_routng_cfg_matrix_map_pp(struct route_payload payload,
 					     int path_type, int perf_mode)
 {
 	int itr = 0;
+<<<<<<< HEAD
 	if ((path_type != ADM_PATH_PLAYBACK) ||
 	    (perf_mode == ULTRA_LOW_LATENCY_PCM_MODE) ||
 	    !is_custom_stereo_on)
@@ -259,6 +279,14 @@ static void msm_pcm_routng_cfg_matrix_map_pp(struct route_payload payload,
 		if ((payload.port_id[itr] == SLIMBUS_0_RX) ||
 		    (payload.port_id[itr] == RT_PROXY_PORT_001_RX)) {
 			if (sony_custom_stereo_mode == SONY_CUSTOM_STEREO_MIX)
+=======
+	if ((path_type == ADM_PATH_PLAYBACK) &&
+	    (perf_mode == LEGACY_PCM_MODE) &&
+	    is_custom_stereo_on) {
+		for (itr = 0; itr < payload.num_copps; itr++) {
+			if ((payload.port_id[itr] == SLIMBUS_0_RX) ||
+			    (payload.port_id[itr] == RT_PROXY_PORT_001_RX)) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				msm_qti_pp_send_stereo_to_custom_stereo_cmd(
 						payload.port_id[itr],
 						payload.copp_idx[itr],
@@ -267,6 +295,7 @@ static void msm_pcm_routng_cfg_matrix_map_pp(struct route_payload payload,
 						Q14_GAIN_ZERO_POINT_FIVE,
 						Q14_GAIN_ZERO_POINT_FIVE,
 						Q14_GAIN_ZERO_POINT_FIVE);
+<<<<<<< HEAD
 			else
 				msm_qti_pp_send_stereo_to_custom_stereo_cmd(
 						payload.port_id[itr],
@@ -276,6 +305,9 @@ static void msm_pcm_routng_cfg_matrix_map_pp(struct route_payload payload,
 						Q14_GAIN_UNITY,
 						Q14_GAIN_UNITY,
 						0);
+=======
+			}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 	}
 }
@@ -1177,9 +1209,13 @@ void msm_pcm_routing_dereg_phy_stream(int fedai_id, int stream_type)
 			clear_bit(idx,
 				  &session_copp_map[fedai_id][session_type][i]);
 			if ((DOLBY_ADM_COPP_TOPOLOGY_ID == topology ||
+<<<<<<< HEAD
 				DS2_ADM_COPP_TOPOLOGY_ID == topology ||
 				ADM_CMD_COPP_OPENOPOLOGY_ID_SPEAKER_STEREO_AUDIO_COPP_SOMC_HP
 					== topology) &&
+=======
+				DS2_ADM_COPP_TOPOLOGY_ID == topology) &&
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			    (fdai->perf_mode == LEGACY_PCM_MODE) &&
 			    (msm_bedais[i].compr_passthr_mode ==
 					LEGACY_PCM))
@@ -2018,6 +2054,14 @@ static int msm_routing_ec_ref_rx_put(struct snd_kcontrol *kcontrol,
 	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
 	struct snd_soc_dapm_update *update = NULL;
 
+<<<<<<< HEAD
+=======
+	if (mux >= e->items) {
+		pr_err("%s: Invalid mux value %d\n", __func__, mux);
+		return -EINVAL;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_lock(&routing_lock);
 	switch (ucontrol->value.integer.value[0]) {
 	case 0:
@@ -2177,6 +2221,14 @@ static int msm_routing_ext_ec_put(struct snd_kcontrol *kcontrol,
 	uint16_t ext_ec_ref_port_id;
 	struct snd_soc_dapm_update *update = NULL;
 
+<<<<<<< HEAD
+=======
+	if (mux >= e->items) {
+		pr_err("%s: Invalid mux value %d\n", __func__, mux);
+		return -EINVAL;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_lock(&routing_lock);
 	msm_route_ext_ec_ref = ucontrol->value.integer.value[0];
 
@@ -6030,10 +6082,21 @@ static int msm_routing_put_stereo_to_custom_stereo_control(
 			session_id =
 				fe_dai_map[i][SESSION_TYPE_RX].strm_id;
 			if (is_custom_stereo_on) {
+<<<<<<< HEAD
 				op_FL_ip_FL_weight = 0;
 				op_FL_ip_FR_weight = Q14_GAIN_UNITY;
 				op_FR_ip_FL_weight = Q14_GAIN_UNITY;
 				op_FR_ip_FR_weight = 0;
+=======
+				op_FL_ip_FL_weight =
+					Q14_GAIN_ZERO_POINT_FIVE;
+				op_FL_ip_FR_weight =
+					Q14_GAIN_ZERO_POINT_FIVE;
+				op_FR_ip_FL_weight =
+					Q14_GAIN_ZERO_POINT_FIVE;
+				op_FR_ip_FR_weight =
+					Q14_GAIN_ZERO_POINT_FIVE;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			} else {
 				op_FL_ip_FL_weight = Q14_GAIN_UNITY;
 				op_FL_ip_FR_weight = 0;
@@ -6085,6 +6148,7 @@ static const struct snd_kcontrol_new stereo_to_custom_stereo_controls[] = {
 	msm_routing_put_stereo_to_custom_stereo_control),
 };
 
+<<<<<<< HEAD
 static int msm_routing_get_sony_stereo_to_custom_stereo_control(
 					struct snd_kcontrol *kcontrol,
 					struct snd_ctl_elem_value *ucontrol)
@@ -6194,6 +6258,8 @@ static const struct snd_kcontrol_new sony_stereo_to_custom_stereo_controls[] = {
 	msm_routing_put_sony_stereo_to_custom_stereo_control),
 };
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int msm_routing_get_app_type_cfg_control(struct snd_kcontrol *kcontrol,
 					  struct snd_ctl_elem_value *ucontrol)
 {
@@ -6263,7 +6329,11 @@ int msm_routing_get_rms_value_control(struct snd_kcontrol *kcontrol,
 	int *update_param_value;
 	uint32_t param_length = sizeof(uint32_t);
 	uint32_t param_payload_len = RMS_PAYLOAD_LEN * sizeof(uint32_t);
+<<<<<<< HEAD
 	param_value = kzalloc(param_length, GFP_KERNEL);
+=======
+	param_value = kzalloc(param_length + param_payload_len, GFP_KERNEL);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!param_value) {
 		pr_err("%s, param memory alloc failed\n", __func__);
 		return -ENOMEM;
@@ -6316,6 +6386,7 @@ static struct snd_kcontrol_new msm_voc_session_controls[] = {
 			     msm_voc_session_id_put),
 };
 
+<<<<<<< HEAD
 static int msm_adm_mute_get(struct snd_kcontrol *kcontrol,
 					struct snd_ctl_elem_value *ucontrol)
 {
@@ -6389,6 +6460,8 @@ static struct snd_kcontrol_new msm_adm_mute_controls[] = {
 			     msm_adm_mute_put),
 };
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int msm_sound_focus_info(struct snd_kcontrol *kcontrol,
 				struct snd_ctl_elem_info *uinfo)
 {
@@ -9713,10 +9786,13 @@ static int msm_routing_probe(struct snd_soc_platform *platform)
 				stereo_to_custom_stereo_controls,
 			ARRAY_SIZE(stereo_to_custom_stereo_controls));
 
+<<<<<<< HEAD
 	snd_soc_add_platform_controls(platform,
 				sony_stereo_to_custom_stereo_controls,
 			ARRAY_SIZE(sony_stereo_to_custom_stereo_controls));
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	msm_qti_pp_add_controls(platform);
 
 	msm_dts_srs_tm_add_controls(platform);
@@ -9727,15 +9803,21 @@ static int msm_routing_probe(struct snd_soc_platform *platform)
 			use_ds1_or_ds2_controls,
 			ARRAY_SIZE(use_ds1_or_ds2_controls));
 
+<<<<<<< HEAD
 	msm_routing_ahc_add_controls(platform);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	snd_soc_add_platform_controls(platform,
 				device_pp_params_mixer_controls,
 				ARRAY_SIZE(device_pp_params_mixer_controls));
 
+<<<<<<< HEAD
 	snd_soc_add_platform_controls(platform, msm_adm_mute_controls,
 				      ARRAY_SIZE(msm_adm_mute_controls));
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	msm_dts_eagle_add_controls(platform);
 
 	snd_soc_add_platform_controls(platform, msm_source_tracking_controls,

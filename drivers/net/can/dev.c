@@ -615,17 +615,24 @@ int can_change_mtu(struct net_device *dev, int new_mtu)
 	/* allow change of MTU according to the CANFD ability of the device */
 	switch (new_mtu) {
 	case CAN_MTU:
+<<<<<<< HEAD
 		/* 'CANFD-only' controllers can not switch to CAN_MTU */
 		if (priv->ctrlmode_static & CAN_CTRLMODE_FD)
 			return -EINVAL;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		priv->ctrlmode &= ~CAN_CTRLMODE_FD;
 		break;
 
 	case CANFD_MTU:
+<<<<<<< HEAD
 		/* check for potential CANFD ability */
 		if (!(priv->ctrlmode_supported & CAN_CTRLMODE_FD) &&
 		    !(priv->ctrlmode_static & CAN_CTRLMODE_FD))
+=======
+		if (!(priv->ctrlmode_supported & CAN_CTRLMODE_FD))
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			return -EINVAL;
 
 		priv->ctrlmode |= CAN_CTRLMODE_FD;
@@ -707,6 +714,7 @@ static const struct nla_policy can_policy[IFLA_CAN_MAX + 1] = {
 				= { .len = sizeof(struct can_bittiming_const) },
 };
 
+<<<<<<< HEAD
 static int can_validate(struct nlattr *tb[], struct nlattr *data[])
 {
 	bool is_can_fd = false;
@@ -736,6 +744,8 @@ static int can_validate(struct nlattr *tb[], struct nlattr *data[])
 	return 0;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int can_changelink(struct net_device *dev,
 			  struct nlattr *tb[], struct nlattr *data[])
 {
@@ -767,13 +777,17 @@ static int can_changelink(struct net_device *dev,
 
 	if (data[IFLA_CAN_CTRLMODE]) {
 		struct can_ctrlmode *cm;
+<<<<<<< HEAD
 		u32 ctrlstatic;
 		u32 maskedflags;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		/* Do not allow changing controller mode while running */
 		if (dev->flags & IFF_UP)
 			return -EBUSY;
 		cm = nla_data(data[IFLA_CAN_CTRLMODE]);
+<<<<<<< HEAD
 		ctrlstatic = priv->ctrlmode_static;
 		maskedflags = cm->flags & cm->mask;
 
@@ -787,11 +801,20 @@ static int can_changelink(struct net_device *dev,
 
 		/* make sure static options are provided by configuration */
 		if ((maskedflags & ctrlstatic) != ctrlstatic)
+=======
+
+		/* check whether changed bits are allowed to be modified */
+		if (cm->mask & ~priv->ctrlmode_supported)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			return -EOPNOTSUPP;
 
 		/* clear bits to be modified and copy the flag values */
 		priv->ctrlmode &= ~cm->mask;
+<<<<<<< HEAD
 		priv->ctrlmode |= maskedflags;
+=======
+		priv->ctrlmode |= (cm->flags & cm->mask);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		/* CAN_CTRLMODE_FD can only be set when driver supports FD */
 		if (priv->ctrlmode & CAN_CTRLMODE_FD)
@@ -932,7 +955,10 @@ static struct rtnl_link_ops can_link_ops __read_mostly = {
 	.maxtype	= IFLA_CAN_MAX,
 	.policy		= can_policy,
 	.setup		= can_setup,
+<<<<<<< HEAD
 	.validate	= can_validate,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.newlink	= can_newlink,
 	.changelink	= can_changelink,
 	.get_size	= can_get_size,

@@ -77,6 +77,10 @@
  * Section
  */
 #define PMD_SECT_VALID		(_AT(pmdval_t, 1) << 0)
+<<<<<<< HEAD
+=======
+#define PMD_SECT_PROT_NONE	(_AT(pmdval_t, 1) << 58)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define PMD_SECT_USER		(_AT(pmdval_t, 1) << 6)		/* AP[1] */
 #define PMD_SECT_RDONLY		(_AT(pmdval_t, 1) << 7)		/* AP[2] */
 #define PMD_SECT_S		(_AT(pmdval_t, 3) << 8)

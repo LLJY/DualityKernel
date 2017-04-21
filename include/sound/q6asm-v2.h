@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef __Q6_ASM_V2_H__
 #define __Q6_ASM_V2_H__
 
@@ -189,6 +192,10 @@ struct audio_client {
 	int                    session;
 	app_cb		       cb;
 	atomic_t	       cmd_state;
+<<<<<<< HEAD
+=======
+	atomic_t	       cmd_state_pp;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Relative or absolute TS */
 	atomic_t	       time_flag;
 	atomic_t	       nowait_cmd_cnt;
@@ -561,7 +568,10 @@ int q6asm_send_mtmx_strtr_window(struct audio_client *ac,
 /* Retrieve the current DSP path delay */
 int q6asm_get_path_delay(struct audio_client *ac);
 
+<<<<<<< HEAD
 /* SOMC added: Send tuning parameter for Sony effect*/
 int sony_hweffect_send_tuning_params(unsigned int effect_id, void *client);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif /* __Q6_ASM_H__ */

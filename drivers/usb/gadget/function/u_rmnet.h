@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2016 The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -76,4 +80,8 @@ int gsmd_ctrl_connect(struct grmnet *gr, int port_num);
 void gsmd_ctrl_disconnect(struct grmnet *gr, u8 port_num);
 int gsmd_ctrl_setup(enum ctrl_client client_num, unsigned int count,
 					u8 *first_port_idx);
+<<<<<<< HEAD
+=======
+void gbam_data_flush_workqueue(void);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif /* __U_RMNET_H*/

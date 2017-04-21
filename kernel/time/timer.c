@@ -1028,12 +1028,17 @@ EXPORT_SYMBOL(add_timer);
  */
 void add_timer_on(struct timer_list *timer, int cpu)
 {
+<<<<<<< HEAD
 	struct tvec_base *new_base = per_cpu(tvec_bases, cpu);
 	struct tvec_base *base;
+=======
+	struct tvec_base *base = per_cpu(tvec_bases, cpu);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	unsigned long flags;
 
 	timer_stats_timer_set_start_info(timer);
 	BUG_ON(timer_pending(timer) || !timer->function);
+<<<<<<< HEAD
 
 	/*
 	 * If @timer was on a different CPU, it should be migrated with the
@@ -1049,6 +1054,10 @@ void add_timer_on(struct timer_list *timer, int cpu)
 		timer_set_base(timer, base);
 	}
 
+=======
+	spin_lock_irqsave(&base->lock, flags);
+	timer_set_base(timer, base);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	debug_activate(timer, timer->expires);
 	internal_add_timer(base, timer);
 	spin_unlock_irqrestore(&base->lock, flags);

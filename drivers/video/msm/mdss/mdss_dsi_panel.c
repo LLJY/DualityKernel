@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/interrupt.h>
@@ -28,6 +31,7 @@
 #include <linux/err.h>
 #include <linux/string.h>
 
+<<<<<<< HEAD
 #include <linux/display_state.h>
 #include "mdss_dsi.h"
 #include "mdss_dba_utils.h"
@@ -35,6 +39,10 @@
 #include "mdss_dsi_panel_debugfs.h"
 #include "mdss_dsi_panel_driver.h"
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+#include "mdss_dsi.h"
+#include "mdss_dba_utils.h"
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define DT_CMD_HDR 6
 #define MIN_REFRESH_RATE 48
@@ -44,6 +52,7 @@
 
 DEFINE_LED_TRIGGER(bl_led_trigger);
 
+<<<<<<< HEAD
 extern void lazyplug_enter_lazy(bool enter);
 
 bool display_on = true;
@@ -53,6 +62,8 @@ bool is_display_on()
 	return display_on;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 void mdss_dsi_panel_pwm_cfg(struct mdss_dsi_ctrl_pdata *ctrl)
 {
 	if (ctrl->pwm_pmi)
@@ -179,6 +190,7 @@ int mdss_dsi_panel_cmd_read(struct mdss_dsi_ctrl_pdata *ctrl, char cmd0,
 	return mdss_dsi_cmdlist_put(ctrl, &cmdreq);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 void mdss_dsi_panel_cmds_send(struct mdss_dsi_ctrl_pdata *ctrl,
 			struct dsi_panel_cmds *pcmds, u32 flags)
@@ -186,6 +198,10 @@ void mdss_dsi_panel_cmds_send(struct mdss_dsi_ctrl_pdata *ctrl,
 static void mdss_dsi_panel_cmds_send(struct mdss_dsi_ctrl_pdata *ctrl,
 			struct dsi_panel_cmds *pcmds, u32 flags)
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL*/
+=======
+static void mdss_dsi_panel_cmds_send(struct mdss_dsi_ctrl_pdata *ctrl,
+			struct dsi_panel_cmds *pcmds, u32 flags)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	struct dcs_cmd_req cmdreq;
 	struct mdss_panel_info *pinfo;
@@ -244,6 +260,7 @@ static void mdss_dsi_panel_bklt_dcs(struct mdss_dsi_ctrl_pdata *ctrl, int level)
 	mdss_dsi_cmdlist_put(ctrl, &cmdreq);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 int mdss_dsi_request_gpios(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 #else
@@ -258,6 +275,12 @@ static int mdss_dsi_request_gpios(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 		goto specific_panel_err;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
+=======
+static int mdss_dsi_request_gpios(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
+{
+	int rc = 0;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (gpio_is_valid(ctrl_pdata->disp_en_gpio)) {
 		rc = gpio_request(ctrl_pdata->disp_en_gpio,
 						"disp_enable");
@@ -301,6 +324,7 @@ rst_gpio_err:
 	if (gpio_is_valid(ctrl_pdata->disp_en_gpio))
 		gpio_free(ctrl_pdata->disp_en_gpio);
 disp_en_gpio_err:
+<<<<<<< HEAD
 #ifndef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	return rc;
 #else
@@ -308,13 +332,19 @@ disp_en_gpio_err:
 specific_panel_err:
 	return rc;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+	return rc;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 int mdss_dsi_panel_reset(struct mdss_panel_data *pdata, int enable)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	return mdss_dsi_panel_driver_reset_panel(pdata, enable);
 #else
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct mdss_dsi_ctrl_pdata *ctrl_pdata = NULL;
 	struct mdss_panel_info *pinfo = NULL;
 	int i, rc = 0;
@@ -432,7 +462,10 @@ int mdss_dsi_panel_reset(struct mdss_panel_data *pdata, int enable)
 
 exit:
 	return rc;
+<<<<<<< HEAD
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /**
@@ -752,24 +785,31 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 	struct mdss_panel_info *pinfo;
 	struct dsi_panel_cmds *on_cmds;
 	int ret = 0;
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct mdss_panel_specific_pdata *spec_pdata = NULL;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (pdata == NULL) {
 		pr_err("%s: Invalid input data\n", __func__);
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	display_on = true;
     lazyplug_enter_lazy(false);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pinfo = &pdata->panel_info;
 	ctrl = container_of(pdata, struct mdss_dsi_ctrl_pdata,
 				panel_data);
 
 	pr_debug("%s: ndx=%d\n", __func__, ctrl->ndx);
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	spec_pdata = mdss_panel2spec_pdata(pdata);
 
@@ -777,6 +817,8 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 		spec_pdata->crash_counter_reset();
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (pinfo->dcs_cmd_by_left) {
 		if (ctrl->ndx != DSI_CTRL_LEFT)
 			goto end;
@@ -810,11 +852,14 @@ static int mdss_dsi_post_panel_on(struct mdss_panel_data *pdata)
 	struct mdss_panel_info *pinfo;
 	struct dsi_panel_cmds *cmds;
 	u32 vsync_period = 0;
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct incell_ctrl *incell = incell_get_info();
 	unsigned char state;
 	struct mdss_panel_specific_pdata *spec_pdata = NULL;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (pdata == NULL) {
 		pr_err("%s: Invalid input data\n", __func__);
@@ -832,11 +877,15 @@ static int mdss_dsi_post_panel_on(struct mdss_panel_data *pdata)
 
 	cmds = &ctrl->post_panel_on_cmds;
 	if (cmds->cmd_cnt) {
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		mdss_dsi_panel_driver_wait_before_post_on_cmds(ctrl);
 #else
 		msleep(VSYNC_DELAY);	/* wait for a vsync passed */
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+		msleep(VSYNC_DELAY);	/* wait for a vsync passed */
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		mdss_dsi_panel_cmds_send(ctrl, cmds, CMD_REQ_COMMIT);
 	}
 
@@ -847,6 +896,7 @@ static int mdss_dsi_post_panel_on(struct mdss_panel_data *pdata)
 		mdss_dba_utils_hdcp_enable(pinfo->dba_data, true);
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	spec_pdata = mdss_panel2spec_pdata(pdata);
 	if (incell && (spec_pdata->panel_type == HYBRID_INCELL)) {
@@ -862,6 +912,8 @@ static int mdss_dsi_post_panel_on(struct mdss_panel_data *pdata)
 	mdss_dsi_panel_driver_post_on(ctrl);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 end:
 	pr_debug("%s:-\n", __func__);
 	return 0;
@@ -871,6 +923,7 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 {
 	struct mdss_dsi_ctrl_pdata *ctrl = NULL;
 	struct mdss_panel_info *pinfo;
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct incell_ctrl *incell = incell_get_info();
 
@@ -879,6 +932,8 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 		mdss_dsi_panel_driver_state_change_off(incell);
 	}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (pdata == NULL) {
 		pr_err("%s: Invalid input data\n", __func__);
@@ -904,6 +959,7 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 		mdss_dba_utils_hdcp_enable(pinfo->dba_data, false);
 	}
 
+<<<<<<< HEAD
 	display_on = false;
     lazyplug_enter_lazy(false);
 
@@ -911,6 +967,9 @@ end:
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	mdss_dsi_panel_driver_off(ctrl);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+end:
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pr_debug("%s:-\n", __func__);
 	return 0;
 }
@@ -958,6 +1017,7 @@ static void mdss_dsi_parse_trigger(struct device_node *np, char *trigger,
 	}
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 int mdss_dsi_parse_dcs_cmds(struct device_node *np,
 		struct dsi_panel_cmds *pcmds, char *cmd_key, char *link_key)
@@ -965,6 +1025,11 @@ int mdss_dsi_parse_dcs_cmds(struct device_node *np,
 static int mdss_dsi_parse_dcs_cmds(struct device_node *np,
 		struct dsi_panel_cmds *pcmds, char *cmd_key, char *link_key)
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+
+static int mdss_dsi_parse_dcs_cmds(struct device_node *np,
+		struct dsi_panel_cmds *pcmds, char *cmd_key, char *link_key)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	const char *data;
 	int blen = 0, len;
@@ -1214,6 +1279,61 @@ void mdss_dsi_panel_dsc_pps_send(struct mdss_dsi_ctrl_pdata *ctrl,
 	mdss_dsi_panel_cmds_send(ctrl, &pcmds, CMD_REQ_COMMIT);
 }
 
+<<<<<<< HEAD
+=======
+static int mdss_dsi_parse_hdr_settings(struct device_node *np,
+		struct mdss_panel_info *pinfo)
+{
+	int rc = 0;
+	struct mdss_panel_hdr_properties *hdr_prop;
+
+	if (!np) {
+		pr_err("%s: device node pointer is NULL\n", __func__);
+		return -EINVAL;
+	}
+
+	if (!pinfo) {
+		pr_err("%s: panel info is NULL\n", __func__);
+		return -EINVAL;
+	}
+
+	hdr_prop = &pinfo->hdr_properties;
+	hdr_prop->hdr_enabled = of_property_read_bool(np,
+		"qcom,mdss-dsi-panel-hdr-enabled");
+
+	if (hdr_prop->hdr_enabled) {
+		rc = of_property_read_u32_array(np,
+				"qcom,mdss-dsi-panel-hdr-color-primaries",
+				hdr_prop->display_primaries,
+				DISPLAY_PRIMARIES_COUNT);
+		if (rc) {
+			pr_info("%s:%d, Unable to read color primaries,rc:%u",
+					__func__, __LINE__,
+					hdr_prop->hdr_enabled = false);
+		}
+
+		rc = of_property_read_u32(np,
+			"qcom,mdss-dsi-panel-peak-brightness",
+			&(hdr_prop->peak_brightness));
+		if (rc) {
+			pr_info("%s:%d, Unable to read hdr brightness, rc:%u",
+				__func__, __LINE__, rc);
+			hdr_prop->hdr_enabled = false;
+		}
+
+		rc = of_property_read_u32(np,
+			"qcom,mdss-dsi-panel-blackness-level",
+			&(hdr_prop->blackness_level));
+		if (rc) {
+			pr_info("%s:%d, Unable to read hdr brightness, rc:%u",
+				__func__, __LINE__, rc);
+			hdr_prop->hdr_enabled = false;
+		}
+	}
+	return 0;
+}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int mdss_dsi_parse_dsc_version(struct device_node *np,
 		struct mdss_panel_timing *timing)
 {
@@ -2290,10 +2410,15 @@ static int mdss_dsi_panel_timing_from_dt(struct device_node *np,
 
 	if (np->name) {
 		pt->timing.name = kstrdup(np->name, GFP_KERNEL);
+<<<<<<< HEAD
 #ifndef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		pr_info("%s: found new timing \"%s\" (%pK)\n", __func__,
 				np->name, &pt->timing);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+		pr_info("%s: found new timing \"%s\" (%pK)\n", __func__,
+				np->name, &pt->timing);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	return 0;
@@ -2414,9 +2539,12 @@ static int mdss_panel_parse_dt(struct device_node *np,
 {
 	u32 tmp;
 	int rc, len = 0;
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	int i;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	const char *data;
 	static const char *pdest;
 	const char *bridge_chip_name;
@@ -2458,6 +2586,7 @@ static int mdss_panel_parse_dt(struct device_node *np,
 		pinfo->mipi.dst_format =
 			DSI_VIDEO_DST_FORMAT_RGB888;
 	}
+<<<<<<< HEAD
 
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if (pinfo->pdest == DISPLAY_1) {
@@ -2473,6 +2602,8 @@ static int mdss_panel_parse_dt(struct device_node *np,
 	}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pdest = of_get_property(np,
 		"qcom,mdss-dsi-panel-destination", NULL);
 
@@ -2581,6 +2712,12 @@ static int mdss_panel_parse_dt(struct device_node *np,
 	rc = mdss_panel_parse_display_timings(np, &ctrl_pdata->panel_data);
 	if (rc)
 		return rc;
+<<<<<<< HEAD
+=======
+	rc = mdss_dsi_parse_hdr_settings(np, pinfo);
+	if (rc)
+		return rc;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pinfo->mipi.rx_eot_ignore = of_property_read_bool(np,
 		"qcom,mdss-dsi-rx-eot-ignore");
@@ -2611,6 +2748,7 @@ static int mdss_panel_parse_dt(struct device_node *np,
 	rc = of_property_read_u32(np, "qcom,mdss-dsi-post-init-delay", &tmp);
 	pinfo->mipi.post_init_delay = (!rc ? tmp : 0);
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	data = of_get_property(np,
 		"somc,platform-regulator-settings", &len);
@@ -2633,6 +2771,8 @@ static int mdss_panel_parse_dt(struct device_node *np,
 	}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mdss_dsi_parse_trigger(np, &(pinfo->mipi.mdp_trigger),
 		"qcom,mdss-dsi-mdp-trigger");
 
@@ -2651,6 +2791,7 @@ static int mdss_panel_parse_dt(struct device_node *np,
 	pinfo->mipi.force_clk_lane_hs = of_property_read_bool(np,
 		"qcom,mdss-dsi-force-clock-lane-hs");
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	rc = mdss_dsi_panel_driver_parse_dt(np, ctrl_pdata);
 	if (rc) {
@@ -2659,6 +2800,8 @@ static int mdss_panel_parse_dt(struct device_node *np,
 	}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	rc = mdss_dsi_parse_panel_features(np, ctrl_pdata);
 	if (rc) {
 		pr_err("%s: failed to parse panel features\n", __func__);
@@ -2694,15 +2837,21 @@ error:
 int mdss_dsi_panel_init(struct device_node *node,
 	struct mdss_dsi_ctrl_pdata *ctrl_pdata,
 	int ndx)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	int rc = 0;
 	static const char *panel_name;
 	struct mdss_panel_info *pinfo;
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct platform_device *pdev;
 	u32 index;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!node || !ctrl_pdata) {
 		pr_err("%s: Invalid arguments\n", __func__);
@@ -2711,6 +2860,7 @@ int mdss_dsi_panel_init(struct device_node *node,
 
 	pinfo = &ctrl_pdata->panel_data.panel_info;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	pdev = ctrl_pdata->panel_data.panel_pdev;
 
@@ -2731,6 +2881,8 @@ int mdss_dsi_panel_init(struct device_node *node,
 	}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pr_debug("%s:%d\n", __func__, __LINE__);
 	pinfo->panel_name[0] = '\0';
 	panel_name = of_get_property(node, "qcom,mdss-dsi-panel-name", NULL);
@@ -2738,9 +2890,12 @@ int mdss_dsi_panel_init(struct device_node *node,
 		pr_info("%s:%d, Panel name not specified\n",
 						__func__, __LINE__);
 	} else {
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		pinfo->panel_id_name = panel_name;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pr_info("%s: Panel Name = %s\n", __func__, panel_name);
 		strlcpy(&pinfo->panel_name[0], panel_name, MDSS_MAX_PANEL_LEN);
 	}
@@ -2761,8 +2916,11 @@ int mdss_dsi_panel_init(struct device_node *node,
 	ctrl_pdata->panel_data.set_backlight = mdss_dsi_panel_bl_ctrl;
 	ctrl_pdata->switch_mode = mdss_dsi_panel_switch_mode;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	mdss_dsi_panel_driver_init(ctrl_pdata);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }

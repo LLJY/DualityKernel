@@ -198,9 +198,12 @@ static int ccp_sha_export(struct ahash_request *req, void *out)
 	struct ccp_sha_req_ctx *rctx = ahash_request_ctx(req);
 	struct ccp_sha_exp_ctx state;
 
+<<<<<<< HEAD
 	/* Don't let anything leak to 'out' */
 	memset(&state, 0, sizeof(state));
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	state.type = rctx->type;
 	state.msg_bits = rctx->msg_bits;
 	state.first = rctx->first;

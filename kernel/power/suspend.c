@@ -7,11 +7,14 @@
  *
  * This file is released under the GPLv2.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/string.h>
 #include <linux/delay.h>
@@ -335,9 +338,13 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)
 
 	arch_suspend_disable_irqs();
 	BUG_ON(!irqs_disabled());
+<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	dpm_log_wakeup_stats(PMSG_SUSPEND);
 #endif
+=======
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	error = syscore_suspend();
 	if (!error) {
 		*wakeup = pm_wakeup_pending();
@@ -357,9 +364,12 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)
 		syscore_resume();
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	dpm_log_start_time(PMSG_RESUME);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	arch_suspend_enable_irqs();
 	BUG_ON(irqs_disabled());
 
@@ -399,9 +409,12 @@ int suspend_devices_and_enter(suspend_state_t state)
 
 	suspend_console();
 	suspend_test_start();
+<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	dpm_log_start_time(PMSG_SUSPEND);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	error = dpm_suspend_start(PMSG_SUSPEND);
 	if (error) {
 		pr_err("PM: Some devices failed to suspend, or early wake event detected\n");
@@ -419,9 +432,12 @@ int suspend_devices_and_enter(suspend_state_t state)
  Resume_devices:
 	suspend_test_start();
 	dpm_resume_end(PMSG_RESUME);
+<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	dpm_log_wakeup_stats(PMSG_RESUME);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	suspend_test_finish("resume devices");
 	trace_suspend_resume(TPS("resume_console"), state, true);
 	resume_console();
@@ -480,9 +496,15 @@ static int enter_state(suspend_state_t state)
 		freeze_begin();
 
 	trace_suspend_resume(TPS("sync_filesystems"), 0, true);
+<<<<<<< HEAD
 	printk(KERN_INFO "PM: Syncing filesystems ...\n");
 	sys_sync();
 	printk(KERN_INFO "PM: Syncing filesystems ... done.\n");
+=======
+	printk(KERN_INFO "PM: Syncing filesystems ... ");
+	sys_sync();
+	printk("done.\n");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	trace_suspend_resume(TPS("sync_filesystems"), 0, false);
 
 	pr_debug("PM: Preparing system for %s sleep\n", pm_states[state]);

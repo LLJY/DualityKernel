@@ -211,7 +211,11 @@ static int proc_allowed_congestion_control(struct ctl_table *ctl,
 	if (!tbl.data)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	tcp_get_available_congestion_control(tbl.data, tbl.maxlen);
+=======
+	tcp_get_allowed_congestion_control(tbl.data, tbl.maxlen);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ret = proc_dostring(&tbl, write, buffer, lenp, ppos);
 	if (write && ret == 0)
 		ret = tcp_set_allowed_congestion_control(tbl.data);

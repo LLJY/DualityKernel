@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2014, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2014, 2016 The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -74,6 +78,11 @@ static int devfreq_vbif_ev_handler(struct devfreq *devfreq,
 	int ret;
 	struct devfreq_dev_status stat;
 
+<<<<<<< HEAD
+=======
+	memset(&stat, 0, sizeof(stat));
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	switch (event) {
 	case DEVFREQ_GOV_START:
 		mutex_lock(&df_lock);

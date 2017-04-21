@@ -11,11 +11,14 @@
  *
  */
 /*
+<<<<<<< HEAD
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
 /*
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * I2C controller driver for Qualcomm Technologies Inc platforms
  */
 
@@ -412,7 +415,10 @@ struct i2c_msm_clk_div_fld {
  */
 static struct i2c_msm_clk_div_fld i2c_msm_clk_div_map[] = {
 	{KHz(100), 124, 62},
+<<<<<<< HEAD
 	{KHz(355),  32, 16},
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	{KHz(400),  28, 14},
 	{KHz(1000),  8,  5},
 };

@@ -7,11 +7,14 @@
  *  Please see that file for copyright and history logs.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/timekeeper_internal.h>
 #include <linux/module.h>
@@ -29,10 +32,13 @@
 #include <linux/pvclock_gtod.h>
 #include <linux/compiler.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_TAGS
 #include <linux/rdtags.h>
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "tick-internal.h"
 #include "ntp_internal.h"
 #include "timekeeping_internal.h"
@@ -656,6 +662,7 @@ void ktime_get_ts64(struct timespec64 *ts)
 }
 EXPORT_SYMBOL_GPL(ktime_get_ts64);
 
+<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_TAGS
 int timekeeping_ramdump_setup(void)
 {
@@ -668,6 +675,8 @@ int timekeeping_ramdump_setup(void)
 }
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifdef CONFIG_NTP_PPS
 
 /**

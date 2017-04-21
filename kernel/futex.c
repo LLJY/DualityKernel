@@ -1157,6 +1157,7 @@ static int wake_futex_pi(u32 __user *uaddr, u32 uval, struct futex_q *this)
 	 */
 	newval = FUTEX_WAITERS | task_pid_vnr(new_owner);
 
+<<<<<<< HEAD
 	if (cmpxchg_futex_value_locked(&curval, uaddr, uval, newval)) {
 		ret = -EFAULT;
 	} else if (curval != uval) {
@@ -1171,6 +1172,12 @@ static int wake_futex_pi(u32 __user *uaddr, u32 uval, struct futex_q *this)
 		else
 			ret = -EINVAL;
 	}
+=======
+	if (cmpxchg_futex_value_locked(&curval, uaddr, uval, newval))
+		ret = -EFAULT;
+	else if (curval != uval)
+		ret = -EINVAL;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret) {
 		raw_spin_unlock(&pi_state->pi_mutex.wait_lock);
 		return ret;
@@ -2429,6 +2436,7 @@ retry:
 		 */
 		if (ret == -EFAULT)
 			goto pi_faulted;
+<<<<<<< HEAD
 		/*
 		 * A unconditional UNLOCK_PI op raced against a waiter
 		 * setting the FUTEX_WAITERS bit. Try again.
@@ -2438,6 +2446,8 @@ retry:
 			put_futex_key(&key);
 			goto retry;
 		}
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		goto out_unlock;
 	}
 

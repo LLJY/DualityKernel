@@ -774,6 +774,7 @@ config MMC_CQ_HCI
 	  If you have a controller with this interface, say Y or M here.
 
 	  If unsure, say N.
+<<<<<<< HEAD
 
 config MMC_ENABLE_CLK_SCALE
 	bool "Clock Scaling of SDHCI support"
@@ -782,3 +783,5 @@ config MMC_ENABLE_CLK_SCALE
 	help
 	  This selects support for the SD/MMC Host Controller on
 	  Clock Scaling.
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

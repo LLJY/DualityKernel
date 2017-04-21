@@ -10,11 +10,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt) "%s: " fmt, __func__
 
@@ -343,8 +346,11 @@ struct qpnp_regulator {
 	int					ocp_count;
 	int					ocp_max_retries;
 	int					ocp_retry_delay_ms;
+<<<<<<< HEAD
 	struct regulator_ocp_notification	ocp_notification;
 	spinlock_t				ocp_lock;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int					system_load;
 	int					hpm_min_load;
 	int					slew_rate;
@@ -1250,6 +1256,7 @@ static int qpnp_regulator_common_enable_time(struct regulator_dev *rdev)
 	return vreg->enable_time;
 }
 
+<<<<<<< HEAD
 static int qpnp_regulator_vs_register_ocp_notification(
 				struct regulator_dev *rdev,
 				struct regulator_ocp_notification *notification)
@@ -1278,6 +1285,8 @@ static int qpnp_regulator_vs_register_ocp_notification(
 	return 0;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int qpnp_regulator_vs_clear_ocp(struct qpnp_regulator *vreg)
 {
 	int rc;
@@ -1353,6 +1362,7 @@ static irqreturn_t qpnp_regulator_vs_ocp_isr(int irq, void *data)
 		schedule_delayed_work(&vreg->ocp_work,
 			msecs_to_jiffies(vreg->ocp_retry_delay_ms) + 1);
 	} else {
+<<<<<<< HEAD
 		unsigned long flags;
 		vreg_err(vreg, "OCP triggered %d times; no further retries\n",
 			vreg->ocp_count);
@@ -1361,6 +1371,10 @@ static irqreturn_t qpnp_regulator_vs_ocp_isr(int irq, void *data)
 			vreg->ocp_notification.notify(
 				vreg->ocp_notification.ctxt);
 		spin_unlock_irqrestore(&vreg->ocp_lock, flags);
+=======
+		vreg_err(vreg, "OCP triggered %d times; no further retries\n",
+			vreg->ocp_count);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	return IRQ_HANDLED;
@@ -1593,8 +1607,11 @@ static struct regulator_ops qpnp_vs_ops = {
 	.disable		= qpnp_regulator_common_disable,
 	.is_enabled		= qpnp_regulator_common_is_enabled,
 	.enable_time		= qpnp_regulator_common_enable_time,
+<<<<<<< HEAD
 	.register_ocp_notification
 		= qpnp_regulator_vs_register_ocp_notification,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static struct regulator_ops qpnp_boost_ops = {
@@ -2283,10 +2300,13 @@ static int qpnp_regulator_probe(struct spmi_device *spmi)
 	if (vreg->ocp_retry_delay_ms == 0)
 		vreg->ocp_retry_delay_ms = QPNP_VS_OCP_DEFAULT_RETRY_DELAY_MS;
 
+<<<<<<< HEAD
 	memset(&vreg->ocp_notification, 0,
 		sizeof(vreg->ocp_notification));
 	spin_lock_init(&vreg->ocp_lock);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	rdesc			= &vreg->rdesc;
 	rdesc->id		= spmi->ctrl->nr;
 	rdesc->owner		= THIS_MODULE;

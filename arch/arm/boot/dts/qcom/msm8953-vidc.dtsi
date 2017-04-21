@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -14,9 +18,17 @@
 	qcom,vidc@1d00000 {
 		compatible = "qcom,msm-vidc";
 		reg = <0x01d00000 0xff000>,
+<<<<<<< HEAD
 			<0x000a4124 0x4>;
 		reg-names = "vidc", "efuse";
 		qcom,platform-version = <0x00180000 0x13>;
+=======
+			<0x000a4124 0x4>,
+			<0x000a0164 0x4>;
+		reg-names = "vidc", "efuse", "efuse2";
+		qcom,platform-version = <0x00180000 0x13>;
+		qcom,capability-version = <0x00002000 0x0d>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		interrupts = <0 44 0>;
 		/* Regulators */
 		venus-supply = <&gdsc_venus>;

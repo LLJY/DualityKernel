@@ -863,6 +863,7 @@
 #define NOVITUS_BONO_E_PID		0x6010
 
 /*
+<<<<<<< HEAD
  * ICPDAS I-756*U devices
  */
 #define ICPDAS_VID			0x1b5c
@@ -871,6 +872,8 @@
 #define ICPDAS_I7563U_PID		0x0105
 
 /*
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * RT Systems programming cables for various ham radios
  */
 #define RTSYSTEMS_VID		0x2100	/* Vendor ID */

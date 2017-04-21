@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include "msm_camera_dt_util.h"
 #include "msm_camera_io_util.h"
@@ -287,6 +290,41 @@ int msm_sensor_get_sub_module_index(struct device_node *of_node,
 		src_node = NULL;
 	}
 
+<<<<<<< HEAD
+=======
+	src_node = of_parse_phandle(of_node, "qcom,ir-led-src", 0);
+	if (!src_node) {
+		CDBG("%s:%d src_node NULL\n", __func__, __LINE__);
+	} else {
+		rc = of_property_read_u32(src_node, "cell-index", &val);
+		CDBG("%s qcom,ir led cell index %d, rc %d\n", __func__,
+			val, rc);
+		if (rc < 0) {
+			pr_err("%s:%d failed %d\n", __func__, __LINE__, rc);
+			goto ERROR;
+		}
+		sensor_info->subdev_id[SUB_MODULE_IR_LED] = val;
+		of_node_put(src_node);
+		src_node = NULL;
+	}
+
+	src_node = of_parse_phandle(of_node, "qcom,ir-cut-src", 0);
+	if (!src_node) {
+		CDBG("%s:%d src_node NULL\n", __func__, __LINE__);
+	} else {
+		rc = of_property_read_u32(src_node, "cell-index", &val);
+		CDBG("%s qcom,ir cut cell index %d, rc %d\n", __func__,
+			val, rc);
+		if (rc < 0) {
+			pr_err("%s:%d failed %d\n", __func__, __LINE__, rc);
+			goto ERROR;
+		}
+		sensor_info->subdev_id[SUB_MODULE_IR_CUT] = val;
+		of_node_put(src_node);
+		src_node = NULL;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	rc = of_property_read_u32(of_node, "qcom,strobe-flash-sd-index", &val);
 	if (rc != -EINVAL) {
 		CDBG("%s qcom,strobe-flash-sd-index %d, rc %d\n", __func__,
@@ -752,6 +790,7 @@ ERROR1:
 	return rc;
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 int msm_camera_get_dt_gpio_set_tbl(struct device_node *of_node,
 	struct msm_camera_gpio_conf *gconf, uint16_t *gpio_array,
@@ -851,6 +890,69 @@ int msm_camera_init_gpio_pin_tbl(struct device_node *of_node,
 		rc = -ENOMEM;
 		return rc;
 	}
+=======
+int msm_camera_init_gpio_pin_tbl(struct device_node *of_node,
+	struct msm_camera_gpio_conf *gconf, uint16_t *gpio_array,
+	uint16_t gpio_array_size)
+{
+	int rc = 0, val = 0;
+
+	gconf->gpio_num_info = kzalloc(sizeof(struct msm_camera_gpio_num_info),
+		GFP_KERNEL);
+	if (!gconf->gpio_num_info) {
+		pr_err("%s failed %d\n", __func__, __LINE__);
+		rc = -ENOMEM;
+		return rc;
+	}
+
+	rc = of_property_read_u32(of_node, "qcom,gpio-ir-p", &val);
+	if (rc != -EINVAL) {
+		if (rc < 0) {
+			pr_err("%s:%d read qcom,gpio-ir-p failed rc %d\n",
+				__func__, __LINE__, rc);
+			goto ERROR;
+		} else if (val >= gpio_array_size) {
+			pr_err("%s:%d qcom,gpio-ir-p invalid %d\n",
+				__func__, __LINE__, val);
+			rc = -EINVAL;
+			goto ERROR;
+		}
+
+		gconf->gpio_num_info->gpio_num[IR_CUT_FILTER_GPIO_P] =
+			gpio_array[val];
+		gconf->gpio_num_info->valid[IR_CUT_FILTER_GPIO_P] = 1;
+
+		CDBG("%s qcom,gpio-ir-p %d\n", __func__,
+			gconf->gpio_num_info->gpio_num[IR_CUT_FILTER_GPIO_P]);
+	} else {
+		rc = 0;
+	}
+
+	rc = of_property_read_u32(of_node, "qcom,gpio-ir-m", &val);
+	if (rc != -EINVAL) {
+		if (rc < 0) {
+			pr_err("%s:%d read qcom,gpio-ir-m failed rc %d\n",
+				__func__, __LINE__, rc);
+			goto ERROR;
+		} else if (val >= gpio_array_size) {
+			pr_err("%s:%d qcom,gpio-ir-m invalid %d\n",
+				__func__, __LINE__, val);
+			rc = -EINVAL;
+			goto ERROR;
+		}
+
+		gconf->gpio_num_info->gpio_num[IR_CUT_FILTER_GPIO_M] =
+			gpio_array[val];
+
+		gconf->gpio_num_info->valid[IR_CUT_FILTER_GPIO_M] = 1;
+
+		CDBG("%s qcom,gpio-ir-m %d\n", __func__,
+			gconf->gpio_num_info->gpio_num[IR_CUT_FILTER_GPIO_M]);
+	} else {
+		rc = 0;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	rc = of_property_read_u32(of_node, "qcom,gpio-vana", &val);
 	if (rc != -EINVAL) {
 		if (rc < 0) {

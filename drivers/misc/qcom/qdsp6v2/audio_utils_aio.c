@@ -1,6 +1,10 @@
 /* Copyright (C) 2008 Google, Inc.
  * Copyright (C) 2008 HTC Corporation
+<<<<<<< HEAD
  * Copyright (c) 2009-2016, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2009-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -119,7 +123,14 @@ static int audio_aio_ion_lookup_vaddr(struct q6audio_aio *audio, void *addr,
 	list_for_each_entry(region_elt, &audio->ion_region_queue, list) {
 		if (addr >= region_elt->vaddr &&
 			addr < region_elt->vaddr + region_elt->len &&
+<<<<<<< HEAD
 			addr + len <= region_elt->vaddr + region_elt->len) {
+=======
+			addr + len <= region_elt->vaddr + region_elt->len &&
+			addr + len > addr) {
+			/* to avoid integer addition overflow */
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			/* offset since we could pass vaddr inside a registerd
 			* ion buffer
 			*/

@@ -203,6 +203,7 @@ config DPM_WATCHDOG_TIMEOUT
 	default 60
 	depends on DPM_WATCHDOG
 
+<<<<<<< HEAD
 config PM_WAKEUP_TIMES
 	bool "Log time taken for device wakeup"
 	def_bool y
@@ -215,6 +216,8 @@ config PM_WAKEUP_TIMES
 	  The statistics include minimum, maximum, average and the most recent
 	  times for resume and suspend.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config PM_TRACE
 	bool
 	help
@@ -337,6 +340,7 @@ config SUSPEND_TIME
 	  Prints the time spent in suspend in the kernel log, and
 	  keeps statistics on the time spent in suspend in
 	  /sys/kernel/debug/suspend_time
+<<<<<<< HEAD
 
 config WAKEUP_IRQ_DEBUG
 	bool "Debug info of wakeup irq"
@@ -344,3 +348,5 @@ config WAKEUP_IRQ_DEBUG
 	---help---
 	  This enables debug information about wakeup interrupts using
 	  sysfs (/sys/kernel/).
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

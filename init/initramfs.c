@@ -3,11 +3,14 @@
  * to be __user pointers not __kernel pointers.  To limit the sparse
  * noise, turn off sparse checking for this file.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifdef __CHECKER__
 #undef __CHECKER__
 #warning "Sparse checking disabled for this file"
@@ -638,8 +641,11 @@ static int __init populate_rootfs(void)
 		printk(KERN_INFO "Trying to unpack rootfs image as initramfs...\n");
 		err = unpack_to_rootfs((char *)initrd_start,
 			initrd_end - initrd_start);
+<<<<<<< HEAD
 		if (err)
 			panic("panic in %s()", __func__);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (!err) {
 			free_initrd();
 			goto done;

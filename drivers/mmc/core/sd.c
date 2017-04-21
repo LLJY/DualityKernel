@@ -9,11 +9,14 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/err.h>
 #include <linux/sizes.h>
@@ -312,8 +315,17 @@ static int mmc_read_switch(struct mmc_card *card)
 		return -ENOMEM;
 	}
 
+<<<<<<< HEAD
 	/* Find out the supported Bus Speed Modes. */
 	err = mmc_sd_switch(card, 0, 0, 1, status);
+=======
+	/*
+	 * Find out the card's support bits with a mode 0 operation.
+	 * The argument does not matter, as the support bits do not
+	 * change with the arguments.
+	 */
+	err = mmc_sd_switch(card, 0, 0, 0, status);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (err) {
 		/*
 		 * If the host or the card can't do the switch,
@@ -469,11 +481,15 @@ static void sd_update_bus_speed_mode(struct mmc_card *card)
 	if ((card->host->caps & MMC_CAP_UHS_SDR104) &&
 	    (card->sw_caps.sd3_bus_mode & SD_MODE_UHS_SDR104) &&
 	    (card->host->f_max > UHS_SDR104_MIN_DTR)) {
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_DISABLE_SD_SDR104
 			card->sd_bus_speed = UHS_DDR50_BUS_SPEED;
 #else
 			card->sd_bus_speed = UHS_SDR104_BUS_SPEED;
 #endif
+=======
+			card->sd_bus_speed = UHS_SDR104_BUS_SPEED;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else if ((card->host->caps & MMC_CAP_UHS_DDR50) &&
 		   (card->sw_caps.sd3_bus_mode & SD_MODE_UHS_DDR50) &&
 		    (card->host->f_max > UHS_DDR50_MIN_DTR)) {
@@ -1229,11 +1245,19 @@ static int mmc_sd_suspend(struct mmc_host *host)
 {
 	int err;
 
+<<<<<<< HEAD
+=======
+	MMC_TRACE(host, "%s: Enter\n", __func__);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	err = _mmc_sd_suspend(host);
 	if (!err) {
 		pm_runtime_disable(&host->card->dev);
 		pm_runtime_set_suspended(&host->card->dev);
 	}
+<<<<<<< HEAD
+=======
+	MMC_TRACE(host, "%s: Exit err: %d\n", __func__, err);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return err;
 }
@@ -1299,12 +1323,20 @@ static int mmc_sd_resume(struct mmc_host *host)
 {
 	int err = 0;
 
+<<<<<<< HEAD
+=======
+	MMC_TRACE(host, "%s: Enter\n", __func__);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!(host->caps & MMC_CAP_RUNTIME_RESUME)) {
 		err = _mmc_sd_resume(host);
 		pm_runtime_set_active(&host->card->dev);
 		pm_runtime_mark_last_busy(&host->card->dev);
 	}
 	pm_runtime_enable(&host->card->dev);
+<<<<<<< HEAD
+=======
+	MMC_TRACE(host, "%s: Exit err: %d\n", __func__, err);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return err;
 }
@@ -1360,6 +1392,14 @@ static int mmc_sd_power_restore(struct mmc_host *host)
 	mmc_claim_host(host);
 	ret = mmc_sd_init_card(host, host->card->ocr, host->card);
 	mmc_release_host(host);
+<<<<<<< HEAD
+=======
+	if (ret) {
+		pr_err("%s: %s: mmc_sd_init_card_failed (%d)\n",
+				mmc_hostname(host), __func__, ret);
+		return ret;
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	ret = mmc_resume_clk_scaling(host);
 	if (ret)

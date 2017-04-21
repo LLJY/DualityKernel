@@ -361,7 +361,11 @@ static unsigned int bst_tlv[] = {
 
 /* Interface data select */
 static const char * const rt5640_data_select[] = {
+<<<<<<< HEAD
 	"Normal", "Swap", "left copy to right", "right copy to left"};
+=======
+	"Normal", "left copy to right", "right copy to left", "Swap"};
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static SOC_ENUM_SINGLE_DECL(rt5640_if1_dac_enum, RT5640_DIG_INF_DATA,
 			    RT5640_IF1_DAC_SEL_SFT, rt5640_data_select);

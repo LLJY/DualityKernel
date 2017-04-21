@@ -3,7 +3,11 @@
 # These targets are used from top-level makefile
 
 PHONY += oldconfig xconfig gconfig menuconfig config silentoldconfig update-po-config \
+<<<<<<< HEAD
 	localmodconfig localyesconfig savediffconfig
+=======
+	localmodconfig localyesconfig
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 ifdef KBUILD_KCONFIG
 Kconfig := $(KBUILD_KCONFIG)
@@ -93,6 +97,7 @@ oldnoconfig: $(obj)/conf
 savedefconfig: $(obj)/conf
 	$< --$@=defconfig $(Kconfig)
 
+<<<<<<< HEAD
 savecommondiffconfig:
 ifneq ($(KBUILD_DIFFCONFIG), )
 	$(Q)$(srctree)/scripts/diffconfig -m .config.def .config > diffconfig.common
@@ -105,6 +110,8 @@ ifneq ($(KBUILD_DIFFCONFIG), )
 	$(Q)rm -f .config.def .config.common
 endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 defconfig: $(obj)/conf
 ifeq ($(KBUILD_DEFCONFIG),)
 	$< --defconfig $(Kconfig)
@@ -115,6 +122,7 @@ endif
 
 %_defconfig: $(obj)/conf
 	$(Q)$< --defconfig=arch/$(SRCARCH)/configs/$@ $(Kconfig)
+<<<<<<< HEAD
 ifneq ($(KBUILD_DIFFCONFIG), )
 	$(Q)cp -f .config .config.def
 	$(Q)$(srctree)/$(obj)/merge_config.sh -m \
@@ -127,6 +135,8 @@ ifneq ($(KBUILD_DIFFCONFIG), )
 		$(srctree)/arch/$(SRCARCH)/configs/diffconfig/$(KBUILD_DIFFCONFIG)
 	$(Q)$< --defconfig=.config $(Kconfig)
 endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 configfiles=$(wildcard $(srctree)/kernel/configs/$@ $(srctree)/arch/$(SRCARCH)/configs/$@)
 

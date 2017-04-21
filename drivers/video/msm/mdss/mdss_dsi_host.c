@@ -746,6 +746,11 @@ static void mdss_dsi_ctl_phy_reset(struct mdss_dsi_ctrl_pdata *ctrl, u32 event)
 	u32 data0, data1, mask = 0, data_lane_en = 0;
 	struct mdss_dsi_ctrl_pdata *ctrl0, *ctrl1;
 	u32 ln0, ln1, ln_ctrl0, ln_ctrl1, i;
+<<<<<<< HEAD
+=======
+	int rc = 0;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * Add 2 ms delay suggested by HW team.
 	 * Check clk lane stop state after every 200 us
@@ -767,9 +772,21 @@ static void mdss_dsi_ctl_phy_reset(struct mdss_dsi_ctrl_pdata *ctrl, u32 event)
 		ctrl0 = mdss_dsi_get_ctrl_by_index(DSI_CTRL_0);
 		ctrl1 = mdss_dsi_get_ctrl_by_index(DSI_CTRL_1);
 
+<<<<<<< HEAD
 		if (ctrl0->recovery)
 			ctrl0->recovery->fxn(ctrl0->recovery->data,
 					MDP_INTF_DSI_VIDEO_FIFO_OVERFLOW);
+=======
+		if (ctrl0->recovery) {
+			rc = ctrl0->recovery->fxn(ctrl0->recovery->data,
+					MDP_INTF_DSI_VIDEO_FIFO_OVERFLOW);
+			if (rc < 0) {
+				pr_debug("%s: Target is in suspend/shutdown\n",
+					__func__);
+				return;
+			}
+		}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/*
 		 * Disable PHY contention detection and receive.
 		 * Configure the strength ctrl 1 register.
@@ -859,9 +876,21 @@ static void mdss_dsi_ctl_phy_reset(struct mdss_dsi_ctrl_pdata *ctrl, u32 event)
 		 */
 		udelay(200);
 	} else {
+<<<<<<< HEAD
 		if (ctrl->recovery)
 			ctrl->recovery->fxn(ctrl->recovery->data,
 					MDP_INTF_DSI_VIDEO_FIFO_OVERFLOW);
+=======
+		if (ctrl->recovery) {
+			rc = ctrl->recovery->fxn(ctrl->recovery->data,
+					MDP_INTF_DSI_VIDEO_FIFO_OVERFLOW);
+			if (rc < 0) {
+				pr_debug("%s: Target is in suspend/shutdown\n",
+					__func__);
+				return;
+			}
+		}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/* Disable PHY contention detection and receive */
 		MIPI_OUTP((ctrl->phy_io.base) + 0x0188, 0);
 
@@ -2075,8 +2104,13 @@ static int mdss_dsi_cmd_dma_tx(struct mdss_dsi_ctrl_pdata *ctrl,
 		status = reg_val & DSI_INTR_CMD_DMA_DONE;
 		if (status) {
 			reg_val &= DSI_INTR_MASK_ALL;
+<<<<<<< HEAD
 			/* clear CMD DMA isr only */
 			reg_val |= DSI_INTR_CMD_DMA_DONE;
+=======
+			/* clear CMD DMA and BTA_DONE isr only */
+			reg_val |= (DSI_INTR_CMD_DMA_DONE | DSI_INTR_BTA_DONE);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			MIPI_OUTP(ctrl->ctrl_base + 0x0110, reg_val);
 			mdss_dsi_disable_irq_nosync(ctrl, DSI_CMD_TERM);
 			complete(&ctrl->dma_comp);
@@ -2320,7 +2354,12 @@ void mdss_dsi_wait4video_done(struct mdss_dsi_ctrl_pdata *ctrl)
 
 	/* DSI_INTL_CTRL */
 	data = MIPI_INP((ctrl->ctrl_base) + 0x0110);
+<<<<<<< HEAD
 	data &= DSI_INTR_TOTAL_MASK;
+=======
+	/* clear previous VIDEO_DONE interrupt as well */
+	data &= (DSI_INTR_TOTAL_MASK | DSI_INTR_VIDEO_DONE);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	data |= DSI_INTR_VIDEO_DONE_MASK;
 
 	MIPI_OUTP((ctrl->ctrl_base) + 0x0110, data);
@@ -2781,7 +2820,11 @@ static int dsi_event_thread(void *data)
 	spin_lock_init(&ev->event_lock);
 
 	while (1) {
+<<<<<<< HEAD
 		wait_event_interruptible(ev->event_q, (ev->event_pndx != ev->event_gndx));
+=======
+		wait_event(ev->event_q, (ev->event_pndx != ev->event_gndx));
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		spin_lock_irqsave(&ev->event_lock, flag);
 		evq = &ev->todo_list[ev->event_gndx++];
 		todo = evq->todo;
@@ -2983,6 +3026,16 @@ static bool mdss_dsi_fifo_status(struct mdss_dsi_ctrl_pdata *ctrl)
 
 		pr_err("%s: status=%x\n", __func__, status);
 
+<<<<<<< HEAD
+=======
+		/*
+		 * if DSI FIFO overflow is masked,
+		 * do not report overflow error
+		 */
+		if (MIPI_INP(base + 0x10c) & 0xf0000)
+			status = status & 0xaaaaffff;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (status & 0x44440000) {/* DLNx_HS_FIFO_OVERFLOW */
 			dsi_send_events(ctrl, DSI_EV_DLNx_FIFO_OVERFLOW, 0);
 			/* Ignore FIFO EMPTY when overflow happens */
@@ -3061,7 +3114,11 @@ static void __dsi_error_counter(struct dsi_err_container *err_container)
 		pr_err("%s: panic in WQ as dsi error intrs within:%dms\n",
 				__func__, err_container->err_time_delta);
 		MDSS_XLOG_TOUT_HANDLER_WQ("mdp", "dsi0_ctrl", "dsi0_phy",
+<<<<<<< HEAD
 			"dsi1_ctrl", "dsi1_phy", "panic");
+=======
+			"dsi1_ctrl", "dsi1_phy");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 }
 

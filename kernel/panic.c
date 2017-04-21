@@ -3,11 +3,14 @@
  *
  *  Copyright (C) 1991, 1992  Linus Torvalds
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /*
  * This function is used through-out the kernel (including mm and fs)
@@ -29,7 +32,10 @@
 #include <linux/init.h>
 #include <linux/nmi.h>
 #include <linux/console.h>
+<<<<<<< HEAD
 #include <linux/crash_notes.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/exception.h>
@@ -133,9 +139,12 @@ void panic(const char *fmt, ...)
 	if (!crash_kexec_post_notifiers)
 		crash_kexec(NULL);
 
+<<<<<<< HEAD
 	/* Store crash context for all other no panic cpus */
 	crash_notes_save_cpus();
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * Note smp_send_stop is the usual smp shutdown function, which
 	 * unfortunately means it may not be hardened to work in a panic

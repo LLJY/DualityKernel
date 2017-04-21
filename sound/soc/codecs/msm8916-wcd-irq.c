@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015,2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -210,6 +214,7 @@ static int get_irq_bit(int linux_irq)
 	return i;
 }
 
+<<<<<<< HEAD
 static int get_order_irq(int  i)
 {
 	return order[i];
@@ -218,6 +223,11 @@ static int get_order_irq(int  i)
 static irqreturn_t wcd9xxx_spmi_irq_handler(int linux_irq, void *data)
 {
 	int irq, i, j;
+=======
+static irqreturn_t wcd9xxx_spmi_irq_handler(int linux_irq, void *data)
+{
+	int irq, i;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	unsigned long status[NUM_IRQ_REGS] = {0};
 
 	if (unlikely(wcd9xxx_spmi_lock_sleep() == false)) {
@@ -236,6 +246,7 @@ static irqreturn_t wcd9xxx_spmi_irq_handler(int linux_irq, void *data)
 			MSM8X16_WCD_A_DIGITAL_INT_LATCHED_STS);
 		status[i] &= ~map.mask[i];
 	}
+<<<<<<< HEAD
 	for (i = 0; i < MAX_NUM_IRQS; i++) {
 		j = get_order_irq(i);
 		if ((status[BIT_BYTE(j)] & BYTE_BIT_MASK(j)) &&
@@ -246,6 +257,10 @@ static irqreturn_t wcd9xxx_spmi_irq_handler(int linux_irq, void *data)
 					BYTE_BIT_MASK(j);
 		}
 	}
+=======
+
+	map.handler[irq](irq, data);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	map.handled[BIT_BYTE(irq)] &= ~BYTE_BIT_MASK(irq);
 	wcd9xxx_spmi_unlock_sleep();
 

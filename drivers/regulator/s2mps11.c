@@ -302,7 +302,11 @@ static struct regulator_ops s2mps11_buck_ops = {
 	.enable_mask	= S2MPS11_ENABLE_MASK			\
 }
 
+<<<<<<< HEAD
 #define regulator_desc_s2mps11_buck67810(num, min, step) {	\
+=======
+#define regulator_desc_s2mps11_buck6_10(num, min, step) {	\
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.name		= "BUCK"#num,				\
 	.id		= S2MPS11_BUCK##num,			\
 	.ops		= &s2mps11_buck_ops,			\
@@ -318,6 +322,7 @@ static struct regulator_ops s2mps11_buck_ops = {
 	.enable_mask	= S2MPS11_ENABLE_MASK			\
 }
 
+<<<<<<< HEAD
 #define regulator_desc_s2mps11_buck9 {				\
 	.name		= "BUCK9",				\
 	.id		= S2MPS11_BUCK9,			\
@@ -334,6 +339,8 @@ static struct regulator_ops s2mps11_buck_ops = {
 	.enable_mask	= S2MPS11_ENABLE_MASK			\
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static const struct regulator_desc s2mps11_regulators[] = {
 	regulator_desc_s2mps11_ldo(1, STEP_25_MV),
 	regulator_desc_s2mps11_ldo(2, STEP_50_MV),
@@ -378,11 +385,19 @@ static const struct regulator_desc s2mps11_regulators[] = {
 	regulator_desc_s2mps11_buck1_4(3),
 	regulator_desc_s2mps11_buck1_4(4),
 	regulator_desc_s2mps11_buck5,
+<<<<<<< HEAD
 	regulator_desc_s2mps11_buck67810(6, MIN_600_MV, STEP_6_25_MV),
 	regulator_desc_s2mps11_buck67810(7, MIN_600_MV, STEP_6_25_MV),
 	regulator_desc_s2mps11_buck67810(8, MIN_600_MV, STEP_6_25_MV),
 	regulator_desc_s2mps11_buck9,
 	regulator_desc_s2mps11_buck67810(10, MIN_750_MV, STEP_12_5_MV),
+=======
+	regulator_desc_s2mps11_buck6_10(6, MIN_600_MV, STEP_6_25_MV),
+	regulator_desc_s2mps11_buck6_10(7, MIN_600_MV, STEP_6_25_MV),
+	regulator_desc_s2mps11_buck6_10(8, MIN_600_MV, STEP_6_25_MV),
+	regulator_desc_s2mps11_buck6_10(9, MIN_3000_MV, STEP_25_MV),
+	regulator_desc_s2mps11_buck6_10(10, MIN_750_MV, STEP_12_5_MV),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static int s2mps14_regulator_enable(struct regulator_dev *rdev)

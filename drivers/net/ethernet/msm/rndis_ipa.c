@@ -135,6 +135,7 @@ enum rndis_ipa_operation {
 	RNDIS_IPA_DEBUG("Driver state: %s\n",\
 	rndis_ipa_state_string(ctx->state));
 
+<<<<<<< HEAD
 /**
  * struct rndis_loopback_pipe - hold all information needed for
  *  pipe loopback logic
@@ -158,6 +159,8 @@ struct rndis_loopback_pipe {
 	ipa_notify_cb ipa_callback;
 	struct ipa_ep_cfg *ipa_ep_cfg;
 };
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /**
  * struct rndis_ipa_dev - main driver context parameters
@@ -172,6 +175,7 @@ struct rndis_loopback_pipe {
  * @rx_dump_enable: dump all Rx packets
  * @icmp_filter: allow all ICMP packet to pass through the filters
  * @rm_enable: flag that enable/disable Resource manager request prior to Tx
+<<<<<<< HEAD
  * @loopback_enable:  flag that enable/disable USB stub loopback
  * @deaggregation_enable: enable/disable IPA HW deaggregation logic
  * @during_xmit_error: flags that indicate that the driver is in a middle
@@ -179,6 +183,11 @@ struct rndis_loopback_pipe {
  * @usb_to_ipa_loopback_pipe: usb to ipa (Rx) pipe representation for loopback
  * @ipa_to_usb_loopback_pipe: ipa to usb (Tx) pipe representation for loopback
  * @bam_dma_hdl: handle representing bam-dma, used for loopback logic
+=======
+ * @deaggregation_enable: enable/disable IPA HW deaggregation logic
+ * @during_xmit_error: flags that indicate that the driver is in a middle
+ *  of error handling in Tx path
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * @directory: holds all debug flags used by the driver to allow cleanup
  *  for driver unload
  * @eth_ipv4_hdr_hdl: saved handle for ipv4 header-insertion table
@@ -209,12 +218,17 @@ struct rndis_ipa_dev {
 	u32 rx_dump_enable;
 	u32 icmp_filter;
 	u32 rm_enable;
+<<<<<<< HEAD
 	bool loopback_enable;
 	u32 deaggregation_enable;
 	u32 during_xmit_error;
 	struct rndis_loopback_pipe usb_to_ipa_loopback_pipe;
 	struct rndis_loopback_pipe ipa_to_usb_loopback_pipe;
 	u32 bam_dma_hdl;
+=======
+	u32 deaggregation_enable;
+	u32 during_xmit_error;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct dentry *directory;
 	uint32_t eth_ipv4_hdr_hdl;
 	uint32_t eth_ipv6_hdr_hdl;
@@ -279,6 +293,7 @@ static int resource_request(struct rndis_ipa_dev *rndis_ipa_ctx);
 static void resource_release(struct rndis_ipa_dev *rndis_ipa_ctx);
 static netdev_tx_t rndis_ipa_start_xmit(struct sk_buff *skb,
 					struct net_device *net);
+<<<<<<< HEAD
 static int rndis_ipa_loopback_pipe_create(
 		struct rndis_ipa_dev *rndis_ipa_ctx,
 		struct rndis_loopback_pipe *loopback_pipe);
@@ -290,12 +305,15 @@ static int rndis_ipa_setup_loopback(bool enable,
 		struct rndis_ipa_dev *rndis_ipa_ctx);
 static int rndis_ipa_debugfs_loopback_open(struct inode *inode,
 		struct file *file);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int rndis_ipa_debugfs_atomic_open(struct inode *inode,
 		struct file *file);
 static int rndis_ipa_debugfs_aggr_open(struct inode *inode,
 		struct file *file);
 static ssize_t rndis_ipa_debugfs_aggr_write(struct file *file,
 		const char __user *buf, size_t count, loff_t *ppos);
+<<<<<<< HEAD
 static ssize_t rndis_ipa_debugfs_loopback_write(struct file *file,
 		const char __user *buf, size_t count, loff_t *ppos);
 static ssize_t rndis_ipa_debugfs_enable_write(struct file *file,
@@ -308,6 +326,12 @@ static ssize_t rndis_ipa_debugfs_atomic_read(struct file *file,
 		char __user *ubuf, size_t count, loff_t *ppos);
 static void rndis_ipa_dump_skb(struct sk_buff *skb);
 static int rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx);
+=======
+static ssize_t rndis_ipa_debugfs_atomic_read(struct file *file,
+		char __user *ubuf, size_t count, loff_t *ppos);
+static void rndis_ipa_dump_skb(struct sk_buff *skb);
+static void rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void rndis_ipa_debugfs_destroy(struct rndis_ipa_dev *rndis_ipa_ctx);
 static int rndis_ipa_ep_registers_cfg(u32 usb_to_ipa_hdl,
 		u32 ipa_to_usb_hdl, u32 max_xfer_size_bytes_to_dev,
@@ -338,12 +362,15 @@ const struct file_operations rndis_ipa_debugfs_atomic_ops = {
 	.read = rndis_ipa_debugfs_atomic_read,
 };
 
+<<<<<<< HEAD
 const struct file_operations rndis_ipa_loopback_ops = {
 		.open = rndis_ipa_debugfs_loopback_open,
 		.read = rndis_ipa_debugfs_loopback_read,
 		.write = rndis_ipa_debugfs_loopback_write,
 };
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 const struct file_operations rndis_ipa_aggr_ops = {
 		.open = rndis_ipa_debugfs_aggr_open,
 		.write = rndis_ipa_debugfs_aggr_write,
@@ -602,10 +629,14 @@ int rndis_ipa_init(struct ipa_usb_init_params *params)
 	RNDIS_IPA_DEBUG("Needed headroom for RNDIS header set to %d\n",
 		net->needed_headroom);
 
+<<<<<<< HEAD
 	result = rndis_ipa_debugfs_init(rndis_ipa_ctx);
 	if (result)
 		goto fail_debugfs;
 	RNDIS_IPA_DEBUG("debugfs entries were created\n");
+=======
+	rndis_ipa_debugfs_init(rndis_ipa_ctx);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	result = rndis_ipa_set_device_ethernet_addr(net->dev_addr,
 			rndis_ipa_ctx->device_ethaddr);
@@ -662,7 +693,10 @@ fail_register_tx:
 fail_set_device_ethernet:
 fail_hdrs_cfg:
 	rndis_ipa_debugfs_destroy(rndis_ipa_ctx);
+<<<<<<< HEAD
 fail_debugfs:
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 fail_netdev_priv:
 	free_netdev(net);
 fail_alloc_etherdev:
@@ -2182,10 +2216,18 @@ static void rndis_ipa_dump_skb(struct sk_buff *skb)
 		skb->len);
 }
 
+<<<<<<< HEAD
 /**
  * Creates the root folder for the driver
  */
 static int rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx)
+=======
+#ifdef CONFIG_DEBUG_FS
+/**
+ * Creates the root folder for the driver
+ */
+static void rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	const mode_t flags_read_write = S_IRUGO | S_IWUGO;
 	const mode_t flags_read_only = S_IRUGO;
@@ -2196,7 +2238,11 @@ static int rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx)
 	RNDIS_IPA_LOG_ENTRY();
 
 	if (!rndis_ipa_ctx)
+<<<<<<< HEAD
 		return -EINVAL;
+=======
+		return;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	rndis_ipa_ctx->directory = debugfs_create_dir(DEBUGFS_DIR_NAME, NULL);
 	if (!rndis_ipa_ctx->directory) {
@@ -2256,6 +2302,7 @@ static int rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx)
 		goto fail_file;
 	}
 
+<<<<<<< HEAD
 	file = debugfs_create_file("loopback_enable", flags_read_write,
 				rndis_ipa_ctx->directory,
 				rndis_ipa_ctx, &rndis_ipa_loopback_ops);
@@ -2264,6 +2311,8 @@ static int rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx)
 		goto fail_file;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	file = debugfs_create_u8("state", flags_read_only,
 			rndis_ipa_ctx->directory, (u8 *)&rndis_ipa_ctx->state);
 	if (!file) {
@@ -2378,6 +2427,7 @@ static int rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx)
 		goto fail_file;
 	}
 
+<<<<<<< HEAD
 	RNDIS_IPA_LOG_EXIT();
 
 	return 0;
@@ -2385,6 +2435,16 @@ fail_file:
 	debugfs_remove_recursive(rndis_ipa_ctx->directory);
 fail_directory:
 	return -EFAULT;
+=======
+	RNDIS_IPA_DEBUG("debugfs entries were created\n");
+	RNDIS_IPA_LOG_EXIT();
+
+	return;
+fail_file:
+	debugfs_remove_recursive(rndis_ipa_ctx->directory);
+fail_directory:
+	return;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void rndis_ipa_debugfs_destroy(struct rndis_ipa_dev *rndis_ipa_ctx)
@@ -2392,6 +2452,16 @@ static void rndis_ipa_debugfs_destroy(struct rndis_ipa_dev *rndis_ipa_ctx)
 	debugfs_remove_recursive(rndis_ipa_ctx->directory);
 }
 
+<<<<<<< HEAD
+=======
+#else /* !CONFIG_DEBUG_FS */
+
+static void rndis_ipa_debugfs_init(struct rndis_ipa_dev *rndis_ipa_ctx) {}
+
+static void rndis_ipa_debugfs_destroy(struct rndis_ipa_dev *rndis_ipa_ctx) {}
+
+#endif /* CONFIG_DEBUG_FS*/
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int rndis_ipa_debugfs_aggr_open(struct inode *inode,
 		struct file *file)
@@ -2419,6 +2489,7 @@ static ssize_t rndis_ipa_debugfs_aggr_write(struct file *file,
 	return count;
 }
 
+<<<<<<< HEAD
 static int rndis_ipa_debugfs_loopback_open(struct inode *inode,
 		struct file *file)
 {
@@ -2472,6 +2543,8 @@ static ssize_t rndis_ipa_debugfs_loopback_write(struct file *file,
 	return cnt;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int rndis_ipa_debugfs_atomic_open(struct inode *inode, struct file *file)
 {
 	struct rndis_ipa_dev *rndis_ipa_ctx = inode->i_private;
@@ -2502,6 +2575,7 @@ static ssize_t rndis_ipa_debugfs_atomic_read(struct file *file,
 	return simple_read_from_buffer(ubuf, count, ppos, atomic_str, nbytes);
 }
 
+<<<<<<< HEAD
 static ssize_t rndis_ipa_debugfs_enable_read(struct file *file,
 		char __user *ubuf, size_t count, loff_t *ppos)
 {
@@ -2815,6 +2889,8 @@ static int rndis_ipa_setup_loopback(bool enable,
 
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int rndis_ipa_init_module(void)
 {
 	pr_info("RNDIS_IPA module is loaded.");

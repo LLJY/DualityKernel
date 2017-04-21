@@ -26,6 +26,11 @@
 
 #include <linux/mmc/host.h>
 #include <linux/mmc/card.h>
+<<<<<<< HEAD
+=======
+#include <linux/mmc/ring_buffer.h>
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/mmc/slot-gpio.h>
 
 #include "core.h"
@@ -787,6 +792,10 @@ int mmc_add_host(struct mmc_host *host)
 	mmc_add_host_debugfs(host);
 #endif
 	mmc_host_clk_sysfs_init(host);
+<<<<<<< HEAD
+=======
+	mmc_trace_init(host);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	err = sysfs_create_group(&host->class_dev.kobj, &clk_scaling_attr_grp);
 	if (err)

@@ -5841,6 +5841,14 @@ static int tsens_thermal_zone_register(struct tsens_tm_device *tmdev)
 	const struct of_device_id *id;
 	struct device_node *of_node;
 
+<<<<<<< HEAD
+=======
+	if (tmdev == NULL) {
+		pr_err("Invalid tsens instance\n");
+		return -EINVAL;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	of_node = tmdev->pdev->dev.of_node;
 	if (of_node == NULL) {
 		pr_err("Invalid of_node??\n");
@@ -5858,11 +5866,14 @@ static int tsens_thermal_zone_register(struct tsens_tm_device *tmdev)
 		return -ENODEV;
 	}
 
+<<<<<<< HEAD
 	if (tmdev == NULL) {
 		pr_err("Invalid tsens instance\n");
 		return -EINVAL;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	for (i = 0; i < tmdev->tsens_num_sensor; i++) {
 		char name[18];
 		if ((!strcmp(id->compatible, "qcom,mdm9640-tsens")) ||

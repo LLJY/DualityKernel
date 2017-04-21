@@ -199,7 +199,11 @@
 #define unreachable() __builtin_unreachable()
 
 /* Mark a function definition as prohibited from being cloned. */
+<<<<<<< HEAD
 #define __noclone	__attribute__((__noclone__, __optimize__("no-tracer")))
+=======
+#define __noclone	__attribute__((__noclone__))
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #endif /* GCC_VERSION >= 40500 */
 

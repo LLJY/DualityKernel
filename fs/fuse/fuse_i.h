@@ -5,11 +5,14 @@
   This program can be distributed under the terms of the GNU GPL.
   See the file COPYING.
 */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef _FS_FUSE_I_H
 #define _FS_FUSE_I_H
@@ -49,11 +52,14 @@
     doing the mount will be allowed to access the filesystem */
 #define FUSE_ALLOW_OTHER         (1 << 1)
 
+<<<<<<< HEAD
 /** If the FUSE_ALLOW_UTIME_GRP flag is given, then call to utime() is
     allowed for the current process if it's in the same group as the
     file and if the file's group is writeable */
 #define FUSE_ALLOW_UTIME_GRP     (1 << 2)
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /** Number of page pointers embedded in fuse_req */
 #define FUSE_REQ_INLINE_PAGES 1
 

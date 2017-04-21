@@ -27,6 +27,7 @@ TRACE_EVENT(oom_score_adj_update,
 		__entry->pid, __entry->comm, __entry->oom_score_adj)
 );
 
+<<<<<<< HEAD
 DECLARE_EVENT_CLASS(oom_kill,
 	TP_PROTO(int pid,
 		 const char *comm,
@@ -70,6 +71,8 @@ DEFINE_EVENT(oom_kill, oom_sigkill,
 
 
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 
 /* This part must be outside protection */

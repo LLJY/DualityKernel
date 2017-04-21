@@ -50,6 +50,7 @@ static const char *handler[]= {
 };
 
 int show_unhandled_signals = 1;
+<<<<<<< HEAD
 unsigned int user_debug;
 
 static int __init user_debug_setup(char *str)
@@ -58,6 +59,8 @@ static int __init user_debug_setup(char *str)
 	return 1;
 }
 __setup("user_debug=", user_debug_setup);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /*
  * Dump out the contents of some memory nicely...
@@ -395,7 +398,12 @@ asmlinkage void __exception do_undefinstr(struct pt_regs *regs)
 
 	trace_undef_instr(regs, (void *)pc);
 
+<<<<<<< HEAD
 	if (user_mode(regs) && print_user_debug(SIGILL, UDBG_UNDEFINED)) {
+=======
+	if (user_mode(regs) && show_unhandled_signals &&
+		unhandled_signal(current, SIGILL) && printk_ratelimit()) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pr_info("%s[%d]: undefined instruction: pc=%p\n",
 			current->comm, task_pid_nr(current), pc);
 		dump_instr(KERN_INFO, regs);
@@ -422,7 +430,11 @@ asmlinkage long do_ni_syscall(struct pt_regs *regs)
 	}
 #endif
 
+<<<<<<< HEAD
 	if (print_user_debug(0, UDBG_SYSCALL)) {
+=======
+	if (show_unhandled_signals && printk_ratelimit()) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pr_info("%s[%d]: syscall %d\n", current->comm,
 			task_pid_nr(current), (int)regs->syscallno);
 		dump_instr("", regs);

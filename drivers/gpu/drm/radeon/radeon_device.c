@@ -103,6 +103,15 @@ static const char radeon_family_name[][16] = {
 	"LAST",
 };
 
+<<<<<<< HEAD
+=======
+#if defined(CONFIG_VGA_SWITCHEROO)
+bool radeon_has_atpx_dgpu_power_cntl(void);
+#else
+static inline bool radeon_has_atpx_dgpu_power_cntl(void) { return false; }
+#endif
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define RADEON_PX_QUIRK_DISABLE_PX  (1 << 0)
 #define RADEON_PX_QUIRK_LONG_WAKEUP (1 << 1)
 
@@ -1395,7 +1404,11 @@ int radeon_device_init(struct radeon_device *rdev,
 	 * ignore it */
 	vga_client_register(rdev->pdev, rdev, NULL, radeon_vga_set_decode);
 
+<<<<<<< HEAD
 	if (rdev->flags & RADEON_IS_PX)
+=======
+	if ((rdev->flags & RADEON_IS_PX) && radeon_has_atpx_dgpu_power_cntl())
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		runtime = true;
 	vga_switcheroo_register_client(rdev->pdev, &radeon_switcheroo_ops, runtime);
 	if (runtime)

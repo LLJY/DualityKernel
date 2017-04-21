@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2014-2016, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -10,11 +14,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -68,6 +75,11 @@
 #define FREEZIO_N			BIT(1)
 #define POWER_DOWN			BIT(0)
 
+<<<<<<< HEAD
+=======
+#define QUSB2PHY_PORT_TEST_CTRL		0xB8
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define QUSB2PHY_PORT_UTMI_CTRL1	0xC0
 #define SUSPEND_N			BIT(5)
 #define TERM_SELECT			BIT(4)
@@ -85,7 +97,10 @@
 #define QUSB2PHY_PORT_TUNE2             0x84
 #define QUSB2PHY_PORT_TUNE3             0x88
 #define QUSB2PHY_PORT_TUNE4             0x8C
+<<<<<<< HEAD
 #define QUSB2PHY_PORT_TUNE5             0x90
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* In case Efuse register shows zero, use this value */
 #define TUNE2_DEFAULT_HIGH_NIBBLE	0xB
@@ -119,6 +134,7 @@
 
 #define QUSB2PHY_REFCLK_ENABLE		BIT(0)
 
+<<<<<<< HEAD
 #define USB_PHY_HSTRIM_OFFSET		0xc0		/* TUNE1 7:6 */
 #define USB_PHY_UTM_SQ0_TRIM		0x38		/* TUNE1 5:3 */
 #define USB_PHY_UTM_HSTX_TRIM		0xF0		/* TUNE2 7:4 */
@@ -148,6 +164,11 @@ MODULE_PARM_DESC(tune2, "QUSB PHY TUNE2");
 MODULE_PARM_DESC(tune3, "QUSB PHY TUNE3");
 MODULE_PARM_DESC(tune4, "QUSB PHY TUNE4");
 MODULE_PARM_DESC(tune5, "QUSB PHY TUNE5");
+=======
+unsigned int tune2;
+module_param(tune2, uint, S_IRUGO | S_IWUSR);
+MODULE_PARM_DESC(tune2, "QUSB PHY TUNE2");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 struct qusb_phy {
 	struct usb_phy		phy;
@@ -156,6 +177,10 @@ struct qusb_phy {
 	void __iomem		*tune2_efuse_reg;
 	void __iomem		*ref_clk_base;
 	void __iomem		*tcsr_phy_clk_scheme_sel;
+<<<<<<< HEAD
+=======
+	void __iomem		*tcsr_phy_lvl_shift_keeper;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	struct clk		*ref_clk_src;
 	struct clk		*ref_clk;
@@ -176,7 +201,10 @@ struct qusb_phy {
 	int			tune2_efuse_bit_pos;
 	int			tune2_efuse_num_of_bits;
 	int			tune2_efuse_correction;
+<<<<<<< HEAD
 	u32			tune2_offset;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	bool			vdd_enabled;
 	bool			power_enabled;
@@ -435,6 +463,7 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 	case POWER_SUPPLY_DP_DM_DPF_DMF:
 		dev_dbg(phy->dev, "POWER_SUPPLY_DP_DM_DPF_DMF\n");
 		if (!qphy->rm_pulldown) {
+<<<<<<< HEAD
 
 			if (qphy->put_into_high_z_state) {
 
@@ -442,6 +471,20 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 				ret = qusb_phy_vdd(qphy, true);
 				if (ret < 0)
 					goto clk_error;
+=======
+			ret = qusb_phy_enable_power(qphy, true);
+			if (ret >= 0) {
+				qphy->rm_pulldown = true;
+				dev_dbg(phy->dev, "DP_DM_F: rm_pulldown:%d\n",
+						qphy->rm_pulldown);
+			}
+
+			if (qphy->put_into_high_z_state) {
+				if (qphy->tcsr_phy_lvl_shift_keeper)
+					writel_relaxed(0x1,
+					       qphy->tcsr_phy_lvl_shift_keeper);
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				qusb_phy_gdsc(qphy, true);
 				qusb_phy_enable_clocks(qphy, true);
 
@@ -471,6 +514,7 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 					qphy->base + QUSB2PHY_PORT_POWERDOWN);
 				/* Make sure that above write is completed */
 				wmb();
+<<<<<<< HEAD
 			}
 
 			ret = qusb_phy_enable_power(qphy, true);
@@ -481,6 +525,9 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 			}
 
 			if (qphy->put_into_high_z_state) {
+=======
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				qusb_phy_enable_clocks(qphy, false);
 				qusb_phy_gdsc(qphy, false);
 			}
@@ -522,6 +569,12 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 			}
 
 			if (!qphy->cable_connected) {
+<<<<<<< HEAD
+=======
+				if (qphy->tcsr_phy_lvl_shift_keeper)
+					writel_relaxed(0x0,
+					       qphy->tcsr_phy_lvl_shift_keeper);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				dev_dbg(phy->dev, "turn off for HVDCP case\n");
 				ret = qusb_phy_enable_power(qphy, false);
 			}
@@ -659,6 +712,7 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 		usleep_range(2000, 3000);
 		clk_disable_unprepare(qphy->cfg_ahb_clk);
 		break;
+<<<<<<< HEAD
 	case POWER_SUPPLY_DP_DM_DP3P3_DM3P3:
 		ret = clk_prepare_enable(qphy->cfg_ahb_clk);
 		if (ret)
@@ -673,6 +727,8 @@ static int qusb_phy_update_dpdm(struct usb_phy *phy, int value)
 		mb();
 		clk_disable_unprepare(qphy->cfg_ahb_clk);
 		break;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		ret = -EINVAL;
 		dev_err(phy->dev, "Invalid power supply property(%d)\n", value);
@@ -725,8 +781,11 @@ static void qusb_phy_get_tune2_param(struct qusb_phy *qphy)
 	if (!qphy->tune2_val)
 		qphy->tune2_val = TUNE2_DEFAULT_HIGH_NIBBLE;
 
+<<<<<<< HEAD
 	qphy->tune2_val += qphy->tune2_offset;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Get TUNE2 byte value using high and low nibble value */
 	qphy->tune2_val = ((qphy->tune2_val << 0x4) |
 					TUNE2_DEFAULT_LOW_NIBBLE);
@@ -746,6 +805,7 @@ static void qusb_phy_write_seq(void __iomem *base, u32 *seq, int cnt,
 	}
 }
 
+<<<<<<< HEAD
 static inline u32 msm_usb_read_reg_field(void *base, u32 offset, const u32 mask)
 {
 	u32 shift = find_first_bit((void *)&mask, 32);
@@ -816,6 +876,8 @@ static void msm_qphy_param_output(struct usb_phy *phy)
 					QUSB2PHY_PORT_TUNE5, USB_PHY_HS_DISCON_TRIM));
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int qusb_phy_init(struct usb_phy *phy)
 {
 	struct qusb_phy *qphy = container_of(phy, struct qusb_phy, phy);
@@ -906,6 +968,7 @@ static int qusb_phy_init(struct usb_phy *phy)
 				qphy->base + QUSB2PHY_PORT_TUNE2);
 	}
 
+<<<<<<< HEAD
 	/* If tune1 modparam set, override tune1 value */
 	if (tune1) {
 		pr_debug("%s(): (modparam) TUNE1 val:0x%02x\n",
@@ -914,6 +977,8 @@ static int qusb_phy_init(struct usb_phy *phy)
 				qphy->base + QUSB2PHY_PORT_TUNE1);
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* If tune2 modparam set, override tune2 value */
 	if (tune2) {
 		pr_debug("%s(): (modparam) TUNE2 val:0x%02x\n",
@@ -922,6 +987,7 @@ static int qusb_phy_init(struct usb_phy *phy)
 				qphy->base + QUSB2PHY_PORT_TUNE2);
 	}
 
+<<<<<<< HEAD
 	/* If tune3 modparam set, override tune3 value */
 	if (tune3) {
 		pr_debug("%s(): (modparam) TUNE3 val:0x%02x\n",
@@ -947,6 +1013,8 @@ static int qusb_phy_init(struct usb_phy *phy)
 	}
 	msm_qphy_param_output(phy);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* ensure above writes are completed before re-enabling PHY */
 	wmb();
 
@@ -1144,6 +1212,24 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 			writel_relaxed(intr_mask,
 				qphy->base + QUSB2PHY_PORT_INTR_CTRL);
 
+<<<<<<< HEAD
+=======
+			/* enable phy auto-resume */
+			writel_relaxed(0x0C,
+					qphy->base + QUSB2PHY_PORT_TEST_CTRL);
+			/* flush the previous write before next write */
+			wmb();
+			writel_relaxed(0x04,
+				qphy->base + QUSB2PHY_PORT_TEST_CTRL);
+
+
+			dev_dbg(phy->dev, "%s: intr_mask = %x\n",
+			__func__, intr_mask);
+
+			/* Makes sure that above write goes through */
+			wmb();
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			qusb_phy_enable_clocks(qphy, false);
 		} else { /* Disconnect case */
 			/* Disable all interrupts */
@@ -1154,7 +1240,19 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 			wmb();
 
 			qusb_phy_enable_clocks(qphy, false);
+<<<<<<< HEAD
 			qusb_phy_enable_power(qphy, false);
+=======
+			if (qphy->tcsr_phy_lvl_shift_keeper)
+				writel_relaxed(0x0,
+					qphy->tcsr_phy_lvl_shift_keeper);
+			/* Do not disable power rails if there is vote for it */
+			if (!qphy->rm_pulldown)
+				qusb_phy_enable_power(qphy, false);
+			else
+				dev_dbg(phy->dev, "race with rm_pulldown. Keep ldo ON\n");
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			/*
 			 * Set put_into_high_z_state to true so next USB
 			 * cable connect, DPF_DMF request performs PHY
@@ -1175,6 +1273,12 @@ static int qusb_phy_set_suspend(struct usb_phy *phy, int suspend)
 				qphy->base + QUSB2PHY_PORT_INTR_CTRL);
 		} else {
 			qusb_phy_enable_power(qphy, true);
+<<<<<<< HEAD
+=======
+			if (qphy->tcsr_phy_lvl_shift_keeper)
+				writel_relaxed(0x1,
+					qphy->tcsr_phy_lvl_shift_keeper);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			qusb_phy_enable_clocks(qphy, true);
 		}
 		qphy->suspended = false;
@@ -1304,12 +1408,15 @@ static int qusb_phy_probe(struct platform_device *pdev)
 						"qcom,tune2-efuse-correction",
 						&qphy->tune2_efuse_correction);
 
+<<<<<<< HEAD
 			if (!ret) {
 				ret = of_property_read_u32(dev->of_node,
 						"qcom,tune2-offset",
 						&qphy->tune2_offset);
 			}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			if (ret) {
 				dev_err(dev, "DT Value for tune2 efuse is invalid.\n");
 				return -EINVAL;
@@ -1335,6 +1442,20 @@ static int qusb_phy_probe(struct platform_device *pdev)
 			dev_dbg(dev, "err reading tcsr_phy_clk_scheme_sel\n");
 	}
 
+<<<<<<< HEAD
+=======
+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM,
+			"tcsr_phy_level_shift_keeper");
+	if (res) {
+		qphy->tcsr_phy_lvl_shift_keeper = devm_ioremap_nocache(dev,
+				res->start, resource_size(res));
+		if (IS_ERR(qphy->tcsr_phy_lvl_shift_keeper)) {
+			dev_err(dev, "err reading tcsr_phy_lvl_shift_keeper\n");
+			qphy->tcsr_phy_lvl_shift_keeper = NULL;
+		}
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	qphy->dpdm_pulsing_enabled = of_property_read_bool(dev->of_node,
 					"qcom,enable-dpdm-pulsing");
 

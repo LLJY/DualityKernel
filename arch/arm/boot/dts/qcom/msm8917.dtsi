@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -64,10 +68,23 @@
 			reg = <0x0 0x86800000 0x0 0x5000000>;
 		};
 
+<<<<<<< HEAD
 		reloc_mem: reloc_region@0 {
 			compatible = "removed-dma-pool";
 			no-map;
 			reg = <0x0 0x8b800000 0x0 0x1800000>;
+=======
+		adsp_fw_mem: adsp_fw_region@0 {
+			compatible = "removed-dma-pool";
+			no-map;
+			reg = <0x0 0x8b800000 0x0 0x1100000>;
+		};
+
+		wcnss_fw_mem: wcnss_fw_region@0 {
+			compatible = "removed-dma-pool";
+			no-map;
+			reg = <0x0 0x8c900000 0x0 0x700000>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		};
 
 		venus_mem: venus_region@0 {
@@ -83,7 +100,10 @@
 			reusable;
 			alignment = <0 0x400000>;
 			size = <0 0x7000000>;
+<<<<<<< HEAD
 			status = "disabled";
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		};
 
 		qseecom_mem: qseecom_region@0 {
@@ -834,7 +854,12 @@
 			<  2929 /*  384   MHz */ >,
 			<  4248 /*  556.8 MHz */ >,	/*SVS+*/
 			<  4541 /*  595.2 MHz */ >,	/*NOM*/
+<<<<<<< HEAD
 			<  5126 /*  672   MHz */ >;	/*TURBO*/
+=======
+			<  5126 /*  672   MHz */ >,	/*NOM+*/
+			<  5645 /*  740   MHz */ >;	/*TURBO*/
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	mincpubw: qcom,mincpubw {
@@ -849,7 +874,12 @@
 			<  2929 /*  384   MHz */ >,
 			<  4248 /*  556.8 MHz */ >,
 			<  4541 /*  595.2 MHz */ >,
+<<<<<<< HEAD
 			<  5126 /*  672   MHz */ >;
+=======
+			<  5126 /*  672   MHz */ >,
+			<  5645 /*  740   MHz */ >;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	qcom,cpu-bwmon {
@@ -867,7 +897,11 @@
 		cpu-to-dev-map =
 			<  998400  4248 >,
 			< 1094400  4541 >,
+<<<<<<< HEAD
 			< 1497600  5126 >;
+=======
+			< 1497600  5645 >;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		};
 
 		mincpubw-cpufreq {
@@ -908,7 +942,11 @@
 			label = "modem";
 		};
 
+<<<<<<< HEAD
 		qcom,client_3 {
+=======
+		mem_client_3_size: qcom,client_3 {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			compatible = "qcom,memshare-peripheral";
 			qcom,peripheral-size = <0x0>;
 			qcom,client-id = <1>;
@@ -1389,12 +1427,21 @@
 		qcom,devfreq,freq-table = <50000000 200000000>;
 
 		qcom,pm-qos-irq-type = "affine_irq";
+<<<<<<< HEAD
 		qcom,pm-qos-irq-latency = <13 281>;
 
 		qcom,pm-qos-cpu-groups = <0x0f>;
 		qcom,pm-qos-cmdq-latency-us = <13 281>;
 
 		qcom,pm-qos-legacy-latency-us = <13 281>;
+=======
+		qcom,pm-qos-irq-latency = <13 651>;
+
+		qcom,pm-qos-cpu-groups = <0x0f>;
+		qcom,pm-qos-cmdq-latency-us = <13 651>;
+
+		qcom,pm-qos-legacy-latency-us = <13 651>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		qcom,msm-bus,name = "sdhc1";
 		qcom,msm-bus,num-cases = <9>;
@@ -1433,10 +1480,17 @@
 		qcom,large-address-bus;
 
 		qcom,pm-qos-irq-type = "affine_irq";
+<<<<<<< HEAD
 		qcom,pm-qos-irq-latency = <13 281>;
 
 		qcom,pm-qos-cpu-groups = <0x0f>;
 		qcom,pm-qos-legacy-latency-us = <13 281>;
+=======
+		qcom,pm-qos-irq-latency = <13 651>;
+
+		qcom,pm-qos-cpu-groups = <0x0f>;
+		qcom,pm-qos-legacy-latency-us = <13 651>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		qcom,msm-bus,name = "sdhc2";
 		qcom,msm-bus,num-cases = <8>;
@@ -1591,7 +1645,11 @@
 		/* GPIO output to lpass */
 		qcom,gpio-force-stop = <&smp2pgpio_ssr_smp2p_2_out 0 0>;
 
+<<<<<<< HEAD
 		memory-region = <&reloc_mem>;
+=======
+		memory-region = <&adsp_fw_mem>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	qcom,pronto@a21b000 {
@@ -1629,7 +1687,11 @@
 
 		/* GPIO output to wcnss */
 		qcom,gpio-force-stop = <&smp2pgpio_ssr_smp2p_4_out 0 0>;
+<<<<<<< HEAD
 		memory-region = <&reloc_mem>;
+=======
+		memory-region = <&wcnss_fw_mem>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	qcom,venus@1de0000 {

@@ -342,8 +342,13 @@ tracesys_next:
 	stw     %r21, -56(%r30)                 /* 6th argument */
 #endif
 
+<<<<<<< HEAD
 	comiclr,>>	__NR_Linux_syscalls, %r20, %r0
 	b,n	.Ltracesys_nosys
+=======
+	comiclr,>>=	__NR_Linux_syscalls, %r20, %r0
+	b,n	.Lsyscall_nosys
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	LDREGX  %r20(%r19), %r19
 
@@ -359,9 +364,12 @@ tracesys_next:
 	be      0(%sr7,%r19)
 	ldo	R%tracesys_exit(%r2),%r2
 
+<<<<<<< HEAD
 .Ltracesys_nosys:
 	ldo	-ENOSYS(%r0),%r28		/* set errno */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Do *not* call this function on the gateway page, because it
 	makes a direct call to syscall_trace. */
 	

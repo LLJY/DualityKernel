@@ -13,11 +13,14 @@ obj-$(CONFIG_MSM_VIDC_V4L2) := 	msm_v4l2_vidc.o \
 				venus_boot.o \
 				msm_vidc_dcvs.o
 
+<<<<<<< HEAD
 ifneq ($(TARGET_BUILD_VARIANT), user)
 CFLAGS_msm_vidc_common.o := \
 				-DSYSTEM_RESET_WITH_VENUS_CRASH
 endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 obj-$(CONFIG_MSM_VIDC_V4L2) += governors/
 
 obj-$(CONFIG_MSM_VIDC_VMEM) += vmem/

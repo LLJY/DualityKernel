@@ -94,7 +94,11 @@ static int ion_cma_allocate(struct ion_heap *heap, struct ion_buffer *buffer,
 
 	/* keep this for memory release */
 	buffer->priv_virt = info;
+<<<<<<< HEAD
 	dev_dbg(dev, "Allocate buffer %p\n", buffer);
+=======
+	dev_dbg(dev, "Allocate buffer %pK\n", buffer);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 
 err:
@@ -107,7 +111,11 @@ static void ion_cma_free(struct ion_buffer *buffer)
 	struct device *dev = buffer->heap->priv;
 	struct ion_cma_buffer_info *info = buffer->priv_virt;
 
+<<<<<<< HEAD
 	dev_dbg(dev, "Release buffer %p\n", buffer);
+=======
+	dev_dbg(dev, "Release buffer %pK\n", buffer);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* release memory */
 	dma_free_coherent(dev, buffer->size, info->cpu_addr, info->handle);
 	sg_free_table(info->table);
@@ -123,7 +131,11 @@ static int ion_cma_phys(struct ion_heap *heap, struct ion_buffer *buffer,
 	struct device *dev = heap->priv;
 	struct ion_cma_buffer_info *info = buffer->priv_virt;
 
+<<<<<<< HEAD
 	dev_dbg(dev, "Return buffer %p physical address %pa\n", buffer,
+=======
+	dev_dbg(dev, "Return buffer %pK physical address %pa\n", buffer,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		&info->handle);
 
 	*addr = info->handle;
@@ -274,11 +286,23 @@ static int ion_secure_cma_allocate(struct ion_heap *heap,
 
 	source_vm = VMID_HLOS;
 	dest_vm = get_secure_vmid(flags);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (dest_vm < 0) {
 		pr_err("%s: Failed to get secure vmid\n", __func__);
 		return -EINVAL;
 	}
+<<<<<<< HEAD
 	dest_perms = PERM_READ | PERM_WRITE;
+=======
+
+	if (dest_vm == VMID_CP_SEC_DISPLAY)
+		dest_perms = PERM_READ;
+	else
+		dest_perms = PERM_READ | PERM_WRITE;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	ret = ion_cma_allocate(heap, buffer, len, align, flags);
 	if (ret) {

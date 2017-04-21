@@ -2030,7 +2030,11 @@ static long mbim_ioctl(struct file *fp, unsigned cmd, unsigned long arg)
 		default:
 			ret = -ENODEV;
 			pr_err("unknown transport\n");
+<<<<<<< HEAD
 			break;
+=======
+			goto fail;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 
 		ret = copy_to_user((void __user *)arg, &info,
@@ -2046,6 +2050,10 @@ static long mbim_ioctl(struct file *fp, unsigned cmd, unsigned long arg)
 		ret = -EINVAL;
 	}
 
+<<<<<<< HEAD
+=======
+fail:
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mbim_unlock(&mbim->ioctl_excl);
 
 	return ret;

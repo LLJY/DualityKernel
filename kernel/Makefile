@@ -96,7 +96,10 @@ obj-$(CONFIG_CRASH_DUMP) += crash_dump.o
 obj-$(CONFIG_JUMP_LABEL) += jump_label.o
 obj-$(CONFIG_CONTEXT_TRACKING) += context_tracking.o
 obj-$(CONFIG_TORTURE_TEST) += torture.o
+<<<<<<< HEAD
 obj-$(CONFIG_CRASH_NOTES) += crash_notes.o
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 $(obj)/configs.o: $(obj)/config_data.h
 

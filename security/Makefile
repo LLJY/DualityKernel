@@ -9,7 +9,10 @@ subdir-$(CONFIG_SECURITY_TOMOYO)        += tomoyo
 subdir-$(CONFIG_SECURITY_APPARMOR)	+= apparmor
 subdir-$(CONFIG_SECURITY_YAMA)		+= yama
 subdir-$(CONFIG_ARCH_MSM)		+= pfe
+<<<<<<< HEAD
 subdir-$(CONFIG_SECURITY_SONY_RIC)	+= sony
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 # always enable default capabilities
 obj-y					+= commoncap.o
@@ -26,7 +29,10 @@ obj-$(CONFIG_SECURITY_TOMOYO)		+= tomoyo/
 obj-$(CONFIG_SECURITY_APPARMOR)		+= apparmor/
 obj-$(CONFIG_SECURITY_YAMA)		+= yama/
 obj-$(CONFIG_ARCH_MSM)		        += pfe/
+<<<<<<< HEAD
 obj-$(CONFIG_SECURITY_SONY_RIC)		+= sony/built-in.o
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 obj-$(CONFIG_CGROUP_DEVICE)		+= device_cgroup.o
 
 # Object integrity file lists

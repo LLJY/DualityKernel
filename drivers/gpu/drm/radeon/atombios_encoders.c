@@ -308,10 +308,13 @@ static bool radeon_atom_mode_fixup(struct drm_encoder *encoder,
 	    && (mode->crtc_vsync_start < (mode->crtc_vdisplay + 2)))
 		adjusted_mode->crtc_vsync_start = adjusted_mode->crtc_vdisplay + 2;
 
+<<<<<<< HEAD
 	/* vertical FP must be at least 1 */
 	if (mode->crtc_vsync_start == mode->crtc_vdisplay)
 		adjusted_mode->crtc_vsync_start++;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* get the native mode for scaling */
 	if (radeon_encoder->active_device & (ATOM_DEVICE_LCD_SUPPORT)) {
 		radeon_panel_mode_fixup(encoder, adjusted_mode);

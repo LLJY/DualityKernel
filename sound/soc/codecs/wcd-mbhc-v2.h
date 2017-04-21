@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef __WCD_MBHC_V2_H__
 #define __WCD_MBHC_V2_H__
 
@@ -26,7 +29,11 @@
 #define WCD_MBHC_DEF_BUTTONS 8
 #define WCD_MBHC_KEYCODE_NUM 8
 #define WCD_MBHC_USLEEP_RANGE_MARGIN_US 100
+<<<<<<< HEAD
 #define WCD_MBHC_THR_HS_MICB_MV  2450
+=======
+#define WCD_MBHC_THR_HS_MICB_MV  2700
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* z value defined in Ohms */
 #define WCD_MONO_HS_MIN_THR	2
 #define WCD_MBHC_STRINGIFY(s)  __stringify(s)
@@ -83,7 +90,10 @@ enum wcd_mbhc_plug_type {
 	MBHC_PLUG_TYPE_HIGH_HPH,
 	MBHC_PLUG_TYPE_GND_MIC_SWAP,
 	MBHC_PLUG_TYPE_ANC_HEADPHONE,
+<<<<<<< HEAD
 	MBHC_PLUG_TYPE_STEREO_MICROPHONE,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 enum pa_dac_ack_flags {
@@ -395,7 +405,10 @@ struct wcd_mbhc {
 	bool btn_press_intr;
 	bool is_hs_recording;
 	bool is_extn_cable;
+<<<<<<< HEAD
 	bool extn_cable_inserted;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	bool skip_imped_detection;
 	bool is_btn_already_regd;
 

@@ -812,8 +812,21 @@ isolate_migratepages_range(struct compact_control *cc, unsigned long start_pfn,
 		pfn = isolate_migratepages_block(cc, pfn, block_end_pfn,
 							ISOLATE_UNEVICTABLE);
 
+<<<<<<< HEAD
 		if (!pfn)
 			break;
+=======
+		/*
+		 * In case of fatal failure, release everything that might
+		 * have been isolated in the previous iteration, and signal
+		 * the failure back to caller.
+		 */
+		if (!pfn) {
+			putback_movable_pages(&cc->migratepages);
+			cc->nr_migratepages = 0;
+			break;
+		}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		if (cc->nr_migratepages == COMPACT_CLUSTER_MAX)
 			break;
@@ -989,12 +1002,15 @@ typedef enum {
 } isolate_migrate_t;
 
 /*
+<<<<<<< HEAD
  * Allow userspace to control policy on scanning the unevictable LRU for
  * compactable pages.
  */
 int sysctl_compact_unevictable_allowed __read_mostly = 1;
 
 /*
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * Isolate all pages that can be migrated from the first suitable block,
  * starting at the block pointed to by the migrate scanner pfn within
  * compact_control.
@@ -1005,7 +1021,10 @@ static isolate_migrate_t isolate_migratepages(struct zone *zone,
 	unsigned long low_pfn, end_pfn;
 	struct page *page;
 	const isolate_mode_t isolate_mode =
+<<<<<<< HEAD
 		(sysctl_compact_unevictable_allowed ? ISOLATE_UNEVICTABLE : 0) |
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		(cc->mode == MIGRATE_ASYNC ? ISOLATE_ASYNC_MIGRATE : 0);
 
 	/*

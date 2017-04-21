@@ -100,6 +100,7 @@ static long validate_and_copy(unsigned int *cmd, unsigned long *arg,
 			goto validate_exit;
 		}
 		break;
+<<<<<<< HEAD
 	case MSM_THERMAL_GET_CLUSTER_FREQUENCY_PLAN:
 		if (query->clock_freq.cluster_num >= NR_CPUS) {
 			ret = -EINVAL;
@@ -110,6 +111,8 @@ static long validate_and_copy(unsigned int *cmd, unsigned long *arg,
 			ret = -EINVAL;
 			goto validate_exit;
 		}
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		break;
 	}

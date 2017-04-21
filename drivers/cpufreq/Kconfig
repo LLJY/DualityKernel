@@ -7,7 +7,10 @@ config CPU_FREQ
 	  CPUs on the fly. This is a nice method to save power, because 
 	  the lower the CPU clock speed, the less power the CPU consumes.
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	  Note that this driver doesn't automatically change the CPU
 	  clock speed, you need to either enable a dynamic cpufreq governor
 	  (see below) after boot, or use a userspace tool.
@@ -123,6 +126,7 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
+<<<<<<< HEAD
 config CPU_FREQ_DEFAULT_GOV_ALUCARD
 	bool "alucard"
 	select CPU_FREQ_GOV_ALUCARD
@@ -158,6 +162,8 @@ config CPU_FREQ_DEFAULT_GOV_DARKNESS
 	bool "darkness"
 	select CPU_FREQ_GOV_DARKNESS
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -232,6 +238,7 @@ config CPU_FREQ_GOV_INTERACTIVE
 
 	  If in doubt, say N.
 
+<<<<<<< HEAD
 config CPU_FREQ_GOV_ELEMENTALX
 	tristate "'elementalx' cpufreq policy governor"
 	select CPU_FREQ_TABLE
@@ -259,6 +266,8 @@ config CPU_FREQ_GOV_DARKNESS
 	tristate "'darkness' cpufreq policy governor"
 
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config CPU_FREQ_GOV_CONSERVATIVE
 	tristate "'conservative' cpufreq governor"
 	depends on CPU_FREQ
@@ -283,6 +292,7 @@ config CPU_FREQ_GOV_CONSERVATIVE
 
 	  If in doubt, say N.
 
+<<<<<<< HEAD
 config CPU_FREQ_GOV_ALUCARD
 	tristate "'alucard' cpufreq governor"
 	depends on CPU_FREQ
@@ -298,6 +308,8 @@ config CPU_FREQ_GOV_NIGHTMARE
 	depends on CPU_FREQ
 select CPU_FREQ_GOV_COMMON
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config CPUFREQ_DT
 	tristate "Generic DT based cpufreq driver"
 	depends on HAVE_CLK && OF
@@ -421,6 +433,7 @@ config SH_CPU_FREQ
 	  If unsure, say N.
 endmenu
 
+<<<<<<< HEAD
 config LAZYPLUG
  	bool "Conservative hotplugging for generic devices"
 	default n
@@ -428,5 +441,7 @@ config LAZYPLUG
 	  This enables the conservative hotplugging, lazyplug by arter97
 	  based on intelli_plug. Refer to the comments for more info.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endif
 endmenu

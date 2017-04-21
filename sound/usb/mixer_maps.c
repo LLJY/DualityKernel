@@ -351,6 +351,7 @@ static struct usbmix_name_map dragonfly_1_2_map[] = {
 };
 
 /*
+<<<<<<< HEAD
  * Dell usb dock with ALC4020 codec had a firmware problem where it got
  * screwed up when zero volume is passed; just skip it as a workaround
  */
@@ -361,6 +362,8 @@ static const struct usbmix_name_map dell_alc4020_map[] = {
 };
 
 /*
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * Control map entries
  */
 
@@ -443,10 +446,13 @@ static struct usbmix_ctl_map usbmix_ctl_maps[] = {
 		.map = aureon_51_2_map,
 	},
 	{
+<<<<<<< HEAD
 		.id = USB_ID(0x0bda, 0x4014),
 		.map = dell_alc4020_map,
 	},
 	{
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		.id = USB_ID(0x13e5, 0x0001),
 		.map = scratch_live_map,
 		.ignore_ctl_error = 1,

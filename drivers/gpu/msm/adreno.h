@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2008-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2008-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -196,6 +200,13 @@ struct adreno_gpudev;
 /* Time to allow preemption to complete (in ms) */
 #define ADRENO_PREEMPT_TIMEOUT 10000
 
+<<<<<<< HEAD
+=======
+#define ADRENO_INT_BIT(a, _bit) (((a)->gpucore->gpudev->int_bits) ? \
+		(adreno_get_int(a, _bit) < 0 ? 0 : \
+		BIT(adreno_get_int(a, _bit))) : 0)
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * enum adreno_preempt_states
  * ADRENO_PREEMPT_NONE: No preemption is scheduled
@@ -342,6 +353,10 @@ struct adreno_gpu_core {
  * @ram_cycles_lo: Number of DDR clock cycles for the monitor session
  * @perfctr_pwr_lo: Number of cycles VBIF is stalled by DDR
  * @halt: Atomic variable to check whether the GPU is currently halted
+<<<<<<< HEAD
+=======
+ * @pending_irq_refcnt: Atomic variable to keep track of running IRQ handlers
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * @ctx_d_debugfs: Context debugfs node
  * @pwrctrl_flag: Flag to hold adreno specific power attributes
  * @cmdbatch_profile_buffer: Memdesc holding the cmdbatch profiling buffer
@@ -399,6 +414,10 @@ struct adreno_device {
 	unsigned int starved_ram_lo;
 	unsigned int perfctr_pwr_lo;
 	atomic_t halt;
+<<<<<<< HEAD
+=======
+	atomic_t pending_irq_refcnt;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct dentry *ctx_d_debugfs;
 	unsigned long pwrctrl_flag;
 
@@ -572,6 +591,14 @@ enum adreno_regs {
 	ADRENO_REG_REGISTER_MAX,
 };
 
+<<<<<<< HEAD
+=======
+enum adreno_int_bits {
+	ADRENO_INT_RBBM_AHB_ERROR,
+	ADRENO_INT_BITS_MAX,
+};
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * adreno_reg_offsets: Holds array of register offsets
  * @offsets: Offset array of size defined by enum adreno_regs
@@ -587,6 +614,10 @@ struct adreno_reg_offsets {
 #define ADRENO_REG_UNUSED	0xFFFFFFFF
 #define ADRENO_REG_SKIP	0xFFFFFFFE
 #define ADRENO_REG_DEFINE(_offset, _reg) [_offset] = _reg
+<<<<<<< HEAD
+=======
+#define ADRENO_INT_DEFINE(_offset, _val) ADRENO_REG_DEFINE(_offset, _val)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /*
  * struct adreno_vbif_data - Describes vbif register value pair
@@ -724,6 +755,10 @@ struct adreno_gpudev {
 	 * so define them in the structure and use them as variables.
 	 */
 	const struct adreno_reg_offsets *reg_offsets;
+<<<<<<< HEAD
+=======
+	unsigned int *const int_bits;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	const struct adreno_ft_perf_counters *ft_perf_counters;
 	unsigned int ft_perf_counters_count;
 
@@ -1088,6 +1123,26 @@ static inline unsigned int adreno_getreg(struct adreno_device *adreno_dev,
 	return gpudev->reg_offsets->offsets[offset_name];
 }
 
+<<<<<<< HEAD
+=======
+/*
+ * adreno_get_int() - Returns the offset value of an interrupt bit from
+ * the interrupt bit array in the gpudev node
+ * @adreno_dev:		Pointer to the the adreno device
+ * @bit_name:		The interrupt bit enum whose bit is returned
+ */
+static inline unsigned int adreno_get_int(struct adreno_device *adreno_dev,
+				enum adreno_int_bits bit_name)
+{
+	struct adreno_gpudev *gpudev = ADRENO_GPU_DEVICE(adreno_dev);
+
+	if (bit_name >= ADRENO_INT_BITS_MAX)
+		return -ERANGE;
+
+	return gpudev->int_bits[bit_name];
+}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * adreno_gpu_fault() - Return the current state of the GPU
  * @adreno_dev: A pointer to the adreno_device to query

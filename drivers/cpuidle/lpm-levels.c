@@ -607,7 +607,11 @@ static int cluster_select(struct lpm_cluster *cluster, bool from_idle)
 
 		best_level = i;
 
+<<<<<<< HEAD
 		if (sleep_us <= pwr_params->max_residency)
+=======
+		if (from_idle && sleep_us <= pwr_params->max_residency)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			break;
 	}
 

@@ -1474,6 +1474,7 @@ int pm_runtime_force_resume(struct device *dev)
 		goto out;
 	}
 
+<<<<<<< HEAD
 	ret = pm_runtime_set_active(dev);
 	if (ret)
 		goto out;
@@ -1484,6 +1485,13 @@ int pm_runtime_force_resume(struct device *dev)
 		goto out;
 	}
 
+=======
+	ret = callback(dev);
+	if (ret)
+		goto out;
+
+	pm_runtime_set_active(dev);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pm_runtime_mark_last_busy(dev);
 out:
 	pm_runtime_enable(dev);

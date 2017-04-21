@@ -17,11 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <stdarg.h>
 
@@ -35,7 +38,10 @@
 #include <linux/user.h>
 #include <linux/delay.h>
 #include <linux/reboot.h>
+<<<<<<< HEAD
 #include <linux/console.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/interrupt.h>
 #include <linux/kallsyms.h>
 #include <linux/init.h>
@@ -63,6 +69,7 @@ unsigned long __stack_chk_guard __read_mostly;
 EXPORT_SYMBOL(__stack_chk_guard);
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_ARM64_FLUSH_CONSOLE_ON_RESTART
 void arm_machine_flush_console(void)
 {
@@ -91,6 +98,8 @@ void arm_machine_flush_console(void)
 }
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 void soft_restart(unsigned long addr)
 {
 	setup_mm_for_reboot();
@@ -194,10 +203,13 @@ void machine_restart(char *cmd)
 	local_irq_disable();
 	smp_send_stop();
 
+<<<<<<< HEAD
 	/* Flush the console to make sure all the relevant messages make it
 	 * out to the console drivers */
 	arm_machine_flush_console();
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Now call the architecture specific reboot code. */
 	if (arm_pm_restart)
 		arm_pm_restart(reboot_mode, cmd);

@@ -32,7 +32,11 @@
 #include <sound/q6core.h>
 #include <sound/pcm_params.h>
 #include <sound/info.h>
+<<<<<<< HEAD
 #include "device_event.h"
+=======
+#include <device_event.h>
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "qdsp6v2/msm-pcm-routing-v2.h"
 
 #define DRV_NAME "apq8096-auto-asoc-snd"

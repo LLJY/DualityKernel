@@ -141,7 +141,11 @@ static void show_backtrace(struct task_struct *task, const struct pt_regs *regs)
 	if (!task)
 		task = current;
 
+<<<<<<< HEAD
 	if (raw_show_trace || user_mode(regs) || !__kernel_text_address(pc)) {
+=======
+	if (raw_show_trace || !__kernel_text_address(pc)) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		show_raw_backtrace(sp);
 		return;
 	}
@@ -1103,7 +1107,11 @@ static int enable_restore_fp_context(int msa)
 		err = init_fpu();
 		if (msa && !err) {
 			enable_msa();
+<<<<<<< HEAD
 			init_msa_upper();
+=======
+			_init_msa_upper();
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			set_thread_flag(TIF_USEDMSA);
 			set_thread_flag(TIF_MSA_CTX_LIVE);
 		}
@@ -1166,7 +1174,11 @@ static int enable_restore_fp_context(int msa)
 	 */
 	prior_msa = test_and_set_thread_flag(TIF_MSA_CTX_LIVE);
 	if (!prior_msa && was_fpu_owner) {
+<<<<<<< HEAD
 		init_msa_upper();
+=======
+		_init_msa_upper();
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		goto out;
 	}
@@ -1183,7 +1195,11 @@ static int enable_restore_fp_context(int msa)
 		 * of each vector register such that it cannot see data left
 		 * behind by another task.
 		 */
+<<<<<<< HEAD
 		init_msa_upper();
+=======
+		_init_msa_upper();
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else {
 		/* We need to restore the vector context. */
 		restore_msa(current);

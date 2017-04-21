@@ -188,6 +188,10 @@ config USB_F_UAC2
 	tristate
 
 config USB_F_UVC
+<<<<<<< HEAD
+=======
+	select VIDEOBUF2_VMALLOC
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	tristate
 
 config USB_F_MTP
@@ -422,6 +426,11 @@ config USB_G_ANDROID
 	select USB_F_NCM
 	select USB_F_MASS_STORAGE
 	select USB_F_UAC1 if SND_PCM
+<<<<<<< HEAD
+=======
+	select USB_F_UAC2 if SND_PCM
+	select USB_F_UVC if MEDIA_SUPPORT
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	help
 	  The Android Composite Gadget supports multiple USB
 	  functions: adb, acm, mass storage, mtp, accessory
@@ -429,6 +438,7 @@ config USB_G_ANDROID
 	  Each function can be configured and enabled/disabled
 	  dynamically from userspace through a sysfs interface.
 
+<<<<<<< HEAD
 config USB_ANDROID_PRODUCTION
 	boolean "Production capable Android gadget"
 	depends on USB_G_ANDROID
@@ -436,6 +446,8 @@ config USB_ANDROID_PRODUCTION
 	help
 		Provides an Android gadget where iSerialNumber is set to 0.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config USB_ANDROID_RNDIS_DWORD_ALIGNED
 	boolean "Use double word aligned"
 	depends on USB_G_ANDROID
@@ -446,10 +458,13 @@ source "drivers/usb/gadget/legacy/Kconfig"
 
 endchoice
 
+<<<<<<< HEAD
 config USB_MIRRORLINK
        boolean "Handle MirrorLink USB command"
        default n
        help
          Enabling this option adds support for MirrorLink USB command.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endif # USB_GADGET

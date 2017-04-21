@@ -188,6 +188,7 @@ static void *eeh_dev_save_state(void *data, void *userdata)
 	if (!edev)
 		return NULL;
 
+<<<<<<< HEAD
 	/*
 	 * We cannot access the config space on some adapters.
 	 * Otherwise, it will cause fenced PHB. We don't save
@@ -198,6 +199,8 @@ static void *eeh_dev_save_state(void *data, void *userdata)
 	if (edev->pe && (edev->pe->state & EEH_PE_CFG_RESTRICTED))
 		return NULL;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pdev = eeh_dev_to_pci_dev(edev);
 	if (!pdev)
 		return NULL;
@@ -337,6 +340,7 @@ static void *eeh_dev_restore_state(void *data, void *userdata)
 	if (!edev)
 		return NULL;
 
+<<<<<<< HEAD
 	/*
 	 * The content in the config space isn't saved because
 	 * the blocked config space on some adapters. We have
@@ -350,6 +354,8 @@ static void *eeh_dev_restore_state(void *data, void *userdata)
 		return NULL;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pdev = eeh_dev_to_pci_dev(edev);
 	if (!pdev)
 		return NULL;
@@ -547,6 +553,12 @@ int eeh_pe_reset_and_recover(struct eeh_pe *pe)
 	/* Save states */
 	eeh_pe_dev_traverse(pe, eeh_dev_save_state, NULL);
 
+<<<<<<< HEAD
+=======
+	/* Report error */
+	eeh_pe_dev_traverse(pe, eeh_report_error, &result);
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Issue reset */
 	eeh_pe_state_mark(pe, EEH_PE_CFG_BLOCKED);
 	ret = eeh_reset_pe(pe);

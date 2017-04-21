@@ -2,7 +2,10 @@ config ARM64
 	def_bool y
 	select ARCH_HAS_ATOMIC64_DEC_IF_POSITIVE
 	select ARCH_HAS_ELF_RANDOMIZE
+<<<<<<< HEAD
 	select ARCH_HAS_CRASH_NOTES if CRASH_NOTES
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	select ARCH_HAS_SG_CHAIN
 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
 	select ARCH_USE_CMPXCHG_LOCKREF
@@ -324,6 +327,7 @@ config ARCH_MSM8996
 	  This enables support for the MSM8996 chipset. If you don't
 	  know what to do here, say N
 
+<<<<<<< HEAD
 config ARCH_SONY_TONE
     bool "Sony Mobile Tone platform"
     depends on ARCH_MSM8996
@@ -352,6 +356,8 @@ config MACH_SONY_KAGURA
       If you enable this config,
       please use SONY Mobile device tree.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config ARCH_MSMCOBALT
 	bool "Enable Support for Qualcomm MSMCOBALT"
 	depends on ARCH_MSM
@@ -732,7 +738,14 @@ config ARCH_NR_GPIO
 
 
 source kernel/Kconfig.preempt
+<<<<<<< HEAD
 source kernel/Kconfig.hz
+=======
+
+config HZ
+	int
+	default 100
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 config ARCH_HAS_HOLES_MEMORYMODEL
 	def_bool y if SPARSEMEM
@@ -913,6 +926,7 @@ config SETEND_EMULATION
 
 endif
 
+<<<<<<< HEAD
 config ARM64_FLUSH_CONSOLE_ON_RESTART
 	bool "Force flush the console on restart"
 	help
@@ -922,6 +936,8 @@ config ARM64_FLUSH_CONSOLE_ON_RESTART
 	  released if it failed to be acquired, which will cause all the
 	  pending messages to be flushed.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endmenu
 
 menu "Boot options"
@@ -995,6 +1011,7 @@ config BUILD_ARM64_APPENDED_DTB_IMAGE_NAMES
 	  Space separated list of names of dtbs to append when
 	  building a concatenated Image.gz-dtb.
 
+<<<<<<< HEAD
 config ARCH_HAS_CRASH_NOTES
 	bool
 
@@ -1006,6 +1023,8 @@ config CRASH_NOTES
 	  with the crashed context to support analysis of the memory dump with
 	  tools like Redhat CRASH.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config DMI
 	bool "Enable support for SMBIOS (DMI) tables"
 	depends on EFI

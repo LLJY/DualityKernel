@@ -727,6 +727,13 @@ static void a4xx_err_callback(struct adreno_device *adreno_dev, int bit)
 	}
 }
 
+<<<<<<< HEAD
+=======
+static unsigned int a4xx_int_bits[ADRENO_INT_BITS_MAX] = {
+	ADRENO_INT_DEFINE(ADRENO_INT_RBBM_AHB_ERROR, A4XX_INT_RBBM_AHB_ERROR),
+};
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Register offset defines for A4XX, in order of enum adreno_regs */
 static unsigned int a4xx_register_offsets[ADRENO_REG_REGISTER_MAX] = {
 	ADRENO_REG_DEFINE(ADRENO_REG_CP_ME_RAM_WADDR, A4XX_CP_ME_RAM_WADDR),
@@ -1360,7 +1367,11 @@ static int _a4xx_pwron_fixup(struct adreno_device *adreno_dev)
 
 	ret = kgsl_allocate_global(KGSL_DEVICE(adreno_dev),
 		&adreno_dev->pwron_fixup, PAGE_SIZE,
+<<<<<<< HEAD
 		KGSL_MEMFLAGS_GPUREADONLY, 0);
+=======
+		KGSL_MEMFLAGS_GPUREADONLY, 0, "pwron_fixup");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (ret)
 		return ret;
@@ -1753,6 +1764,10 @@ static struct adreno_snapshot_data a4xx_snapshot_data = {
 
 struct adreno_gpudev adreno_a4xx_gpudev = {
 	.reg_offsets = &a4xx_reg_offsets,
+<<<<<<< HEAD
+=======
+	.int_bits = a4xx_int_bits,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.ft_perf_counters = a4xx_ft_perf_counters,
 	.ft_perf_counters_count = ARRAY_SIZE(a4xx_ft_perf_counters),
 	.perfcounters = &a4xx_perfcounters,

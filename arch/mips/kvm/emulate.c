@@ -302,6 +302,7 @@ static inline ktime_t kvm_mips_count_time(struct kvm_vcpu *vcpu)
  */
 static uint32_t kvm_mips_read_count_running(struct kvm_vcpu *vcpu, ktime_t now)
 {
+<<<<<<< HEAD
 	struct mips_coproc *cop0 = vcpu->arch.cop0;
 	ktime_t expires, threshold;
 	uint32_t count, compare;
@@ -327,6 +328,14 @@ static uint32_t kvm_mips_read_count_running(struct kvm_vcpu *vcpu, ktime_t now)
 	expires = hrtimer_get_expires(&vcpu->arch.comparecount_timer);
 	threshold = ktime_add_ns(now, vcpu->arch.count_period / 4);
 	if (ktime_before(expires, threshold)) {
+=======
+	ktime_t expires;
+	int running;
+
+	/* Is the hrtimer pending? */
+	expires = hrtimer_get_expires(&vcpu->arch.comparecount_timer);
+	if (ktime_compare(now, expires) >= 0) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/*
 		 * Cancel it while we handle it so there's no chance of
 		 * interference with the timeout handler.
@@ -348,7 +357,12 @@ static uint32_t kvm_mips_read_count_running(struct kvm_vcpu *vcpu, ktime_t now)
 		}
 	}
 
+<<<<<<< HEAD
 	return count;
+=======
+	/* Return the biased and scaled guest CP0_Count */
+	return vcpu->arch.count_bias + kvm_mips_ktime_to_count(vcpu, now);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /**
@@ -438,6 +452,35 @@ static void kvm_mips_resume_hrtimer(struct kvm_vcpu *vcpu,
 }
 
 /**
+<<<<<<< HEAD
+=======
+ * kvm_mips_update_hrtimer() - Update next expiry time of hrtimer.
+ * @vcpu:	Virtual CPU.
+ *
+ * Recalculates and updates the expiry time of the hrtimer. This can be used
+ * after timer parameters have been altered which do not depend on the time that
+ * the change occurs (in those cases kvm_mips_freeze_hrtimer() and
+ * kvm_mips_resume_hrtimer() are used directly).
+ *
+ * It is guaranteed that no timer interrupts will be lost in the process.
+ *
+ * Assumes !kvm_mips_count_disabled(@vcpu) (guest CP0_Count timer is running).
+ */
+static void kvm_mips_update_hrtimer(struct kvm_vcpu *vcpu)
+{
+	ktime_t now;
+	uint32_t count;
+
+	/*
+	 * freeze_hrtimer takes care of a timer interrupts <= count, and
+	 * resume_hrtimer the hrtimer takes care of a timer interrupts > count.
+	 */
+	now = kvm_mips_freeze_hrtimer(vcpu, &count);
+	kvm_mips_resume_hrtimer(vcpu, now, count);
+}
+
+/**
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * kvm_mips_write_count() - Modify the count and update timer.
  * @vcpu:	Virtual CPU.
  * @count:	Guest CP0_Count value to set.
@@ -532,6 +575,7 @@ int kvm_mips_set_count_hz(struct kvm_vcpu *vcpu, s64 count_hz)
  * kvm_mips_write_compare() - Modify compare and update timer.
  * @vcpu:	Virtual CPU.
  * @compare:	New CP0_Compare value.
+<<<<<<< HEAD
  * @ack:	Whether to acknowledge timer interrupt.
  *
  * Update CP0_Compare to a new value and update the timeout.
@@ -568,6 +612,25 @@ void kvm_mips_write_compare(struct kvm_vcpu *vcpu, uint32_t compare, bool ack)
 	/* resume_hrtimer() takes care of timer interrupts > count */
 	if (!dc)
 		kvm_mips_resume_hrtimer(vcpu, now, count);
+=======
+ *
+ * Update CP0_Compare to a new value and update the timeout.
+ */
+void kvm_mips_write_compare(struct kvm_vcpu *vcpu, uint32_t compare)
+{
+	struct mips_coproc *cop0 = vcpu->arch.cop0;
+
+	/* if unchanged, must just be an ack */
+	if (kvm_read_c0_guest_compare(cop0) == compare)
+		return;
+
+	/* Update compare */
+	kvm_write_c0_guest_compare(cop0, compare);
+
+	/* Update timeout if count enabled */
+	if (!kvm_mips_count_disabled(vcpu))
+		kvm_mips_update_hrtimer(vcpu);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /**
@@ -1028,9 +1091,15 @@ enum emulation_result kvm_mips_emulate_CP0(uint32_t inst, uint32_t *opc,
 
 				/* If we are writing to COMPARE */
 				/* Clear pending timer interrupt, if any */
+<<<<<<< HEAD
 				kvm_mips_write_compare(vcpu,
 						       vcpu->arch.gprs[rt],
 						       true);
+=======
+				kvm_mips_callbacks->dequeue_timer_int(vcpu);
+				kvm_mips_write_compare(vcpu,
+						       vcpu->arch.gprs[rt]);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			} else if ((rd == MIPS_CP0_STATUS) && (sel == 0)) {
 				kvm_write_c0_guest_status(cop0,
 							  vcpu->arch.gprs[rt]);

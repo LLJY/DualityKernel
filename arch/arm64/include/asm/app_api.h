@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -27,16 +31,35 @@
 #ifdef CONFIG_MSM_APP_API
 extern void set_app_setting_bit(uint32_t bit);
 extern void clear_app_setting_bit(uint32_t bit);
+<<<<<<< HEAD
 #else
 static inline void set_app_setting_bit(uint32_t bit) {}
 static inline void clear_app_setting_bit(uint32_t bit) {}
+=======
+extern void set_app_setting_bit_for_32bit_apps(void);
+extern void clear_app_setting_bit_for_32bit_apps(void);
+#else
+static inline void set_app_setting_bit(uint32_t bit) {}
+static inline void clear_app_setting_bit(uint32_t bit) {}
+static inline void set_app_setting_bit_for_32bit_apps(void) {}
+static inline void clear_app_setting_bit_for_32bit_apps(void) {}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 
 #ifdef CONFIG_MSM_APP_SETTINGS
 extern void switch_app_setting_bit(struct task_struct *prev,
 				   struct task_struct *next);
+<<<<<<< HEAD
 extern void apply_app_setting_bit(struct file *file);
 extern bool use_app_setting;
+=======
+extern void switch_32bit_app_setting_bit(struct task_struct *prev,
+				   struct task_struct *next);
+extern void apply_app_setting_bit(struct file *file);
+extern bool use_app_setting;
+extern bool use_32bit_app_setting;
+extern bool use_32bit_app_setting_pro;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 
 #endif

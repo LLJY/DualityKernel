@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -528,6 +532,15 @@ static int32_t msm_actuator_piezo_move_focus(
 		return -EFAULT;
 	}
 
+<<<<<<< HEAD
+=======
+	if (dest_step_position > a_ctrl->total_steps) {
+		pr_err("Step pos greater than total steps = %d\n",
+			dest_step_position);
+		return -EFAULT;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	a_ctrl->i2c_tbl_index = 0;
 	a_ctrl->func_tbl->actuator_parse_i2c_params(a_ctrl,
 		(num_steps *
@@ -1396,7 +1409,11 @@ static int32_t msm_actuator_config(struct msm_actuator_ctrl_t *a_ctrl,
 {
 	struct msm_actuator_cfg_data *cdata =
 		(struct msm_actuator_cfg_data *)argp;
+<<<<<<< HEAD
 	int32_t rc = 0;
+=======
+	int32_t rc = -EINVAL;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_lock(a_ctrl->actuator_mutex);
 	CDBG("Enter\n");
 	CDBG("%s type %d\n", __func__, cdata->cfgtype);
@@ -1406,7 +1423,11 @@ static int32_t msm_actuator_config(struct msm_actuator_ctrl_t *a_ctrl,
 		a_ctrl->actuator_state == ACT_DISABLE_STATE) {
 		pr_err("actuator disabled %d\n", rc);
 		mutex_unlock(a_ctrl->actuator_mutex);
+<<<<<<< HEAD
 		return -EINVAL;
+=======
+		return rc;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	switch (cdata->cfgtype) {
@@ -1418,6 +1439,10 @@ static int32_t msm_actuator_config(struct msm_actuator_ctrl_t *a_ctrl,
 	case CFG_GET_ACTUATOR_INFO:
 		cdata->is_af_supported = 1;
 		cdata->cfg.cam_name = a_ctrl->cam_name;
+<<<<<<< HEAD
+=======
+		rc = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 
 	case CFG_SET_ACTUATOR_INFO:
@@ -1427,15 +1452,29 @@ static int32_t msm_actuator_config(struct msm_actuator_ctrl_t *a_ctrl,
 		break;
 
 	case CFG_SET_DEFAULT_FOCUS:
+<<<<<<< HEAD
 		rc = a_ctrl->func_tbl->actuator_set_default_focus(a_ctrl,
 			&cdata->cfg.move);
+=======
+		if (a_ctrl->func_tbl &&
+			a_ctrl->func_tbl->actuator_set_default_focus)
+			rc = a_ctrl->func_tbl->actuator_set_default_focus(
+				a_ctrl, &cdata->cfg.move);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (rc < 0)
 			pr_err("move focus failed %d\n", rc);
 		break;
 
 	case CFG_MOVE_FOCUS:
+<<<<<<< HEAD
 		rc = a_ctrl->func_tbl->actuator_move_focus(a_ctrl,
 			&cdata->cfg.move);
+=======
+		if (a_ctrl->func_tbl &&
+			a_ctrl->func_tbl->actuator_move_focus)
+			rc = a_ctrl->func_tbl->actuator_move_focus(a_ctrl,
+				&cdata->cfg.move);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (rc < 0)
 			pr_err("move focus failed %d\n", rc);
 		break;
@@ -1446,8 +1485,15 @@ static int32_t msm_actuator_config(struct msm_actuator_ctrl_t *a_ctrl,
 		break;
 
 	case CFG_SET_POSITION:
+<<<<<<< HEAD
 		rc = a_ctrl->func_tbl->actuator_set_position(a_ctrl,
 			&cdata->cfg.setpos);
+=======
+		if (a_ctrl->func_tbl &&
+			a_ctrl->func_tbl->actuator_set_position)
+			rc = a_ctrl->func_tbl->actuator_set_position(a_ctrl,
+				&cdata->cfg.setpos);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (rc < 0)
 			pr_err("actuator_set_position failed %d\n", rc);
 		break;

@@ -135,8 +135,11 @@ struct qxl_crtc {
 	int index;
 	int cur_x;
 	int cur_y;
+<<<<<<< HEAD
 	int hot_spot_x;
 	int hot_spot_y;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 struct qxl_output {

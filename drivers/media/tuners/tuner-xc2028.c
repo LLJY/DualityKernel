@@ -1403,11 +1403,19 @@ static int xc2028_set_config(struct dvb_frontend *fe, void *priv_cfg)
 	 * in order to avoid troubles during device release.
 	 */
 	kfree(priv->ctrl.fname);
+<<<<<<< HEAD
+=======
+	priv->ctrl.fname = NULL;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	memcpy(&priv->ctrl, p, sizeof(priv->ctrl));
 	if (p->fname) {
 		priv->ctrl.fname = kstrdup(p->fname, GFP_KERNEL);
 		if (priv->ctrl.fname == NULL)
+<<<<<<< HEAD
 			rc = -ENOMEM;
+=======
+			return -ENOMEM;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	/*

@@ -2211,7 +2211,11 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 	if (status)
 		goto free_padding_pkt;
 	netif_info(dev, probe, dev->net,
+<<<<<<< HEAD
 		   "register '%s' at usb-%s-%s, %s, %pM\n",
+=======
+		   "register '%s' at usb-%s-%s, %s, %pKM\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		   udev->dev.driver->name,
 		   xdev->bus->bus_name, xdev->devpath,
 		   dev->driver_info->description,

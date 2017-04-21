@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2002,2007-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2002,2007-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -26,7 +30,11 @@ struct kgsl_process_private;
 
 int kgsl_sharedmem_alloc_contig(struct kgsl_device *device,
 			struct kgsl_memdesc *memdesc,
+<<<<<<< HEAD
 			struct kgsl_pagetable *pagetable, uint64_t size);
+=======
+			uint64_t size);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 void kgsl_sharedmem_free(struct kgsl_memdesc *memdesc);
 
@@ -66,13 +74,19 @@ void kgsl_sharedmem_uninit_sysfs(void);
 
 int kgsl_allocate_user(struct kgsl_device *device,
 		struct kgsl_memdesc *memdesc,
+<<<<<<< HEAD
 		struct kgsl_pagetable *pagetable,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		uint64_t size, uint64_t flags);
 
 void kgsl_get_memory_usage(char *str, size_t len, uint64_t memflags);
 
 int kgsl_sharedmem_page_alloc_user(struct kgsl_memdesc *memdesc,
+<<<<<<< HEAD
 				struct kgsl_pagetable *pagetable,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				uint64_t size);
 
 #define MEMFLAGS(_flags, _mask, _shift) \
@@ -263,7 +277,11 @@ kgsl_memdesc_footprint(const struct kgsl_memdesc *memdesc)
  */
 static inline int kgsl_allocate_global(struct kgsl_device *device,
 	struct kgsl_memdesc *memdesc, uint64_t size, uint64_t flags,
+<<<<<<< HEAD
 	unsigned int priv)
+=======
+	unsigned int priv, const char *name)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	int ret;
 
@@ -271,17 +289,28 @@ static inline int kgsl_allocate_global(struct kgsl_device *device,
 	memdesc->priv = priv;
 
 	if ((memdesc->priv & KGSL_MEMDESC_CONTIG) != 0)
+<<<<<<< HEAD
 		ret = kgsl_sharedmem_alloc_contig(device, memdesc, NULL,
 						(size_t) size);
 	else {
 		ret = kgsl_sharedmem_page_alloc_user(memdesc, NULL,
 						(size_t) size);
+=======
+		ret = kgsl_sharedmem_alloc_contig(device, memdesc,
+						(size_t) size);
+	else {
+		ret = kgsl_sharedmem_page_alloc_user(memdesc, (size_t) size);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (ret == 0)
 			kgsl_memdesc_map(memdesc);
 	}
 
 	if (ret == 0)
+<<<<<<< HEAD
 		kgsl_mmu_add_global(device, memdesc);
+=======
+		kgsl_mmu_add_global(device, memdesc, name);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return ret;
 }

@@ -126,6 +126,7 @@ config DWC3_HOST_USB3_LPM_ENABLE
 	help
 	  Select this when you want to enable USB3 LPM with dwc3 xhci host.
 
+<<<<<<< HEAD
 comment "Other features"
 
 config USB_DWC3_MSM_ID_POLL
@@ -146,4 +147,6 @@ config USB_USE_POWER_SUPPLY_PROP_USB_OTG
 	  Say Y here to enable the ID notification via the set/get property of
 	  the power_supply interface.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endif

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -244,12 +248,21 @@ static int a5xx_critical_packet_construct(struct adreno_device *adreno_dev)
 
 	ret = kgsl_allocate_global(&adreno_dev->dev,
 					&crit_pkts, PAGE_SIZE,
+<<<<<<< HEAD
 					KGSL_MEMFLAGS_GPUREADONLY, 0);
+=======
+					KGSL_MEMFLAGS_GPUREADONLY,
+					0, "crit_pkts");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		return ret;
 
 	ret = kgsl_allocate_user(&adreno_dev->dev, &crit_pkts_refbuf0,
+<<<<<<< HEAD
 					NULL, PAGE_SIZE, KGSL_MEMFLAGS_SECURE);
+=======
+		PAGE_SIZE, KGSL_MEMFLAGS_SECURE);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		return ret;
 
@@ -258,19 +271,31 @@ static int a5xx_critical_packet_construct(struct adreno_device *adreno_dev)
 
 	ret = kgsl_allocate_global(&adreno_dev->dev,
 					&crit_pkts_refbuf1,
+<<<<<<< HEAD
 					PAGE_SIZE, 0, 0);
+=======
+					PAGE_SIZE, 0, 0, "crit_pkts_refbuf1");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		return ret;
 
 	ret = kgsl_allocate_global(&adreno_dev->dev,
 					&crit_pkts_refbuf2,
+<<<<<<< HEAD
 					PAGE_SIZE, 0, 0);
+=======
+					PAGE_SIZE, 0, 0, "crit_pkts_refbuf2");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		return ret;
 
 	ret = kgsl_allocate_global(&adreno_dev->dev,
 					&crit_pkts_refbuf3,
+<<<<<<< HEAD
 					PAGE_SIZE, 0, 0);
+=======
+					PAGE_SIZE, 0, 0, "crit_pkts_refbuf3");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		return ret;
 
@@ -1843,11 +1868,19 @@ static void a5xx_start(struct adreno_device *adreno_dev)
 		set_bit(ADRENO_DEVICE_HANG_INTR, &adreno_dev->priv);
 		gpudev->irq->mask |= (1 << A5XX_INT_MISC_HANG_DETECT);
 		/*
+<<<<<<< HEAD
 		 * Set hang detection threshold to 1 million cycles
 		 * (0xFFFF*16)
 		 */
 		kgsl_regwrite(device, A5XX_RBBM_INTERFACE_HANG_INT_CNTL,
 					  (1 << 30) | 0xFFFF);
+=======
+		 * Set hang detection threshold to 4 million cycles
+		 * (0x3FFFF*16)
+		 */
+		kgsl_regwrite(device, A5XX_RBBM_INTERFACE_HANG_INT_CNTL,
+					  (1 << 30) | 0x3FFFF);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 
@@ -1942,6 +1975,14 @@ static void a5xx_start(struct adreno_device *adreno_dev)
 		 */
 		kgsl_regrmw(device, A5XX_RB_DBG_ECO_CNT, 0, (1 << 9));
 	}
+<<<<<<< HEAD
+=======
+	/*
+	 * Disable UCHE global filter as SP can invalidate/flush
+	 * independently
+	 */
+	kgsl_regwrite(device, A5XX_UCHE_MODE_CNTL, BIT(29));
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Set the USE_RETENTION_FLOPS chicken bit */
 	kgsl_regwrite(device, A5XX_CP_CHICKEN_DBG, 0x02000000);
 
@@ -2456,7 +2497,11 @@ static int _load_firmware(struct kgsl_device *device, const char *fwfile,
 	}
 
 	ret = kgsl_allocate_global(device, ucode, fw->size - 4,
+<<<<<<< HEAD
 				KGSL_MEMFLAGS_GPUREADONLY, 0);
+=======
+				KGSL_MEMFLAGS_GPUREADONLY, 0, "ucode");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (ret)
 		goto done;
@@ -2944,6 +2989,13 @@ static struct adreno_ft_perf_counters a5xx_ft_perf_counters[] = {
 	{KGSL_PERFCOUNTER_GROUP_TSE, A5XX_TSE_INPUT_PRIM_NUM},
 };
 
+<<<<<<< HEAD
+=======
+static unsigned int a5xx_int_bits[ADRENO_INT_BITS_MAX] = {
+	ADRENO_INT_DEFINE(ADRENO_INT_RBBM_AHB_ERROR, A5XX_INT_RBBM_AHB_ERROR),
+};
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Register offset defines for A5XX, in order of enum adreno_regs */
 static unsigned int a5xx_register_offsets[ADRENO_REG_REGISTER_MAX] = {
 	ADRENO_REG_DEFINE(ADRENO_REG_CP_WFI_PEND_CTR, A5XX_CP_WFI_PEND_CTR),
@@ -3576,6 +3628,10 @@ static struct adreno_coresight a5xx_coresight = {
 
 struct adreno_gpudev adreno_a5xx_gpudev = {
 	.reg_offsets = &a5xx_reg_offsets,
+<<<<<<< HEAD
+=======
+	.int_bits = a5xx_int_bits,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.ft_perf_counters = a5xx_ft_perf_counters,
 	.ft_perf_counters_count = ARRAY_SIZE(a5xx_ft_perf_counters),
 	.coresight = &a5xx_coresight,

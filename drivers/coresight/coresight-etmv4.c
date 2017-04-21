@@ -3702,8 +3702,15 @@ err1:
 		unregister_hotcpu_notifier(&etm_cpu_notifier);
 		unregister_hotcpu_notifier(&etm_cpu_dying_notifier);
 	}
+<<<<<<< HEAD
 err0:
 	wakeup_source_trash(&drvdata->ws);
+=======
+	etmdrvdata[cpu] = NULL;
+err0:
+	wakeup_source_trash(&drvdata->ws);
+	platform_set_drvdata(pdev, NULL);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return ret;
 }
 

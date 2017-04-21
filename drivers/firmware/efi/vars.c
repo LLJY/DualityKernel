@@ -202,6 +202,7 @@ static const struct variable_validate variable_validate[] = {
 	{ NULL_GUID, "", NULL },
 };
 
+<<<<<<< HEAD
 /*
  * Check if @var_name matches the pattern given in @match_name.
  *
@@ -213,12 +214,15 @@ static const struct variable_validate variable_validate[] = {
  *         that @var_name matches, regardless of the return value.
  * @return: whether @var_name fully matches @match_name.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static bool
 variable_matches(const char *var_name, size_t len, const char *match_name,
 		 int *match)
 {
 	for (*match = 0; ; (*match)++) {
 		char c = match_name[*match];
+<<<<<<< HEAD
 
 		switch (c) {
 		case '*':
@@ -240,6 +244,25 @@ variable_matches(const char *var_name, size_t len, const char *match_name,
 			return false;
 		}
 	}
+=======
+		char u = var_name[*match];
+
+		/* Wildcard in the matching name means we've matched */
+		if (c == '*')
+			return true;
+
+		/* Case sensitive match */
+		if (!c && *match == len)
+			return true;
+
+		if (c != u)
+			return false;
+
+		if (!c)
+			return true;
+	}
+	return true;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 bool

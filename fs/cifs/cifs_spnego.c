@@ -24,13 +24,19 @@
 #include <linux/string.h>
 #include <keys/user-type.h>
 #include <linux/key-type.h>
+<<<<<<< HEAD
 #include <linux/keyctl.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/inet.h>
 #include "cifsglob.h"
 #include "cifs_spnego.h"
 #include "cifs_debug.h"
+<<<<<<< HEAD
 #include "cifsproto.h"
 static const struct cred *spnego_cred;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* create a new cifs key */
 static int
@@ -105,7 +111,10 @@ cifs_get_spnego_key(struct cifs_ses *sesInfo)
 	size_t desc_len;
 	struct key *spnego_key;
 	const char *hostname = server->hostname;
+<<<<<<< HEAD
 	const struct cred *saved_cred;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/* length of fields (with semicolons): ver=0xyz ip4=ipaddress
 	   host=hostname sec=mechanism uid=0xFF user=username */
@@ -167,9 +176,13 @@ cifs_get_spnego_key(struct cifs_ses *sesInfo)
 	sprintf(dp, ";pid=0x%x", current->pid);
 
 	cifs_dbg(FYI, "key description = %s\n", description);
+<<<<<<< HEAD
 	saved_cred = override_creds(spnego_cred);
 	spnego_key = request_key(&cifs_spnego_key_type, description, "");
 	revert_creds(saved_cred);
+=======
+	spnego_key = request_key(&cifs_spnego_key_type, description, "");
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifdef CONFIG_CIFS_DEBUG2
 	if (cifsFYI && !IS_ERR(spnego_key)) {
@@ -183,6 +196,7 @@ out:
 	kfree(description);
 	return spnego_key;
 }
+<<<<<<< HEAD
 
 int
 init_cifs_spnego(void)
@@ -244,3 +258,5 @@ exit_cifs_spnego(void)
 	put_cred(spnego_cred);
 	cifs_dbg(FYI, "Unregistered %s key type\n", cifs_spnego_key_type.name);
 }
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

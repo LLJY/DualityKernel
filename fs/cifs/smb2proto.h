@@ -140,8 +140,11 @@ extern int SMB2_query_directory(const unsigned int xid, struct cifs_tcon *tcon,
 extern int SMB2_rename(const unsigned int xid, struct cifs_tcon *tcon,
 		       u64 persistent_fid, u64 volatile_fid,
 		       __le16 *target_file);
+<<<<<<< HEAD
 extern int SMB2_rmdir(const unsigned int xid, struct cifs_tcon *tcon,
 		      u64 persistent_fid, u64 volatile_fid);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 extern int SMB2_set_hardlink(const unsigned int xid, struct cifs_tcon *tcon,
 			     u64 persistent_fid, u64 volatile_fid,
 			     __le16 *target_file);

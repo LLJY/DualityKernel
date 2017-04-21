@@ -300,10 +300,24 @@ config MSM_11AD
 	  If you choose to build it as a module, it will be called
 	  msm_11ad_proxy.
 
+<<<<<<< HEAD
 source "drivers/platform/msm/spmi/Kconfig"
 
 config PON_SOMC_ORG
 	bool "SoMC specific power on interface"
 	help
 		This option enables SoMC specific power on interface.
+=======
+config BW_MONITOR
+	bool "Bandwidth monitor driver"
+        depends on BUS_TOPOLOGY_ADHOC && THERMAL
+	help
+	 Enable this module if any bandwidth of a bus needs to be
+	 monitored and limited by thermal core framework. It does
+	 it by registering the bus bandwidth as a sensor in
+	 thermal core framework.
+
+source "drivers/platform/msm/spmi/Kconfig"
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endmenu

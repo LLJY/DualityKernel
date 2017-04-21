@@ -223,6 +223,11 @@ compatible = "qcom,msm8917-qrd-sku5"
 compatible = "qcom,msm8917-qgp-tmo"
 compatible = "qcom,msm8920-cdp"
 compatible = "qcom,msm8920-mtp"
+<<<<<<< HEAD
+=======
+compatible = "qcom,msm8920-qrd"
+compatible = "qcom,msm8920-qrd-sku7"
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 compatible = "qcom,msm8940-cdp"
 compatible = "qcom,msm8940-mtp"
 compatible = "qcom,msm8940-rumi"

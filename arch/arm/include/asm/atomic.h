@@ -29,7 +29,10 @@
  */
 #define atomic_read(v)	ACCESS_ONCE((v)->counter)
 #define atomic_set(v,i)	(((v)->counter) = (i))
+<<<<<<< HEAD
 #define cpu_relaxed_read_atomic(v)	atomic_read(v)
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #if __LINUX_ARM_ARCH__ >= 6
 

@@ -541,6 +541,7 @@ config UID_CPUTIME
 	help
 	  Per UID based cpu time statistics exported to /proc/uid_cputime
 
+<<<<<<< HEAD
 config NFC_PN547
 	tristate "NFC driver for PN547"
 	depends on I2C
@@ -551,6 +552,8 @@ config NFC_PN547
 	  The sysfs files provides the interface to send and receive
 	  the data, response and notification.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config USB_EXT_TYPE_C_PERICOM
 	tristate "USB Type-C charger detection support using Pericom chip"
 	depends on I2C && POWER_SUPPLY
@@ -582,6 +585,7 @@ config TI_DRV2667
 	  To compile this driver as a module, choose M here: the
 	  module will be called ti_drv2667.
 
+<<<<<<< HEAD
 config LDO_VIBRATOR
 	tristate "LDO Vibrator"
 	default n
@@ -668,6 +672,8 @@ config DTV_TUNER_SMTEW10X
 	  This module controls power switching and reset switching of
 	  SMT-EW10x.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config QPNP_MISC
 	tristate "QPNP Misc Peripheral"
 	depends on SPMI || MSM_SPMI
@@ -677,6 +683,7 @@ config QPNP_MISC
 	  and the driver provides an API to check if this interrupt
 	  is available on the current PMIC chip.
 
+<<<<<<< HEAD
 config SENSORS_TCS3490_KAGURA
 	tristate "AMS TCS3490 Sensor Driver"
 	depends on I2C
@@ -695,6 +702,8 @@ config TOF_SENSOR
 	  To compile this driver as a module, choose M here: the
 	  module will be called tof_sensor.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 source "drivers/misc/c2port/Kconfig"
 source "drivers/misc/eeprom/Kconfig"
 source "drivers/misc/cb710/Kconfig"

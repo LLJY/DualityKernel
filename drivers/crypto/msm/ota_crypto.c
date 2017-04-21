@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2010-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2010-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -884,8 +888,13 @@ static ssize_t _debug_stats_read(struct file *file, char __user *buf,
 	int len;
 
 	len = _disp_stats();
+<<<<<<< HEAD
 
 	rc = simple_read_from_buffer((void __user *) buf, len,
+=======
+	if (len <= count)
+		rc = simple_read_from_buffer((void __user *) buf, len,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			ppos, (void *) _debug_read_buf, len);
 
 	return rc;

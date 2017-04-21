@@ -35,10 +35,13 @@ SUBSYS(net_cls)
 SUBSYS(blkio)
 #endif
 
+<<<<<<< HEAD
 #if IS_ENABLED(CONFIG_CGROUP_BFQIO)
 SUBSYS(bfqio)
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #if IS_ENABLED(CONFIG_CGROUP_PERF)
 SUBSYS(perf_event)
 #endif

@@ -7,11 +7,14 @@
  *
  *  Host driver specific definitions.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef LINUX_MMC_HOST_H
 #define LINUX_MMC_HOST_H
 
@@ -25,11 +28,17 @@
 #include <linux/mmc/core.h>
 #include <linux/mmc/card.h>
 #include <linux/mmc/pm.h>
+<<<<<<< HEAD
 
 /* Default idle timeout for MMC devices: 3 seconds. */
 #define MMC_AUTOSUSPEND_DELAY_MS	3000
 /* Default idle timeout for SD cards: 5 minutes. */
 #define MMC_SDCARD_AUTOSUSPEND_DELAY_MS 30000
+=======
+#include <linux/mmc/ring_buffer.h>
+
+#define MMC_AUTOSUSPEND_DELAY_MS	3000
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 struct mmc_ios {
 	unsigned int	clock;			/* clock rate */
@@ -565,6 +574,10 @@ struct mmc_host {
 	} perf;
 	bool perf_enable;
 #endif
+<<<<<<< HEAD
+=======
+	struct mmc_trace_buffer trace_buf;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	enum dev_state dev_status;
 	bool			wakeup_on_idle;
 	struct mmc_cmdq_context_info	cmdq_ctx;
@@ -633,8 +646,11 @@ int mmc_power_restore_host(struct mmc_host *host);
 void mmc_detect_change(struct mmc_host *, unsigned long delay);
 void mmc_request_done(struct mmc_host *, struct mmc_request *);
 
+<<<<<<< HEAD
 int mmc_cache_ctrl(struct mmc_host *, u8);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline void mmc_signal_sdio_irq(struct mmc_host *host)
 {
 	host->ops->enable_sdio_irq(host, 0);

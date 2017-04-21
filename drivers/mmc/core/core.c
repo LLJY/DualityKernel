@@ -10,11 +10,14 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/interrupt.h>
@@ -45,7 +48,10 @@
 #include <linux/mmc/mmc.h>
 #include <linux/mmc/sd.h>
 #include <linux/mmc/slot-gpio.h>
+<<<<<<< HEAD
 #include <linux/mmc/slot-gpio.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include "core.h"
 #include "bus.h"
@@ -65,9 +71,12 @@
  */
 #define MMC_BKOPS_MAX_TIMEOUT	(30 * 1000) /* max time to wait in ms */
 
+<<<<<<< HEAD
 /* Flushing a large amount of cached data may take a long time. */
 #define MMC_FLUSH_REQ_TIMEOUT_MS 180000 /* msec */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct workqueue_struct *workqueue;
 static const unsigned freqs[] = { 400000, 300000, 200000, 100000 };
 
@@ -77,7 +86,11 @@ static const unsigned freqs[] = { 400000, 300000, 200000, 100000 };
  * So we allow it it to be disabled.
  */
 bool use_spi_crc = 1;
+<<<<<<< HEAD
 module_param(use_spi_crc, bool, 0644);
+=======
+module_param(use_spi_crc, bool, 0);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /*
  * Internal function. Schedule delayed work in the MMC work queue.
@@ -962,6 +975,7 @@ mmc_start_request(struct mmc_host *host, struct mmc_request *mrq)
 	struct scatterlist *sg;
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_CMD_DEBUG
 	if (host->card) {
 		struct mmc_cmdq *cq = NULL;
@@ -980,6 +994,8 @@ mmc_start_request(struct mmc_host *host, struct mmc_request *mrq)
 	}
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (mrq->sbc) {
 		pr_debug("<%s: starting CMD%u arg %08x flags %08x>\n",
 			 mmc_hostname(host), mrq->sbc->opcode,
@@ -1673,10 +1689,13 @@ EXPORT_SYMBOL(mmc_start_req);
  */
 void mmc_wait_for_req(struct mmc_host *host, struct mmc_request *mrq)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_BLOCK_DEFERRED_RESUME
 	if (mmc_bus_needs_resume(host))
 		mmc_resume_bus(host);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	__mmc_start_req(host, mrq);
 	mmc_wait_for_req_done(host, mrq);
 }
@@ -1720,7 +1739,10 @@ int mmc_interrupt_hpi(struct mmc_card *card)
 		 */
 		goto out;
 	case R1_STATE_PRG:
+<<<<<<< HEAD
 		pr_debug("%s: Sending HPI cmd\n", mmc_hostname(card->host));
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	default:
 		/* In all other states, it's illegal to issue HPI */
@@ -1931,7 +1953,11 @@ void mmc_set_data_timeout(struct mmc_data *data, const struct mmc_card *card)
 	/*
 	 * Some cards require longer data read timeout than indicated in CSD.
 	 * Address this by setting the read timeout to a "reasonably high"
+<<<<<<< HEAD
 	 * value. For the cards tested, 600ms has proven enough. If necessary,
+=======
+	 * value. For the cards tested, 300ms has proven enough. If necessary,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	 * this value can be increased if other problematic cards require this.
 	 * Certain Hynix 5.x cards giving read timeout even with 300ms.
 	 * Increasing further to max value (4s).
@@ -2074,6 +2100,13 @@ void mmc_get_card(struct mmc_card *card)
 {
 	pm_runtime_get_sync(&card->dev);
 	mmc_claim_host(card->host);
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_MMC_BLOCK_DEFERRED_RESUME
+	if (mmc_bus_needs_resume(card->host))
+		mmc_resume_bus(card->host);
+#endif
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 EXPORT_SYMBOL(mmc_get_card);
 
@@ -2622,10 +2655,14 @@ int mmc_set_signal_voltage(struct mmc_host *host, int signal_voltage, u32 ocr)
 
 	host->card_clock_off = false;
 	/* Wait for at least 1 ms according to spec */
+<<<<<<< HEAD
 	if (host->caps & MMC_CAP_NONREMOVABLE)
 		mmc_delay(1);
 	else
 		mmc_delay(40);
+=======
+	mmc_delay(1);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/*
 	 * Failure to switch is indicated by the card holding
@@ -3714,8 +3751,11 @@ static int mmc_rescan_try_freq(struct mmc_host *host, unsigned freq)
 		return 0;
 	if (!mmc_attach_sd(host))
 		return 0;
+<<<<<<< HEAD
 	else
 		mmc_gpio_tray_close_set_uim2(host, 1);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!mmc_attach_mmc(host))
 		return 0;
 
@@ -3891,8 +3931,11 @@ void mmc_stop_host(struct mmc_host *host)
 	cancel_delayed_work_sync(&host->detect);
 	mmc_flush_scheduled_work();
 
+<<<<<<< HEAD
 	mmc_gpio_set_uim2_en(host, 0);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* clear pm flags now and let card drivers set them as needed */
 	host->pm_flags = 0;
 
@@ -4032,6 +4075,7 @@ int mmc_flush_cache(struct mmc_card *card)
 }
 EXPORT_SYMBOL(mmc_flush_cache);
 
+<<<<<<< HEAD
 /*
  * Turn the cache ON/OFF.
  * Turning the cache OFF shall trigger flushing of the data
@@ -4085,6 +4129,8 @@ int mmc_cache_ctrl(struct mmc_host *host, u8 enable)
 }
 EXPORT_SYMBOL(mmc_cache_ctrl);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifdef CONFIG_PM
 
 /* Do the card removal on suspend if card is assumed removeable
@@ -4098,9 +4144,12 @@ int mmc_pm_notify(struct notifier_block *notify_block,
 		notify_block, struct mmc_host, pm_notify);
 	unsigned long flags;
 	int err = 0;
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_SD_DEFERRED_RESUME
 	bool pending_detect = false;
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	switch (mode) {
 	case PM_HIBERNATION_PREPARE:
@@ -4109,6 +4158,7 @@ int mmc_pm_notify(struct notifier_block *notify_block,
 		spin_lock_irqsave(&host->lock, flags);
 		host->rescan_disable = 1;
 		spin_unlock_irqrestore(&host->lock, flags);
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_SD_DEFERRED_RESUME
 		if (cancel_delayed_work_sync(&host->detect)) {
 			pending_detect = true;
@@ -4118,6 +4168,9 @@ int mmc_pm_notify(struct notifier_block *notify_block,
 #else
 		cancel_delayed_work_sync(&host->detect);
 #endif
+=======
+		cancel_delayed_work_sync(&host->detect);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		if (!host->bus_ops)
 			break;
@@ -4148,10 +4201,13 @@ int mmc_pm_notify(struct notifier_block *notify_block,
 			break;
 		}
 		spin_unlock_irqrestore(&host->lock, flags);
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_SD_DEFERRED_RESUME
 		if (!mmc_cd_is_pending_detect(host))
 			break; /* IRQ should be triggered if CD changed */
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		_mmc_detect_change(host, 0, false);
 
 	}

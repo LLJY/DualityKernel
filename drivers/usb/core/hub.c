@@ -48,6 +48,14 @@ static void hub_event(struct work_struct *work);
 /* synchronize hub-port add/remove and peering operations */
 DEFINE_MUTEX(usb_port_peer_mutex);
 
+<<<<<<< HEAD
+=======
+static bool skip_extended_resume_delay = 1;
+module_param(skip_extended_resume_delay, bool, S_IRUGO | S_IWUSR);
+MODULE_PARM_DESC(skip_extended_resume_delay,
+		"removes extra delay added to finish bus resume");
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* cycle leds on hubs that aren't blinking for attention */
 static bool blinkenlights = 0;
 module_param (blinkenlights, bool, S_IRUGO);
@@ -606,6 +614,15 @@ void usb_kick_hub_wq(struct usb_device *hdev)
 		kick_hub_wq(hub);
 }
 
+<<<<<<< HEAD
+=======
+void usb_flush_hub_wq(void)
+{
+	flush_workqueue(hub_wq);
+}
+EXPORT_SYMBOL(usb_flush_hub_wq);
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /*
  * Let the USB core know that a USB 3.0 device has sent a Function Wake Device
  * Notification, which indicates it had initiated remote wakeup.
@@ -2062,7 +2079,11 @@ static void choose_devnum(struct usb_device *udev)
 	struct usb_bus	*bus = udev->bus;
 
 	/* be safe when more hub events are proceed in parallel */
+<<<<<<< HEAD
 	mutex_lock(&bus->devnum_next_mutex);
+=======
+	mutex_lock(&bus->usb_address0_mutex);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (udev->wusb) {
 		devnum = udev->portnum + 1;
 		BUG_ON(test_bit(devnum, bus->devmap.devicemap));
@@ -2080,7 +2101,11 @@ static void choose_devnum(struct usb_device *udev)
 		set_bit(devnum, bus->devmap.devicemap);
 		udev->devnum = devnum;
 	}
+<<<<<<< HEAD
 	mutex_unlock(&bus->devnum_next_mutex);
+=======
+	mutex_unlock(&bus->usb_address0_mutex);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void release_devnum(struct usb_device *udev)
@@ -3397,7 +3422,13 @@ int usb_port_resume(struct usb_device *udev, pm_message_t msg)
 		/* drive resume for USB_RESUME_TIMEOUT msec */
 		dev_dbg(&udev->dev, "usb %sresume\n",
 				(PMSG_IS_AUTO(msg) ? "auto-" : ""));
+<<<<<<< HEAD
 		msleep(USB_RESUME_TIMEOUT);
+=======
+		if (!skip_extended_resume_delay)
+			usleep_range(USB_RESUME_TIMEOUT * 1000,
+					(USB_RESUME_TIMEOUT + 1) * 1000);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		/* Virtual root hubs can trigger on GET_PORT_STATUS to
 		 * stop resume signaling.  Then finish the resume
@@ -3406,7 +3437,11 @@ int usb_port_resume(struct usb_device *udev, pm_message_t msg)
 		status = hub_port_status(hub, port1, &portstatus, &portchange);
 
 		/* TRSMRCY = 10 msec */
+<<<<<<< HEAD
 		msleep(10);
+=======
+		usleep_range(10000, 10500);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
  SuspendCleared:
@@ -4258,7 +4293,11 @@ hub_port_init (struct usb_hub *hub, struct usb_device *udev, int port1,
 	if (oldspeed == USB_SPEED_LOW)
 		delay = HUB_LONG_RESET_TIME;
 
+<<<<<<< HEAD
 	mutex_lock(hcd->address0_mutex);
+=======
+	mutex_lock(&hdev->bus->usb_address0_mutex);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/* Reset the device; full speed may morph to high speed */
 	/* FIXME a USB 2.0 device may morph into SuperSpeed on reset. */
@@ -4534,7 +4573,11 @@ fail:
 		hub_port_disable(hub, port1, 0);
 		update_devnum(udev, devnum);	/* for disconnect processing */
 	}
+<<<<<<< HEAD
 	mutex_unlock(hcd->address0_mutex);
+=======
+	mutex_unlock(&hdev->bus->usb_address0_mutex);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return retval;
 }
 
@@ -5362,9 +5405,12 @@ static int usb_reset_and_verify_device(struct usb_device *udev)
 		goto re_enumerate;
 	}
 
+<<<<<<< HEAD
 	bos = udev->bos;
 	udev->bos = NULL;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	for (i = 0; i < SET_CONFIG_TRIES; ++i) {
 
 		/* ep0 maxpacket size may change; let the HCD know about it.

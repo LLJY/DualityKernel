@@ -130,6 +130,12 @@ static int snd_soc_dummy_probe(struct platform_device *pdev)
 {
 	int ret;
 
+<<<<<<< HEAD
+=======
+	memset(&dummy_codec, 0,
+		sizeof(struct snd_soc_codec_driver));
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ret = snd_soc_register_codec(&pdev->dev, &dummy_codec, &dummy_dai, 1);
 	if (ret < 0)
 		return ret;

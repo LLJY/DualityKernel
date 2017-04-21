@@ -467,7 +467,10 @@ void ahci_save_initial_config(struct device *dev, struct ahci_host_priv *hpriv)
 		dev_info(dev, "forcing port_map 0x%x -> 0x%x\n",
 			 port_map, hpriv->force_port_map);
 		port_map = hpriv->force_port_map;
+<<<<<<< HEAD
 		hpriv->saved_port_map = port_map;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	if (hpriv->mask_port_map) {

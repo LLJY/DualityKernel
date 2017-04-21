@@ -617,6 +617,10 @@ static int msm_eeprom_config(struct msm_eeprom_ctrl_t *e_ctrl,
 	struct msm_eeprom_cfg_data *cdata =
 		(struct msm_eeprom_cfg_data *)argp;
 	int rc = 0;
+<<<<<<< HEAD
+=======
+	size_t length = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	CDBG("%s E\n", __func__);
 	switch (cdata->cfgtype) {
@@ -629,9 +633,21 @@ static int msm_eeprom_config(struct msm_eeprom_ctrl_t *e_ctrl,
 		}
 		CDBG("%s E CFG_EEPROM_GET_INFO\n", __func__);
 		cdata->is_supported = e_ctrl->is_supported;
+<<<<<<< HEAD
 		memcpy(cdata->cfg.eeprom_name,
 			e_ctrl->eboard_info->eeprom_name,
 			sizeof(cdata->cfg.eeprom_name));
+=======
+		length = strlen(e_ctrl->eboard_info->eeprom_name) + 1;
+		if (length > MAX_EEPROM_NAME) {
+			pr_err("%s:%d invalid eeprom_name length %d\n",
+				__func__, __LINE__, (int)length);
+			rc = -EINVAL;
+			break;
+		}
+		memcpy(cdata->cfg.eeprom_name,
+			e_ctrl->eboard_info->eeprom_name, length);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	case CFG_EEPROM_GET_CAL_DATA:
 		CDBG("%s E CFG_EEPROM_GET_CAL_DATA\n", __func__);
@@ -1402,6 +1418,19 @@ static int eeprom_init_config32(struct msm_eeprom_ctrl_t *e_ctrl,
 
 	power_info = &(e_ctrl->eboard_info->power_info);
 
+<<<<<<< HEAD
+=======
+	if ((power_setting_array32->size > MAX_POWER_CONFIG) ||
+		(power_setting_array32->size_down > MAX_POWER_CONFIG) ||
+		(!power_setting_array32->size) ||
+		(!power_setting_array32->size_down)) {
+		pr_err("%s:%d invalid power setting size=%d size_down=%d\n",
+			__func__, __LINE__, power_setting_array32->size,
+			power_setting_array32->size_down);
+		rc = -EINVAL;
+		goto free_mem;
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	msm_eeprom_copy_power_settings_compat(
 		power_setting_array,
 		power_setting_array32);
@@ -1416,6 +1445,7 @@ static int eeprom_init_config32(struct msm_eeprom_ctrl_t *e_ctrl,
 	power_info->power_down_setting_size =
 		power_setting_array->size_down;
 
+<<<<<<< HEAD
 	if ((power_info->power_setting_size >
 		MAX_POWER_CONFIG) ||
 		(power_info->power_down_setting_size >
@@ -1430,6 +1460,8 @@ static int eeprom_init_config32(struct msm_eeprom_ctrl_t *e_ctrl,
 		goto free_mem;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (e_ctrl->i2c_client.cci_client) {
 		e_ctrl->i2c_client.cci_client->i2c_freq_mode =
 			cdata32->cfg.eeprom_info.i2c_freq_mode;
@@ -1479,6 +1511,10 @@ static int msm_eeprom_config32(struct msm_eeprom_ctrl_t *e_ctrl,
 	struct msm_eeprom_cfg_data32 *cdata =
 		(struct msm_eeprom_cfg_data32 *)argp;
 	int rc = 0;
+<<<<<<< HEAD
+=======
+	size_t length = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	CDBG("%s E\n", __func__);
 	switch (cdata->cfgtype) {
@@ -1491,9 +1527,21 @@ static int msm_eeprom_config32(struct msm_eeprom_ctrl_t *e_ctrl,
 		}
 		CDBG("%s E CFG_EEPROM_GET_INFO\n", __func__);
 		cdata->is_supported = e_ctrl->is_supported;
+<<<<<<< HEAD
 		memcpy(cdata->cfg.eeprom_name,
 			e_ctrl->eboard_info->eeprom_name,
 			sizeof(cdata->cfg.eeprom_name));
+=======
+		length = strlen(e_ctrl->eboard_info->eeprom_name) + 1;
+		if (length > MAX_EEPROM_NAME) {
+			pr_err("%s:%d invalid eeprom_name length %d\n",
+				__func__, __LINE__, (int)length);
+			rc = -EINVAL;
+			break;
+		}
+		memcpy(cdata->cfg.eeprom_name,
+			e_ctrl->eboard_info->eeprom_name, length);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	case CFG_EEPROM_GET_CAL_DATA:
 		CDBG("%s E CFG_EEPROM_GET_CAL_DATA\n", __func__);

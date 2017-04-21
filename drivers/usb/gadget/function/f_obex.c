@@ -403,7 +403,11 @@ fail:
 	if (obex->port.in)
 		obex->port.in->driver_data = NULL;
 
+<<<<<<< HEAD
 	ERROR(cdev, "%s/%p: can't bind, err %d\n", f->name, f, status);
+=======
+	ERROR(cdev, "%s/%pK: can't bind, err %d\n", f->name, f, status);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return status;
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -9,11 +13,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/mutex.h>
 #include <linux/io.h>
 #include <media/v4l2-subdev.h>
@@ -27,6 +34,10 @@
 #include "cam_smmu_api.h"
 
 #define MAX_ISP_V4l2_EVENTS 100
+<<<<<<< HEAD
+=======
+#define MAX_ISP_REG_LIST 100
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static DEFINE_MUTEX(bandwidth_mgr_mutex);
 static struct msm_isp_bandwidth_mgr isp_bandwidth_mgr;
 
@@ -389,7 +400,12 @@ static int msm_isp_start_fetch_engine_multi_pass(struct vfe_device *vfe_dev,
 				fe_cfg->output_stream_id);
 			return -EINVAL;
 		}
+<<<<<<< HEAD
 
+=======
+		vfe_dev->hw_info->vfe_ops.core_ops.reset_hw(vfe_dev,
+			0, 1);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		msm_isp_reset_framedrop(vfe_dev, stream_info);
 
 		rc = msm_isp_cfg_offline_ping_pong_address(vfe_dev, stream_info,
@@ -417,9 +433,12 @@ void msm_isp_fetch_engine_done_notify(struct vfe_device *vfe_dev,
 	struct msm_vfe_fetch_engine_info *fetch_engine_info)
 {
 	struct msm_isp_event_data fe_rd_done_event;
+<<<<<<< HEAD
 	if (!fetch_engine_info->is_busy)
 		return;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	memset(&fe_rd_done_event, 0, sizeof(struct msm_isp_event_data));
 	fe_rd_done_event.frame_id =
 		vfe_dev->axi_data.src_info[VFE_PIX_0].frame_id;
@@ -571,6 +590,17 @@ static int msm_isp_set_dual_HW_master_slave_mode(
 	}
 
 	/* No lock needed here since ioctl lock protects 2 session from race */
+<<<<<<< HEAD
+=======
+	/* reset master SOF which refer slave in increment_frame_id function
+	 *
+	 */
+	vfe_dev->common_data->ms_resource.master_sof_info.frame_id = 0;
+	vfe_dev->common_data->ms_resource.master_sof_info.mono_timestamp_ms = 0;
+	/* we have only 1 slave so reset it frame_id so that master will
+	 * not jump*/
+	vfe_dev->common_data->ms_resource.slave_sof_info[0].frame_id = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (src_info != NULL &&
 		dual_hw_ms_cmd->dual_hw_ms_type == MS_TYPE_MASTER) {
 		src_info->dual_hw_type = DUAL_HW_MASTER_SLAVE;
@@ -644,6 +674,10 @@ static int msm_isp_set_dual_HW_master_slave_mode(
 static int msm_isp_proc_cmd_list_unlocked(struct vfe_device *vfe_dev, void *arg)
 {
 	int rc = 0;
+<<<<<<< HEAD
+=======
+	uint32_t count = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct msm_vfe_cfg_cmd_list *proc_cmd =
 		(struct msm_vfe_cfg_cmd_list *)arg;
 	struct msm_vfe_cfg_cmd_list cmd, cmd_next;
@@ -667,6 +701,15 @@ static int msm_isp_proc_cmd_list_unlocked(struct vfe_device *vfe_dev, void *arg)
 				sizeof(struct msm_vfe_cfg_cmd_list));
 			break;
 		}
+<<<<<<< HEAD
+=======
+		if (++count >= MAX_ISP_REG_LIST) {
+			pr_err("%s:%d Error exceeding the max register count:%u\n",
+				__func__, __LINE__, count);
+			rc = -EFAULT;
+			break;
+		}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (copy_from_user(&cmd_next, (void __user *)cmd.next,
 			sizeof(struct msm_vfe_cfg_cmd_list))) {
 			rc = -EFAULT;
@@ -713,6 +756,10 @@ static void msm_isp_compat_to_proc_cmd(struct msm_vfe_cfg_cmd2 *proc_cmd,
 static int msm_isp_proc_cmd_list_compat(struct vfe_device *vfe_dev, void *arg)
 {
 	int rc = 0;
+<<<<<<< HEAD
+=======
+	uint32_t count = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct msm_vfe_cfg_cmd_list_32 *proc_cmd =
 		(struct msm_vfe_cfg_cmd_list_32 *)arg;
 	struct msm_vfe_cfg_cmd_list_32 cmd, cmd_next;
@@ -737,6 +784,15 @@ static int msm_isp_proc_cmd_list_compat(struct vfe_device *vfe_dev, void *arg)
 				sizeof(struct msm_vfe_cfg_cmd_list));
 			break;
 		}
+<<<<<<< HEAD
+=======
+		if (++count >= MAX_ISP_REG_LIST) {
+			pr_err("%s:%d Error exceeding the max register count:%u\n",
+				__func__, __LINE__, count);
+			rc = -EFAULT;
+			break;
+		}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (copy_from_user(&cmd_next, compat_ptr(cmd.next),
 			sizeof(struct msm_vfe_cfg_cmd_list_32))) {
 			rc = -EFAULT;
@@ -841,6 +897,15 @@ static long msm_isp_ioctl_unlocked(struct v4l2_subdev *sd,
 		rc = msm_isp_cfg_axi_stream(vfe_dev, arg);
 		mutex_unlock(&vfe_dev->core_mutex);
 		break;
+<<<<<<< HEAD
+=======
+	case VIDIOC_MSM_ISP_CFG_HW_STATE:
+		mutex_lock(&vfe_dev->core_mutex);
+		rc = msm_isp_update_stream_bandwidth(vfe_dev,
+			*(enum msm_vfe_hw_state *)arg);
+		mutex_unlock(&vfe_dev->core_mutex);
+		break;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	case VIDIOC_MSM_ISP_AXI_HALT:
 		mutex_lock(&vfe_dev->core_mutex);
 		rc = msm_isp_axi_halt(vfe_dev, arg);
@@ -1358,6 +1423,23 @@ static int msm_isp_send_hw_cmd(struct vfe_device *vfe_dev,
 		vfe_dev->vfe_ub_policy = *cfg_data;
 		break;
 	}
+<<<<<<< HEAD
+=======
+	case GET_VFE_HW_LIMIT: {
+		uint32_t *hw_limit = NULL;
+
+		if (cmd_len < sizeof(uint32_t)) {
+			pr_err("%s:%d failed: invalid cmd len %u exp %zu\n",
+				__func__, __LINE__, cmd_len,
+				sizeof(uint32_t));
+			return -EINVAL;
+		}
+
+		hw_limit = (uint32_t *)cfg_data;
+		*hw_limit = vfe_dev->vfe_hw_limit;
+		break;
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	return 0;
 }
@@ -1900,6 +1982,13 @@ irqreturn_t msm_isp_process_irq(int irq_num, void *data)
 	}
 	ping_pong_status = vfe_dev->hw_info->vfe_ops.axi_ops.
 		get_pingpong_status(vfe_dev);
+<<<<<<< HEAD
+=======
+	if (vfe_dev->hw_info->vfe_ops.irq_ops.process_eof_irq) {
+		vfe_dev->hw_info->vfe_ops.irq_ops.process_eof_irq(vfe_dev,
+			irq_status0);
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	msm_isp_process_overflow_irq(vfe_dev,
 		&irq_status0, &irq_status1, 0);
 
@@ -2111,10 +2200,13 @@ int msm_isp_open_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 	cam_smmu_reg_client_page_fault_handler(
 			vfe_dev->buf_mgr->iommu_hdl,
 			msm_vfe_iommu_fault_handler, vfe_dev);
+<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 	vfe_dev->timeout = VFE_MAX_CFG_TIMEOUT;
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_unlock(&vfe_dev->core_mutex);
 	mutex_unlock(&vfe_dev->realtime_mutex);
 	return 0;
@@ -2136,6 +2228,10 @@ int msm_isp_close_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 {
 	long rc = 0;
 	int wm;
+<<<<<<< HEAD
+=======
+	unsigned long flags;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct vfe_device *vfe_dev = v4l2_get_subdevdata(sd);
 	ISP_DBG("%s E open_cnt %u\n", __func__, vfe_dev->vfe_open_cnt);
 	mutex_lock(&vfe_dev->realtime_mutex);
@@ -2149,6 +2245,30 @@ int msm_isp_close_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
+=======
+	/* reset master and slave mask in case daemon died */
+	if (vfe_dev->axi_data.src_info[VFE_PIX_0].dual_hw_ms_info.
+		dual_hw_ms_type == MS_TYPE_MASTER) {
+		spin_lock_irqsave(
+			&vfe_dev->common_data->common_dev_data_lock,
+			flags);
+		vfe_dev->common_data->ms_resource.master_active = 0;
+		spin_unlock_irqrestore(
+			&vfe_dev->common_data->common_dev_data_lock,
+			flags);
+	} else if (vfe_dev->axi_data.src_info[VFE_PIX_0].dual_hw_ms_info.
+			dual_hw_ms_type == MS_TYPE_SLAVE) {
+		spin_lock_irqsave(
+			&vfe_dev->common_data->common_dev_data_lock,
+			flags);
+		vfe_dev->common_data->ms_resource.slave_active_mask = 0;
+		vfe_dev->common_data->ms_resource.reserved_slave_mask = 0;
+		spin_unlock_irqrestore(
+			&vfe_dev->common_data->common_dev_data_lock,
+			flags);
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (vfe_dev->vfe_open_cnt > 1) {
 		vfe_dev->vfe_open_cnt--;
 		mutex_unlock(&vfe_dev->core_mutex);

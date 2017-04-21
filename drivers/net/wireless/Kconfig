@@ -325,6 +325,7 @@ config CNSS_CRYPTO
 	  from cnss platform driver. This crypto APIs used to generate cipher
 	  key and add support for the WLAN driver module security protocol.
 
+<<<<<<< HEAD
 config BCMDHD_PCIE
 	bool "PCIe bus interface support"
 	depends on PCI
@@ -360,6 +361,8 @@ config SOMC_WIFI_CONTROL
 	---help---
 	  A SOMC adaptation for the WLAN driver module
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 source "drivers/net/wireless/ath/Kconfig"
 source "drivers/net/wireless/b43/Kconfig"
 source "drivers/net/wireless/b43legacy/Kconfig"

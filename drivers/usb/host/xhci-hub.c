@@ -1176,7 +1176,11 @@ int xhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
 				xhci_set_link_state(xhci, port_array, wIndex,
 							XDEV_RESUME);
 				spin_unlock_irqrestore(&xhci->lock, flags);
+<<<<<<< HEAD
 				msleep(20);
+=======
+				usleep_range(21000, 21500);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				spin_lock_irqsave(&xhci->lock, flags);
 				xhci_set_link_state(xhci, port_array, wIndex,
 							XDEV_U0);
@@ -1412,7 +1416,11 @@ int xhci_bus_resume(struct usb_hcd *hcd)
 						port_index, XDEV_RESUME);
 
 				spin_unlock_irqrestore(&xhci->lock, flags);
+<<<<<<< HEAD
 				msleep(20);
+=======
+				usleep_range(21000, 21500);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				spin_lock_irqsave(&xhci->lock, flags);
 
 				xhci_set_link_state(xhci, port_array,

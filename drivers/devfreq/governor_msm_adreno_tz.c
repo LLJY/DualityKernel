@@ -92,14 +92,23 @@ static ssize_t gpu_load_show(struct device *dev,
 		struct device_attribute *attr,
 		char *buf)
 {
+<<<<<<< HEAD
 	unsigned long sysfs_busy_perc;
+=======
+	unsigned long sysfs_busy_perc = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * Average out the samples taken since last read
 	 * This will keep the average value in sync with
 	 * with the client sampling duration.
 	 */
 	spin_lock(&sample_lock);
+<<<<<<< HEAD
 	sysfs_busy_perc = (acc_relative_busy * 100) / acc_total;
+=======
+	if (acc_total)
+		sysfs_busy_perc = (acc_relative_busy * 100) / acc_total;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/* Reset the parameters */
 	acc_total = 0;
@@ -397,6 +406,7 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 		__secure_tz_update_entry3(scm_data, sizeof(scm_data),
 					&val, sizeof(val), priv);
 	}
+<<<<<<< HEAD
 
 	// AP: Tweak 27 MHz frequency to be used a bit more
 	if ((val == 0) && (level == 5) &&	// (5 = 180 MHz step)
@@ -414,6 +424,11 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	if (val < -2)
 		val = -2;
 
+=======
+	priv->bin.total_time = 0;
+	priv->bin.busy_time = 0;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * If the decision is to move to a different level, make sure the GPU
 	 * frequency changes.

@@ -13,11 +13,14 @@
  *	it under the terms of the GNU General Public License version 2,
  *	as published by the Free Software Foundation.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/types.h>
 #include <linux/stddef.h>
 #include <linux/kernel.h>
@@ -38,10 +41,13 @@
 #include "avc.h"
 #include "avc_ss.h"
 #include "classmap.h"
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_SELINUX_TRAP
 #include "trap.h"
 const int secclass_map_size = ARRAY_SIZE(secclass_map);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define AVC_CACHE_SLOTS			512
 #define AVC_DEF_CACHE_THRESHOLD		512
@@ -727,6 +733,7 @@ static void avc_audit_pre_callback(struct audit_buffer *ab, void *a)
 }
 
 /**
+<<<<<<< HEAD
  * avc_dump_extra_info - add extra info about task and audit result
  * @ab: the audit buffer
  * @ad: audit_data
@@ -756,6 +763,8 @@ static void avc_dump_extra_info(struct audit_buffer *ab,
 }
 #endif
 /**
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * avc_audit_post_callback - SELinux specific information
  * will be called by generic audit code
  * @ab: the audit buffer
@@ -772,6 +781,7 @@ static void avc_audit_post_callback(struct audit_buffer *ab, void *a)
 		audit_log_format(ab, " permissive=%u",
 				 ad->selinux_audit_data->result ? 0 : 1);
 	}
+<<<<<<< HEAD
 
 #ifdef CONFIG_SECURITY_SELINUX_AVC_EXTRA_INFO
 	avc_dump_extra_info(ab, ad);
@@ -780,6 +790,8 @@ static void avc_audit_post_callback(struct audit_buffer *ab, void *a)
 	if (ad->selinux_audit_data->denied && ad->selinux_audit_data->result)
 		trap_selinux_error(ad);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /* This is the slow part of avc audit with big stack footprint */

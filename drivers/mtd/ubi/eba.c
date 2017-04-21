@@ -426,6 +426,7 @@ retry:
 						 pnum, vol_id, lnum);
 					err = -EBADMSG;
 				} else {
+<<<<<<< HEAD
 					/*
 					 * Ending up here in the non-Fastmap case
 					 * is a clear bug as the VID header had to
@@ -445,6 +446,10 @@ retry:
 						err = -EINVAL;
 						ubi_ro_mode(ubi);
 					}
+=======
+					err = -EINVAL;
+					ubi_ro_mode(ubi);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				}
 			}
 			goto out_free;

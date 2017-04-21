@@ -27,7 +27,10 @@
 #include <linux/dma-attrs.h>
 #include <linux/uaccess.h>
 #include <asm/cacheflush.h>
+<<<<<<< HEAD
 #include <linux/kthread.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* The number of memstore arrays limits the number of contexts allowed.
  * If more contexts are needed, update multiple for MEMSTORE_SIZE
@@ -133,9 +136,12 @@ struct kgsl_driver {
 	unsigned int full_cache_threshold;
 	struct workqueue_struct *workqueue;
 	struct workqueue_struct *mem_workqueue;
+<<<<<<< HEAD
 
 	struct kthread_worker worker;
 	struct task_struct *worker_thread;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 extern struct kgsl_driver kgsl_driver;
@@ -279,7 +285,11 @@ struct kgsl_event {
 	void *priv;
 	struct list_head node;
 	unsigned int created;
+<<<<<<< HEAD
 	struct kthread_work work;
+=======
+	struct work_struct work;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int result;
 	struct kgsl_event_group *group;
 };
@@ -383,6 +393,12 @@ long kgsl_ioctl_gpuobj_set_info(struct kgsl_device_private *dev_priv,
 
 void kgsl_mem_entry_destroy(struct kref *kref);
 
+<<<<<<< HEAD
+=======
+void kgsl_get_egl_counts(struct kgsl_mem_entry *entry,
+			int *egl_surface_count, int *egl_image_count);
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 struct kgsl_mem_entry * __must_check
 kgsl_sharedmem_find(struct kgsl_process_private *private, uint64_t gpuaddr);
 
@@ -546,4 +562,22 @@ static inline void __user *to_user_ptr(uint64_t address)
 	return (void __user *)(uintptr_t)address;
 }
 
+<<<<<<< HEAD
+=======
+static inline void kgsl_gpu_sysfs_add_link(struct kobject *dst,
+			struct kobject *src, const char *src_name,
+			const char *dst_name)
+{
+	struct kernfs_node *old;
+
+	if (dst == NULL || src == NULL)
+		return;
+
+	old = sysfs_get_dirent(src->sd, src_name);
+	if (IS_ERR_OR_NULL(old))
+		return;
+
+	kernfs_create_link(dst->sd, dst_name, old);
+}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif /* __KGSL_H */

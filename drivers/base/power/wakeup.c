@@ -15,12 +15,16 @@
 #include <linux/seq_file.h>
 #include <linux/debugfs.h>
 #include <linux/types.h>
+<<<<<<< HEAD
 #include <linux/moduleparam.h>
 #include <linux/display_state.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <trace/events/power.h>
 
 #include "power.h"
 
+<<<<<<< HEAD
 static bool enable_qcom_rx_wakelock_ws = true;
 module_param(enable_qcom_rx_wakelock_ws, bool, 0644);
 static bool enable_wlan_extscan_wl_ws = true;
@@ -34,6 +38,8 @@ module_param(enable_timerfd_ws, bool, 0644);
 static bool enable_netlink_ws = true;
 module_param(enable_netlink_ws, bool, 0644);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
  * if wakeup events are registered during or immediately before the transition.
@@ -396,6 +402,7 @@ int device_set_wakeup_enable(struct device *dev, bool enable)
 }
 EXPORT_SYMBOL_GPL(device_set_wakeup_enable);
 
+<<<<<<< HEAD
 #ifdef CONFIG_PM_AUTOSLEEP
 static void update_prevent_sleep_time(struct wakeup_source *ws, ktime_t now)
 {
@@ -494,6 +501,8 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
 	return false;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /*
  * The functions below use the observation that each wakeup event starts a
  * period in which the system should not be suspended.  The moment this period
@@ -558,6 +567,7 @@ static void wakeup_source_activate(struct wakeup_source *ws)
  */
 static void wakeup_source_report_event(struct wakeup_source *ws)
 {
+<<<<<<< HEAD
 	if (!wakeup_source_blocker(ws)) {
 		ws->event_count++;
 		/* This is racy, but the counter is approximate anyway. */
@@ -567,6 +577,15 @@ static void wakeup_source_report_event(struct wakeup_source *ws)
 		if (!ws->active)
 			wakeup_source_activate(ws);
 	}
+=======
+	ws->event_count++;
+	/* This is racy, but the counter is approximate anyway. */
+	if (events_check_enabled)
+		ws->wakeup_count++;
+
+	if (!ws->active)
+		wakeup_source_activate(ws);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /**
@@ -616,6 +635,76 @@ void pm_stay_awake(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(pm_stay_awake);
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_PM_AUTOSLEEP
+static void update_prevent_sleep_time(struct wakeup_source *ws, ktime_t now)
+{
+	ktime_t delta = ktime_sub(now, ws->start_prevent_time);
+	ws->prevent_sleep_time = ktime_add(ws->prevent_sleep_time, delta);
+}
+#else
+static inline void update_prevent_sleep_time(struct wakeup_source *ws,
+					     ktime_t now) {}
+#endif
+
+/**
+ * wakup_source_deactivate - Mark given wakeup source as inactive.
+ * @ws: Wakeup source to handle.
+ *
+ * Update the @ws' statistics and notify the PM core that the wakeup source has
+ * become inactive by decrementing the counter of wakeup events being processed
+ * and incrementing the counter of registered wakeup events.
+ */
+static void wakeup_source_deactivate(struct wakeup_source *ws)
+{
+	unsigned int cnt, inpr, cec;
+	ktime_t duration;
+	ktime_t now;
+
+	ws->relax_count++;
+	/*
+	 * __pm_relax() may be called directly or from a timer function.
+	 * If it is called directly right after the timer function has been
+	 * started, but before the timer function calls __pm_relax(), it is
+	 * possible that __pm_stay_awake() will be called in the meantime and
+	 * will set ws->active.  Then, ws->active may be cleared immediately
+	 * by the __pm_relax() called from the timer function, but in such a
+	 * case ws->relax_count will be different from ws->active_count.
+	 */
+	if (ws->relax_count != ws->active_count) {
+		ws->relax_count--;
+		return;
+	}
+
+	ws->active = false;
+
+	now = ktime_get();
+	duration = ktime_sub(now, ws->last_time);
+	ws->total_time = ktime_add(ws->total_time, duration);
+	if (ktime_to_ns(duration) > ktime_to_ns(ws->max_time))
+		ws->max_time = duration;
+
+	ws->last_time = now;
+	del_timer(&ws->timer);
+	ws->timer_expires = 0;
+
+	if (ws->autosleep_enabled)
+		update_prevent_sleep_time(ws, now);
+
+	/*
+	 * Increment the counter of registered wakeup events and decrement the
+	 * couter of wakeup events in progress simultaneously.
+	 */
+	cec = atomic_add_return(MAX_IN_PROGRESS, &combined_event_count);
+	trace_wakeup_source_deactivate(ws->name, cec);
+
+	split_counters(&cnt, &inpr);
+	if (!inpr && waitqueue_active(&wakeup_count_wait_queue))
+		wake_up(&wakeup_count_wait_queue);
+}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * __pm_relax - Notify the PM core that processing of a wakeup event has ended.
  * @ws: Wakeup source object associated with the source of the event.
@@ -783,17 +872,24 @@ void pm_print_active_wakeup_sources(void)
 	int active = 0;
 	struct wakeup_source *last_activity_ws = NULL;
 
+<<<<<<< HEAD
 	// kinda pointless to force this routine during screen on
 	if (is_display_on())
 		return;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	rcu_read_lock();
 	list_for_each_entry_rcu(ws, &wakeup_sources, entry) {
 		if (ws->active) {
 			pr_info("active wakeup source: %s\n", ws->name);
+<<<<<<< HEAD
 
 			if (!wakeup_source_blocker(ws))
 				active = 1;
+=======
+			active = 1;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		} else if (!active &&
 			   (!last_activity_ws ||
 			    ktime_to_ns(ws->last_time) >
@@ -980,7 +1076,11 @@ static int print_wakeup_source_stats(struct seq_file *m,
 		active_time = ktime_set(0, 0);
 	}
 
+<<<<<<< HEAD
 	ret = seq_printf(m, "%-32s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
+=======
+	ret = seq_printf(m, "%-12s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			"%lld\t\t%lld\t\t%lld\t\t%lld\t\t%lld\n",
 			ws->name, active_count, ws->event_count,
 			ws->wakeup_count, ws->expire_count,
@@ -1001,7 +1101,11 @@ static int wakeup_sources_stats_show(struct seq_file *m, void *unused)
 {
 	struct wakeup_source *ws;
 
+<<<<<<< HEAD
 	seq_puts(m, "name\t\t\t\t\tactive_count\tevent_count\twakeup_count\t"
+=======
+	seq_puts(m, "name\t\tactive_count\tevent_count\twakeup_count\t"
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		"expire_count\tactive_since\ttotal_time\tmax_time\t"
 		"last_change\tprevent_suspend_time\n");
 

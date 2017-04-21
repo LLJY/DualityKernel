@@ -598,6 +598,10 @@ void __weak arch_enable_nonboot_cpus_end(void)
 void __ref enable_nonboot_cpus(void)
 {
 	int cpu, error;
+<<<<<<< HEAD
+=======
+	struct device *cpu_device;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/* Allow everyone to use the CPU hotplug again */
 	cpu_maps_update_begin();
@@ -615,6 +619,15 @@ void __ref enable_nonboot_cpus(void)
 		trace_suspend_resume(TPS("CPU_ON"), cpu, false);
 		if (!error) {
 			pr_info("CPU%d is up\n", cpu);
+<<<<<<< HEAD
+=======
+			cpu_device = get_cpu_device(cpu);
+			if (!cpu_device)
+				pr_err("%s: failed to get cpu%d device\n",
+				       __func__, cpu);
+			else
+				kobject_uevent(&cpu_device->kobj, KOBJ_ONLINE);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			continue;
 		}
 		pr_warn("Error taking CPU%d up: %d\n", cpu, error);

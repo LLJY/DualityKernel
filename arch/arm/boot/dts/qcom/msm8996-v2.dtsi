@@ -412,7 +412,11 @@
 	/* Updated chip ID */
 	qcom,chipid = <0x05030001>;
 
+<<<<<<< HEAD
 	qcom,initial-pwrlevel = <4>;
+=======
+	qcom,initial-pwrlevel = <3>;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	qcom,bus-width = <32>;
 
 	/* Quirks */

@@ -50,7 +50,10 @@ void acpi_pic_sci_set_trigger(unsigned int, u16);
 
 extern int (*__acpi_register_gsi)(struct device *dev, u32 gsi,
 				  int trigger, int polarity);
+<<<<<<< HEAD
 extern void (*__acpi_unregister_gsi)(u32 gsi);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static inline void disable_acpi(void)
 {

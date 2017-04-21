@@ -10,11 +10,14 @@
  * GNU General Public License for more details.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef MDSS_H
 #define MDSS_H
@@ -40,10 +43,13 @@
 
 #define MDSS_PINCTRL_STATE_DEFAULT "mdss_default"
 #define MDSS_PINCTRL_STATE_SLEEP  "mdss_sleep"
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 #define MDSS_PINCTRL_STATE_TOUCH_ACTIVE "mdss_touch_active"
 #define MDSS_PINCTRL_STATE_TOUCH_SUSPEND  "mdss_touch_suspend"
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 enum mdss_mdp_clk_type {
 	MDSS_CLK_AHB,
@@ -170,6 +176,10 @@ enum mdss_hw_quirk {
 	MDSS_QUIRK_FMT_PACK_PATTERN,
 	MDSS_QUIRK_NEED_SECURE_MAP,
 	MDSS_QUIRK_SRC_SPLIT_ALWAYS,
+<<<<<<< HEAD
+=======
+	MDSS_QUIRK_HDR_SUPPORT_ENABLED,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	MDSS_QUIRK_MAX,
 };
 

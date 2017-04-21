@@ -223,12 +223,15 @@ config PINCTRL_TB10X
 	bool
 	depends on ARC_PLAT_TB10X
 
+<<<<<<< HEAD
 config PINCTRL_SOMC
 	bool "SoMC pinctrl driver"
 	default n
 	help
 	  Select this to enable SoMC pinctrl driver.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endmenu
 
 endif

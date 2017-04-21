@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -275,6 +279,17 @@ int ipa3_query_intf_tx_props(struct ipa_ioc_query_intf_tx_props *tx)
 	mutex_lock(&ipa3_ctx->lock);
 	list_for_each_entry(entry, &ipa3_ctx->intf_list, link) {
 		if (!strcmp(entry->name, tx->name)) {
+<<<<<<< HEAD
+=======
+			/* add the entry check */
+			if (entry->num_tx_props != tx->num_tx_props) {
+				IPAERR("invalid entry number(%u %u)\n",
+					entry->num_tx_props,
+						tx->num_tx_props);
+				mutex_unlock(&ipa3_ctx->lock);
+				return result;
+			}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			memcpy(tx->tx, entry->tx, entry->num_tx_props *
 			       sizeof(struct ipa_ioc_tx_intf_prop));
 			result = 0;
@@ -282,7 +297,10 @@ int ipa3_query_intf_tx_props(struct ipa_ioc_query_intf_tx_props *tx)
 		}
 	}
 	mutex_unlock(&ipa3_ctx->lock);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return result;
 }
 
@@ -314,6 +332,17 @@ int ipa3_query_intf_rx_props(struct ipa_ioc_query_intf_rx_props *rx)
 	mutex_lock(&ipa3_ctx->lock);
 	list_for_each_entry(entry, &ipa3_ctx->intf_list, link) {
 		if (!strcmp(entry->name, rx->name)) {
+<<<<<<< HEAD
+=======
+			/* add the entry check */
+			if (entry->num_rx_props != rx->num_rx_props) {
+				IPAERR("invalid entry number(%u %u)\n",
+					entry->num_rx_props,
+						rx->num_rx_props);
+				mutex_unlock(&ipa3_ctx->lock);
+				return result;
+			}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			memcpy(rx->rx, entry->rx, entry->num_rx_props *
 					sizeof(struct ipa_ioc_rx_intf_prop));
 			result = 0;
@@ -321,7 +350,10 @@ int ipa3_query_intf_rx_props(struct ipa_ioc_query_intf_rx_props *rx)
 		}
 	}
 	mutex_unlock(&ipa3_ctx->lock);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return result;
 }
 
@@ -348,6 +380,17 @@ int ipa3_query_intf_ext_props(struct ipa_ioc_query_intf_ext_props *ext)
 	mutex_lock(&ipa3_ctx->lock);
 	list_for_each_entry(entry, &ipa3_ctx->intf_list, link) {
 		if (!strcmp(entry->name, ext->name)) {
+<<<<<<< HEAD
+=======
+			/* add the entry check */
+			if (entry->num_ext_props != ext->num_ext_props) {
+				IPAERR("invalid entry number(%u %u)\n",
+					entry->num_ext_props,
+						ext->num_ext_props);
+				mutex_unlock(&ipa3_ctx->lock);
+				return result;
+			}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			memcpy(ext->ext, entry->ext, entry->num_ext_props *
 					sizeof(struct ipa_ioc_ext_intf_prop));
 			result = 0;

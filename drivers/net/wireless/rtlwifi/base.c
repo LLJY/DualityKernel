@@ -1587,9 +1587,15 @@ void rtl_watchdog_wq_callback(void *data)
 		if (((rtlpriv->link_info.num_rx_inperiod +
 		      rtlpriv->link_info.num_tx_inperiod) > 8) ||
 		    (rtlpriv->link_info.num_rx_inperiod > 2))
+<<<<<<< HEAD
 			rtl_lps_leave(hw);
 		else
 			rtl_lps_enter(hw);
+=======
+			rtl_lps_enter(hw);
+		else
+			rtl_lps_leave(hw);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	rtlpriv->link_info.num_rx_inperiod = 0;

@@ -189,19 +189,32 @@ EXPORT_SYMBOL(kgsl_pwrscale_update);
 /*
  * kgsl_pwrscale_disable - temporarily disable the governor
  * @device: The device
+<<<<<<< HEAD
+=======
+ * @turbo: Indicates if pwrlevel should be forced to turbo
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * Temporarily disable the governor, to prevent interference
  * with profiling tools that expect a fixed clock frequency.
  * This function must be called with the device mutex locked.
  */
+<<<<<<< HEAD
 void kgsl_pwrscale_disable(struct kgsl_device *device)
+=======
+void kgsl_pwrscale_disable(struct kgsl_device *device, bool turbo)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	BUG_ON(!mutex_is_locked(&device->mutex));
 	if (device->pwrscale.devfreqptr)
 		queue_work(device->pwrscale.devfreq_wq,
 			&device->pwrscale.devfreq_suspend_ws);
 	device->pwrscale.enabled = false;
+<<<<<<< HEAD
 	kgsl_pwrctrl_pwrlevel_change(device, KGSL_PWRLEVEL_TURBO);
+=======
+	if (turbo)
+		kgsl_pwrctrl_pwrlevel_change(device, KGSL_PWRLEVEL_TURBO);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 EXPORT_SYMBOL(kgsl_pwrscale_disable);
 
@@ -874,6 +887,17 @@ int kgsl_pwrscale_init(struct device *dev, const char *governor)
 		pwrscale->history[i].type = i;
 	}
 
+<<<<<<< HEAD
+=======
+	/* Add links to the devfreq sysfs nodes */
+	kgsl_gpu_sysfs_add_link(device->gpu_sysfs_kobj,
+			 &pwrscale->devfreqptr->dev.kobj, "governor",
+			"gpu_governor");
+	kgsl_gpu_sysfs_add_link(device->gpu_sysfs_kobj,
+			 &pwrscale->devfreqptr->dev.kobj,
+			"available_governors", "gpu_available_governor");
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 EXPORT_SYMBOL(kgsl_pwrscale_init);

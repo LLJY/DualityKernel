@@ -45,6 +45,10 @@ static bool sched_boost_active;
 
 static struct delayed_work input_boost_rem;
 static u64 last_input_time;
+<<<<<<< HEAD
+=======
+#define MIN_INPUT_INTERVAL (150 * USEC_PER_MSEC)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int set_input_boost_freq(const char *buf, const struct kernel_param *kp)
 {
@@ -234,7 +238,11 @@ static void cpuboost_input_event(struct input_handle *handle,
 		return;
 
 	now = ktime_to_us(ktime_get());
+<<<<<<< HEAD
 	if ((now - last_input_time) < (input_boost_ms * USEC_PER_MSEC))
+=======
+	if (now - last_input_time < MIN_INPUT_INTERVAL)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return;
 
 	if (work_pending(&input_boost_work))

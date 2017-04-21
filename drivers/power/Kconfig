@@ -496,11 +496,14 @@ config QPNP_CHARGER
 	  also offers relevant information to userspace via the power supply
 	  framework.
 
+<<<<<<< HEAD
 config QPNP_SMBCHARGER_EXTENSION
 	tristate "Charger driver extension"
 	help
 	  Say Y here to enable extensional SMB charger functions.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config QPNP_SMBCHARGER
 	tristate "QPNP SMB Charger driver"
 	depends on SPMI || MSM_SPMI
@@ -511,11 +514,14 @@ config QPNP_SMBCHARGER
 	  The driver also offers relevant information to userspace via the
 	  power supply framework.
 
+<<<<<<< HEAD
 config QPNP_FG_EXTENSION
 	tristate "Fuel gauge driver extension"
 	help
 	  Say Y here to enable extensional fuel gauge functions.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config FUELGAUGE_STC3117
 	tristate "STC3117 fuel gauge driver"
 	default n
@@ -536,6 +542,7 @@ config QPNP_FG
 	  fuel gauge. The state of charge is reported through a BMS power
 	  supply property and also sends uevents when the capacity is updated.
 
+<<<<<<< HEAD
 config QNS_SYSTEM
 	bool "Qnovo QNS wrapper implementation"
 	default n
@@ -545,6 +552,8 @@ config QNS_SYSTEM
 	  kernel driver for a battery charging.
 	  This adds sysfs interface which enables QNS daemon to access it.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config BATTERY_BCL
 	tristate "Battery Current Limit driver"
 	depends on THERMAL_MONITOR

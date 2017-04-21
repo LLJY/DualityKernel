@@ -178,6 +178,12 @@ int __pci_read_base(struct pci_dev *dev, enum pci_bar_type type,
 	struct pci_bus_region region, inverted_region;
 	bool bar_too_big = false, bar_too_high = false, bar_invalid = false;
 
+<<<<<<< HEAD
+=======
+	if (dev->non_compliant_bars)
+		return 0;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mask = type ? PCI_ROM_ADDRESS_MASK : ~0;
 
 	/* No printks while decoding is disabled! */
@@ -329,9 +335,12 @@ static void pci_read_bases(struct pci_dev *dev, unsigned int howmany, int rom)
 {
 	unsigned int pos, reg;
 
+<<<<<<< HEAD
 	if (dev->non_compliant_bars)
 		return;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	for (pos = 0; pos < howmany; pos++) {
 		struct resource *res = &dev->resource[pos];
 		reg = PCI_BASE_ADDRESS_0 + (pos << 2);

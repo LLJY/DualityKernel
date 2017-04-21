@@ -292,7 +292,10 @@ int main(void)
 	DEFINE(ASM_PT_INITIAL, PT_INITIAL);
 	BLANK();
 	DEFINE(EXCDATA_IP, offsetof(struct exception_data, fault_ip));
+<<<<<<< HEAD
 	DEFINE(EXCDATA_GP, offsetof(struct exception_data, fault_gp));
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	DEFINE(EXCDATA_SPACE, offsetof(struct exception_data, fault_space));
 	DEFINE(EXCDATA_ADDR, offsetof(struct exception_data, fault_addr));
 	BLANK();

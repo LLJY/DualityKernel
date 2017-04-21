@@ -1,6 +1,10 @@
 VERSION = 3
 PATCHLEVEL = 18
+<<<<<<< HEAD
 SUBLEVEL = 35
+=======
+SUBLEVEL = 31
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 EXTRAVERSION =
 NAME = Shuffling Zombie Juror
 
@@ -295,6 +299,7 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
+<<<<<<< HEAD
 HOSTCC       = ccache gcc
 HOSTCXX      = ccache g++
 HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast -fomit-frame-pointer -fgcse-las -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block  -pipe -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value
@@ -303,6 +308,16 @@ HOSTCXXFLAGS = -Ofast -fgcse-las -fgraphite -fgraphite-identity -floop-paralleli
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
 		       -Wno-missing-field-initializers -fno-delete-null-pointer-checks
+=======
+HOSTCC       = gcc
+HOSTCXX      = g++
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
+HOSTCXXFLAGS = -O2
+
+ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
+HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
+		-Wno-missing-field-initializers -fno-delete-null-pointer-checks
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endif
 
 # Decide whether to build built-in, modular, or both.
@@ -352,6 +367,7 @@ $(srctree)/scripts/Kbuild.include: ;
 include $(srctree)/scripts/Kbuild.include
 
 # Make variables (CC, etc...)
+<<<<<<< HEAD
 AS		        = $(CROSS_COMPILE)as
 LD		        = $(CROSS_COMPILE)ld
 LD		       += -Ofast --strip-debug
@@ -381,6 +397,38 @@ CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
+=======
+AS		= $(CROSS_COMPILE)as
+LD		= $(CROSS_COMPILE)ld
+REAL_CC		= $(CROSS_COMPILE)gcc
+CPP		= $(CC) -E
+AR		= $(CROSS_COMPILE)ar
+NM		= $(CROSS_COMPILE)nm
+STRIP		= $(CROSS_COMPILE)strip
+OBJCOPY		= $(CROSS_COMPILE)objcopy
+OBJDUMP		= $(CROSS_COMPILE)objdump
+AWK		= awk
+GENKSYMS	= scripts/genksyms/genksyms
+INSTALLKERNEL  := installkernel
+DEPMOD		= /sbin/depmod
+PERL		= perl
+PYTHON		= python
+CHECK		= sparse
+
+# Use the wrapper for the compiler.  This wrapper scans for new
+# warnings and causes the build to stop upon encountering them.
+CC		= $(srctree)/scripts/gcc-wrapper.py $(REAL_CC)
+
+CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
+		  -Wbitwise -Wno-return-void $(CF)
+CFLAGS_MODULE   =
+AFLAGS_MODULE   =
+LDFLAGS_MODULE  =
+CFLAGS_KERNEL	=
+AFLAGS_KERNEL	=
+CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE    := \
@@ -388,7 +436,11 @@ USERINCLUDE    := \
 		-Iarch/$(hdr-arch)/include/generated/uapi \
 		-I$(srctree)/include/uapi \
 		-Iinclude/generated/uapi \
+<<<<<<< HEAD
          -include $(srctree)/include/linux/kconfig.h
+=======
+                -include $(srctree)/include/linux/kconfig.h
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 # Use LINUXINCLUDE when you must reference the include/ directory.
 # Needed to be compatible with the O= option
@@ -401,6 +453,7 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
+<<<<<<< HEAD
 KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing \
                    -fno-common -Wno-implicit-function-declaration -Wno-format-security -Wno-incompatible-pointer-types -fmodulo-sched -Wno-bool-compare \
 		           -Wno-memset-transposed-args -Wno-unused-const-variable -Wno-misleading-indentation -Wno-tautological-compare \
@@ -414,6 +467,13 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		           -fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
 		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
+=======
+KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+		   -fno-strict-aliasing -fno-common \
+		   -Werror-implicit-function-declaration \
+		   -Wno-format-security \
+		   -std=gnu89
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -625,11 +685,15 @@ KBUILD_CFLAGS	+= $(call cc-option,-fno-delete-null-pointer-checks,)
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
+<<<<<<< HEAD
 KBUILD_CFLAGS += -Ofast
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning,unused-function)
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-variable)
+=======
+KBUILD_CFLAGS	+= -O2
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endif
 
 # Tell gcc to never replace conditional load with a non-conditional one
@@ -703,21 +767,38 @@ else
 
 # This warning generated too much noise in a regular build.
 # Use make W=1 to enable this warning (see scripts/Makefile.build)
+<<<<<<< HEAD
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-const-variable)
 endif
 
 #ifdef CONFIG_FRAME_POINTER
 #KBUILD_CFLAGS	+= -fno-omit-frame-pointer -fno-optimize-sibling-calls
 #else
+=======
+KBUILD_CFLAGS += $(call cc-disable-warning, unused-but-set-variable)
+endif
+
+ifdef CONFIG_FRAME_POINTER
+KBUILD_CFLAGS	+= -fno-omit-frame-pointer -fno-optimize-sibling-calls
+else
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 # Some targets (ARM with Thumb2, for example), can't be built with frame
 # pointers.  For those, we don't have FUNCTION_TRACER automatically
 # select FRAME_POINTER.  However, FUNCTION_TRACER adds -pg, and this is
 # incompatible with -fomit-frame-pointer with current GCC, so we don't use
 # -fomit-frame-pointer with FUNCTION_TRACER.
+<<<<<<< HEAD
 #ifndef CONFIG_FUNCTION_TRACER
 KBUILD_CFLAGS	+= -fomit-frame-pointer
 #endif
 #endif
+=======
+ifndef CONFIG_FUNCTION_TRACER
+KBUILD_CFLAGS	+= -fomit-frame-pointer
+endif
+endif
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 KBUILD_CFLAGS   += $(call cc-option, -fno-var-tracking-assignments)
 
 ifdef CONFIG_DEBUG_INFO
@@ -737,6 +818,7 @@ KBUILD_CFLAGS 	+= $(call cc-option, -femit-struct-debug-baseonly) \
 		   $(call cc-option,-fno-var-tracking)
 endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_FUNCTION_TRACER
 #ifdef CONFIG_HAVE_FENTRY
 #CC_USING_FENTRY	:= $(call cc-option, -mfentry -DCC_USING_FENTRY)
@@ -750,6 +832,21 @@ endif
 #	endif
 #endif
 #endif
+=======
+ifdef CONFIG_FUNCTION_TRACER
+ifdef CONFIG_HAVE_FENTRY
+CC_USING_FENTRY	:= $(call cc-option, -mfentry -DCC_USING_FENTRY)
+endif
+KBUILD_CFLAGS	+= -pg $(CC_USING_FENTRY)
+KBUILD_AFLAGS	+= $(CC_USING_FENTRY)
+ifdef CONFIG_DYNAMIC_FTRACE
+	ifdef CONFIG_HAVE_C_RECORDMCOUNT
+		BUILD_C_RECORDMCOUNT := y
+		export BUILD_C_RECORDMCOUNT
+	endif
+endif
+endif
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 # We trigger additional mismatches with less inlining
 ifdef CONFIG_DEBUG_SECTION_MISMATCH

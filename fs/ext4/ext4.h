@@ -811,6 +811,7 @@ do {									       \
 #include "extents_status.h"
 
 /*
+<<<<<<< HEAD
  * Lock subclasses for i_data_sem in the ext4_inode_info structure.
  *
  * These are needed to avoid lockdep false positives when we need to
@@ -834,6 +835,8 @@ enum {
 
 
 /*
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * fourth extended file system inode data in memory
  */
 struct ext4_inode_info {

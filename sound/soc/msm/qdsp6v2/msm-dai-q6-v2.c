@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1714,6 +1718,14 @@ static int msm_dai_q6_set_channel_map(struct snd_soc_dai *dai,
 			pr_err("%s: rx slot not found\n", __func__);
 			return -EINVAL;
 		}
+<<<<<<< HEAD
+=======
+		if (rx_num > AFE_PORT_MAX_AUDIO_CHAN_CNT) {
+			pr_err("%s: invalid rx num %d\n", __func__, rx_num);
+			return -EINVAL;
+		}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		for (i = 0; i < rx_num; i++) {
 			dai_data->port_config.slim_sch.shared_ch_mapping[i] =
 			    rx_slot[i];
@@ -1744,6 +1756,14 @@ static int msm_dai_q6_set_channel_map(struct snd_soc_dai *dai,
 			pr_err("%s: tx slot not found\n", __func__);
 			return -EINVAL;
 		}
+<<<<<<< HEAD
+=======
+		if (tx_num > AFE_PORT_MAX_AUDIO_CHAN_CNT) {
+			pr_err("%s: invalid tx num %d\n", __func__, tx_num);
+			return -EINVAL;
+		}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		for (i = 0; i < tx_num; i++) {
 			dai_data->port_config.slim_sch.shared_ch_mapping[i] =
 			    tx_slot[i];

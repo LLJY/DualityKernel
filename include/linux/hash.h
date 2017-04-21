@@ -33,6 +33,7 @@
 #error Wordsize not 32 or 64
 #endif
 
+<<<<<<< HEAD
 /*
  * The above primes are actively bad for hashing, since they are
  * too sparse. The 32-bit one is mostly ok, the 64-bit one causes
@@ -49,12 +50,19 @@
 #define GOLDEN_RATIO_32 0x61C88647
 #define GOLDEN_RATIO_64 0x61C8864680B583EBull
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static __always_inline u64 hash_64(u64 val, unsigned int bits)
 {
 	u64 hash = val;
 
+<<<<<<< HEAD
 #if BITS_PER_LONG == 64
 	hash = hash * GOLDEN_RATIO_64;
+=======
+#if defined(CONFIG_ARCH_HAS_FAST_MULTIPLIER) && BITS_PER_LONG == 64
+	hash = hash * GOLDEN_RATIO_PRIME_64;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #else
 	/*  Sigh, gcc can't optimise this alone like it does for 32 bits. */
 	u64 n = hash;

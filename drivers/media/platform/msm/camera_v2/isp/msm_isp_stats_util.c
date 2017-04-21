@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/io.h>
 #include <linux/atomic.h>
 #include <media/v4l2-subdev.h>
@@ -73,7 +76,12 @@ static int msm_isp_stats_cfg_ping_pong_address(struct vfe_device *vfe_dev,
 	pingpong_bit = (~(pingpong_status >> stats_pingpong_offset) & 0x1);
 
 	rc = vfe_dev->buf_mgr->ops->get_buf(vfe_dev->buf_mgr,
+<<<<<<< HEAD
 			vfe_dev->pdev->id, bufq_handle, &buf);
+=======
+			vfe_dev->pdev->id, bufq_handle,
+			MSM_ISP_INVALID_BUF_INDEX, &buf);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (rc == -EFAULT) {
 		msm_isp_halt_send_error(vfe_dev, ISP_EVENT_BUF_FATAL_ERROR);
 		return rc;
@@ -584,6 +592,7 @@ static int msm_isp_stats_wait_for_cfg_done(struct vfe_device *vfe_dev)
 	int rc;
 	init_completion(&vfe_dev->stats_config_complete);
 	atomic_set(&vfe_dev->stats_data.stats_update, 2);
+<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 	rc = wait_for_completion_timeout(
 		&vfe_dev->stats_config_complete,
@@ -598,6 +607,13 @@ static int msm_isp_stats_wait_for_cfg_done(struct vfe_device *vfe_dev)
 #if defined(CONFIG_SONY_CAM_V4L2)
 		vfe_dev->timeout = 100;
 #endif
+=======
+	rc = wait_for_completion_timeout(
+		&vfe_dev->stats_config_complete,
+		msecs_to_jiffies(VFE_MAX_CFG_TIMEOUT));
+	if (rc == 0) {
+		pr_err("%s: wait timeout\n", __func__);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		rc = -1;
 	} else {
 		rc = 0;

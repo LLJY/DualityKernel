@@ -2336,6 +2336,7 @@ SMB2_rename(const unsigned int xid, struct cifs_tcon *tcon,
 }
 
 int
+<<<<<<< HEAD
 SMB2_rmdir(const unsigned int xid, struct cifs_tcon *tcon,
 		  u64 persistent_fid, u64 volatile_fid)
 {
@@ -2352,6 +2353,8 @@ SMB2_rmdir(const unsigned int xid, struct cifs_tcon *tcon,
 }
 
 int
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 SMB2_set_hardlink(const unsigned int xid, struct cifs_tcon *tcon,
 		  u64 persistent_fid, u64 volatile_fid, __le16 *target_file)
 {

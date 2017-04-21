@@ -11,11 +11,14 @@
  * GNU General Public License for more details.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/slab.h>
 #include <linux/ioctl.h>
 #include <linux/bitops.h>
@@ -25,7 +28,11 @@
 #include "wcdcal-hwdep.h"
 
 const int cal_size_info[WCD9XXX_MAX_CAL] = {
+<<<<<<< HEAD
 	[WCD9XXX_ANC_CAL] = 36864,
+=======
+	[WCD9XXX_ANC_CAL] = 16384,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	[WCD9XXX_MBHC_CAL] = 4096,
 	[WCD9XXX_MAD_CAL] = 4096,
 	[WCD9XXX_VBAT_CAL] = 72,

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright (C) 2014 Sony Mobile Communications Inc.
  *
@@ -5,6 +6,8 @@
  * it under the terms of the GNU General Public License version 2, as
  * published by the Free Software Foundation.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "qcom-msm8974.dtsi"
 
 / {

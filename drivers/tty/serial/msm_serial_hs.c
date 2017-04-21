@@ -29,11 +29,14 @@
  * always be lost. RTS will be asserted even while the UART is off in this mode
  * of operation. See msm_serial_hs_platform_data.rx_wakeup_irq.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 
@@ -2279,6 +2282,11 @@ void msm_hs_resource_off(struct msm_hs_port *msm_uport)
 		msm_hs_write(uport, UART_DM_DMEN, data);
 		sps_tx_disconnect(msm_uport);
 	}
+<<<<<<< HEAD
+=======
+	if (!atomic_read(&msm_uport->client_req_state))
+		msm_hs_enable_flow_control(uport, false);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 void msm_hs_resource_on(struct msm_hs_port *msm_uport)

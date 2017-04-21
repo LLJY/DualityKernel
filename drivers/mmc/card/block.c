@@ -17,11 +17,14 @@
  * Author:  Andrew Christian
  *          28 May 2002
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/moduleparam.h>
 #include <linux/module.h>
 #include <linux/init.h>
@@ -1168,6 +1171,7 @@ static int get_card_status(struct mmc_card *card, u32 *status, int retries)
 	return err;
 }
 
+<<<<<<< HEAD
 #define EXE_ERRORS \
 	(R1_OUT_OF_RANGE |   /* Command argument out of range */ \
 	 R1_ADDRESS_ERROR |   /* Misaligned address */ \
@@ -1175,12 +1179,18 @@ static int get_card_status(struct mmc_card *card, u32 *status, int retries)
 	 R1_CARD_ECC_FAILED | /* ECC error */ \
 	 R1_ERROR)            /* General/unknown error */
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int card_busy_detect(struct mmc_card *card, unsigned int timeout_ms,
 		bool hw_busy_detect, struct request *req, int *gen_err)
 {
 	unsigned long timeout = jiffies + msecs_to_jiffies(timeout_ms);
 	int err = 0;
+<<<<<<< HEAD
 	u32 status, first_status = 0;
+=======
+	u32 status;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	do {
 		err = get_card_status(card, &status, 5);
@@ -1190,9 +1200,12 @@ static int card_busy_detect(struct mmc_card *card, unsigned int timeout_ms,
 			return err;
 		}
 
+<<<<<<< HEAD
 		if (!first_status)
 			first_status = status;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (status & R1_ERROR) {
 			pr_err("%s: %s: error sending status cmd, status %#x\n",
 				req->rq_disk->disk_name, __func__, status);
@@ -1223,6 +1236,7 @@ static int card_busy_detect(struct mmc_card *card, unsigned int timeout_ms,
 	} while (!(status & R1_READY_FOR_DATA) ||
 		 (R1_CURRENT_STATE(status) == R1_STATE_PRG));
 
+<<<<<<< HEAD
 	/* Check for errors during cmd execution. In this case
 	 * the execution was terminated. */
 	if (first_status & EXE_ERRORS) {
@@ -1231,6 +1245,8 @@ static int card_busy_detect(struct mmc_card *card, unsigned int timeout_ms,
 		return MMC_BLK_ABORT;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return err;
 }
 
@@ -1876,6 +1892,7 @@ static int mmc_blk_err_check(struct mmc_card *card,
 		return MMC_BLK_ABORT;
 	}
 
+<<<<<<< HEAD
 	/* Check execution mode errors. If stop cmd was sent, these
 	 * errors would be reported in response to it. In this case
 	 * the execution is retried using single-block read. */
@@ -1885,16 +1902,23 @@ static int mmc_blk_err_check(struct mmc_card *card,
 		return MMC_BLK_RETRY_SINGLE;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * Everything else is either success, or a data error of some
 	 * kind.  If it was a write, we may have transitioned to
 	 * program mode, which we have to wait for it to complete.
+<<<<<<< HEAD
 	 * If pre defined block count (CMD23) was used, no stop
 	 * cmd was sent and we need to read status to check
 	 * for errors during cmd execution.
 	 */
 	if (!mmc_host_is_spi(card->host) &&
 	    (rq_data_dir(req) != READ || brq->sbc.opcode == MMC_SET_BLOCK_COUNT)) {
+=======
+	 */
+	if (!mmc_host_is_spi(card->host) && rq_data_dir(req) != READ) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		int err;
 
 		/* Check stop command response */
@@ -3214,7 +3238,11 @@ void mmc_blk_cmdq_complete_rq(struct request *rq)
 	else if (mrq->data && mrq->data->error)
 		err = mrq->data->error;
 
+<<<<<<< HEAD
 	if (err || cmdq_req->resp_err || work_busy(&mq->cmdq_err_work)) {
+=======
+	if (err || cmdq_req->resp_err) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pr_err("%s: %s: txfr error(%d)/resp_err(%d)\n",
 				mmc_hostname(mrq->host), __func__, err,
 				cmdq_req->resp_err);
@@ -3391,7 +3419,10 @@ static int mmc_blk_issue_rw_rq(struct mmc_queue *mq, struct request *rqc)
 				break;
 			goto cmd_abort;
 		}
+<<<<<<< HEAD
 		case MMC_BLK_RETRY_SINGLE:
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		case MMC_BLK_ECC_ERR:
 			if (brq->data.blocks > 1) {
 				/* Redo read one sector at a time */
@@ -3527,10 +3558,13 @@ static int mmc_blk_cmdq_issue_rq(struct mmc_queue *mq, struct request *req)
 
 	mmc_get_card(card);
 
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_BLOCK_DEFERRED_RESUME
 	if (mmc_bus_needs_resume(card->host))
 		mmc_resume_bus(card->host);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!card->host->cmdq_ctx.active_reqs && mmc_card_doing_bkops(card)) {
 		ret = mmc_cmdq_halt(card->host, true);
 		if (ret)
@@ -3617,10 +3651,13 @@ static int mmc_blk_issue_rq(struct mmc_queue *mq, struct request *req)
 		/* claim host only for the first request */
 		mmc_get_card(card);
 
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_BLOCK_DEFERRED_RESUME
 	if (mmc_bus_needs_resume(card->host))
 		mmc_resume_bus(card->host);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (mmc_card_doing_bkops(host->card)) {
 			ret = mmc_stop_bkops(host->card);
 			if (ret)
@@ -4059,12 +4096,20 @@ static const struct mmc_fixup blk_fixups[] =
 		  add_quirk_mmc, MMC_QUIRK_CMDQ_EMPTY_BEFORE_DCMD),
 
 	/*
+<<<<<<< HEAD
 	 * Some MMC cards need longer data read timeout than indicated in CSD.
 	 */
 	MMC_FIXUP(CID_NAME_ANY, CID_MANFID_MICRON, 0x200, add_quirk_mmc,
 		  MMC_QUIRK_LONG_READ_TIME),
 	MMC_FIXUP("008GE0", CID_MANFID_TOSHIBA, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_LONG_READ_TIME),
+=======
+	 * Some Micron MMC cards needs longer data read timeout than
+	 * indicated in CSD.
+	 */
+	MMC_FIXUP(CID_NAME_ANY, CID_MANFID_MICRON, 0x200, add_quirk_mmc,
+		  MMC_QUIRK_LONG_READ_TIME),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/*
 	 * Some Samsung MMC cards need longer data read timeout than
@@ -4169,11 +4214,16 @@ static int mmc_blk_probe(struct mmc_card *card)
 		if (mmc_add_disk(part_md))
 			goto out;
 	}
+<<<<<<< HEAD
 	if (mmc_card_sd(card))
 		pm_runtime_set_autosuspend_delay(&card->dev,
 			MMC_SDCARD_AUTOSUSPEND_DELAY_MS);
 	else
 		pm_runtime_set_autosuspend_delay(&card->dev, MMC_AUTOSUSPEND_DELAY_MS);
+=======
+
+	pm_runtime_set_autosuspend_delay(&card->dev, MMC_AUTOSUSPEND_DELAY_MS);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pm_runtime_use_autosuspend(&card->dev);
 
 	/*
@@ -4241,6 +4291,7 @@ static int _mmc_blk_suspend(struct mmc_card *card, bool wait)
 
 static void mmc_blk_shutdown(struct mmc_card *card)
 {
+<<<<<<< HEAD
 	int rc = 0;
 
 	_mmc_blk_suspend(card, 1);
@@ -4260,6 +4311,13 @@ static void mmc_blk_shutdown(struct mmc_card *card)
 cache_flush_error:
 	pr_err("%s: mmc_flush_cache returned error = %d",
 			mmc_hostname(card->host), rc);
+=======
+	_mmc_blk_suspend(card, 1);
+
+	/* send power off notification */
+	if (mmc_card_mmc(card))
+		mmc_send_pon(card);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 #ifdef CONFIG_PM

@@ -114,7 +114,10 @@ struct afe_ctl {
 	struct afe_sp_ex_vi_get_param_resp	ex_vi_resp;
 	int vi_tx_port;
 	int vi_rx_port;
+<<<<<<< HEAD
 	bool fbsp_mono_right;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	uint32_t afe_sample_rates[AFE_MAX_PORTS];
 	struct aanc_data aanc_info;
 	struct mutex afe_cmd_lock;
@@ -1016,6 +1019,7 @@ static void afe_send_cal_spkr_prot_tx(int port_id)
 			afe_spk_config.vi_proc_cfg.operation_mode =
 					    Q6AFE_MSM_SPKR_FTM_MODE;
 		afe_spk_config.vi_proc_cfg.minor_version = 1;
+<<<<<<< HEAD
 		if (this_afe.fbsp_mono_right) {
 			pr_info("%s: Right Channel R0T0 used in Mono case\n",
 				 __func__);
@@ -1031,6 +1035,14 @@ static void afe_send_cal_spkr_prot_tx(int port_id)
 		}
 		afe_spk_config.vi_proc_cfg.r0_cali_q24[SP_V2_SPKR_2] =
 			(uint32_t) this_afe.prot_cfg.r0[SP_V2_SPKR_2];
+=======
+		afe_spk_config.vi_proc_cfg.r0_cali_q24[SP_V2_SPKR_1] =
+			(uint32_t) this_afe.prot_cfg.r0[SP_V2_SPKR_1];
+		afe_spk_config.vi_proc_cfg.r0_cali_q24[SP_V2_SPKR_2] =
+			(uint32_t) this_afe.prot_cfg.r0[SP_V2_SPKR_2];
+		afe_spk_config.vi_proc_cfg.t0_cali_q6[SP_V2_SPKR_1] =
+			(uint32_t) this_afe.prot_cfg.t0[SP_V2_SPKR_1];
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		afe_spk_config.vi_proc_cfg.t0_cali_q6[SP_V2_SPKR_2] =
 			(uint32_t) this_afe.prot_cfg.t0[SP_V2_SPKR_2];
 		if (this_afe.prot_cfg.mode != MSM_SPKR_PROT_NOT_CALIBRATED) {
@@ -1531,7 +1543,11 @@ static int afe_send_codec_reg_page_config(
 static int afe_send_codec_reg_config(
 	struct afe_param_cdc_reg_cfg_data *cdc_reg_cfg)
 {
+<<<<<<< HEAD
 	int i, j, ret;
+=======
+	int i, j, ret = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int pkt_size, payload_size, reg_per_pkt, num_pkts, num_regs;
 	struct afe_svc_cmd_cdc_reg_cfg *config;
 	struct afe_svc_cmd_set_param *param;
@@ -4287,7 +4303,11 @@ static ssize_t afe_debug_write(struct file *filp,
 
 	lbuf[cnt] = '\0';
 
+<<<<<<< HEAD
 	if (!strncmp(lb_str, "afe_loopback", 12)) {
+=======
+	if (!strcmp(lb_str, "afe_loopback")) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		rc = afe_get_parameters(lbuf, param, 3);
 		if (!rc) {
 			pr_info("%s: %lu %lu %lu\n", lb_str, param[0], param[1],
@@ -4316,7 +4336,11 @@ static ssize_t afe_debug_write(struct file *filp,
 			rc = -EINVAL;
 		}
 
+<<<<<<< HEAD
 	} else if (!strncmp(lb_str, "afe_loopback_gain", 17)) {
+=======
+	} else if (!strcmp(lb_str, "afe_loopback_gain")) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		rc = afe_get_parameters(lbuf, param, 2);
 		if (!rc) {
 			pr_info("%s: %s %lu %lu\n",
@@ -5583,10 +5607,13 @@ int afe_spk_prot_feed_back_cfg(int src_port, int dst_port,
 		prot_config.feedback_path_cfg.chan_info[index++] = 4;
 	}
 	prot_config.feedback_path_cfg.num_channels = index;
+<<<<<<< HEAD
 	if (index == 2)
 		this_afe.fbsp_mono_right = true;
 	else
 		this_afe.fbsp_mono_right = false;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pr_debug("%s no of channels: %d\n", __func__, index);
 	prot_config.feedback_path_cfg.minor_version = 1;
 	ret = afe_spk_prot_prepare(src_port, dst_port,
@@ -6032,6 +6059,10 @@ static int afe_map_cal_data(int32_t cal_type,
 	}
 
 
+<<<<<<< HEAD
+=======
+	mutex_lock(&this_afe.afe_cmd_lock);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	atomic_set(&this_afe.mem_map_cal_index, cal_index);
 	ret = afe_cmd_memory_map(cal_block->cal_data.paddr,
 			cal_block->map_data.map_size);
@@ -6044,10 +6075,18 @@ static int afe_map_cal_data(int32_t cal_type,
 			__func__,
 			&cal_block->cal_data.paddr,
 			cal_block->map_data.map_size);
+<<<<<<< HEAD
+=======
+		mutex_unlock(&this_afe.afe_cmd_lock);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		goto done;
 	}
 	cal_block->map_data.q6map_handle = atomic_read(&this_afe.
 		mem_map_cal_handles[cal_index]);
+<<<<<<< HEAD
+=======
+	mutex_unlock(&this_afe.afe_cmd_lock);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 done:
 	return ret;
 }

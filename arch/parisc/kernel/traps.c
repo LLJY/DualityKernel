@@ -802,9 +802,12 @@ void notrace handle_interruption(int code, struct pt_regs *regs)
 
 	    if (fault_space == 0 && !in_atomic())
 	    {
+<<<<<<< HEAD
 		/* Clean up and return if in exception table. */
 		if (fixup_exception(regs))
 			return;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pdc_chassis_send_status(PDC_CHASSIS_DIRECT_PANIC);
 		parisc_terminate("Kernel Fault", regs, code, fault_address);
 	    }

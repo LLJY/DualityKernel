@@ -274,7 +274,11 @@ int dwc3_event_buffers_setup(struct dwc3 *dwc)
 
 	for (n = 0; n < dwc->num_event_buffers; n++) {
 		evt = dwc->ev_buffs[n];
+<<<<<<< HEAD
 		dev_dbg(dwc->dev, "Event buf %p dma %08llx length %d\n",
+=======
+		dev_dbg(dwc->dev, "Event buf %pK dma %08llx length %d\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				evt->buf, (unsigned long long) evt->dma,
 				evt->length);
 
@@ -698,7 +702,10 @@ static void dwc3_core_exit_mode(struct dwc3 *dwc)
 void dwc3_post_host_reset_core_init(struct dwc3 *dwc)
 {
 	dwc3_core_init(dwc);
+<<<<<<< HEAD
 	dwc3_event_buffers_setup(dwc);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	dwc3_gadget_restart(dwc);
 	dwc3_notify_event(dwc, DWC3_CONTROLLER_POST_INITIALIZATION_EVENT, 0);
 }

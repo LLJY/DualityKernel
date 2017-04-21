@@ -5,11 +5,14 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef LINUX_MMC_CORE_H
 #define LINUX_MMC_CORE_H
 
@@ -167,8 +170,11 @@ extern int __mmc_switch_cmdq_mode(struct mmc_command *cmd, u8 set, u8 index,
 				  u8 value, unsigned int timeout_ms,
 				  bool use_busy_signal, bool ignore_timeout);
 extern int mmc_switch(struct mmc_card *, u8, u8, u8, unsigned int);
+<<<<<<< HEAD
 extern int mmc_switch_ignore_timeout(struct mmc_card *, u8, u8, u8,
 				     unsigned int);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 extern int mmc_send_ext_csd(struct mmc_card *card, u8 *ext_csd);
 extern int mmc_set_auto_bkops(struct mmc_card *card, bool enable);
 
@@ -240,6 +246,7 @@ struct device_node;
 extern u32 mmc_vddrange_to_ocrmask(int vdd_min, int vdd_max);
 extern int mmc_of_parse_voltage(struct device_node *np, u32 *mask);
 
+<<<<<<< HEAD
 /*
  * eMMC5.0 Field Firmware Update (FFU) opcodes
  */
@@ -258,4 +265,6 @@ int mmc_ffu_check_status(struct mmc_card *card);
 int mmc_ffu_invoke(struct mmc_card *card, const char *name);
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif /* LINUX_MMC_CORE_H */

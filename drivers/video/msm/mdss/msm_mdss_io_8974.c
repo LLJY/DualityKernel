@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -10,11 +14,14 @@
  * GNU General Public License for more details.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/clk.h>
 #include <linux/interrupt.h>
 #include <linux/delay.h>
@@ -1715,10 +1722,13 @@ static int mdss_dsi_ulps_config(struct mdss_dsi_ctrl_pdata *ctrl,
 	pinfo = &pdata->panel_info;
 	mipi = &pinfo->mipi;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if (!mdss_dsi_ulps_feature_enabled(pdata))
 		return 0;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!mdss_dsi_is_ulps_req_valid(ctrl, enable)) {
 		pr_debug("%s: skiping ULPS config for ctrl%d, enable=%d\n",
 			__func__, ctrl->ndx, enable);
@@ -1805,8 +1815,15 @@ static int mdss_dsi_ulps_config(struct mdss_dsi_ctrl_pdata *ctrl,
 		 * to be in stop state.
 		 */
 		MIPI_OUTP(ctrl->ctrl_base + 0x0AC, active_lanes << 16);
+<<<<<<< HEAD
 
 		MIPI_OUTP(ctrl->ctrl_base + 0x0AC, 0x0);
+=======
+		wmb(); /* ensure lanes are put to stop state */
+
+		MIPI_OUTP(ctrl->ctrl_base + 0x0AC, 0x0);
+		wmb(); /* ensure lanes are in proper state */
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		/*
 		 * Wait for a short duration before enabling

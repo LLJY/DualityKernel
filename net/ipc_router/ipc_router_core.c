@@ -2808,6 +2808,12 @@ int msm_ipc_router_register_server(struct msm_ipc_port *port_ptr,
 	if (!port_ptr || !name)
 		return -EINVAL;
 
+<<<<<<< HEAD
+=======
+	if (port_ptr->type != CLIENT_PORT)
+		return -EINVAL;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (name->addrtype != MSM_IPC_ADDR_NAME)
 		return -EINVAL;
 

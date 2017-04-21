@@ -7,11 +7,14 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/err.h>
 #include <linux/gpio.h>
@@ -30,6 +33,7 @@ struct mmc_gpio {
 	bool override_cd_active_level;
 	char *ro_label;
 	char cd_label[0];
+<<<<<<< HEAD
 	bool status;
 	int uim2_gpio;
 #ifdef CONFIG_MMC_SD_DEFERRED_RESUME
@@ -77,10 +81,15 @@ bool mmc_cd_is_pending_detect(struct mmc_host *host)
 EXPORT_SYMBOL(mmc_cd_is_pending_detect);
 #endif
 
+=======
+};
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static irqreturn_t mmc_gpio_cd_irqt(int irq, void *dev_id)
 {
 	/* Schedule a card detection after a debounce timeout */
 	struct mmc_host *host = dev_id;
+<<<<<<< HEAD
 	struct mmc_gpio *ctx = host->slot.handler_priv;
 	int status;
 #ifdef CONFIG_MMC_SD_DEFERRED_RESUME
@@ -123,6 +132,11 @@ static irqreturn_t mmc_gpio_cd_irqt(int irq, void *dev_id)
 		mmc_detect_change(host, msecs_to_jiffies(200));
 	}
 out:
+=======
+
+	host->trigger_card_event = true;
+	mmc_detect_change(host, msecs_to_jiffies(200));
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return IRQ_HANDLED;
 }
@@ -147,7 +161,10 @@ static int mmc_gpio_alloc(struct mmc_host *host)
 			ctx->ro_label = ctx->cd_label + len;
 			snprintf(ctx->cd_label, len, "%s cd", dev_name(host->parent));
 			snprintf(ctx->ro_label, len, "%s ro", dev_name(host->parent));
+<<<<<<< HEAD
 			ctx->uim2_gpio = -EINVAL;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			host->slot.handler_priv = ctx;
 		}
 	}
@@ -310,10 +327,14 @@ int mmc_gpio_request_cd(struct mmc_host *host, unsigned int gpio,
 
 	ctx->override_cd_active_level = true;
 	ctx->cd_gpio = gpio_to_desc(gpio);
+<<<<<<< HEAD
 #ifdef CONFIG_MMC_SD_DEFERRED_RESUME
 	ctx->pending_detect = false;
 	ctx->suspended = false;
 #endif
+=======
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 EXPORT_SYMBOL(mmc_gpio_request_cd);
@@ -498,6 +519,7 @@ void mmc_gpiod_free_cd(struct mmc_host *host)
 	ctx->cd_gpio = NULL;
 }
 EXPORT_SYMBOL(mmc_gpiod_free_cd);
+<<<<<<< HEAD
 
 void mmc_gpio_init_uim2(struct mmc_host *host, unsigned int gpio)
 {
@@ -536,3 +558,5 @@ void mmc_gpio_tray_close_set_uim2(struct mmc_host *host, int value)
 		mmc_gpio_set_uim2_en(host, value);
 }
 EXPORT_SYMBOL(mmc_gpio_tray_close_set_uim2);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

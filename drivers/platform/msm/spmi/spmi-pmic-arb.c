@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -928,6 +932,13 @@ __pmic_arb_periph_irq(int irq, void *dev_id, bool show)
 	int first = pmic_arb->min_intr_apid >> 5;
 	int last = pmic_arb->max_intr_apid >> 5;
 	int i, j;
+<<<<<<< HEAD
+=======
+	/* status based dispatch */
+	bool acc_valid = false;
+	u32 irq_status = 0;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	dev_dbg(pmic_arb->dev, "Peripheral interrupt detected\n");
 
@@ -935,6 +946,11 @@ __pmic_arb_periph_irq(int irq, void *dev_id, bool show)
 	for (i = first; i <= last; ++i) {
 		status = readl_relaxed(pmic_arb->intr +
 					pmic_arb->ver->owner_acc_status(ee, i));
+<<<<<<< HEAD
+=======
+		if (status)
+			acc_valid = true;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		if ((i == 0) && (status & pmic_arb->irq_acc0_init_val)) {
 			dev_dbg(pmic_arb->dev, "Ignoring IRQ acc[0] mask:0x%x\n",
@@ -951,6 +967,27 @@ __pmic_arb_periph_irq(int irq, void *dev_id, bool show)
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	/* ACC_STATUS is empty but IRQ fired check IRQ_STATUS */
+	if (!acc_valid) {
+		for (i = pmic_arb->min_intr_apid; i <= pmic_arb->max_intr_apid;
+				i++) {
+			if (!is_apid_valid(pmic_arb, i))
+				continue;
+			irq_status = readl_relaxed(pmic_arb->intr +
+					pmic_arb->ver->irq_status(i));
+			if (irq_status) {
+				dev_dbg(pmic_arb->dev,
+					"Dispatching for IRQ_STATUS_REG:0x%lx IRQ_STATUS:0x%x\n",
+					(ulong) pmic_arb->ver->irq_status(i),
+					irq_status);
+				ret |= periph_interrupt(pmic_arb, i, show);
+			}
+		}
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return ret;
 }
 

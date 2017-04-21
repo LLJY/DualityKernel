@@ -10,11 +10,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/clk.h>
 #include <linux/delay.h>
@@ -36,7 +39,11 @@
 #include <sound/q6core.h>
 #include <sound/pcm_params.h>
 #include <sound/info.h>
+<<<<<<< HEAD
 #include "device_event.h"
+=======
+#include <device_event.h>
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "qdsp6v2/msm-pcm-routing-v2.h"
 #include "../codecs/wcd9xxx-common.h"
 #include "../codecs/wcd9330.h"
@@ -93,7 +100,10 @@ static int msm_hdmi_rx_ch = 2;
 static int msm_proxy_rx_ch = 2;
 static int hdmi_rx_sample_rate = SAMPLING_RATE_48KHZ;
 static int msm_tert_mi2s_tx_ch = 2;
+<<<<<<< HEAD
 static int pm8996_ear_enable_states;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static bool codec_reg_done;
 
@@ -124,7 +134,10 @@ static const char *const proxy_rx_ch_text[] = {"One", "Two", "Three", "Four",
 
 static char const *hdmi_rx_sample_rate_text[] = {"KHZ_48", "KHZ_96",
 					"KHZ_192"};
+<<<<<<< HEAD
 static const char *const pm8996_ear_enable_states_text[] = {"Disable", "Enable"};
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static const char *const auxpcm_rate_text[] = {"8000", "16000"};
 static const struct soc_enum msm8996_auxpcm_enum[] = {
@@ -153,7 +166,10 @@ struct msm8996_asoc_mach_data {
 	int us_euro_gpio;
 	int hph_en1_gpio;
 	int hph_en0_gpio;
+<<<<<<< HEAD
 	int ear_en_gpio;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct snd_info_entry *codec_root;
 };
 
@@ -202,8 +218,13 @@ static struct wcd_mbhc_config wcd_mbhc_cfg = {
 	.linein_th = 5000,
 	.moist_cfg = { V_45_MV, I_3P0_UA },
 	.mbhc_micbias = MIC_BIAS_2,
+<<<<<<< HEAD
 	.anc_micbias = MIC_BIAS_3,
 	.enable_anc_mic_detect = true,
+=======
+	.anc_micbias = MIC_BIAS_2,
+	.enable_anc_mic_detect = false,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static inline int param_is_mask(int p)
@@ -361,7 +382,11 @@ static int msm8996_get_spk(struct snd_kcontrol *kcontrol,
 static int msm8996_set_spk(struct snd_kcontrol *kcontrol,
 			      struct snd_ctl_elem_value *ucontrol)
 {
+<<<<<<< HEAD
 	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
+=======
+	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pr_debug("%s() ucontrol->value.integer.value[0] = %ld\n",
 		 __func__, ucontrol->value.integer.value[0]);
@@ -1263,6 +1288,7 @@ static int hdmi_rx_sample_rate_put(struct snd_kcontrol *kcontrol,
 	return 0;
 }
 
+<<<<<<< HEAD
 static int pm8996_ear_enable_get(struct snd_kcontrol *kcontrol,
 	struct snd_ctl_elem_value *ucontrol)
 {
@@ -1318,6 +1344,8 @@ static int pm8996_ear_enable_put(struct snd_kcontrol *kcontrol,
 	return 0;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int msm8996_auxpcm_rate_get(struct snd_kcontrol *kcontrol,
 				      struct snd_ctl_elem_value *ucontrol)
 {
@@ -1649,7 +1677,10 @@ static const struct soc_enum msm_snd_enum[] = {
 	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(slim6_rx_bit_format_text),
 			    slim6_rx_bit_format_text),
 	SOC_ENUM_SINGLE_EXT(2, slim6_rx_ch_text),
+<<<<<<< HEAD
 	SOC_ENUM_SINGLE_EXT(2, pm8996_ear_enable_states_text),
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static const struct snd_kcontrol_new msm_snd_controls[] = {
@@ -1696,9 +1727,12 @@ static const struct snd_kcontrol_new msm_snd_controls[] = {
 			msm8996_hifi_put),
 	SOC_ENUM_EXT("VI_FEED_TX Channels", msm_snd_enum[12],
 			msm_vi_feed_tx_ch_get, msm_vi_feed_tx_ch_put),
+<<<<<<< HEAD
 	SOC_ENUM_EXT("PM8996_Ear_Enable_States", msm_snd_enum[16],
 		pm8996_ear_enable_get,
 		pm8996_ear_enable_put),
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static bool msm8996_swap_gnd_mic(struct snd_soc_codec *codec)
@@ -2088,7 +2122,11 @@ static void *def_tasha_mbhc_cal(void)
 	}
 
 #define S(X, Y) ((WCD_MBHC_CAL_PLUG_TYPE_PTR(tasha_wcd_cal)->X) = (Y))
+<<<<<<< HEAD
 	S(v_hs_max, 1700);
+=======
+	S(v_hs_max, 1500);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #undef S
 #define S(X, Y) ((WCD_MBHC_CAL_BTN_DET_PTR(tasha_wcd_cal)->X) = (Y))
 	S(num_btn, WCD_MBHC_DEF_BUTTONS);
@@ -2099,7 +2137,11 @@ static void *def_tasha_mbhc_cal(void)
 		(sizeof(btn_cfg->_v_btn_low[0]) * btn_cfg->num_btn);
 
 	btn_high[0] = 75;
+<<<<<<< HEAD
 	btn_high[1] = 137;
+=======
+	btn_high[1] = 150;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	btn_high[2] = 237;
 	btn_high[3] = 500;
 	btn_high[4] = 500;
@@ -3997,6 +4039,7 @@ static int msm8996_asoc_machine_probe(struct platform_device *pdev)
 	if (ret)
 		dev_info(&pdev->dev, "msm8996_prepare_us_euro failed (%d)\n",
 			ret);
+<<<<<<< HEAD
 
 	/* Parse EAR_EN info for NX5L2750C */
 	pdata->ear_en_gpio = of_get_named_gpio(pdev->dev.of_node,
@@ -4009,6 +4052,8 @@ static int msm8996_asoc_machine_probe(struct platform_device *pdev)
 		goto err;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 err:
 	if (pdata->us_euro_gpio > 0) {
@@ -4029,11 +4074,14 @@ err:
 		gpio_free(pdata->hph_en0_gpio);
 		pdata->hph_en0_gpio = 0;
 	}
+<<<<<<< HEAD
 	if (pdata->ear_en_gpio > 0) {
 		dev_dbg(&pdev->dev, "%s initialize ear_en gpio %d\n",
 			__func__, pdata->ear_en_gpio);
 		pdata->ear_en_gpio = 0;
 	}
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	devm_kfree(&pdev->dev, pdata);
 	return ret;
 }

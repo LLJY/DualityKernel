@@ -100,7 +100,10 @@ static int set_qdss_data_connection(struct usb_gadget *gadget,
 
 		res = usb_bam_connect(usb_bam_type, idx,
 					&(bam_info.usb_bam_pipe_idx));
+<<<<<<< HEAD
 		gadget->bam2bam_func_enabled = true;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else {
 		kfree(bam_info.data_fifo);
 		res = usb_bam_disconnect_pipe(usb_bam_type, idx);

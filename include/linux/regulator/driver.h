@@ -11,11 +11,14 @@
  *
  * Regulator Driver Interface.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef __LINUX_REGULATOR_DRIVER_H_
 #define __LINUX_REGULATOR_DRIVER_H_
@@ -120,8 +123,11 @@ struct regulator_linear_range {
  *               The function provides the from and to voltage selector, the
  *               function should return the worst case.
  *
+<<<<<<< HEAD
  * @register_ocp_notification: Register the notification for ocp.
  *
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * @set_suspend_voltage: Set the voltage for the regulator when the system
  *                       is suspended.
  * @set_suspend_enable: Mark the regulator as enabled when the system is
@@ -184,10 +190,13 @@ struct regulator_ops {
 	int (*set_bypass)(struct regulator_dev *dev, bool enable);
 	int (*get_bypass)(struct regulator_dev *dev, bool *enable);
 
+<<<<<<< HEAD
 	/* register ocp notification */
 	int (*register_ocp_notification) (struct regulator_dev *,
 			struct regulator_ocp_notification *notification);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* the operations below are for configuration of regulator state when
 	 * its parent PMIC enters a global STANDBY/HIBERNATE state */
 

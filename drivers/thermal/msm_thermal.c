@@ -2822,7 +2822,11 @@ static void __ref do_core_control(long temp)
 				cpu_dev = get_cpu_device(i);
 				trace_thermal_pre_core_offline(i);
 				ret = device_offline(cpu_dev);
+<<<<<<< HEAD
 				if (ret)
+=======
+				if (ret < 0)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					pr_err("Error %d offline core %d\n",
 					       ret, i);
 				trace_thermal_post_core_offline(i,
@@ -2895,7 +2899,12 @@ static int __ref update_offline_cores(int val)
 			cpu_dev = get_cpu_device(cpu);
 			trace_thermal_pre_core_offline(cpu);
 			ret = device_offline(cpu_dev);
+<<<<<<< HEAD
 			if (ret) {
+=======
+			if (ret < 0) {
+				cpus_offlined &= ~BIT(cpu);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				pr_err_ratelimited(
 					"Unable to offline CPU%d. err:%d\n",
 					cpu, ret);
@@ -2940,8 +2949,12 @@ static int __ref update_offline_cores(int val)
 
 	if (pend_hotplug_req && !in_suspend && !retry_in_progress) {
 		retry_in_progress = true;
+<<<<<<< HEAD
 		queue_delayed_work(system_power_efficient_wq,
 			&retry_hotplug_work,
+=======
+		schedule_delayed_work(&retry_hotplug_work,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			msecs_to_jiffies(HOTPLUG_RETRY_INTERVAL_MS));
 	}
 
@@ -2966,6 +2979,17 @@ static __ref int do_hotplug(void *data)
 			&hotplug_notify_complete) != 0)
 			;
 		reinit_completion(&hotplug_notify_complete);
+<<<<<<< HEAD
+=======
+
+		/*
+		 * Suspend framework will have disabled the
+		 * hotplug functionality. So wait till the suspend exits
+		 * and then re-evaluate.
+		 */
+		if (in_suspend)
+			continue;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		mask = 0;
 
 		mutex_lock(&core_control_mutex);
@@ -3426,9 +3450,14 @@ static void check_temp(struct work_struct *work)
 
 reschedule:
 	if (polling_enabled)
+<<<<<<< HEAD
 		queue_delayed_work(system_power_efficient_wq,
 			&check_temp_work,
 			msecs_to_jiffies(msm_thermal_info.poll_ms));
+=======
+		schedule_delayed_work(&check_temp_work,
+				msecs_to_jiffies(msm_thermal_info.poll_ms));
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static int __ref msm_thermal_cpu_callback(struct notifier_block *nfb,

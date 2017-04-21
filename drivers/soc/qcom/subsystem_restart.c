@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -9,11 +13,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt) "subsys-restart: %s(): " fmt, __func__
 
@@ -35,8 +42,11 @@
 #include <linux/idr.h>
 #include <linux/debugfs.h>
 #include <linux/interrupt.h>
+<<<<<<< HEAD
 #include <linux/poll.h>
 #include <linux/wait.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/of_gpio.h>
 #include <linux/cdev.h>
 #include <linux/platform_device.h>
@@ -181,10 +191,13 @@ struct subsys_device {
 	struct subsys_soc_restart_order *restart_order;
 #ifdef CONFIG_DEBUG_FS
 	struct dentry *dentry;
+<<<<<<< HEAD
 	struct dentry *reason_dentry;
 	char crash_reason[SUBSYS_CRASH_REASON_LEN];
 	int data_ready;
 	wait_queue_head_t subsys_debug_q;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 	bool do_ramdump_on_put;
 	struct cdev char_dev;
@@ -195,8 +208,11 @@ struct subsys_device {
 	struct list_head list;
 };
 
+<<<<<<< HEAD
 static void subsys_notify_crash_reason(struct subsys_device *subsys);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct subsys_device *to_subsys(struct device *d)
 {
 	return container_of(d, struct subsys_device, dev);
@@ -612,10 +628,18 @@ static void subsystem_shutdown(struct subsys_device *dev, void *data)
 {
 	const char *name = dev->desc->name;
 
+<<<<<<< HEAD
 	pr_info("[%p]: Shutting down %s\n", current, name);
 	if (dev->desc->shutdown(dev->desc, true) < 0)
 		panic("subsys-restart: [%p]: Failed to shutdown %s!",
 			current, name);
+=======
+	pr_info("[%s:%d]: Shutting down %s\n",
+			current->comm, current->pid, name);
+	if (dev->desc->shutdown(dev->desc, true) < 0)
+		panic("subsys-restart: [%s:%d]: Failed to shutdown %s!",
+			current->comm, current->pid, name);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	dev->crash_count++;
 	subsys_set_state(dev, SUBSYS_OFFLINE);
 	disable_all_irqs(dev);
@@ -627,7 +651,12 @@ static void subsystem_ramdump(struct subsys_device *dev, void *data)
 
 	if (dev->desc->ramdump)
 		if (dev->desc->ramdump(is_ramdump_enabled(dev), dev->desc) < 0)
+<<<<<<< HEAD
 			pr_warn("%s[%p]: Ramdump failed.\n", name, current);
+=======
+			pr_warn("%s[%s:%d]: Ramdump failed.\n",
+				name, current->comm, current->pid);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	dev->do_ramdump_on_put = false;
 }
 
@@ -642,6 +671,7 @@ static void subsystem_powerup(struct subsys_device *dev, void *data)
 	const char *name = dev->desc->name;
 	int ret;
 
+<<<<<<< HEAD
 	pr_info("[%p]: Powering up %s\n", current, name);
 	init_completion(&dev->err_ready);
 
@@ -656,6 +686,16 @@ static void subsystem_powerup(struct subsys_device *dev, void *data)
 									NULL);
 			panic("[%p]: Powerup error: %s!", current, name);
 		}
+=======
+	pr_info("[%s:%d]: Powering up %s\n", current->comm, current->pid, name);
+	init_completion(&dev->err_ready);
+
+	if (dev->desc->powerup(dev->desc) < 0) {
+		notify_each_subsys_device(&dev, 1, SUBSYS_POWERUP_FAILURE,
+								NULL);
+		panic("[%s:%d]: Powerup error: %s!",
+			current->comm, current->pid, name);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	enable_all_irqs(dev);
 
@@ -663,8 +703,13 @@ static void subsystem_powerup(struct subsys_device *dev, void *data)
 	if (ret) {
 		notify_each_subsys_device(&dev, 1, SUBSYS_POWERUP_FAILURE,
 								NULL);
+<<<<<<< HEAD
 		panic("[%p]: Timed out waiting for error ready: %s!",
 			current, name);
+=======
+		panic("[%s:%d]: Timed out waiting for error ready: %s!",
+			current->comm, current->pid, name);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	subsys_set_state(dev, SUBSYS_ONLINE);
 	subsys_set_crash_status(dev, false);
@@ -951,8 +996,13 @@ static void subsystem_restart_wq_func(struct work_struct *work)
 	 */
 	mutex_lock(&soc_order_reg_lock);
 
+<<<<<<< HEAD
 	pr_debug("[%p]: Starting restart sequence for %s\n", current,
 			desc->name);
+=======
+	pr_debug("[%s:%d]: Starting restart sequence for %s\n",
+			current->comm, current->pid, desc->name);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	notify_each_subsys_device(list, count, SUBSYS_BEFORE_SHUTDOWN, NULL);
 	for_each_subsys_device(list, count, NULL, subsystem_shutdown);
 	notify_each_subsys_device(list, count, SUBSYS_AFTER_SHUTDOWN, NULL);
@@ -963,7 +1013,11 @@ static void subsystem_restart_wq_func(struct work_struct *work)
 	spin_lock_irqsave(&track->s_lock, flags);
 	track->p_state = SUBSYS_RESTARTING;
 	spin_unlock_irqrestore(&track->s_lock, flags);
+<<<<<<< HEAD
 	subsys_notify_crash_reason(dev);
+=======
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Collect ram dumps for all subsystems in order here */
 	for_each_subsys_device(list, count, NULL, subsystem_ramdump);
 
@@ -973,8 +1027,13 @@ static void subsystem_restart_wq_func(struct work_struct *work)
 	for_each_subsys_device(list, count, NULL, subsystem_powerup);
 	notify_each_subsys_device(list, count, SUBSYS_AFTER_POWERUP, NULL);
 
+<<<<<<< HEAD
 	pr_info("[%p]: Restart sequence for %s completed.\n",
 			current, desc->name);
+=======
+	pr_info("[%s:%d]: Restart sequence for %s completed.\n",
+			current->comm, current->pid, desc->name);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	mutex_unlock(&soc_order_reg_lock);
 	mutex_unlock(&track->lock);
@@ -1059,8 +1118,14 @@ int subsystem_restart_dev(struct subsys_device *dev)
 	pr_info("Restart sequence requested for %s, restart_level = %s.\n",
 		name, restart_levels[dev->restart_level]);
 
+<<<<<<< HEAD
 	if (WARN(disable_restart_work == DISABLE_SSR,
 		"subsys-restart: Ignoring restart request for %s.\n", name)) {
+=======
+	if (disable_restart_work == DISABLE_SSR) {
+		pr_warn("subsys-restart: Ignoring restart request for %s.\n",
+									name);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return 0;
 	}
 
@@ -1098,6 +1163,7 @@ int subsystem_restart(const char *name)
 }
 EXPORT_SYMBOL(subsystem_restart);
 
+<<<<<<< HEAD
 int subsystem_crash_reason(const char *name, char *msg)
 {
 	struct subsys_device *dev = find_subsys(name);
@@ -1111,6 +1177,8 @@ int subsystem_crash_reason(const char *name, char *msg)
 }
 EXPORT_SYMBOL(subsystem_crash_reason);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int subsystem_crashed(const char *name)
 {
 	struct subsys_device *dev = find_subsys(name);
@@ -1222,6 +1290,7 @@ static const struct file_operations subsys_debugfs_fops = {
 	.write	= subsys_debugfs_write,
 };
 
+<<<<<<< HEAD
 void update_crash_reason(struct subsys_device *subsys,
 				char *smem_reason, int size)
 {
@@ -1275,20 +1344,29 @@ static const struct file_operations subsys_debugfs_reason_fops = {
 
 static struct dentry *subsys_base_dir;
 static struct dentry *subsys_reason_dir;
+=======
+static struct dentry *subsys_base_dir;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int __init subsys_debugfs_init(void)
 {
 	subsys_base_dir = debugfs_create_dir("msm_subsys", NULL);
+<<<<<<< HEAD
 	if (subsys_base_dir)
 		subsys_reason_dir = debugfs_create_dir("crash_reason",
 							subsys_base_dir);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return !subsys_base_dir ? -ENOMEM : 0;
 }
 
 static void subsys_debugfs_exit(void)
 {
+<<<<<<< HEAD
 	if (subsys_reason_dir)
 		debugfs_remove_recursive(subsys_reason_dir);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	debugfs_remove_recursive(subsys_base_dir);
 }
 
@@ -1300,16 +1378,22 @@ static int subsys_debugfs_add(struct subsys_device *subsys)
 	subsys->dentry = debugfs_create_file(subsys->desc->name,
 				S_IRUGO | S_IWUSR, subsys_base_dir,
 				subsys, &subsys_debugfs_fops);
+<<<<<<< HEAD
 	if (subsys_reason_dir)
 		subsys->reason_dentry = debugfs_create_file(subsys->desc->name,
 				S_IRUGO | S_IWUSR, subsys_reason_dir,
 				subsys, &subsys_debugfs_reason_fops);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return !subsys->dentry ? -ENOMEM : 0;
 }
 
 static void subsys_debugfs_remove(struct subsys_device *subsys)
 {
+<<<<<<< HEAD
 	debugfs_remove(subsys->reason_dentry);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	debugfs_remove(subsys->dentry);
 }
 #else
@@ -1317,7 +1401,10 @@ static int __init subsys_debugfs_init(void) { return 0; };
 static void subsys_debugfs_exit(void) { }
 static int subsys_debugfs_add(struct subsys_device *subsys) { return 0; }
 static void subsys_debugfs_remove(struct subsys_device *subsys) { }
+<<<<<<< HEAD
 static void subsys_notify_crash_reason(struct subsys_device *subsys) { }
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 
 static int subsys_device_open(struct inode *inode, struct file *file)
@@ -1764,8 +1851,11 @@ struct subsys_device *subsys_register(struct subsys_desc *desc)
 		return ERR_PTR(ret);
 	}
 
+<<<<<<< HEAD
 	init_waitqueue_head(&subsys->subsys_debug_q);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ret = device_register(&subsys->dev);
 	if (ret) {
 		subsys_debugfs_remove(subsys);

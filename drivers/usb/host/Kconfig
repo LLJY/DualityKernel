@@ -811,6 +811,7 @@ config USB_HCD_TEST_MODE
 	  This option is of interest only to developers who need to validate
 	  their USB hardware designs.  It is not needed for normal use.  If
 	  unsure, say N.
+<<<<<<< HEAD
 
 config USB_HOST_EXTRA_NOTIFICATION
 	bool "USB host extra notification"
@@ -818,3 +819,5 @@ config USB_HOST_EXTRA_NOTIFICATION
 	default n
 	help
 	  Provides the functions to notify extra USB host related events.
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

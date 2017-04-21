@@ -5,11 +5,14 @@
   This program can be distributed under the terms of the GNU GPL.
   See the file COPYING.
 */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include "fuse_i.h"
 
@@ -466,7 +469,10 @@ enum {
 	OPT_GROUP_ID,
 	OPT_DEFAULT_PERMISSIONS,
 	OPT_ALLOW_OTHER,
+<<<<<<< HEAD
 	OPT_ALLOW_UTIME_GRP,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	OPT_MAX_READ,
 	OPT_BLKSIZE,
 	OPT_ERR
@@ -479,7 +485,10 @@ static const match_table_t tokens = {
 	{OPT_GROUP_ID,			"group_id=%u"},
 	{OPT_DEFAULT_PERMISSIONS,	"default_permissions"},
 	{OPT_ALLOW_OTHER,		"allow_other"},
+<<<<<<< HEAD
 	{OPT_ALLOW_UTIME_GRP,		"allow_utime_grp"},
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	{OPT_MAX_READ,			"max_read=%u"},
 	{OPT_BLKSIZE,			"blksize=%u"},
 	{OPT_ERR,			NULL}
@@ -555,10 +564,13 @@ static int parse_fuse_opt(char *opt, struct fuse_mount_data *d, int is_bdev)
 			d->flags |= FUSE_ALLOW_OTHER;
 			break;
 
+<<<<<<< HEAD
 		case OPT_ALLOW_UTIME_GRP:
 			d->flags |= FUSE_ALLOW_UTIME_GRP;
 			break;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		case OPT_MAX_READ:
 			if (match_int(&args[0], &value))
 				return 0;
@@ -594,8 +606,11 @@ static int fuse_show_options(struct seq_file *m, struct dentry *root)
 		seq_puts(m, ",default_permissions");
 	if (fc->flags & FUSE_ALLOW_OTHER)
 		seq_puts(m, ",allow_other");
+<<<<<<< HEAD
 	if (fc->flags & FUSE_ALLOW_UTIME_GRP)
 		seq_puts(m, ",allow_utime_grp");
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (fc->max_read != ~0)
 		seq_printf(m, ",max_read=%u", fc->max_read);
 	if (sb->s_bdev && sb->s_blocksize != FUSE_DEFAULT_BLKSIZE)

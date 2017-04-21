@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -9,11 +13,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/slab.h>
 #include <linux/wait.h>
 #include <linux/sched.h>
@@ -43,10 +50,13 @@
 #define ULL_SUPPORTED_BITS_PER_SAMPLE 16
 #define ULL_SUPPORTED_SAMPLE_RATE 48000
 
+<<<<<<< HEAD
 #ifdef CONFIG_FORCE_24BIT_COPP
 #define APPTYPE_GENERAL_PLAYBACK 0x00011130
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* ENUM for adm_status */
 enum adm_cal_status {
 	ADM_STATUS_CALIBRATION_REQUIRED = 0,
@@ -971,6 +981,7 @@ send_param_return:
 	return rc;
 }
 
+<<<<<<< HEAD
 int adm_ahc_send_params(int port_id, int copp_idx, char *params,
 			uint32_t params_length)
 {
@@ -1046,14 +1057,23 @@ ahc_send_param_return:
 	return rc;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int adm_get_params_v2(int port_id, int copp_idx, uint32_t module_id,
 		      uint32_t param_id, uint32_t params_length,
 		      char *params, uint32_t client_id)
 {
 	struct adm_cmd_get_pp_params_v5 *adm_params = NULL;
+<<<<<<< HEAD
 	int sz, rc = 0, i = 0;
 	int port_idx, idx;
 	int *params_data = (int *)params;
+=======
+	int rc = 0, i = 0;
+	int port_idx, idx;
+	int *params_data = (int *)params;
+	uint64_t sz = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	port_id = afe_convert_virtual_to_portid(port_id);
 	port_idx = adm_validate_and_get_port_index(port_id);
@@ -1062,7 +1082,20 @@ int adm_get_params_v2(int port_id, int copp_idx, uint32_t module_id,
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	sz = sizeof(struct adm_cmd_get_pp_params_v5) + params_length;
+=======
+	sz = (uint64_t)sizeof(struct adm_cmd_get_pp_params_v5) +
+				(uint64_t)params_length;
+	/*
+	 * Check if the value of "sz" (which is ultimately assigned to
+	 * "hdr.pkt_size") crosses U16_MAX.
+	 */
+	if (sz > U16_MAX) {
+		pr_err("%s: Invalid params_length\n", __func__);
+		return -EINVAL;
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	adm_params = kzalloc(sz, GFP_KERNEL);
 	if (!adm_params) {
 		pr_err("%s: adm params memory alloc failed", __func__);
@@ -1432,7 +1465,10 @@ static int32_t adm_callback(struct apr_client_data *data, void *priv)
 			case ADM_CMD_DEVICE_OPEN_V5:
 			case ADM_CMD_DEVICE_CLOSE_V5:
 			case ADM_CMD_DEVICE_OPEN_V6:
+<<<<<<< HEAD
 			case ADM_CMD_MATRIX_MUTE_V5:
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				pr_debug("%s: Basic callback received, wake up.\n",
 					__func__);
 				atomic_set(&this_adm.copp.stat[port_idx]
@@ -2178,6 +2214,7 @@ static void send_adm_cal(int port_id, int copp_idx, int path, int perf_mode,
 	return;
 }
 
+<<<<<<< HEAD
 int adm_matrix_mute(int port_id, int session_id, uint32_t ramp_duration,
 				uint32_t mute_flag_ch1, uint32_t mute_flag_ch2)
 {
@@ -2279,6 +2316,8 @@ adm_matrix_mute_return:
 	return ret;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int adm_connect_afe_port(int mode, int session_id, int port_id)
 {
 	struct adm_cmd_connect_afe_port_v5	cmd;
@@ -2504,6 +2543,7 @@ int adm_open(int port_id, int path, int rate, int channel_mode, int topology,
 		bit_width = 24;
 		pr_debug("%s: Force open adm in 24-bit for DTS HPX topology 0x%x\n",
 			__func__, topology);
+<<<<<<< HEAD
 #ifdef CONFIG_FORCE_24BIT_COPP
 	} else if ((topology == ADM_CMD_COPP_OPENOPOLOGY_ID_SPEAKER_STEREO_AUDIO_COPP_SOMC_HP) &&
 		(app_type == APPTYPE_GENERAL_PLAYBACK)) {
@@ -2516,6 +2556,8 @@ int adm_open(int port_id, int path, int rate, int channel_mode, int topology,
 		pr_debug("%s: Force open adm in 24-bit for SOMC Speaker topology 0x%x\n",
 			__func__, topology);
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	port_id = q6audio_convert_virtual_to_portid(port_id);
 	port_idx = adm_validate_and_get_port_index(port_id);
@@ -2562,9 +2604,13 @@ int adm_open(int port_id, int path, int rate, int channel_mode, int topology,
 
 	if ((topology == VPM_TX_SM_ECNS_COPP_TOPOLOGY) ||
 	    (topology == VPM_TX_DM_FLUENCE_COPP_TOPOLOGY) ||
+<<<<<<< HEAD
 	    (topology == VPM_TX_DM_RFECNS_COPP_TOPOLOGY) ||
 	    (topology == VOICE_TOPOLOGY_LVVEFQ_TX_SM) ||
 	    (topology == VOICE_TOPOLOGY_LVVEFQ_TX_DM))
+=======
+	    (topology == VPM_TX_DM_RFECNS_COPP_TOPOLOGY))
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		rate = 16000;
 
 	copp_idx = adm_get_idx_if_copp_exists(port_idx, topology, perf_mode,

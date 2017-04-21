@@ -3476,8 +3476,15 @@ static int rcu_cpu_notify(struct notifier_block *self,
 	case CPU_DEAD_FROZEN:
 	case CPU_UP_CANCELED:
 	case CPU_UP_CANCELED_FROZEN:
+<<<<<<< HEAD
 		for_each_rcu_flavor(rsp)
 			rcu_cleanup_dead_cpu(cpu, rsp);
+=======
+		for_each_rcu_flavor(rsp) {
+			rcu_cleanup_dead_cpu(cpu, rsp);
+			do_nocb_deferred_wakeup(per_cpu_ptr(rsp->rda, cpu));
+		}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	default:
 		break;

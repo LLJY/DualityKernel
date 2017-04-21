@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt) "%s: " fmt, __func__
 
@@ -429,6 +432,7 @@ static const struct qpnp_vadc_map_pt adcmap_100k_104ef_104fb[] = {
 };
 
 /* Voltage to temperature */
+<<<<<<< HEAD
 static const struct qpnp_vadc_map_pt adcmap_100k_104ef_104fb_decidegc[] = {
 	{1758,	-400},
 	{1742,	-350},
@@ -467,6 +471,8 @@ static const struct qpnp_vadc_map_pt adcmap_100k_104ef_104fb_decidegc[] = {
 };
 
 /* Voltage to temperature */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static const struct qpnp_vadc_map_pt adcmap_150k_104ef_104fb[] = {
 	{1738,	-40},
 	{1714,	-35},
@@ -669,6 +675,7 @@ static const struct qpnp_vadc_map_pt adcmap_100k_104ef_104fb_1875_vref[] = {
 	{ 46,	125 },
 };
 
+<<<<<<< HEAD
 static const struct qpnp_vadc_map_pt adcmap_100k_104ef_104fb_1875_vref_decidegc[] = {
 	{ 1831,	-400 },
 	{ 1814,	-350 },
@@ -706,6 +713,8 @@ static const struct qpnp_vadc_map_pt adcmap_100k_104ef_104fb_1875_vref_decidegc[
 	{ 46,	1250 },
 };
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int32_t qpnp_adc_map_voltage_temp(const struct qpnp_vadc_map_pt *pts,
 		uint32_t tablesize, int32_t input, int64_t *output)
 {
@@ -1212,6 +1221,7 @@ int32_t qpnp_adc_tm_scale_therm_voltage_pu2(struct qpnp_vadc_chip *chip,
 }
 EXPORT_SYMBOL(qpnp_adc_tm_scale_therm_voltage_pu2);
 
+<<<<<<< HEAD
 int32_t qpnp_adc_scale_therm_pu2_decidegc(struct qpnp_vadc_chip *chip,
 		int32_t adc_code,
 		const struct qpnp_adc_properties *adc_properties,
@@ -1325,6 +1335,8 @@ error:
 }
 EXPORT_SYMBOL(qpnp_adc_tm_scale_therm_voltage_pu2_decidegc);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int32_t qpnp_adc_scale_therm_ncp03(struct qpnp_vadc_chip *chip,
 		int32_t adc_code,
 		const struct qpnp_adc_properties *adc_properties,

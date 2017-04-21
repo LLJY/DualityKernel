@@ -21,7 +21,10 @@
 #include <linux/slab.h>
 #include <linux/buffer_head.h>
 #include <linux/namei.h>
+<<<<<<< HEAD
 #include <linux/random.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "fat.h"
 
 /*
@@ -325,6 +328,7 @@ static int vfat_create_shortname(struct inode *dir, struct nls_table *nls,
 	int sz = 0, extlen, baselen, i, numtail_baselen, numtail2_baselen;
 	int is_shortname;
 	struct shortname_info base_info, ext_info;
+<<<<<<< HEAD
 	unsigned opts_shortname = opts->shortname;
 
 #ifdef CONFIG_VFAT_FS_NO_DUALNAMES
@@ -336,6 +340,8 @@ static int vfat_create_shortname(struct inode *dir, struct nls_table *nls,
 	 */
 	opts_shortname = VFAT_SFN_CREATE_WINNT;
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	is_shortname = 1;
 	INIT_SHORTNAME_INFO(&base_info);
@@ -448,9 +454,15 @@ static int vfat_create_shortname(struct inode *dir, struct nls_table *nls,
 		if (vfat_find_form(dir, name_res) == 0)
 			return -EEXIST;
 
+<<<<<<< HEAD
 		if (opts_shortname & VFAT_SFN_CREATE_WIN95) {
 			return (base_info.upper && ext_info.upper);
 		} else if (opts_shortname & VFAT_SFN_CREATE_WINNT) {
+=======
+		if (opts->shortname & VFAT_SFN_CREATE_WIN95) {
+			return (base_info.upper && ext_info.upper);
+		} else if (opts->shortname & VFAT_SFN_CREATE_WINNT) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			if ((base_info.upper || base_info.lower) &&
 			    (ext_info.upper || ext_info.lower)) {
 				if (!base_info.upper && base_info.lower)
@@ -589,6 +601,7 @@ xlate_to_uni(const unsigned char *name, int len, unsigned char *outname,
 	return 0;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_VFAT_FS_NO_DUALNAMES
 /*
  * This function creates a dummy 8.3 entry which is as compatible as
@@ -649,6 +662,8 @@ static void vfat_build_dummy_83_buffer(struct inode *dir, char *msdos_name,
 }
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int vfat_build_slots(struct inode *dir, const unsigned char *name,
 			    int len, int is_dir, int cluster,
 			    struct timespec *ts,
@@ -691,6 +706,7 @@ static int vfat_build_slots(struct inode *dir, const unsigned char *name,
 		goto shortname;
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_VFAT_FS_NO_DUALNAMES
 	printk_once(KERN_INFO
 		    "VFAT: not creating 8.3 short filenames for long names\n");
@@ -698,6 +714,8 @@ static int vfat_build_slots(struct inode *dir, const unsigned char *name,
 	lcase = FAT_NO_83NAME;
 #endif
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* build the entry of long file name */
 	cksum = fat_checksum(msdos_name);
 

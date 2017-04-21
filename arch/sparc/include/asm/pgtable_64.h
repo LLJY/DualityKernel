@@ -667,6 +667,7 @@ static inline unsigned long pmd_pfn(pmd_t pmd)
 }
 
 #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+<<<<<<< HEAD
 static inline unsigned long pmd_dirty(pmd_t pmd)
 {
 	pte_t pte = __pte(pmd_val(pmd));
@@ -674,6 +675,8 @@ static inline unsigned long pmd_dirty(pmd_t pmd)
 	return pte_dirty(pte);
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline unsigned long pmd_young(pmd_t pmd)
 {
 	pte_t pte = __pte(pmd_val(pmd));

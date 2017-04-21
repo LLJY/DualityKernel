@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -3224,9 +3228,15 @@ static int wcd9xxx_slim_device_down(struct slim_device *sldev)
 		return 0;
 
 	wcd9xxx->dev_up = false;
+<<<<<<< HEAD
 	wcd9xxx_irq_exit(&wcd9xxx->core_res);
 	if (wcd9xxx->dev_down)
 		wcd9xxx->dev_down(wcd9xxx);
+=======
+	if (wcd9xxx->dev_down)
+		wcd9xxx->dev_down(wcd9xxx);
+	wcd9xxx_irq_exit(&wcd9xxx->core_res);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 

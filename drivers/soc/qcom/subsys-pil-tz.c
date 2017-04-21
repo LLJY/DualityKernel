@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2016, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -9,11 +13,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/kernel.h>
 #include <linux/err.h>
@@ -30,6 +37,10 @@
 #include <linux/msm-bus-board.h>
 #include <linux/msm-bus.h>
 #include <linux/dma-mapping.h>
+<<<<<<< HEAD
+=======
+#include <linux/highmem.h>
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <soc/qcom/subsystem_restart.h>
 #include <soc/qcom/ramdump.h>
@@ -618,6 +629,13 @@ static int pil_init_image_trusted(struct pil_desc *pil,
 		return -ENOMEM;
 	}
 
+<<<<<<< HEAD
+=======
+	/* Make sure there are no mappings in PKMAP and fixmap */
+	kmap_flush_unused();
+	kmap_atomic_flush_unused();
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	memcpy(mdata_buf, metadata, size);
 
 	request.proc = d->pas_id;
@@ -804,7 +822,10 @@ static void log_failure_reason(const struct pil_tz_data *d)
 
 	strlcpy(reason, smem_reason, min(size, MAX_SSR_REASON_LEN));
 	pr_err("%s subsystem failure reason: %s.\n", name, reason);
+<<<<<<< HEAD
 	update_crash_reason(d->subsys, reason, size);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	smem_reason[0] = '\0';
 	wmb();

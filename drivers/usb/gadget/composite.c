@@ -8,11 +8,14 @@
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* #define VERBOSE_DEBUG */
 
@@ -213,7 +216,11 @@ int usb_add_function(struct usb_configuration *config,
 {
 	int	value = -EINVAL;
 
+<<<<<<< HEAD
 	DBG(config->cdev, "adding '%s'/%p to config '%s'/%p\n",
+=======
+	DBG(config->cdev, "adding '%s'/%pK to config '%s'/%pK\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			function->name, function,
 			config->label, config);
 
@@ -248,7 +255,11 @@ int usb_add_function(struct usb_configuration *config,
 
 done:
 	if (value)
+<<<<<<< HEAD
 		DBG(config->cdev, "adding '%s'/%p --> %d\n",
+=======
+		DBG(config->cdev, "adding '%s'/%pK --> %d\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				function->name, function, value);
 	return value;
 }
@@ -852,7 +863,11 @@ static int set_config(struct usb_composite_dev *cdev,
 
 		result = f->set_alt(f, tmp, 0);
 		if (result < 0) {
+<<<<<<< HEAD
 			DBG(cdev, "interface %d (%s/%p) alt 0 --> %d\n",
+=======
+			DBG(cdev, "interface %d (%s/%pK) alt 0 --> %d\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					tmp, f->name, f, result);
 
 			reset_config(cdev);
@@ -931,7 +946,11 @@ int usb_add_config(struct usb_composite_dev *cdev,
 	if (!bind)
 		goto done;
 
+<<<<<<< HEAD
 	DBG(cdev, "adding config #%u '%s'/%p\n",
+=======
+	DBG(cdev, "adding config #%u '%s'/%pK\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			config->bConfigurationValue,
 			config->label, config);
 
@@ -948,7 +967,11 @@ int usb_add_config(struct usb_composite_dev *cdev,
 					struct usb_function, list);
 			list_del(&f->list);
 			if (f->unbind) {
+<<<<<<< HEAD
 				DBG(cdev, "unbind function '%s'/%p\n",
+=======
+				DBG(cdev, "unbind function '%s'/%pK\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					f->name, f);
 				f->unbind(config, f);
 				/* may free memory for "f" */
@@ -959,7 +982,11 @@ int usb_add_config(struct usb_composite_dev *cdev,
 	} else {
 		unsigned	i;
 
+<<<<<<< HEAD
 		DBG(cdev, "cfg %d/%p speeds:%s%s%s\n",
+=======
+		DBG(cdev, "cfg %d/%pK speeds:%s%s%s\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			config->bConfigurationValue, config,
 			config->superspeed ? " super" : "",
 			config->highspeed ? " high" : "",
@@ -974,7 +1001,11 @@ int usb_add_config(struct usb_composite_dev *cdev,
 
 			if (!f)
 				continue;
+<<<<<<< HEAD
 			DBG(cdev, "  interface %d = %s/%p\n",
+=======
+			DBG(cdev, "  interface %d = %s/%pK\n",
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				i, f->name, f);
 		}
 	}
@@ -1002,13 +1033,21 @@ static void unbind_config(struct usb_composite_dev *cdev,
 				struct usb_function, list);
 		list_del(&f->list);
 		if (f->unbind) {
+<<<<<<< HEAD
 			DBG(cdev, "unbind function '%s'/%p\n", f->name, f);
+=======
+			DBG(cdev, "unbind function '%s'/%pK\n", f->name, f);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			f->unbind(config, f);
 			/* may free memory for "f" */
 		}
 	}
 	if (config->unbind) {
+<<<<<<< HEAD
 		DBG(cdev, "unbind config '%s'/%p\n", config->label, config);
+=======
+		DBG(cdev, "unbind config '%s'/%pK\n", config->label, config);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		config->unbind(config);
 			/* may free memory for "c" */
 	}
@@ -1044,8 +1083,12 @@ void usb_remove_config(struct usb_composite_dev *cdev,
 		reset_config(cdev);
 	}
 
+<<<<<<< HEAD
 	if (config->list.next != LIST_POISON1)
 		list_del(&config->list);
+=======
+	list_del(&config->list);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	spin_unlock_irqrestore(&cdev->lock, flags);
 

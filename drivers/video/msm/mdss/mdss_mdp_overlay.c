@@ -10,11 +10,14 @@
  * GNU General Public License for more details.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt)	"%s: " fmt, __func__
 
@@ -1461,6 +1464,24 @@ static void mdss_mdp_overlay_update_pm(struct mdss_overlay_private *mdp5_data)
 	activate_event_timer(mdp5_data->cpu_pm_hdl, wakeup_time);
 }
 
+<<<<<<< HEAD
+=======
+static void __unstage_pipe_and_clean_buf(struct msm_fb_data_type *mfd,
+		struct mdss_mdp_pipe *pipe, struct mdss_mdp_data *buf)
+{
+
+	pr_debug("unstaging pipe:%d rect:%d buf:%d\n",
+			pipe->num, pipe->multirect.num, !buf);
+	MDSS_XLOG(pipe->num, pipe->multirect.num, !buf);
+	mdss_mdp_mixer_pipe_unstage(pipe, pipe->mixer_left);
+	mdss_mdp_mixer_pipe_unstage(pipe, pipe->mixer_right);
+	pipe->dirty = true;
+
+	if (buf)
+		__pipe_buf_mark_cleanup(mfd, buf);
+}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int __overlay_queue_pipes(struct msm_fb_data_type *mfd)
 {
 	struct mdss_overlay_private *mdp5_data = mfd_to_mdp5_data(mfd);
@@ -1572,7 +1593,10 @@ static int __overlay_queue_pipes(struct msm_fb_data_type *mfd)
 				pipe->num);
 			ret = -EINVAL;
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/*
 		 * if we reach here without errors and buf == NULL
 		 * then solid fill will be set
@@ -1581,6 +1605,7 @@ static int __overlay_queue_pipes(struct msm_fb_data_type *mfd)
 			ret = mdss_mdp_pipe_queue_data(pipe, buf);
 
 		if (IS_ERR_VALUE(ret)) {
+<<<<<<< HEAD
 			pr_warn("Unable to queue data for pnum=%d\n",
 					pipe->num);
 			mdss_mdp_mixer_pipe_unstage(pipe, pipe->mixer_left);
@@ -1589,6 +1614,38 @@ static int __overlay_queue_pipes(struct msm_fb_data_type *mfd)
 
 			if (buf)
 				__pipe_buf_mark_cleanup(mfd, buf);
+=======
+			pr_warn("Unable to queue data for pnum=%d rect=%d\n",
+					pipe->num, pipe->multirect.num);
+
+			/*
+			 * If we fail for a multi-rect pipe, unstage both rects
+			 * so we don't leave the pipe configured in multi-rect
+			 * mode with only one rectangle staged.
+			 */
+			if (pipe->multirect.mode !=
+					MDSS_MDP_PIPE_MULTIRECT_NONE) {
+				struct mdss_mdp_pipe *next_pipe =
+					(struct mdss_mdp_pipe *)
+					pipe->multirect.next;
+
+				if (next_pipe) {
+					struct mdss_mdp_data *next_buf =
+						list_first_entry_or_null(
+							&next_pipe->buf_queue,
+							struct mdss_mdp_data,
+							pipe_list);
+
+					__unstage_pipe_and_clean_buf(mfd,
+							next_pipe, next_buf);
+				} else {
+					pr_warn("cannot find rect pnum=%d\n",
+							pipe->num);
+				}
+			}
+
+			__unstage_pipe_and_clean_buf(mfd, pipe, buf);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 	}
 
@@ -1964,6 +2021,45 @@ set_roi:
 	mdss_mdp_set_roi(ctl, &l_roi, &r_roi);
 }
 
+<<<<<<< HEAD
+=======
+static int __config_secure_display(struct mdss_overlay_private *mdp5_data)
+{
+	int panel_type = mdp5_data->ctl->panel_data->panel_info.type;
+	int sd_enable = -1; /* Since 0 is a valid state, initialize with -1 */
+	int ret = 0;
+
+	if (panel_type == MIPI_CMD_PANEL)
+		mdss_mdp_display_wait4pingpong(mdp5_data->ctl, true);
+
+	/*
+	 * Start secure display session if we are transitioning from non secure
+	 * to secure display.
+	 */
+	if (mdp5_data->sd_transition_state ==
+			SD_TRANSITION_NON_SECURE_TO_SECURE)
+		sd_enable = 1;
+
+	/*
+	 * For command mode panels, if we are trasitioning from secure to
+	 * non secure session, disable the secure display, as we've already
+	 * waited for the previous frame transfer.
+	 */
+	if ((panel_type == MIPI_CMD_PANEL) &&
+			(mdp5_data->sd_transition_state ==
+			 SD_TRANSITION_SECURE_TO_NON_SECURE))
+		sd_enable = 0;
+
+	if (sd_enable != -1) {
+		ret = mdss_mdp_secure_display_ctrl(mdp5_data->mdata, sd_enable);
+		if (!ret)
+			mdp5_data->sd_enabled = sd_enable;
+	}
+
+	return ret;
+}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 				struct mdp_display_commit *data)
 {
@@ -1971,10 +2067,17 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 	struct mdss_mdp_pipe *pipe, *tmp;
 	struct mdss_mdp_ctl *ctl = mfd_to_ctl(mfd);
 	int ret = 0;
+<<<<<<< HEAD
 	int sd_in_pipe = 0;
 	struct mdss_mdp_commit_cb commit_cb;
 
 	if (!ctl)
+=======
+	struct mdss_mdp_commit_cb commit_cb;
+	u8 sd_transition_state = 0;
+
+	if (!ctl || !ctl->mixer_left)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return -ENODEV;
 
 	ATRACE_BEGIN(__func__);
@@ -2004,6 +2107,7 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 	}
 	mutex_lock(&mdp5_data->list_lock);
 
+<<<<<<< HEAD
 	/*
 	 * check if there is a secure display session
 	 */
@@ -2028,6 +2132,8 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 		}
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!ctl->shared_lock)
 		mdss_mdp_ctl_notify(ctl, MDP_NOTIFY_FRAME_BEGIN);
 
@@ -2040,6 +2146,18 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 	if (ctl->ops.wait_pingpong && mdp5_data->mdata->serialize_wait4pp)
 		mdss_mdp_display_wait4pingpong(ctl, true);
 
+<<<<<<< HEAD
+=======
+	sd_transition_state = mdp5_data->sd_transition_state;
+	if (sd_transition_state != SD_TRANSITION_NONE) {
+		ret = __config_secure_display(mdp5_data);
+		if (IS_ERR_VALUE(ret)) {
+			pr_err("Secure session config failed\n");
+			goto commit_fail;
+		}
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * Setup pipe in solid fill before unstaging,
 	 * to ensure no fetches are happening after dettach or reattach.
@@ -2116,6 +2234,7 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 
 	mutex_lock(&mdp5_data->ov_lock);
 	/*
+<<<<<<< HEAD
 	 * If there is no secure display session and sd_enabled, disable the
 	 * secure display session
 	 */
@@ -2127,6 +2246,16 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 			mdss_update_sd_client(mdp5_data->mdata, false);
 			mdp5_data->sd_enabled = 0;
 		}
+=======
+	 * If we are transitioning from secure to non-secure display,
+	 * disable the secure display.
+	 */
+	if (mdp5_data->sd_enabled && (sd_transition_state ==
+			SD_TRANSITION_SECURE_TO_NON_SECURE)) {
+		ret = mdss_mdp_secure_display_ctrl(mdp5_data->mdata, 0);
+		if (!ret)
+			mdp5_data->sd_enabled = 0;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	mdss_fb_update_notify_update(mfd);
@@ -3863,6 +3992,15 @@ static int mdss_mdp_hw_cursor_pipe_update(struct msm_fb_data_type *mfd,
 	req->transp_mask = img->bg_color & ~(0xff << var->transp.offset);
 
 	if (mfd->cursor_buf && (cursor->set & FB_CUR_SETIMAGE)) {
+<<<<<<< HEAD
+=======
+		if (img->width * img->height * 4 > cursor_frame_size) {
+			pr_err("cursor image size is too large\n");
+			ret = -EINVAL;
+			goto done;
+		}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ret = copy_from_user(mfd->cursor_buf, img->data,
 				     img->width * img->height * 4);
 		if (ret) {
@@ -4127,6 +4265,7 @@ static int mdss_mdp_pp_ioctl(struct msm_fb_data_type *mfd,
 		break;
 
 	case mdp_op_pcc_cfg:
+<<<<<<< HEAD
 
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		ret = mdss_mdp_pcc_config(mfd, &mdp_pp.data.pcc_cfg_data,
@@ -4135,6 +4274,10 @@ static int mdss_mdp_pp_ioctl(struct msm_fb_data_type *mfd,
 		ret = mdss_mdp_pcc_config(mfd, &mdp_pp.data.pcc_cfg_data,
 					&copyback);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+		ret = mdss_mdp_pcc_config(mfd, &mdp_pp.data.pcc_cfg_data,
+					&copyback);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 
 	case mdp_op_lut_cfg:
@@ -4731,10 +4874,13 @@ static int mdss_mdp_overlay_ioctl_handler(struct msm_fb_data_type *mfd,
 	struct msmfb_overlay_data data;
 	struct mdp_set_cfg cfg;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if (mfd->spec_mfd.off_sts)
 		return 0;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	switch (cmd) {
 	case MSMFB_MDP_PP:
 		ret = mdss_mdp_pp_ioctl(mfd, argp);

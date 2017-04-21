@@ -1573,7 +1573,11 @@ int rtl_pci_reset_trx_ring(struct ieee80211_hw *hw)
 							 true,
 							 HW_DESC_TXBUFF_ADDR),
 						 skb->len, PCI_DMA_TODEVICE);
+<<<<<<< HEAD
 				dev_kfree_skb_irq(skb);
+=======
+				kfree_skb(skb);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				ring->idx = (ring->idx + 1) % ring->entries;
 			}
 			ring->idx = 0;

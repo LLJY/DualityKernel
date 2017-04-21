@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2016, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -769,7 +773,11 @@ static int glink_ssr_probe(struct platform_device *pdev)
 	struct device_node *phandle_node;
 	struct restart_notifier_block *nb;
 	struct subsys_info *ss_info;
+<<<<<<< HEAD
 	struct subsys_info_leaf *ss_info_leaf;
+=======
+	struct subsys_info_leaf *ss_info_leaf = NULL;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct glink_link_info *link_info;
 	char *key;
 	const char *edge;

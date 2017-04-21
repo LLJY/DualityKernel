@@ -5495,6 +5495,7 @@ long btrfs_ioctl(struct file *file, unsigned int
 
 	return -ENOTTY;
 }
+<<<<<<< HEAD
 
 #ifdef CONFIG_COMPAT
 long btrfs_compat_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
@@ -5516,3 +5517,5 @@ long btrfs_compat_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 	return btrfs_ioctl(file, cmd, (unsigned long) compat_ptr(arg));
 }
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

@@ -23,7 +23,11 @@
 
 #include <trace/events/sched.h>
 
+<<<<<<< HEAD
 #define MAX_CPUS_PER_GROUP 2
+=======
+#define MAX_CPUS_PER_GROUP 4
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 struct cpu_data {
 	/* Per CPU data. */

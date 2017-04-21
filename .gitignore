@@ -22,16 +22,29 @@
 *.lst
 *.symtypes
 *.order
+<<<<<<< HEAD
 modules.builtin
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 *.elf
 *.bin
 *.gz
 *.bz2
 *.lzma
 *.xz
+<<<<<<< HEAD
 *.lzo
 *.patch
 *.gcno
+=======
+*.lz4
+*.lzo
+*.patch
+*.gcno
+modules.builtin
+Module.symvers
+*.dwo
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #
 # Top-level generic files
@@ -43,8 +56,11 @@ modules.builtin
 /vmlinuz
 /System.map
 /Module.markers
+<<<<<<< HEAD
 /Module.symvers
 arch/arm/boot/zImage-dtb
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #
 # Debian directory (make deb-pkg)
@@ -61,7 +77,10 @@ arch/arm/boot/zImage-dtb
 # Generated include files
 #
 include/config
+<<<<<<< HEAD
 include/linux/version.h
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 include/generated
 arch/*/include/generated
 
@@ -83,6 +102,7 @@ GSYMS
 GTAGS
 
 *.orig
+<<<<<<< HEAD
 *.rej
 *.oc
 *.diff
@@ -190,3 +210,18 @@ scripts/basic/bin2c
 
 out/*
 drivers/platform/msm/ipa/ipa_common
+=======
+*~
+\#*#
+
+#
+# Leavings from module signing
+#
+extra_certificates
+signing_key.priv
+signing_key.x509
+x509.genkey
+
+# Kconfig presets
+all.config
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

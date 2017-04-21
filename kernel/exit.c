@@ -947,6 +947,7 @@ static int eligible_pid(struct wait_opts *wo, struct task_struct *p)
 		task_pid_type(p, wo->wo_type) == wo->wo_pid;
 }
 
+<<<<<<< HEAD
 static int
 eligible_child(struct wait_opts *wo, bool ptrace, struct task_struct *p)
 {
@@ -969,6 +970,19 @@ eligible_child(struct wait_opts *wo, bool ptrace, struct task_struct *p)
 	 * we can only see if it is traced by us.
 	 */
 	if ((p->exit_signal != SIGCHLD) ^ !!(wo->wo_flags & __WCLONE))
+=======
+static int eligible_child(struct wait_opts *wo, struct task_struct *p)
+{
+	if (!eligible_pid(wo, p))
+		return 0;
+	/* Wait for all children (clone and not) if __WALL is set;
+	 * otherwise, wait for clone children *only* if __WCLONE is
+	 * set; otherwise, wait for non-clone children *only*.  (Note:
+	 * A "clone" child here is one that reports to its parent
+	 * using a signal other than SIGCHLD.) */
+	if (((p->exit_signal != SIGCHLD) ^ !!(wo->wo_flags & __WCLONE))
+	    && !(wo->wo_flags & __WALL))
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return 0;
 
 	return 1;
@@ -1341,7 +1355,11 @@ static int wait_consider_task(struct wait_opts *wo, int ptrace,
 	if (unlikely(exit_state == EXIT_DEAD))
 		return 0;
 
+<<<<<<< HEAD
 	ret = eligible_child(wo, ptrace, p);
+=======
+	ret = eligible_child(wo, p);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!ret)
 		return ret;
 

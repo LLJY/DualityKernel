@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/delay.h>
 #include <linux/clk.h>
@@ -120,15 +123,26 @@ static int32_t msm_cci_set_clk_param(struct cci_device *cci_dev,
 	enum cci_i2c_master_t master = c_ctrl->cci_info->cci_i2c_master;
 	enum i2c_freq_mode_t i2c_freq_mode = c_ctrl->cci_info->i2c_freq_mode;
 
+<<<<<<< HEAD
 	clk_params = &cci_dev->cci_clk_params[i2c_freq_mode];
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if ((i2c_freq_mode >= I2C_MAX_MODES) || (i2c_freq_mode < 0)) {
 		pr_err("%s:%d invalid i2c_freq_mode = %d",
 			__func__, __LINE__, i2c_freq_mode);
 		return -EINVAL;
 	}
+<<<<<<< HEAD
 	if (cci_dev->i2c_freq_mode[master] == i2c_freq_mode)
 		return 0;
+=======
+
+	if (cci_dev->i2c_freq_mode[master] == i2c_freq_mode)
+		return 0;
+
+	clk_params = &cci_dev->cci_clk_params[i2c_freq_mode];
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (MASTER_0 == master) {
 		msm_camera_io_w_mb(clk_params->hw_thigh << 16 |
 			clk_params->hw_tlow,
@@ -452,7 +466,10 @@ static int32_t msm_cci_wait_report_cmd(struct cci_device *cci_dev,
 	return msm_cci_wait(cci_dev, master, queue);
 }
 
+<<<<<<< HEAD
 #if !defined(CONFIG_SONY_CAM_V4L2)
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void msm_cci_process_half_q(struct cci_device *cci_dev,
 	enum cci_i2c_master_t master,
 	enum cci_i2c_queue_t queue)
@@ -465,7 +482,10 @@ static void msm_cci_process_half_q(struct cci_device *cci_dev,
 			CCI_QUEUE_START_ADDR);
 	}
 }
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int32_t msm_cci_process_full_q(struct cci_device *cci_dev,
 	enum cci_i2c_master_t master,
@@ -671,9 +691,13 @@ static int32_t msm_cci_data_queue(struct cci_device *cci_dev,
 				}
 				continue;
 			}
+<<<<<<< HEAD
 #if !defined(CONFIG_SONY_CAM_V4L2)
 			msm_cci_process_half_q(cci_dev, master, queue);
 #endif
+=======
+			msm_cci_process_half_q(cci_dev,	master, queue);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 
 		CDBG("%s cmd_size %d addr 0x%x data 0x%x\n", __func__,
@@ -790,10 +814,24 @@ static int32_t msm_cci_i2c_read(struct v4l2_subdev *sd,
 	enum cci_i2c_queue_t queue = QUEUE_1;
 	struct cci_device *cci_dev = NULL;
 	struct msm_camera_cci_i2c_read_cfg *read_cfg = NULL;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	CDBG("%s line %d\n", __func__, __LINE__);
 	cci_dev = v4l2_get_subdevdata(sd);
 	master = c_ctrl->cci_info->cci_i2c_master;
 	read_cfg = &c_ctrl->cfg.cci_i2c_read_cfg;
+<<<<<<< HEAD
+=======
+
+	if (master >= MASTER_MAX || master < 0) {
+		pr_err("%s:%d Invalid I2C master %d\n",
+			__func__, __LINE__, master);
+		return -EINVAL;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_lock(&cci_dev->cci_master_info[master].mutex_q[queue]);
 
 	/* Set the I2C Frequency */
@@ -1018,11 +1056,14 @@ static int32_t msm_cci_i2c_write(struct v4l2_subdev *sd,
 	enum cci_i2c_master_t master;
 
 	cci_dev = v4l2_get_subdevdata(sd);
+<<<<<<< HEAD
 	if (c_ctrl->cci_info->cci_i2c_master >= MASTER_MAX
 			|| c_ctrl->cci_info->cci_i2c_master < 0) {
 		pr_err("%s:%d Invalid I2C master addr\n", __func__, __LINE__);
 		return -EINVAL;
 	}
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (cci_dev->cci_state != CCI_STATE_ENABLED) {
 		pr_err("%s invalid cci state %d\n",
 			__func__, cci_dev->cci_state);
@@ -1210,6 +1251,16 @@ static uint32_t *msm_cci_get_clk_rates(struct cci_device *cci_dev,
 	struct msm_cci_clk_params_t *clk_params = NULL;
 	enum i2c_freq_mode_t i2c_freq_mode = c_ctrl->cci_info->i2c_freq_mode;
 	struct device_node *of_node = cci_dev->pdev->dev.of_node;
+<<<<<<< HEAD
+=======
+
+	if ((i2c_freq_mode >= I2C_MAX_MODES) || (i2c_freq_mode < 0)) {
+		pr_err("%s:%d invalid i2c_freq_mode %d\n",
+			__func__, __LINE__, i2c_freq_mode);
+		return NULL;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	clk_params = &cci_dev->cci_clk_params[i2c_freq_mode];
 	cci_clk_src = clk_params->cci_clk_src;
 
@@ -1553,6 +1604,14 @@ static int32_t msm_cci_write(struct v4l2_subdev *sd,
 		return rc;
 	}
 
+<<<<<<< HEAD
+=======
+	if (c_ctrl->cci_info->cci_i2c_master >= MASTER_MAX
+			|| c_ctrl->cci_info->cci_i2c_master < 0) {
+		pr_err("%s:%d Invalid I2C master addr\n", __func__, __LINE__);
+		return -EINVAL;
+	}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	master = c_ctrl->cci_info->cci_i2c_master;
 	cci_master_info = &cci_dev->cci_master_info[master];
 

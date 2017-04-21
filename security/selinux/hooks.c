@@ -84,7 +84,10 @@
 #include <linux/export.h>
 #include <linux/msg.h>
 #include <linux/shm.h>
+<<<<<<< HEAD
 #include <linux/pft.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/pfk.h>
 
 #include "avc.h"
@@ -1735,6 +1738,7 @@ static int may_create(struct inode *dir,
 	if (rc)
 		return rc;
 
+<<<<<<< HEAD
 	rc = avc_has_perm(newsid, sbsec->sid,
 			  SECCLASS_FILESYSTEM,
 			  FILESYSTEM__ASSOCIATE, &ad);
@@ -1744,6 +1748,11 @@ static int may_create(struct inode *dir,
 	rc = pft_inode_mknod(dir, dentry, 0, 0);
 
 	return rc;
+=======
+	return avc_has_perm(newsid, sbsec->sid,
+						SECCLASS_FILESYSTEM,
+						FILESYSTEM__ASSOCIATE, &ad);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /* Check whether a task can create a key. */
@@ -1799,6 +1808,7 @@ static int may_link(struct inode *dir,
 		return 0;
 	}
 
+<<<<<<< HEAD
 	rc = avc_has_perm(sid, isec->sid, isec->sclass, av, &ad);
 	if (rc)
 		return rc;
@@ -1807,6 +1817,9 @@ static int may_link(struct inode *dir,
 		rc = pft_inode_unlink(dir, dentry);
 
 	return rc;
+=======
+	return avc_has_perm(sid, isec->sid, isec->sclass, av, &ad);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static inline int may_rename(struct inode *old_dir,
@@ -2831,6 +2844,7 @@ static int selinux_inode_init_security(struct inode *inode, struct inode *dir,
 
 static int selinux_inode_create(struct inode *dir, struct dentry *dentry, umode_t mode)
 {
+<<<<<<< HEAD
 	int ret;
 
 	ret = pft_inode_create(dir, dentry, mode);
@@ -2849,6 +2863,11 @@ static int selinux_inode_post_create(struct inode *dir, struct dentry *dentry,
 	return ret;
 }
 
+=======
+	return may_create(dir, dentry, SECCLASS_FILE);
+}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int selinux_inode_link(struct dentry *old_dentry, struct inode *dir, struct dentry *new_dentry)
 {
 	return may_link(dir, old_dentry, MAY_LINK);
@@ -2882,12 +2901,15 @@ static int selinux_inode_mknod(struct inode *dir, struct dentry *dentry, umode_t
 static int selinux_inode_rename(struct inode *old_inode, struct dentry *old_dentry,
 				struct inode *new_inode, struct dentry *new_dentry)
 {
+<<<<<<< HEAD
 	int rc;
 
 	rc = pft_inode_rename(old_inode, old_dentry, new_inode, new_dentry);
 	if (rc)
 		return rc;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return may_rename(old_inode, old_dentry, new_inode, new_dentry);
 }
 
@@ -3006,9 +3028,12 @@ static int selinux_inode_setotherxattr(struct dentry *dentry, const char *name)
 {
 	const struct cred *cred = current_cred();
 
+<<<<<<< HEAD
 	if (pft_inode_set_xattr(dentry, name, NULL, 0, 0) < 0)
 		return -EACCES;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!strncmp(name, XATTR_SECURITY_PREFIX,
 		     sizeof XATTR_SECURITY_PREFIX - 1)) {
 		if (!strcmp(name, XATTR_NAME_CAPS)) {
@@ -3256,16 +3281,22 @@ static int selinux_file_permission(struct file *file, int mask)
 	struct file_security_struct *fsec = file->f_security;
 	struct inode_security_struct *isec = inode->i_security;
 	u32 sid = current_sid();
+<<<<<<< HEAD
 	int ret;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!mask)
 		/* No permission to check.  Existence test. */
 		return 0;
 
+<<<<<<< HEAD
 	ret = pft_file_permission(file, mask);
 	if (ret < 0)
 		return ret;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (sid == fsec->sid && fsec->isid == isec->sid &&
 	    fsec->pseqno == avc_policy_seqno())
 		/* No change since file_open check. */
@@ -3560,11 +3591,14 @@ static int selinux_file_open(struct file *file, const struct cred *cred)
 {
 	struct file_security_struct *fsec;
 	struct inode_security_struct *isec;
+<<<<<<< HEAD
 	int ret;
 
 	ret = pft_file_open(file, cred);
 	if (ret < 0)
 		return ret;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	fsec = file->f_security;
 	isec = file_inode(file)->i_security;
@@ -3588,6 +3622,7 @@ static int selinux_file_open(struct file *file, const struct cred *cred)
 	return file_path_has_perm(cred, file, open_file_to_av(file));
 }
 
+<<<<<<< HEAD
 static int selinux_file_close(struct file *file)
 {
 	return pft_file_close(file);
@@ -3600,6 +3635,8 @@ static bool selinux_allow_merge_bio(struct bio *bio1, struct bio *bio2)
 		pfk_allow_merge_bio(bio1, bio2);
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* task security operations */
 
 static int selinux_task_create(unsigned long clone_flags)
@@ -6040,7 +6077,10 @@ static struct security_operations selinux_ops = {
 	.inode_free_security =		selinux_inode_free_security,
 	.inode_init_security =		selinux_inode_init_security,
 	.inode_create =			selinux_inode_create,
+<<<<<<< HEAD
 	.inode_post_create =		selinux_inode_post_create,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.inode_link =			selinux_inode_link,
 	.inode_unlink =			selinux_inode_unlink,
 	.inode_symlink =		selinux_inode_symlink,
@@ -6077,8 +6117,11 @@ static struct security_operations selinux_ops = {
 	.file_receive =			selinux_file_receive,
 
 	.file_open =			selinux_file_open,
+<<<<<<< HEAD
 	.file_close =			selinux_file_close,
 	.allow_merge_bio =		selinux_allow_merge_bio,
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	.task_create =			selinux_task_create,
 	.cred_alloc_blank =		selinux_cred_alloc_blank,

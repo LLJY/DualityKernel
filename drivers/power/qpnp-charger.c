@@ -3778,7 +3778,11 @@ qpnp_chg_adjust_vddmax(struct qpnp_chg_chip *chip, int vbat_mv)
 	qpnp_chg_set_appropriate_vddmax(chip);
 }
 
+<<<<<<< HEAD
 #define CONSECUTIVE_COUNT	10
+=======
+#define CONSECUTIVE_COUNT	3
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define VBATDET_MAX_ERR_MV	50
 static void
 qpnp_eoc_work(struct work_struct *work)

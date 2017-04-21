@@ -502,6 +502,7 @@ parse_record:
 				goto end_of_dir;
 		}
 
+<<<<<<< HEAD
 		/*
 		 * The FAT_NO_83NAME flag is used to mark files
 		 * created with no 8.3 short name
@@ -509,6 +510,8 @@ parse_record:
 		if (de->lcase & FAT_NO_83NAME)
 			goto compare_longname;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/* Never prepend '.' to hidden files here.
 		 * That is done only for msdos mounts (and only when
 		 * 'dotsOK=yes'); if we are executing here, it is in the
@@ -522,7 +525,10 @@ parse_record:
 		if (fat_name_match(sbi, name, name_len, bufname, len))
 			goto found;
 
+<<<<<<< HEAD
 compare_longname:
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (nr_slots) {
 			void *longname = unicode + FAT_MAX_UNI_CHARS;
 			int size = PATH_MAX - FAT_MAX_UNI_SIZE;
@@ -614,8 +620,11 @@ parse_record:
 		if (de->attr != ATTR_EXT && IS_FREE(de->name))
 			goto record_end;
 	} else {
+<<<<<<< HEAD
 		if (de->lcase & FAT_NO_83NAME)
 			goto record_end;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if ((de->attr & ATTR_VOLUME) || IS_FREE(de->name))
 			goto record_end;
 	}
@@ -967,10 +976,13 @@ int fat_scan(struct inode *dir, const unsigned char *name,
 	sinfo->bh = NULL;
 	while (fat_get_short_entry(dir, &sinfo->slot_off, &sinfo->bh,
 				   &sinfo->de) >= 0) {
+<<<<<<< HEAD
 		/* skip files marked as having no 8.3 short name  */
 		if (sinfo->de->lcase & FAT_NO_83NAME)
 			continue;
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (!strncmp(sinfo->de->name, name, MSDOS_NAME)) {
 			sinfo->slot_off -= sizeof(*sinfo->de);
 			sinfo->nr_slots = 1;

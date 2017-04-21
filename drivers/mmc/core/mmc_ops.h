@@ -29,6 +29,10 @@ int mmc_bus_test(struct mmc_card *card, u8 bus_width);
 int mmc_send_hpi_cmd(struct mmc_card *card, u32 *status);
 int mmc_can_ext_csd(struct mmc_card *card);
 int mmc_discard_queue(struct mmc_host *host, u32 tasks);
+<<<<<<< HEAD
+=======
+int mmc_switch_status(struct mmc_card *card, bool ignore_crc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #endif
 

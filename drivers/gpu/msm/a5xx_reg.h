@@ -640,6 +640,10 @@
 
 /* UCHE registers */
 #define A5XX_UCHE_ADDR_MODE_CNTL            0xE80
+<<<<<<< HEAD
+=======
+#define A5XX_UCHE_MODE_CNTL                 0xE81
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define A5XX_UCHE_WRITE_THRU_BASE_LO        0xE87
 #define A5XX_UCHE_WRITE_THRU_BASE_HI        0xE88
 #define A5XX_UCHE_TRAP_BASE_LO              0xE89

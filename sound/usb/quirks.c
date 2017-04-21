@@ -140,6 +140,10 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
 	}
 	INIT_LIST_HEAD(&fp->list);
 	if (fp->nr_rates > MAX_NR_RATES) {
+<<<<<<< HEAD
+=======
+		list_del(&fp->list);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		kfree(fp);
 		return -EINVAL;
 	}
@@ -147,6 +151,10 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
 		rate_table = kmemdup(fp->rate_table,
 				     sizeof(int) * fp->nr_rates, GFP_KERNEL);
 		if (!rate_table) {
+<<<<<<< HEAD
+=======
+			list_del(&fp->list);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			kfree(fp);
 			return -ENOMEM;
 		}
@@ -157,13 +165,21 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
 		? SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
 	err = snd_usb_add_audio_stream(chip, stream, fp);
 	if (err < 0) {
+<<<<<<< HEAD
 		list_del(&fp->list); /* unlink for avoiding double-free */
+=======
+		list_del(&fp->list);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		kfree(fp);
 		kfree(rate_table);
 		return err;
 	}
 	if (fp->iface != get_iface_desc(&iface->altsetting[0])->bInterfaceNumber ||
 	    fp->altset_idx >= iface->num_altsetting) {
+<<<<<<< HEAD
+=======
+		list_del(&fp->list);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		kfree(fp);
 		kfree(rate_table);
 		return -EINVAL;
@@ -171,6 +187,10 @@ static int create_fixed_stream_quirk(struct snd_usb_audio *chip,
 	alts = &iface->altsetting[fp->altset_idx];
 	altsd = get_iface_desc(alts);
 	if (altsd->bNumEndpoints < 1) {
+<<<<<<< HEAD
+=======
+		list_del(&fp->list);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		kfree(fp);
 		kfree(rate_table);
 		return -EINVAL;
@@ -1122,6 +1142,7 @@ bool snd_usb_get_sample_rate_quirk(struct snd_usb_audio *chip)
 	case USB_ID(0x045E, 0x076F): /* MS Lifecam HD-6000 */
 	case USB_ID(0x045E, 0x0772): /* MS Lifecam Studio */
 	case USB_ID(0x045E, 0x0779): /* MS Lifecam HD-3000 */
+<<<<<<< HEAD
 	case USB_ID(0x047F, 0x0415): /* Plantronics BT-300 */
 	case USB_ID(0x047F, 0xAA05): /* Plantronics DA45 */
 	case USB_ID(0x04D8, 0xFEEA): /* Benchmark DAC1 Pre */
@@ -1131,6 +1152,10 @@ bool snd_usb_get_sample_rate_quirk(struct snd_usb_audio *chip)
 	case USB_ID(0x1de7, 0x0014): /* Phoenix Audio TMX320 */
 	case USB_ID(0x1de7, 0x0114): /* Phoenix Audio MT202pcs */
 	case USB_ID(0x21B4, 0x0081): /* AudioQuest DragonFly */
+=======
+	case USB_ID(0x047F, 0xAA05): /* Plantronics DA45 */
+	case USB_ID(0x04D8, 0xFEEA): /* Benchmark DAC1 Pre */
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return true;
 	}
 	return false;

@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef __Q6_ADM_V2_H__
 #define __Q6_ADM_V2_H__
 
@@ -70,9 +73,12 @@ struct route_payload {
 	unsigned int session_id;
 };
 
+<<<<<<< HEAD
 int adm_matrix_mute(int port_id, int session_id, uint32_t ramp_duration,
 		uint32_t mute_flag_ch1, uint32_t mute_flag_ch2);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int srs_trumedia_open(int port_id, int copp_idx, __s32 srs_tech_id,
 		      void *srs_params);
 
@@ -93,9 +99,12 @@ int adm_send_params_v5(int port_id, int copp_idx, char *params,
 int adm_dolby_dap_send_params(int port_id, int copp_idx, char *params,
 			      uint32_t params_length);
 
+<<<<<<< HEAD
 int adm_ahc_send_params(int port_id, int copp_idx, char *params,
 			uint32_t params_length);
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int adm_open(int port, int path, int rate, int mode, int topology,
 			   int perf_mode, uint16_t bits_per_sample,
 			   int app_type, int acdbdev_id);

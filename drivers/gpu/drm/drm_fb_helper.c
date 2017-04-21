@@ -1453,6 +1453,10 @@ static int drm_pick_crtcs(struct drm_fb_helper *fb_helper,
 			  int n, int width, int height)
 {
 	int c, o;
+<<<<<<< HEAD
+=======
+	struct drm_device *dev = fb_helper->dev;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct drm_connector *connector;
 	struct drm_connector_helper_funcs *connector_funcs;
 	struct drm_encoder *encoder;
@@ -1471,7 +1475,11 @@ static int drm_pick_crtcs(struct drm_fb_helper *fb_helper,
 	if (modes[n] == NULL)
 		return best_score;
 
+<<<<<<< HEAD
 	crtcs = kzalloc(fb_helper->connector_count *
+=======
+	crtcs = kzalloc(dev->mode_config.num_connector *
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			sizeof(struct drm_fb_helper_crtc *), GFP_KERNEL);
 	if (!crtcs)
 		return best_score;
@@ -1517,7 +1525,11 @@ static int drm_pick_crtcs(struct drm_fb_helper *fb_helper,
 		if (score > best_score) {
 			best_score = score;
 			memcpy(best_crtcs, crtcs,
+<<<<<<< HEAD
 			       fb_helper->connector_count *
+=======
+			       dev->mode_config.num_connector *
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			       sizeof(struct drm_fb_helper_crtc *));
 		}
 	}

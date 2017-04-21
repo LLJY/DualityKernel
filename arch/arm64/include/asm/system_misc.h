@@ -51,6 +51,7 @@ extern char* (*arch_read_hardware_id)(void);
 #define UDBG_SEGV	(1 << 3)
 #define UDBG_BUS	(1 << 4)
 
+<<<<<<< HEAD
 extern unsigned int user_debug;
 extern int show_unhandled_signals;
 
@@ -75,6 +76,8 @@ static inline bool print_user_debug(unsigned int signum, unsigned int mask)
 	return ret ? printk_ratelimit() : false;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif	/* __ASSEMBLY__ */
 
 #endif	/* __ASM_SYSTEM_MISC_H */

@@ -310,6 +310,7 @@ struct posix_acl *ocfs2_iop_get_acl(struct inode *inode, int type)
 
 	return acl;
 }
+<<<<<<< HEAD
 
 int ocfs2_acl_chmod(struct inode *inode, struct buffer_head *bh)
 {
@@ -397,3 +398,5 @@ cleanup:
 	posix_acl_release(acl);
 	return ret;
 }
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

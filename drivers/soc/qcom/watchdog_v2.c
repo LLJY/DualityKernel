@@ -9,11 +9,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -57,8 +60,11 @@
 static struct msm_watchdog_data *wdog_data;
 
 static int cpu_idle_pc_state[NR_CPUS];
+<<<<<<< HEAD
 static DEFINE_PER_CPU(struct work_struct, ipi_work);
 static struct workqueue_struct *ipi_wq;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 struct msm_watchdog_data {
 	unsigned int __iomem phys_base;
@@ -286,12 +292,21 @@ static void pet_watchdog(struct msm_watchdog_data *wdog_dd)
 	wdog_dd->last_pet = time_ns;
 }
 
+<<<<<<< HEAD
 static void keep_alive_response(struct work_struct *work)
 {
 	int cpu = smp_processor_id();
 	cpumask_set_cpu(cpu, &wdog_data->alive_mask);
 	smp_mb();
 	pr_debug("watchdog_v2: %s on cpu%d\n", __func__, cpu);
+=======
+static void keep_alive_response(void *info)
+{
+	int cpu = smp_processor_id();
+	struct msm_watchdog_data *wdog_dd = (struct msm_watchdog_data *)info;
+	cpumask_set_cpu(cpu, &wdog_dd->alive_mask);
+	smp_mb();
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /*
@@ -304,12 +319,18 @@ static void ping_other_cpus(struct msm_watchdog_data *wdog_dd)
 	cpumask_clear(&wdog_dd->alive_mask);
 	smp_mb();
 	for_each_cpu(cpu, cpu_online_mask) {
+<<<<<<< HEAD
 		if (!cpu_idle_pc_state[cpu] && cpu != smp_processor_id())
 			queue_work_on(cpu, ipi_wq, &per_cpu(ipi_work, cpu));
 	}
 	for_each_cpu(cpu, cpu_online_mask) {
 		if (!cpu_idle_pc_state[cpu] && cpu != smp_processor_id())
 			flush_work(&per_cpu(ipi_work, cpu));
+=======
+		if (!cpu_idle_pc_state[cpu])
+			smp_call_function_single(cpu, keep_alive_response,
+						 wdog_dd, 1);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 }
 
@@ -426,10 +447,13 @@ static irqreturn_t wdog_bark_handler(int irq, void *dev_id)
 		wdog_dd->last_pet, nanosec_rem / 1000);
 	if (wdog_dd->do_ipi_ping)
 		dump_cpu_alive_mask(wdog_dd);
+<<<<<<< HEAD
 #ifdef CONFIG_MSM_FORCE_PANIC_ON_WDOG_BARK
 	/*Causing a panic instead of a watchdog bite */
 	panic("Watchdog bark triggered!");
 #endif
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	msm_trigger_wdog_bite();
 	panic("Failed to cause a watchdog bite! - Falling back to kernel panic!");
 	return IRQ_HANDLED;
@@ -721,6 +745,7 @@ static int msm_watchdog_probe(struct platform_device *pdev)
 		goto err;
 	}
 	init_watchdog_data(wdog_dd);
+<<<<<<< HEAD
 	if (wdog_dd->do_ipi_ping) {
 		int cpu;
 		ipi_wq =  alloc_workqueue("wdog_ipi", WQ_HIGHPRI, 0);
@@ -732,6 +757,8 @@ static int msm_watchdog_probe(struct platform_device *pdev)
 		for_each_possible_cpu(cpu)
 			INIT_WORK(&per_cpu(ipi_work, cpu), keep_alive_response);
 	}
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 err:
 	kzfree(wdog_dd);

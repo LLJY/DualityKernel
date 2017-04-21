@@ -14,11 +14,14 @@
  * GNU General Public License for more details.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* #define DEBUG */
 /* #define VERBOSE_DEBUG */
@@ -61,17 +64,23 @@
 #define STATE_BUSY                  2   /* processing userspace calls */
 #define STATE_CANCELED              3   /* transaction canceled by host */
 #define STATE_ERROR                 4   /* error from completion routine */
+<<<<<<< HEAD
 #define STATE_RESET                 5   /* reset the device */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* number of tx and rx requests to allocate */
 #define MTP_TX_REQ_MAX 8
 #define RX_REQ_MAX 2
 #define INTR_REQ_MAX 5
 
+<<<<<<< HEAD
 /* vendor code */
 #define MSOS_VENDOR_CODE	0x08
 #define MSOS_GOOGLE_VENDOR_CODE	0x01
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* ID for Microsoft MTP OS String */
 #define MTP_OS_STRING_ID   0xEE
 
@@ -328,7 +337,11 @@ static u8 mtp_os_string[] = {
 	/* Signature field: "MSFT100" */
 	'M', 0, 'S', 0, 'F', 0, 'T', 0, '1', 0, '0', 0, '0', 0,
 	/* vendor code */
+<<<<<<< HEAD
 	MSOS_GOOGLE_VENDOR_CODE,
+=======
+	1,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* padding */
 	0
 };
@@ -357,9 +370,29 @@ struct ext_mtp_desc {
 	struct mtp_ext_config_desc_function    function;
 };
 
+<<<<<<< HEAD
 struct ext_mtp_desc ptp_ext_config_desc = {
 	.header = {
 		.dwLength = cpu_to_le32(sizeof(ptp_ext_config_desc)),
+=======
+struct ext_mtp_desc  mtp_ext_config_desc = {
+	.header = {
+		.dwLength = __constant_cpu_to_le32(sizeof(mtp_ext_config_desc)),
+		.bcdVersion = __constant_cpu_to_le16(0x0100),
+		.wIndex = __constant_cpu_to_le16(4),
+		.bCount = __constant_cpu_to_le16(1),
+	},
+	.function = {
+		.bFirstInterfaceNumber = 0,
+		.bInterfaceCount = 1,
+		.compatibleID = { 'M', 'T', 'P' },
+	},
+};
+
+struct ext_mtp_desc ptp_ext_config_desc = {
+	.header = {
+		.dwLength = cpu_to_le32(sizeof(mtp_ext_config_desc)),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		.bcdVersion = cpu_to_le16(0x0100),
 		.wIndex = cpu_to_le16(4),
 		.bCount = cpu_to_le16(1),
@@ -486,8 +519,12 @@ static void mtp_complete_out(struct usb_ep *ep, struct usb_request *req)
 	struct mtp_dev *dev = _mtp_dev;
 
 	dev->rx_done = 1;
+<<<<<<< HEAD
 	if (req->status != 0 && dev->state != STATE_OFFLINE &&
 						dev->state == STATE_BUSY)
+=======
+	if (req->status != 0 && dev->state != STATE_OFFLINE)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		dev->state = STATE_ERROR;
 
 	wake_up(&dev->read_wq);
@@ -516,7 +553,11 @@ static int mtp_create_bulk_endpoints(struct mtp_dev *dev,
 	size_t extra_buf_alloc = cdev->gadget->extra_buf_alloc;
 	int i;
 
+<<<<<<< HEAD
 	DBG(cdev, "create_bulk_endpoints dev: %p\n", dev);
+=======
+	DBG(cdev, "create_bulk_endpoints dev: %pK\n", dev);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	ep = usb_ep_autoconfig(cdev->gadget, in_desc);
 	if (!ep) {
@@ -637,12 +678,15 @@ static ssize_t mtp_read(struct file *fp, char __user *buf,
 		dev->state = STATE_READY;
 		spin_unlock_irq(&dev->lock);
 		return -ECANCELED;
+<<<<<<< HEAD
 	} else if (dev->state == STATE_RESET) {
 		/* report a reset state to userspace */
 		dev->state = STATE_READY;
 		spin_unlock_irq(&dev->lock);
 		DBG(cdev, "mtp_read DEVICE RESET. State: %d.\n", dev->state);
 		return -ECONNRESET;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	dev->state = STATE_BUSY;
 	spin_unlock_irq(&dev->lock);
@@ -657,7 +701,11 @@ requeue_req:
 		r = -EIO;
 		goto done;
 	} else {
+<<<<<<< HEAD
 		DBG(cdev, "rx %p queue\n", req);
+=======
+		DBG(cdev, "rx %pK queue\n", req);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	/* wait for a request to complete */
@@ -672,7 +720,11 @@ requeue_req:
 		spin_unlock_irq(&dev->lock);
 		goto done;
 	}
+<<<<<<< HEAD
 	if (ret < 0 || !dev->rx_done) {
+=======
+	if (ret < 0) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		r = ret;
 		usb_ep_dequeue(dev->ep_out, req);
 		goto done;
@@ -682,7 +734,11 @@ requeue_req:
 		if (req->actual == 0)
 			goto requeue_req;
 
+<<<<<<< HEAD
 		DBG(cdev, "rx %p %d\n", req, req->actual);
+=======
+		DBG(cdev, "rx %pK %d\n", req, req->actual);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		xfer = (req->actual < count) ? req->actual : count;
 		r = xfer;
 		if (copy_to_user(buf, req->buf, xfer))
@@ -694,8 +750,11 @@ done:
 	spin_lock_irq(&dev->lock);
 	if (dev->state == STATE_CANCELED)
 		r = -ECANCELED;
+<<<<<<< HEAD
 	else if (dev->state == STATE_RESET)
 		r = -ECONNRESET;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	else if (dev->state != STATE_OFFLINE)
 		dev->state = STATE_READY;
 	spin_unlock_irq(&dev->lock);
@@ -964,7 +1023,11 @@ static void receive_file_work(struct work_struct *data)
 		}
 
 		if (write_req) {
+<<<<<<< HEAD
 			DBG(cdev, "rx %p %d\n", write_req, write_req->actual);
+=======
+			DBG(cdev, "rx %pK %d\n", write_req, write_req->actual);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			start_time = ktime_get();
 			ret = vfs_write(filp, write_req->buf, write_req->actual,
 				&offset);
@@ -997,6 +1060,7 @@ static void receive_file_work(struct work_struct *data)
 					usb_ep_dequeue(dev->ep_out, read_req);
 				break;
 			}
+<<<<<<< HEAD
 			if (dev->state == STATE_RESET) {
 				DBG(cdev, "%s: DEVICE RESET\n", __func__);
 				r = -ECONNRESET;
@@ -1006,6 +1070,8 @@ static void receive_file_work(struct work_struct *data)
 				}
 				break;
 			}
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			/* Check if we aligned the size due to MTU constraint */
 			if (count < read_req->length)
 				read_req->actual = (read_req->actual > count ?
@@ -1087,6 +1153,7 @@ static long mtp_send_receive_ioctl(struct file *fp, unsigned code,
 		ret = -ECANCELED;
 		goto out;
 	}
+<<<<<<< HEAD
 	if (dev->state == STATE_RESET) {
 		/* report reset to userspace */
 		DBG(dev->cdev, "report reset to user space\n");
@@ -1095,6 +1162,8 @@ static long mtp_send_receive_ioctl(struct file *fp, unsigned code,
 		ret = -ECONNRESET;
 		goto out;
 	}
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (dev->state == STATE_OFFLINE) {
 		spin_unlock_irq(&dev->lock);
 		ret = -ENODEV;
@@ -1145,8 +1214,11 @@ fail:
 	spin_lock_irq(&dev->lock);
 	if (dev->state == STATE_CANCELED)
 		ret = -ECANCELED;
+<<<<<<< HEAD
 	else if (dev->state == STATE_RESET)
 		ret = -ECONNRESET;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	else if (dev->state != STATE_OFFLINE)
 		dev->state = STATE_READY;
 	spin_unlock_irq(&dev->lock);
@@ -1334,6 +1406,7 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 		DBG(cdev, "vendor request: %d index: %d value: %d length: %d\n",
 			ctrl->bRequest, w_index, w_value, w_length);
 
+<<<<<<< HEAD
 		if (((ctrl->bRequest == MSOS_GOOGLE_VENDOR_CODE) ||
 			(ctrl->bRequest == MSOS_VENDOR_CODE)) &&
 			(ctrl->bRequestType & USB_DIR_IN) && (w_index == 4)) {
@@ -1396,6 +1469,18 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 				head->wIndex = cpu_to_le16(4);
 				head->bCount = func_num;
 				value = min_t(u16, w_length, total);
+=======
+		if (ctrl->bRequest == 1
+				&& (ctrl->bRequestType & USB_DIR_IN)
+				&& (w_index == 4 || w_index == 5)) {
+			if (!dev->is_ptp) {
+				value = (w_length <
+						sizeof(mtp_ext_config_desc) ?
+						w_length :
+						sizeof(mtp_ext_config_desc));
+				memcpy(cdev->req->buf, &mtp_ext_config_desc,
+									value);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			} else {
 				value = (w_length <
 						sizeof(ptp_ext_config_desc) ?
@@ -1405,8 +1490,12 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 									value);
 			}
 		}
+<<<<<<< HEAD
 	}
 	if ((ctrl->bRequestType & USB_TYPE_MASK) == USB_TYPE_CLASS) {
+=======
+	} else if ((ctrl->bRequestType & USB_TYPE_MASK) == USB_TYPE_CLASS) {
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		DBG(cdev, "class request: %d index: %d value: %d length: %d\n",
 			ctrl->bRequest, w_index, w_value, w_length);
 
@@ -1427,6 +1516,7 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 			 * the contents.
 			 */
 			value = w_length;
+<<<<<<< HEAD
 		} else if (ctrl->bRequest == MTP_REQ_RESET && w_index == 0
 			&& w_value == 0) {
 			DBG(cdev, "MTP_REQ_RESET\n");
@@ -1444,6 +1534,8 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 			 * the contents.
 			 */
 			value = w_length;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		} else if (ctrl->bRequest == MTP_REQ_GET_DEVICE_STATUS
 				&& w_index == 0 && w_value == 0) {
 			struct mtp_device_status *status = cdev->req->buf;
@@ -1458,9 +1550,12 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 			if (dev->state == STATE_CANCELED)
 				status->wCode =
 					__cpu_to_le16(MTP_RESPONSE_DEVICE_BUSY);
+<<<<<<< HEAD
 			else if (dev->state == STATE_RESET)
 				status->wCode =
 					__cpu_to_le16(MTP_RESPONSE_OK);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			else
 				status->wCode =
 					__cpu_to_le16(MTP_RESPONSE_OK);
@@ -1490,7 +1585,11 @@ mtp_function_bind(struct usb_configuration *c, struct usb_function *f)
 	int			ret;
 
 	dev->cdev = cdev;
+<<<<<<< HEAD
 	DBG(cdev, "mtp_function_bind dev: %p\n", dev);
+=======
+	DBG(cdev, "mtp_function_bind dev: %pK\n", dev);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/* allocate interface ID(s) */
 	id = usb_interface_id(c, f);

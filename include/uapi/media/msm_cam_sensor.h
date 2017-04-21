@@ -83,6 +83,11 @@ enum sensor_sub_module_t {
 	SUB_MODULE_CSIPHY_3D,
 	SUB_MODULE_OIS,
 	SUB_MODULE_EXT,
+<<<<<<< HEAD
+=======
+	SUB_MODULE_IR_LED,
+	SUB_MODULE_IR_CUT,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	SUB_MODULE_MAX,
 };
 
@@ -286,11 +291,28 @@ struct msm_eeprom_info_t {
 	struct msm_eeprom_memory_map_array *mem_map_array;
 };
 
+<<<<<<< HEAD
+=======
+struct msm_ir_led_cfg_data_t {
+	enum msm_ir_led_cfg_type_t cfg_type;
+	int32_t pwm_duty_on_ns;
+	int32_t pwm_period_ns;
+};
+
+struct msm_ir_cut_cfg_data_t {
+	enum msm_ir_cut_cfg_type_t cfg_type;
+};
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 struct msm_eeprom_cfg_data {
 	enum eeprom_cfg_type_t cfgtype;
 	uint8_t is_supported;
 	union {
+<<<<<<< HEAD
 		char eeprom_name[MAX_SENSOR_NAME];
+=======
+		char eeprom_name[MAX_EEPROM_NAME];
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		struct eeprom_get_t get_data;
 		struct eeprom_read_t read_data;
 		struct eeprom_write_t write_data;
@@ -586,5 +608,14 @@ struct sensor_init_cfg_data {
 #define VIDIOC_MSM_OIS_CFG_DOWNLOAD \
 	_IOWR('V', BASE_VIDIOC_PRIVATE + 14, struct msm_ois_cfg_download_data)
 
+<<<<<<< HEAD
+=======
+#define VIDIOC_MSM_IR_LED_CFG \
+	_IOWR('V', BASE_VIDIOC_PRIVATE + 15, struct msm_ir_led_cfg_data_t)
+
+#define VIDIOC_MSM_IR_CUT_CFG \
+	_IOWR('V', BASE_VIDIOC_PRIVATE + 15, struct msm_ir_cut_cfg_data_t)
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 

@@ -3,7 +3,10 @@ config ARM
 	default y
 	select ARCH_HAS_ATOMIC64_DEC_IF_POSITIVE
 	select ARCH_HAS_ELF_RANDOMIZE
+<<<<<<< HEAD
 	select ARCH_HAS_CRASH_NOTES if CRASH_NOTES
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	select ARCH_HAS_TICK_BROADCAST if GENERIC_CLOCKEVENTS_BROADCAST
 	select ARCH_HAVE_CUSTOM_GPIO_H
 	select ARCH_MIGHT_HAVE_PC_PARPORT
@@ -198,9 +201,12 @@ config ARCH_HAS_ILOG2_U64
 config ARCH_HAS_BANDGAP
 	bool
 
+<<<<<<< HEAD
 config ARCH_HAS_CRASH_NOTES
 	bool
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config GENERIC_HWEIGHT
 	bool
 	default y
@@ -2131,6 +2137,7 @@ config CRASH_DUMP
 
 	  For more details see Documentation/kdump/kdump.txt
 
+<<<<<<< HEAD
 config CRASH_NOTES
 	bool "Support storing crash notes at panic"
 	depends on !KEXEC
@@ -2139,6 +2146,8 @@ config CRASH_NOTES
 	  with the crashed context to support analysis of the memory dump with
 	  tools like Redhat CRASH.
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config AUTO_ZRELADDR
 	bool "Auto calculation of the decompressed kernel image address"
 	help

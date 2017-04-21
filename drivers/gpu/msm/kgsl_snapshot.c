@@ -1060,6 +1060,12 @@ void kgsl_snapshot_save_frozen_objs(struct work_struct *work)
 	size_t size = 0;
 	void *ptr;
 
+<<<<<<< HEAD
+=======
+	if (IS_ERR_OR_NULL(device))
+		return;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	kgsl_snapshot_process_ib_obj_list(snapshot);
 
 	list_for_each_entry(obj, &snapshot->obj_list, node) {

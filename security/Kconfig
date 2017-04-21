@@ -136,7 +136,10 @@ source security/smack/Kconfig
 source security/tomoyo/Kconfig
 source security/apparmor/Kconfig
 source security/yama/Kconfig
+<<<<<<< HEAD
 source security/sony/Kconfig
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 source security/integrity/Kconfig
 
@@ -147,7 +150,10 @@ choice
 	default DEFAULT_SECURITY_TOMOYO if SECURITY_TOMOYO
 	default DEFAULT_SECURITY_APPARMOR if SECURITY_APPARMOR
 	default DEFAULT_SECURITY_YAMA if SECURITY_YAMA
+<<<<<<< HEAD
 	default DEFAULT_SECURITY_SONY if SECURITY_SONY_RIC
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default DEFAULT_SECURITY_DAC
 
 	help
@@ -169,9 +175,12 @@ choice
 	config DEFAULT_SECURITY_YAMA
 		bool "Yama" if SECURITY_YAMA=y
 
+<<<<<<< HEAD
 	config DEFAULT_SECURITY_SONY
 		bool "Sony RIC" if SECURITY_SONY_RIC=y
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	config DEFAULT_SECURITY_DAC
 		bool "Unix Discretionary Access Controls"
 
@@ -184,7 +193,10 @@ config DEFAULT_SECURITY
 	default "tomoyo" if DEFAULT_SECURITY_TOMOYO
 	default "apparmor" if DEFAULT_SECURITY_APPARMOR
 	default "yama" if DEFAULT_SECURITY_YAMA
+<<<<<<< HEAD
 	default "sony_ric" if DEFAULT_SECURITY_SONY
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default "" if DEFAULT_SECURITY_DAC
 
 endmenu

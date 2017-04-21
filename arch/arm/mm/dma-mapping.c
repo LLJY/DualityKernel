@@ -808,6 +808,10 @@ static void arm_dma_unremap(struct device *dev, void *remapped_addr,
 	unsigned int flags = VM_ARM_DMA_CONSISTENT | VM_USERMAP;
 	struct vm_struct *area;
 
+<<<<<<< HEAD
+=======
+	size = PAGE_ALIGN(size);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	remapped_addr = (void *)((unsigned long)remapped_addr & PAGE_MASK);
 
 	area = find_vm_area(remapped_addr);

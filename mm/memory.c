@@ -1439,6 +1439,7 @@ int zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
 }
 EXPORT_SYMBOL_GPL(zap_vma_ptes);
 
+<<<<<<< HEAD
 /*
  * FOLL_FORCE can write to even unwritable pte's, but only
  * after we've gone through a COW cycle and they are dirty.
@@ -1449,6 +1450,8 @@ static inline bool can_follow_write_pte(pte_t pte, unsigned int flags)
 		((flags & FOLL_FORCE) && (flags & FOLL_COW) && pte_dirty(pte));
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 pte_t *__get_locked_pte(struct mm_struct *mm, unsigned long addr,
 			spinlock_t **ptl)
 {
@@ -2640,6 +2643,13 @@ static int do_anonymous_page(struct mm_struct *mm, struct vm_area_struct *vma,
 
 	pte_unmap(page_table);
 
+<<<<<<< HEAD
+=======
+	/* File mapping without ->vm_ops ? */
+	if (vma->vm_flags & VM_SHARED)
+		return VM_FAULT_SIGBUS;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Check if we need to add a guard page to the stack */
 	if (check_stack_guard_page(vma, address) < 0)
 		return VM_FAULT_SIGSEGV;
@@ -3044,6 +3054,12 @@ static int do_linear_fault(struct mm_struct *mm, struct vm_area_struct *vma,
 			- vma->vm_start) >> PAGE_SHIFT) + vma->vm_pgoff;
 
 	pte_unmap(page_table);
+<<<<<<< HEAD
+=======
+	/* The VMA was not fully populated on mmap() or missing VM_DONTEXPAND */
+	if (!vma->vm_ops->fault)
+		return VM_FAULT_SIGBUS;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!(flags & FAULT_FLAG_WRITE))
 		return do_read_fault(mm, vma, address, pmd, pgoff, flags,
 				orig_pte);
@@ -3209,6 +3225,7 @@ static int handle_pte_fault(struct mm_struct *mm,
 	entry = ACCESS_ONCE(*pte);
 	if (!pte_present(entry)) {
 		if (pte_none(entry)) {
+<<<<<<< HEAD
 			if (vma->vm_ops) {
 				if (likely(vma->vm_ops->fault))
 					return do_linear_fault(mm, vma, address,
@@ -3216,6 +3233,14 @@ static int handle_pte_fault(struct mm_struct *mm,
 			}
 			return do_anonymous_page(mm, vma, address,
 						 pte, pmd, flags);
+=======
+			if (vma->vm_ops)
+				return do_linear_fault(mm, vma, address, pte,
+					pmd, flags, entry);
+
+			return do_anonymous_page(mm, vma, address, pte, pmd,
+					flags);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 		if (pte_file(entry))
 			return do_nonlinear_fault(mm, vma, address,
@@ -3541,7 +3566,11 @@ int follow_phys(struct vm_area_struct *vma,
 		goto out;
 	pte = *ptep;
 
+<<<<<<< HEAD
 	if ((flags & FOLL_WRITE) && !can_follow_write_pte(pte, flags))
+=======
+	if ((flags & FOLL_WRITE) && !pte_write(pte))
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		goto unlock;
 
 	*prot = pgprot_val(pte_pgprot(pte));

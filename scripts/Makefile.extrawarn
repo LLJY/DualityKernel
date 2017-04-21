@@ -24,7 +24,10 @@ warning-1 += $(call cc-option, -Wmissing-prototypes)
 warning-1 += -Wold-style-definition
 warning-1 += $(call cc-option, -Wmissing-include-dirs)
 warning-1 += $(call cc-option, -Wunused-but-set-variable)
+<<<<<<< HEAD
 warning-1 += $(call cc-option, -Wunused-const-variable)
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 warning-1 += $(call cc-disable-warning, missing-field-initializers)
 
 warning-2 := -Waggregate-return

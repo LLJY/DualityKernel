@@ -938,6 +938,14 @@ hv_facility_unavailable_relon_trampoline:
 #endif
 	STD_RELON_EXCEPTION_PSERIES(0x5700, 0x1700, altivec_assist)
 
+<<<<<<< HEAD
+=======
+	/* Other future vectors */
+	.align	7
+	.globl	__end_interrupts
+__end_interrupts:
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.align	7
 system_call_entry_direct:
 #if defined(CONFIG_RELOCATABLE)
@@ -1231,6 +1239,7 @@ __end_handlers:
 	STD_RELON_EXCEPTION_PSERIES_OOL(0xf60, facility_unavailable)
 	STD_RELON_EXCEPTION_HV_OOL(0xf80, hv_facility_unavailable)
 
+<<<<<<< HEAD
 	/*
 	 * The __end_interrupts marker must be past the out-of-line (OOL)
 	 * handlers, so that they are copied to real address 0x100 when running
@@ -1242,6 +1251,8 @@ __end_handlers:
 	.globl	__end_interrupts
 __end_interrupts:
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #if defined(CONFIG_PPC_PSERIES) || defined(CONFIG_PPC_POWERNV)
 /*
  * Data area reserved for FWNMI option.

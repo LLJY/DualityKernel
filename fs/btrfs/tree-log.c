@@ -3929,6 +3929,7 @@ static int logged_inode_size(struct btrfs_root *log, struct inode *inode,
 	return 0;
 }
 
+<<<<<<< HEAD
 /*
  * At the moment we always log all xattrs. This is to figure out at log replay
  * time which xattrs must have their deletion replayed. If a xattr is missing
@@ -4231,6 +4232,8 @@ out:
 	return ret;
 }
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* log a single inode in the tree log.
  * At least one parent directory for this inode must exist in the tree
  * or be logged already.
@@ -4269,7 +4272,10 @@ static int btrfs_log_inode(struct btrfs_trans_handle *trans,
 	u64 ino = btrfs_ino(inode);
 	struct extent_map_tree *em_tree = &BTRFS_I(inode)->extent_tree;
 	u64 logged_isize = 0;
+<<<<<<< HEAD
 	bool need_log_inode_item = true;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	path = btrfs_alloc_path();
 	if (!path)
@@ -4359,6 +4365,14 @@ static int btrfs_log_inode(struct btrfs_trans_handle *trans,
 		} else {
 			if (inode_only == LOG_INODE_ALL)
 				fast_search = true;
+<<<<<<< HEAD
+=======
+			ret = log_inode_item(trans, log, dst_path, inode);
+			if (ret) {
+				err = ret;
+				goto out_unlock;
+			}
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			goto log_extents;
 		}
 
@@ -4381,6 +4395,7 @@ again:
 		if (min_key.type > max_key.type)
 			break;
 
+<<<<<<< HEAD
 		if (min_key.type == BTRFS_INODE_ITEM_KEY)
 			need_log_inode_item = false;
 
@@ -4419,6 +4434,8 @@ again:
 			goto next_slot;
 		}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		src = path->nodes[0];
 		if (ins_nr && ins_start_slot + ins_nr == path->slots[0]) {
 			ins_nr++;
@@ -4486,6 +4503,7 @@ next_slot:
 		ins_nr = 0;
 	}
 
+<<<<<<< HEAD
 	btrfs_release_path(path);
 	btrfs_release_path(dst_path);
 	err = btrfs_log_all_xattrs(trans, root, inode, path, dst_path);
@@ -4506,6 +4524,11 @@ log_extents:
 		if (err)
 			goto out_unlock;
 	}
+=======
+log_extents:
+	btrfs_release_path(path);
+	btrfs_release_path(dst_path);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (fast_search) {
 		ret = btrfs_log_changed_extents(trans, root, inode, dst_path,
 						&logged_list, ctx);

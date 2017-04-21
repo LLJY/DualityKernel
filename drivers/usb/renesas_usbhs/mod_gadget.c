@@ -118,18 +118,28 @@ struct usbhsg_recip_handle {
 /*
  *		queue push/pop
  */
+<<<<<<< HEAD
 static void __usbhsg_queue_pop(struct usbhsg_uep *uep,
 			       struct usbhsg_request *ureq,
 			       int status)
+=======
+static void usbhsg_queue_pop(struct usbhsg_uep *uep,
+			     struct usbhsg_request *ureq,
+			     int status)
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	struct usbhsg_gpriv *gpriv = usbhsg_uep_to_gpriv(uep);
 	struct usbhs_pipe *pipe = usbhsg_uep_to_pipe(uep);
 	struct device *dev = usbhsg_gpriv_to_dev(gpriv);
+<<<<<<< HEAD
 	struct usbhs_priv *priv = usbhsg_gpriv_to_priv(gpriv);
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	dev_dbg(dev, "pipe %d : queue pop\n", usbhs_pipe_number(pipe));
 
 	ureq->req.status = status;
+<<<<<<< HEAD
 	spin_unlock(usbhs_priv_to_lock(priv));
 	usb_gadget_giveback_request(&uep->ep, &ureq->req);
 	spin_lock(usbhs_priv_to_lock(priv));
@@ -146,6 +156,9 @@ static void usbhsg_queue_pop(struct usbhsg_uep *uep,
 	usbhs_lock(priv, flags);
 	__usbhsg_queue_pop(uep, ureq, status);
 	usbhs_unlock(priv, flags);
+=======
+	usb_gadget_giveback_request(&uep->ep, &ureq->req);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void usbhsg_queue_done(struct usbhs_priv *priv, struct usbhs_pkt *pkt)
@@ -153,6 +166,7 @@ static void usbhsg_queue_done(struct usbhs_priv *priv, struct usbhs_pkt *pkt)
 	struct usbhs_pipe *pipe = pkt->pipe;
 	struct usbhsg_uep *uep = usbhsg_pipe_to_uep(pipe);
 	struct usbhsg_request *ureq = usbhsg_pkt_to_ureq(pkt);
+<<<<<<< HEAD
 	unsigned long flags;
 
 	ureq->req.actual = pkt->actual;
@@ -161,6 +175,12 @@ static void usbhsg_queue_done(struct usbhs_priv *priv, struct usbhs_pkt *pkt)
 	if (uep)
 		__usbhsg_queue_pop(uep, ureq, 0);
 	usbhs_unlock(priv, flags);
+=======
+
+	ureq->req.actual = pkt->actual;
+
+	usbhsg_queue_pop(uep, ureq, 0);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void usbhsg_queue_push(struct usbhsg_uep *uep,

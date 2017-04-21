@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2015, 2017, The Linux Foundation. All rights reserved.
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -223,6 +227,10 @@ static int sharedmem_qmi_req_cb(struct qmi_handle *handle, void *conn_h,
 #define DEBUG_BUF_SIZE (2048)
 static char *debug_buffer;
 static u32 debug_data_size;
+<<<<<<< HEAD
+=======
+static struct mutex dbg_buf_lock;	/* mutex for debug_buffer */
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static ssize_t debug_read(struct file *file, char __user *buf,
 			  size_t count, loff_t *file_pos)
@@ -279,6 +287,7 @@ static int debug_open(struct inode *inode, struct file *file)
 {
 	u32 buffer_size;
 
+<<<<<<< HEAD
 	if (debug_buffer != NULL)
 		return -EBUSY;
 	buffer_size = DEBUG_BUF_SIZE;
@@ -286,14 +295,37 @@ static int debug_open(struct inode *inode, struct file *file)
 	if (debug_buffer == NULL)
 		return -ENOMEM;
 	debug_data_size = fill_debug_info(debug_buffer, buffer_size);
+=======
+	mutex_lock(&dbg_buf_lock);
+	if (debug_buffer != NULL) {
+		mutex_unlock(&dbg_buf_lock);
+		return -EBUSY;
+	}
+	buffer_size = DEBUG_BUF_SIZE;
+	debug_buffer = kzalloc(buffer_size, GFP_KERNEL);
+	if (debug_buffer == NULL) {
+		mutex_unlock(&dbg_buf_lock);
+		return -ENOMEM;
+	}
+	debug_data_size = fill_debug_info(debug_buffer, buffer_size);
+	mutex_unlock(&dbg_buf_lock);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
 static int debug_close(struct inode *inode, struct file *file)
 {
+<<<<<<< HEAD
 	kfree(debug_buffer);
 	debug_buffer = NULL;
 	debug_data_size = 0;
+=======
+	mutex_lock(&dbg_buf_lock);
+	kfree(debug_buffer);
+	debug_buffer = NULL;
+	debug_data_size = 0;
+	mutex_unlock(&dbg_buf_lock);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -324,6 +356,10 @@ static void debugfs_init(void)
 {
 	struct dentry *f_ent;
 
+<<<<<<< HEAD
+=======
+	mutex_init(&dbg_buf_lock);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	dir_ent = debugfs_create_dir("rmt_storage", NULL);
 	if (IS_ERR(dir_ent)) {
 		pr_err("Failed to create debug_fs directory\n");
@@ -352,6 +388,10 @@ static void debugfs_init(void)
 static void debugfs_exit(void)
 {
 	debugfs_remove_recursive(dir_ent);
+<<<<<<< HEAD
+=======
+	mutex_destroy(&dbg_buf_lock);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void sharedmem_qmi_svc_recv_msg(struct work_struct *work)

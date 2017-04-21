@@ -10,11 +10,14 @@
  * GNU General Public License for more details.
  *
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/debugfs.h>
 #include <linux/errno.h>
 #include <linux/delay.h>
@@ -77,7 +80,11 @@ struct tzdbg_boot_info_t {
 	uint32_t wb_exit_cnt;	/* Warmboot exit CPU Counter */
 	uint32_t pc_entry_cnt;	/* Power Collapse entry CPU Counter */
 	uint32_t pc_exit_cnt;	/* Power Collapse exit CPU counter */
+<<<<<<< HEAD
 	uint64_t warm_jmp_addr;	/* Last Warmboot Jump Address */
+=======
+	uint32_t warm_jmp_addr;	/* Last Warmboot Jump Address */
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	uint32_t spare;	/* Reserved for future use. */
 };
 /*
@@ -406,7 +413,11 @@ static int _disp_tz_boot_stats(void)
 			len += snprintf(tzdbg.disp_buf + len,
 					(debug_rw_buf_size - 1) - len,
 					"  CPU #: %d\n"
+<<<<<<< HEAD
 					"     Warmboot jump address     : 0x%llx\n"
+=======
+					"     Warmboot jump address     : 0x%x\n"
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					"     Warmboot entry CPU counter: 0x%x\n"
 					"     Warmboot exit CPU counter : 0x%x\n"
 					"     Power Collapse entry CPU counter: 0x%x\n"

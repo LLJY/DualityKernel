@@ -8,17 +8,23 @@
  * as published by the Free Software Foundation; either version
  * 2 of the License, or (at your option) any later version.
  */
+<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef __MM_INTERNAL_H
 #define __MM_INTERNAL_H
 
 #include <linux/fs.h>
 #include <linux/mm.h>
+<<<<<<< HEAD
 #include <linux/mm_inline.h>
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 void free_pgtables(struct mmu_gather *tlb, struct vm_area_struct *start_vma,
 		unsigned long floor, unsigned long ceiling);
@@ -268,12 +274,17 @@ static inline void mlock_migrate_page(struct page *newpage, struct page *page)
 
 		local_irq_save(flags);
 		__mod_zone_page_state(page_zone(page), NR_MLOCK, -nr_pages);
+<<<<<<< HEAD
 		if (page_is_file_cache(page))
 			__mod_zone_page_state(page_zone(page), NR_MLOCK_FILE, -nr_pages);
 		SetPageMlocked(newpage);
 		__mod_zone_page_state(page_zone(newpage), NR_MLOCK, nr_pages);
 		if (page_is_file_cache(page))
 			__mod_zone_page_state(page_zone(newpage), NR_MLOCK_FILE, nr_pages);
+=======
+		SetPageMlocked(newpage);
+		__mod_zone_page_state(page_zone(newpage), NR_MLOCK, nr_pages);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		local_irq_restore(flags);
 	}
 }

@@ -624,6 +624,7 @@ static void set_work_pool_and_clear_pending(struct work_struct *work,
 	 */
 	smp_wmb();
 	set_work_data(work, (unsigned long)pool_id << WORK_OFFQ_POOL_SHIFT, 0);
+<<<<<<< HEAD
 	/*
 	 * The following mb guarantees that previous clear of a PENDING bit
 	 * will not be reordered with any speculative LOADS or STORES from
@@ -653,6 +654,8 @@ static void set_work_pool_and_clear_pending(struct work_struct *work,
 	 * before actual STORE.
 	 */
 	smp_mb();
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void clear_work_data(struct work_struct *work)
@@ -4547,6 +4550,7 @@ static void rebind_workers(struct worker_pool *pool, bool force)
 						  pool->attrs->cpumask) < 0);
 
 	spin_lock_irq(&pool->lock);
+<<<<<<< HEAD
 
 	/*
 	 * XXX: CPU hotplug notifiers are weird and can call DOWN_FAILED
@@ -4558,6 +4562,8 @@ static void rebind_workers(struct worker_pool *pool, bool force)
 		return;
 	}
 
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pool->flags &= ~POOL_DISASSOCIATED;
 
 	for_each_pool_worker(worker, pool) {

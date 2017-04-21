@@ -18,5 +18,8 @@ header-y += audio_effects.h
 header-y += voice_svc.h
 header-y += devdep_params.h
 header-y += msmcal-hwdep.h
+<<<<<<< HEAD
 header-y += sony-hweffect.h
 header-y += sony-hweffect-params.h
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

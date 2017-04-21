@@ -94,7 +94,10 @@ enum qce_owner {
 
 struct dummy_request {
 	struct qce_sha_req sreq;
+<<<<<<< HEAD
 	uint8_t *in_buf;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct scatterlist sg;
 	struct ahash_request areq;
 };
@@ -154,6 +157,10 @@ struct qce_device {
 	atomic_t bunch_cmd_seq;
 	atomic_t last_intr_seq;
 	bool cadence_flag;
+<<<<<<< HEAD
+=======
+	uint8_t *dummyreq_in_buf;
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static void print_notify_debug(struct sps_event_notify *notify);
@@ -1360,7 +1367,12 @@ go_proc:
 							CRYPTO_CONFIG_REG));
 	/* issue go to crypto   */
 	if (use_hw_key == false) {
+<<<<<<< HEAD
 		QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
+=======
+		QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+				(1 << CRYPTO_CLR_CNTXT)),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				pce_dev->iobase + CRYPTO_GOPROC_REG);
 	} else {
 		QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
@@ -1541,7 +1553,12 @@ static int _ce_setup_aead_direct(struct qce_device *pce_dev,
 
 							CRYPTO_CONFIG_REG));
 	/* issue go to crypto   */
+<<<<<<< HEAD
 	QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
+=======
+	QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+				(1 << CRYPTO_CLR_CNTXT)),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				pce_dev->iobase + CRYPTO_GOPROC_REG);
 	/*
 	 * Ensure previous instructions (setting the GO register)
@@ -1860,7 +1877,12 @@ static int _ce_setup_cipher_direct(struct qce_device *pce_dev,
 							CRYPTO_CONFIG_REG));
 	/* issue go to crypto   */
 	if (use_hw_key == false) {
+<<<<<<< HEAD
 		QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
+=======
+		QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+				(1 << CRYPTO_CLR_CNTXT)),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				pce_dev->iobase + CRYPTO_GOPROC_REG);
 	} else {
 		QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
@@ -1948,7 +1970,12 @@ static int _ce_f9_setup_direct(struct qce_device *pce_dev,
 	QCE_WRITE_REG(pce_dev->reg.crypto_cfg_le, (pce_dev->iobase +
 							CRYPTO_CONFIG_REG));
 	/* write go */
+<<<<<<< HEAD
 	QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
+=======
+	QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+				(1 << CRYPTO_CLR_CNTXT)),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				pce_dev->iobase +  CRYPTO_GOPROC_REG);
 	/*
 	 * Ensure previous instructions (setting the GO register)
@@ -2025,7 +2052,12 @@ static int _ce_f8_setup_direct(struct qce_device *pce_dev,
 	QCE_WRITE_REG(pce_dev->reg.crypto_cfg_le, (pce_dev->iobase +
 							CRYPTO_CONFIG_REG));
 	/* write go */
+<<<<<<< HEAD
 	QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
+=======
+	QCE_WRITE_REG(((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+				(1 << CRYPTO_CLR_CNTXT)),
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				pce_dev->iobase +  CRYPTO_GOPROC_REG);
 	/*
 	 * Ensure previous instructions (setting the GO register)
@@ -3278,8 +3310,13 @@ static int _setup_cipher_aes_cmdlistptrs(struct qce_device *pdev, int cri_index,
 			pdev->reg.crypto_cfg_le, NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -3392,8 +3429,13 @@ static int _setup_cipher_des_cmdlistptrs(struct qce_device *pdev, int cri_index,
 			pdev->reg.crypto_cfg_le, NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -3436,8 +3478,13 @@ static int _setup_cipher_null_cmdlistptrs(struct qce_device *pdev,
 						NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -3614,8 +3661,13 @@ static int _setup_auth_cmdlistptrs(struct qce_device *pdev, int cri_index,
 					pdev->reg.crypto_cfg_le, NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -3831,8 +3883,13 @@ static int _setup_aead_cmdlistptrs(struct qce_device *pdev,
 					pdev->reg.crypto_cfg_le, NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -3964,8 +4021,13 @@ static int _setup_aead_ccm_cmdlistptrs(struct qce_device *pdev, int cri_index,
 					pdev->reg.crypto_cfg_le, NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -4050,8 +4112,13 @@ static int _setup_f8_cmdlistptrs(struct qce_device *pdev, int cri_index,
 					pdev->reg.crypto_cfg_le, NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -4132,8 +4199,13 @@ static int _setup_f9_cmdlistptrs(struct qce_device *pdev, int cri_index,
 					pdev->reg.crypto_cfg_le, NULL);
 
 	qce_add_cmd_element(pdev, &ce_vaddr, CRYPTO_GOPROC_REG,
+<<<<<<< HEAD
 			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP)),
 			&pcl_info->go_proc);
+=======
+			((1 << CRYPTO_GO) | (1 << CRYPTO_RESULTS_DUMP) |
+			(1 << CRYPTO_CLR_CNTXT)), &pcl_info->go_proc);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	pcl_info->size = (uintptr_t)ce_vaddr - (uintptr_t)ce_vaddr_start;
 	*pvaddr = (unsigned char *) ce_vaddr;
@@ -4306,8 +4378,11 @@ static int qce_setup_ce_sps_data(struct qce_device *pce_dev)
 				(uintptr_t)vaddr;
 		vaddr += pce_dev->ce_bam_info.ce_burst_size * 2;
 	}
+<<<<<<< HEAD
 	pce_dev->dummyreq.in_buf = (uint8_t *)vaddr;
 	vaddr += DUMMY_REQ_DATA_LEN;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if ((vaddr - pce_dev->coh_vmem) > pce_dev->memsize ||
 							iovec_memsize < 0)
 		panic("qce50: Not enough coherent memory. Allocate %x , need %lx\n",
@@ -4915,6 +4990,15 @@ int qce_aead_req(void *handle, struct qce_req *q_req)
 	else
 		q_req->cryptlen = areq->cryptlen - authsize;
 
+<<<<<<< HEAD
+=======
+	if ((q_req->cryptlen > UINT_MAX - areq->assoclen) ||
+		(q_req->cryptlen + areq->assoclen > UINT_MAX - ivsize)) {
+			pr_err("Integer overflow on total aead req length.\n");
+			return -EINVAL;
+	}
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	totallen = q_req->cryptlen + areq->assoclen + ivsize;
 
 	if (pce_dev->support_cmd_dscr) {
@@ -5900,8 +5984,13 @@ static int setup_dummy_req(struct qce_device *pce_dev)
 	"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopqopqrpqrs";
 	int len = DUMMY_REQ_DATA_LEN;
 
+<<<<<<< HEAD
 	memcpy(pce_dev->dummyreq.in_buf, input, len);
 	sg_set_buf(&pce_dev->dummyreq.sg, pce_dev->dummyreq.in_buf, len);
+=======
+	memcpy(pce_dev->dummyreq_in_buf, input, len);
+	sg_set_buf(&pce_dev->dummyreq.sg, pce_dev->dummyreq_in_buf, len);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	sg_mark_end(&pce_dev->dummyreq.sg);
 
 	pce_dev->dummyreq.sreq.alg = QCE_HASH_SHA1;
@@ -5970,6 +6059,13 @@ void *qce_open(struct platform_device *pdev, int *rc)
 	if (pce_dev->iovec_vmem == NULL)
 		goto err_mem;
 
+<<<<<<< HEAD
+=======
+	pce_dev->dummyreq_in_buf = kzalloc(DUMMY_REQ_DATA_LEN, GFP_KERNEL);
+	if (pce_dev->dummyreq_in_buf == NULL)
+		goto err_mem;
+
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	*rc = __qce_init_clk(pce_dev);
 	if (*rc)
 		goto err_mem;
@@ -6009,6 +6105,10 @@ err_enable_clk:
 	__qce_deinit_clk(pce_dev);
 
 err_mem:
+<<<<<<< HEAD
+=======
+	kfree(pce_dev->dummyreq_in_buf);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	kfree(pce_dev->iovec_vmem);
 	if (pce_dev->coh_vmem)
 		dma_free_coherent(pce_dev->pdev, pce_dev->memsize,
@@ -6040,6 +6140,10 @@ int qce_close(void *handle)
 	if (pce_dev->coh_vmem)
 		dma_free_coherent(pce_dev->pdev, pce_dev->memsize,
 				pce_dev->coh_vmem, pce_dev->coh_pmem);
+<<<<<<< HEAD
+=======
+	kfree(pce_dev->dummyreq_in_buf);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	kfree(pce_dev->iovec_vmem);
 
 	qce_disable_clk(pce_dev);

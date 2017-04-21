@@ -365,7 +365,12 @@ static int bcl_access_monitor_enable(bool enable)
 				/* Fall through to clear the poll work */
 			case BCL_PARAM_INACTIVE:
 			case BCL_PARAM_POLLING:
+<<<<<<< HEAD
 				cancel_delayed_work(&perph_data->poll_work);
+=======
+				cancel_delayed_work_sync(
+					&perph_data->poll_work);
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				break;
 			default:
 				break;
@@ -626,8 +631,12 @@ exit_ibat:
 
 reschedule_ibat:
 	mutex_unlock(&perph_data->state_trans_lock);
+<<<<<<< HEAD
 	queue_delayed_work(system_power_efficient_wq,
 		&perph_data->poll_work,
+=======
+	schedule_delayed_work(&perph_data->poll_work,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		msecs_to_jiffies(perph_data->polling_delay_ms));
 	trace_bcl_hw_event("ibat poll low. Exit");
 	return;
@@ -673,8 +682,12 @@ exit_vbat:
 
 reschedule_vbat:
 	mutex_unlock(&perph_data->state_trans_lock);
+<<<<<<< HEAD
 	queue_delayed_work(system_power_efficient_wq,
 		&perph_data->poll_work,
+=======
+	schedule_delayed_work(&perph_data->poll_work,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		msecs_to_jiffies(perph_data->polling_delay_ms));
 	trace_bcl_hw_event("vbat poll high. Exit");
 	return;
@@ -717,8 +730,12 @@ static irqreturn_t bcl_handle_ibat(int irq, void *data)
 				perph_data->trip_val);
 		perph_data->ops.notify(perph_data->param_data,
 			perph_data->trip_val, BCL_HIGH_TRIP);
+<<<<<<< HEAD
 		queue_delayed_work(system_power_efficient_wq,
 			&perph_data->poll_work,
+=======
+		schedule_delayed_work(&perph_data->poll_work,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			msecs_to_jiffies(perph_data->polling_delay_ms));
 	} else {
 		pr_debug("Ignoring interrupt\n");
@@ -765,8 +782,12 @@ static irqreturn_t bcl_handle_vbat(int irq, void *data)
 				perph_data->trip_val);
 		perph_data->ops.notify(perph_data->param_data,
 			perph_data->trip_val, BCL_LOW_TRIP);
+<<<<<<< HEAD
 		queue_delayed_work(system_power_efficient_wq,
 			&perph_data->poll_work,
+=======
+		schedule_delayed_work(&perph_data->poll_work,
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			msecs_to_jiffies(perph_data->polling_delay_ms));
 	} else {
 		pr_debug("Ignoring interrupt\n");

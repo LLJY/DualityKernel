@@ -28,7 +28,10 @@ extern int sysctl_compaction_handler(struct ctl_table *table, int write,
 extern int sysctl_extfrag_threshold;
 extern int sysctl_extfrag_handler(struct ctl_table *table, int write,
 			void __user *buffer, size_t *length, loff_t *ppos);
+<<<<<<< HEAD
 extern int sysctl_compact_unevictable_allowed;
+=======
+>>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 extern int fragmentation_index(struct zone *zone, unsigned int order);
 extern unsigned long try_to_compact_pages(struct zonelist *zonelist,
