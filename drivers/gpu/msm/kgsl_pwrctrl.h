@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2010-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2010-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -120,10 +116,6 @@ struct kgsl_regulator {
  * @previous_pwrlevel - The power level before transition
  * @thermal_pwrlevel - maximum powerlevel constraint from thermal
  * @default_pwrlevel - device wake up power level
-<<<<<<< HEAD
-=======
- * @restrict_pwrlevel - maximum power level jump to restrict
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * @max_pwrlevel - maximum allowable powerlevel per the user
  * @min_pwrlevel - minimum allowable powerlevel per the user
  * @num_pwrlevels - number of available power levels
@@ -162,10 +154,6 @@ struct kgsl_regulator {
  * @deep_nap_timer - Timer struct for entering deep nap
  * @deep_nap_timeout - Timeout for entering deep nap
  * @gx_retention - true if retention voltage is allowed
-<<<<<<< HEAD
-=======
- * @tsens_name - pointer to temperature sensor name of GPU temperature sensor
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  */
 
 struct kgsl_pwrctrl {
@@ -180,10 +168,6 @@ struct kgsl_pwrctrl {
 	unsigned int previous_pwrlevel;
 	unsigned int thermal_pwrlevel;
 	unsigned int default_pwrlevel;
-<<<<<<< HEAD
-=======
-	unsigned int restrict_pwrlevel;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	unsigned int wakeup_maxpwrlevel;
 	unsigned int max_pwrlevel;
 	unsigned int min_pwrlevel;
@@ -225,10 +209,6 @@ struct kgsl_pwrctrl {
 	bool gx_retention;
 	unsigned int gpu_bimc_int_clk_freq;
 	bool gpu_bimc_interface_enabled;
-<<<<<<< HEAD
-=======
-	const char *tsens_name;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 int kgsl_pwrctrl_init(struct kgsl_device *device);

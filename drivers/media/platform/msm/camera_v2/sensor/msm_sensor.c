@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "msm_sensor.h"
 #include "msm_sd.h"
 #include "camera.h"
@@ -29,12 +26,9 @@
 #undef CDBG
 #define CDBG(fmt, args...) pr_debug(fmt, ##args)
 
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 static struct v4l2_file_operations msm_sensor_v4l2_subdev_fops;
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void msm_sensor_adjust_mclk(struct msm_camera_power_ctrl_t *ctrl)
 {
 	int idx;
@@ -55,7 +49,6 @@ static void msm_sensor_adjust_mclk(struct msm_camera_power_ctrl_t *ctrl)
 	return;
 }
 
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 static int32_t msm_camera_get_power_settimgs_from_sensor_lib(
 	struct msm_camera_power_ctrl_t *power_info,
@@ -393,8 +386,6 @@ FREE_SENSORDATA:
 }
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void msm_sensor_misc_regulator(
 	struct msm_sensor_ctrl_t *sctrl, uint32_t enable)
 {
@@ -438,12 +429,9 @@ int32_t msm_sensor_free_sensor_data(struct msm_sensor_ctrl_t *s_ctrl)
 	kfree(s_ctrl->sensordata->cam_slave_info);
 	kfree(s_ctrl->sensordata->actuator_info);
 	kfree(s_ctrl->sensordata->power_info.gpio_conf->gpio_num_info);
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 	kfree(s_ctrl->sensordata->power_info.gpio_conf->cam_gpio_set_tbl);
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	kfree(s_ctrl->sensordata->power_info.gpio_conf->cam_gpio_req_tbl);
 	kfree(s_ctrl->sensordata->power_info.gpio_conf);
 	kfree(s_ctrl->sensordata->power_info.cam_vreg);
@@ -710,15 +698,11 @@ long msm_sensor_subdev_fops_ioctl(struct file *file,
 	return video_usercopy(file, cmd, arg, msm_sensor_subdev_do_ioctl);
 }
 
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
 #else
 static int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
 #endif
-=======
-static int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	void __user *argp)
 {
 	struct sensorb_cfg_data32 *cdata = (struct sensorb_cfg_data32 *)argp;
@@ -924,7 +908,6 @@ static int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
 			pr_err("%s:%d: i2c_read failed\n", __func__, __LINE__);
 			break;
 		}
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 		read_config.data = local_data;
 		if (copy_to_user(read_config_ptr, &read_config,
@@ -936,9 +919,6 @@ static int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
 #else
 		read_config_ptr->data = local_data;
 #endif
-=======
-		read_config_ptr->data = local_data;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	}
 	case CFG_SLAVE_WRITE_I2C_ARRAY: {
@@ -1049,7 +1029,6 @@ static int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
 		kfree(reg_setting);
 		break;
 	}
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 	case CFG_WRITE_I2C_SEQ_ARRAY: {
 		struct msm_camera_i2c_seq_reg_setting32 conf_array32;
@@ -1145,8 +1124,6 @@ static int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
 		break;
 	}
 #else
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	case CFG_WRITE_I2C_SEQ_ARRAY: {
 		struct msm_camera_i2c_seq_reg_setting32 conf_array32;
 		struct msm_camera_i2c_seq_reg_setting conf_array;
@@ -1206,11 +1183,7 @@ static int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl,
 		kfree(reg_setting);
 		break;
 	}
-<<<<<<< HEAD
 #endif
-=======
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	case CFG_POWER_UP:
 		if (s_ctrl->is_csid_tg_mode)
 			goto DONE;
@@ -1936,7 +1909,6 @@ static struct msm_camera_i2c_fn_t msm_sensor_qup_func_tbl = {
 	.i2c_write_table_sync_block = msm_camera_qup_i2c_write_table,
 };
 
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 int32_t msm_sensor_platform_probe(struct platform_device *pdev,
 				  const void *data)
@@ -2030,8 +2002,6 @@ int32_t msm_sensor_platform_probe(struct platform_device *pdev,
 }
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int32_t msm_sensor_init_default_params(struct msm_sensor_ctrl_t *s_ctrl)
 {
 	struct msm_camera_cci_client *cci_client = NULL;

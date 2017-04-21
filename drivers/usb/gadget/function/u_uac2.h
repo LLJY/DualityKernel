@@ -18,11 +18,7 @@
 
 #include <linux/usb/composite.h>
 
-<<<<<<< HEAD
 #define UAC2_DEF_PCHMASK 0x3
-=======
-#define UAC2_DEF_PCHMASK 0x1
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define UAC2_DEF_PSRATE 48000
 #define UAC2_DEF_PSSIZE 2
 #define UAC2_DEF_CCHMASK 0x3

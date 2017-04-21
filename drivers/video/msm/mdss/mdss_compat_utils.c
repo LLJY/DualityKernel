@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * Copyright (C) 1994 Martin Schaller
  *
  * 2001 - Documented with DocBook
@@ -850,10 +846,6 @@ static int __from_user_pcc_coeff_v17(
 		return -EFAULT;
 	}
 
-<<<<<<< HEAD
-=======
-	memset(&pcc_cfg_payload, 0, sizeof(pcc_cfg_payload));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pcc_cfg_payload.r.b = pcc_cfg_payload32.r.b;
 	pcc_cfg_payload.r.g = pcc_cfg_payload32.r.g;
 	pcc_cfg_payload.r.c = pcc_cfg_payload32.r.c;
@@ -942,10 +934,6 @@ static int __to_user_pcc_coeff_v1_7(
 	struct mdp_pcc_data_v1_7_32 pcc_cfg_payload32;
 	struct mdp_pcc_data_v1_7 pcc_cfg_payload;
 
-<<<<<<< HEAD
-=======
-	memset(&pcc_cfg_payload32, 0, sizeof(pcc_cfg_payload32));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (copy_from_user(&pcc_cfg_payload,
 			   pcc_cfg->cfg_payload,
 			   sizeof(struct mdp_pcc_data_v1_7))) {
@@ -1139,11 +1127,6 @@ static int __from_user_igc_lut_data_v17(
 		pr_err("failed to copy payload from user for igc\n");
 		return -EFAULT;
 	}
-<<<<<<< HEAD
-=======
-
-	memset(&igc_cfg_payload, 0, sizeof(igc_cfg_payload));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	igc_cfg_payload.c0_c1_data = compat_ptr(igc_cfg_payload_32.c0_c1_data);
 	igc_cfg_payload.c2_data = compat_ptr(igc_cfg_payload_32.c2_data);
 	igc_cfg_payload.len = igc_cfg_payload_32.len;
@@ -1278,10 +1261,6 @@ static int __from_user_pgc_lut_data_v1_7(
 		pr_err("failed to copy from user the pgc32 payload\n");
 		return -EFAULT;
 	}
-<<<<<<< HEAD
-=======
-	memset(&pgc_cfg_payload, 0, sizeof(pgc_cfg_payload));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pgc_cfg_payload.c0_data = compat_ptr(pgc_cfg_payload_32.c0_data);
 	pgc_cfg_payload.c1_data = compat_ptr(pgc_cfg_payload_32.c1_data);
 	pgc_cfg_payload.c2_data = compat_ptr(pgc_cfg_payload_32.c2_data);
@@ -1491,10 +1470,6 @@ static int __from_user_hist_lut_data_v1_7(
 		return -EFAULT;
 	}
 
-<<<<<<< HEAD
-=======
-	memset(&hist_lut_cfg_payload, 0, sizeof(hist_lut_cfg_payload));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	hist_lut_cfg_payload.len = hist_lut_cfg_payload32.len;
 	hist_lut_cfg_payload.data = compat_ptr(hist_lut_cfg_payload32.data);
 
@@ -2049,10 +2024,6 @@ static int __from_user_pa_data_v1_7(
 		return -EFAULT;
 	}
 
-<<<<<<< HEAD
-=======
-	memset(&pa_cfg_payload, 0, sizeof(pa_cfg_payload));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pa_cfg_payload.mode = pa_cfg_payload32.mode;
 	pa_cfg_payload.global_hue_adj = pa_cfg_payload32.global_hue_adj;
 	pa_cfg_payload.global_sat_adj = pa_cfg_payload32.global_sat_adj;
@@ -2153,10 +2124,6 @@ static int __to_user_pa_data_v1_7(
 	struct mdp_pa_data_v1_7_32 pa_cfg_payload32;
 	struct mdp_pa_data_v1_7 pa_cfg_payload;
 
-<<<<<<< HEAD
-=======
-	memset(&pa_cfg_payload32, 0, sizeof(pa_cfg_payload32));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (copy_from_user(&pa_cfg_payload,
 			pa_v2_cfg->cfg_payload,
 			sizeof(pa_cfg_payload))) {
@@ -2313,11 +2280,6 @@ static int __from_user_gamut_cfg_data_v17(
 		pr_err("failed to copy the gamut payload from userspace\n");
 		return -EFAULT;
 	}
-<<<<<<< HEAD
-=======
-
-	memset(&gamut_cfg_payload, 0, sizeof(gamut_cfg_payload));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	gamut_cfg_payload.mode = gamut_cfg_payload32.mode;
 	for (i = 0; i < MDP_GAMUT_TABLE_NUM_V1_7; i++) {
 		gamut_cfg_payload.tbl_size[i] =

@@ -96,23 +96,6 @@ static uint8_t stats_pingpong_offset_map[] = {
 
 #define VFE40_CLK_IDX 2
 
-<<<<<<< HEAD
-=======
-static uint32_t msm_vfe40_ub_reg_offset(struct vfe_device *vfe_dev, int idx)
-{
-	return (VFE40_WM_BASE(idx) + 0x10);
-}
-
-static uint32_t msm_vfe40_get_ub_size(struct vfe_device *vfe_dev)
-{
-	if (vfe_dev->vfe_hw_version == VFE40_8916_VERSION) {
-		vfe_dev->ub_info->wm_ub = VFE40_TOTAL_WM_UB_8916;
-		return VFE40_TOTAL_WM_UB_8916;
-	}
-	return VFE40_TOTAL_WM_UB;
-}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void msm_vfe40_config_irq(struct vfe_device *vfe_dev,
 		uint32_t irq0_mask, uint32_t irq1_mask,
 		enum msm_isp_irq_operation oper)
@@ -589,14 +572,6 @@ static void msm_vfe40_read_irq_status(struct vfe_device *vfe_dev,
 
 	*irq_status0 &= vfe_dev->irq0_mask;
 	*irq_status1 &= vfe_dev->irq1_mask;
-<<<<<<< HEAD
-=======
-	if (*irq_status0 &&
-		(*irq_status0 == msm_camera_io_r(vfe_dev->vfe_base + 0x38))) {
-		msm_camera_io_w(*irq_status0, vfe_dev->vfe_base + 0x30);
-		msm_camera_io_w_mb(1, vfe_dev->vfe_base + 0x24);
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (*irq_status1 & (1 << 0)) {
 		vfe_dev->error_info.camif_status =
@@ -1040,13 +1015,8 @@ static int msm_vfe40_start_fetch_engine(struct vfe_device *vfe_dev,
 		rc = vfe_dev->buf_mgr->ops->get_buf_by_index(
 			vfe_dev->buf_mgr, bufq_handle, fe_cfg->buf_idx, &buf);
 		if (rc < 0 || !buf) {
-<<<<<<< HEAD
 			pr_err("%s: No fetch buffer rc= %d buf= %p\n",
 				__func__, rc, buf);
-=======
-			pr_err("%s: No fetch buffer rc= %d\n",
-				__func__, rc);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			return -EINVAL;
 		}
 		mapped_info = buf->mapped_info[0];
@@ -1102,11 +1072,7 @@ static int msm_vfe40_start_fetch_engine_multi_pass(struct vfe_device *vfe_dev,
 		rc = vfe_dev->buf_mgr->ops->get_buf_by_index(
 			vfe_dev->buf_mgr, bufq_handle, fe_cfg->buf_idx, &buf);
 		if (rc < 0 || !buf) {
-<<<<<<< HEAD
 			pr_err("%s: No fetch buffer rc= %d buf= %p\n",
-=======
-			pr_err("%s: No fetch buffer rc= %d buf= %pK\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				__func__, rc, buf);
 			return -EINVAL;
 		}
@@ -1473,11 +1439,7 @@ static void msm_vfe40_update_camif_state(struct vfe_device *vfe_dev,
 		msm_camera_io_w(0x0, vfe_dev->vfe_base + 0x30);
 		msm_camera_io_w_mb(0x81, vfe_dev->vfe_base + 0x34);
 		msm_camera_io_w_mb(0x1, vfe_dev->vfe_base + 0x24);
-<<<<<<< HEAD
 		msm_vfe40_config_irq(vfe_dev, 0xF7, 0x81,
-=======
-		msm_vfe40_config_irq(vfe_dev, 0x17, 0x81,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				MSM_ISP_IRQ_ENABLE);
 		msm_camera_io_w_mb(0x140000, vfe_dev->vfe_base + 0x318);
 
@@ -1692,7 +1654,6 @@ static void msm_vfe40_axi_clear_wm_xbar_reg(
 		vfe_dev->vfe_base + VFE40_XBAR_BASE(wm));
 }
 
-<<<<<<< HEAD
 static void msm_vfe40_cfg_axi_ub_equal_default(
 	struct vfe_device *vfe_dev)
 {
@@ -1791,8 +1752,6 @@ static void msm_vfe40_cfg_axi_ub(struct vfe_device *vfe_dev)
 	}
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void msm_vfe40_read_wm_ping_pong_addr(
 	struct vfe_device *vfe_dev)
 {
@@ -2300,10 +2259,6 @@ struct msm_vfe_hardware_info vfe40_hw_info = {
 			.process_stats_irq = msm_isp_process_stats_irq,
 			.process_epoch_irq = msm_vfe40_process_epoch_irq,
 			.config_irq = msm_vfe40_config_irq,
-<<<<<<< HEAD
-=======
-			.process_eof_irq = msm_isp47_process_eof_irq,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		},
 		.axi_ops = {
 			.reload_wm = msm_vfe40_axi_reload_wm,
@@ -2319,11 +2274,7 @@ struct msm_vfe_hardware_info vfe40_hw_info = {
 			.clear_wm_reg = msm_vfe40_axi_clear_wm_reg,
 			.cfg_wm_xbar_reg = msm_vfe40_axi_cfg_wm_xbar_reg,
 			.clear_wm_xbar_reg = msm_vfe40_axi_clear_wm_xbar_reg,
-<<<<<<< HEAD
 			.cfg_ub = msm_vfe40_cfg_axi_ub,
-=======
-			.cfg_ub = msm_vfe47_cfg_axi_ub,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			.read_wm_ping_pong_addr =
 				msm_vfe40_read_wm_ping_pong_addr,
 			.update_ping_pong_addr =
@@ -2335,11 +2286,6 @@ struct msm_vfe_hardware_info vfe40_hw_info = {
 			.restart = msm_vfe40_axi_restart,
 			.update_cgc_override =
 				msm_vfe40_axi_update_cgc_override,
-<<<<<<< HEAD
-=======
-			.ub_reg_offset = msm_vfe40_ub_reg_offset,
-			.get_ub_size = msm_vfe40_get_ub_size,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		},
 		.core_ops = {
 			.reg_update = msm_vfe40_reg_update,

@@ -4,10 +4,7 @@
 #include <asm/page.h>
 #include <asm-generic/hugetlb.h>
 
-<<<<<<< HEAD
 #define hugepages_supported() cpu_has_pse
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static inline int is_hugepage_only_range(struct mm_struct *mm,
 					 unsigned long addr,

@@ -16,26 +16,20 @@
  *	(C) Copyright Greg Kroah-Hartman 2002-2003
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/usb.h>
 #include <linux/usb/hcd.h>
 #include "usb.h"
 
-<<<<<<< HEAD
 #ifdef CONFIG_USB_HOST_EXTRA_NOTIFICATION
 #include <linux/usb/host_ext_event.h>
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline const char *plural(int n)
 {
 	return (n == 1 ? "" : "s");
@@ -152,7 +146,6 @@ int usb_choose_configuration(struct usb_device *udev)
 			best = c;
 	}
 
-<<<<<<< HEAD
 	if (insufficient_power > 0) {
 		dev_info(&udev->dev, "rejected %d configuration%s "
 			"due to insufficient available bus power\n",
@@ -161,12 +154,6 @@ int usb_choose_configuration(struct usb_device *udev)
 		host_send_uevent(USB_HOST_EXT_EVENT_INSUFFICIENT_POWER);
 #endif
 	}
-=======
-	if (insufficient_power > 0)
-		dev_info(&udev->dev, "rejected %d configuration%s "
-			"due to insufficient available bus power\n",
-			insufficient_power, plural(insufficient_power));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (best) {
 		i = best->desc.bConfigurationValue;

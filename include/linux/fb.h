@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef _LINUX_FB_H
 #define _LINUX_FB_H
 
@@ -171,7 +168,6 @@ struct fb_cursor_user {
 /*      A hardware display blank revert early change occured */
 #define FB_R_EARLY_EVENT_BLANK		0x11
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 /*      A hardware display extension blank early change occured */
 #define FB_EXT_EARLY_EVENT_BLANK	0xF0
@@ -179,8 +175,6 @@ struct fb_cursor_user {
 #define FB_EXT_EVENT_BLANK		0xF1
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 struct fb_event {
 	struct fb_info *info;
 	void *data;

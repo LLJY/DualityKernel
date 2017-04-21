@@ -1263,7 +1263,6 @@ static int mxuport_attach(struct usb_serial *serial)
 	return 0;
 }
 
-<<<<<<< HEAD
 static void mxuport_release(struct usb_serial *serial)
 {
 	struct usb_serial_port *port0 = serial->port[0];
@@ -1273,8 +1272,6 @@ static void mxuport_release(struct usb_serial *serial)
 	usb_serial_generic_close(port0);
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int mxuport_open(struct tty_struct *tty, struct usb_serial_port *port)
 {
 	struct mxuport_port *mxport = usb_get_serial_port_data(port);
@@ -1377,10 +1374,7 @@ static struct usb_serial_driver mxuport_device = {
 	.probe			= mxuport_probe,
 	.port_probe		= mxuport_port_probe,
 	.attach			= mxuport_attach,
-<<<<<<< HEAD
 	.release		= mxuport_release,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.calc_num_ports		= mxuport_calc_num_ports,
 	.open			= mxuport_open,
 	.close			= mxuport_close,

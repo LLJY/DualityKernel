@@ -1578,22 +1578,14 @@ static void ffs_data_clear(struct ffs_data *ffs)
 {
 	ENTER();
 
-<<<<<<< HEAD
 	pr_debug("%s: ffs->gadget= %p, ffs->flags= %lu\n", __func__,
-=======
-	pr_debug("%s: ffs->gadget= %pK, ffs->flags= %lu\n", __func__,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			ffs->gadget, ffs->flags);
 
 	ffs_closed(ffs);
 
 	/* Dump ffs->gadget and ffs->flags */
 	if (ffs->gadget)
-<<<<<<< HEAD
 		pr_err("%s: ffs:%p ffs->gadget= %p, ffs->flags= %lu\n",
-=======
-		pr_err("%s: ffs:%pK ffs->gadget= %pK, ffs->flags= %lu\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				__func__, ffs, ffs->gadget, ffs->flags);
 	BUG_ON(ffs->gadget);
 

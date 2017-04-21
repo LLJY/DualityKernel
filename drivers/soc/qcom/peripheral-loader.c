@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/string.h>
@@ -49,12 +46,9 @@
 #include <asm-generic/io-64-nonatomic-lo-hi.h>
 
 #include "peripheral-loader.h"
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_MEMDESC
 #include <linux/ramdump_mem_desc.h>
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pil_err(desc, fmt, ...)						\
 	dev_err(desc->dev, "%s: " fmt, desc->name, ##__VA_ARGS__)
@@ -737,7 +731,6 @@ static int pil_parse_devicetree(struct pil_desc *desc)
 	return 0;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_MEMDESC
 /* Tag the subsystem information in ramdump memory descriptors */
 static void get_mem_desc_subsys_name(const struct pil_priv *priv,
@@ -775,8 +768,6 @@ static void remove_mem_desc_subsys_info(const struct pil_priv *priv)
 
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Synchronize request_firmware() with suspend */
 static DECLARE_RWSEM(pil_pm_rwsem);
 
@@ -888,13 +879,10 @@ int pil_boot(struct pil_desc *desc)
 		hyp_assign = true;
 	}
 
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_MEMDESC
 	add_mem_desc_subsys_info(priv);
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	list_for_each_entry(seg, &desc->priv->segs, list) {
 		ret = pil_load_seg(desc, seg);
 		if (ret)
@@ -946,12 +934,9 @@ out:
 						priv->region_start),
 					VMID_HLOS);
 			}
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_MEMDESC
 			remove_mem_desc_subsys_info(priv);
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			dma_free_attrs(desc->dev, priv->region_size,
 					priv->region, priv->region_start,
 					&desc->attrs);
@@ -987,12 +972,9 @@ void pil_shutdown(struct pil_desc *desc)
 	else
 		flush_delayed_work(&priv->proxy);
 	desc->modem_ssr = true;
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_MEMDESC
 	remove_mem_desc_subsys_info(priv);
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 EXPORT_SYMBOL(pil_shutdown);
 

@@ -11,14 +11,11 @@
  *  Copyright (C) 2004-2006 Ingo Molnar
  *  Copyright (C) 2004 Nadia Yvette Chambers
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/ring_buffer.h>
 #include <generated/utsrelease.h>
 #include <linux/stacktrace.h>
@@ -2004,10 +2001,7 @@ static char *get_trace_buf(void)
 	return this_cpu_ptr(&percpu_buffer->buffer[0]);
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_TRACE_PRINTK
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int alloc_percpu_trace_buffer(void)
 {
 	struct trace_buffer_struct *buffers;
@@ -2048,19 +2042,13 @@ static int alloc_percpu_trace_buffer(void)
 	WARN(1, "Could not allocate percpu trace_printk buffer");
 	return -ENOMEM;
 }
-<<<<<<< HEAD
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int buffers_allocated;
 
 void trace_printk_init_buffers(void)
 {
-<<<<<<< HEAD
 #ifdef CONFIG_TRACE_PRINTK
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (buffers_allocated)
 		return;
 
@@ -2096,12 +2084,9 @@ void trace_printk_init_buffers(void)
 	 */
 	if (global_trace.trace_buffer.buffer)
 		tracing_start_cmdline_record();
-<<<<<<< HEAD
 #else
 	return;
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 void trace_printk_start_comm(void)

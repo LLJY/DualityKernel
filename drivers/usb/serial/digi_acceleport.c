@@ -1251,7 +1251,6 @@ static int digi_port_init(struct usb_serial_port *port, unsigned port_num)
 
 static int digi_startup(struct usb_serial *serial)
 {
-<<<<<<< HEAD
 	struct device *dev = &serial->interface->dev;
 	struct digi_serial *serial_priv;
 	int ret;
@@ -1273,10 +1272,6 @@ static int digi_startup(struct usb_serial *serial)
 			return -ENODEV;
 		}
 	}
-=======
-	struct digi_serial *serial_priv;
-	int ret;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	serial_priv = kzalloc(sizeof(*serial_priv), GFP_KERNEL);
 	if (!serial_priv)

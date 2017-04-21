@@ -457,7 +457,6 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
 			uncached_logk(LOGK_IRQ, (void *)(uintptr_t)irqnr);
 			gic_write_eoir(irqnr);
 #ifdef CONFIG_SMP
-<<<<<<< HEAD
 			/*
 			 * Unlike GICv2, we don't need an smp_rmb() here.
 			 * The control dependency from gic_read_iar to
@@ -465,8 +464,6 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
 			 * that any shared data read by handle_IPI will
 			 * be read after the ACK.
 			 */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			handle_IPI(irqnr, regs);
 #else
 			WARN_ONCE(true, "Unexpected SGI received!\n");

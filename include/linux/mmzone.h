@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef _LINUX_MMZONE_H
 #define _LINUX_MMZONE_H
 
@@ -143,10 +140,7 @@ enum zone_stat_item {
 	NR_ACTIVE_FILE,		/*  "     "     "   "       "         */
 	NR_UNEVICTABLE,		/*  "     "     "   "       "         */
 	NR_MLOCK,		/* mlock()ed pages found and moved off LRU */
-<<<<<<< HEAD
 	NR_MLOCK_FILE,	/* mlock()ed pages residing in filecache */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	NR_ANON_PAGES,	/* Mapped anonymous pages */
 	NR_FILE_MAPPED,	/* pagecache pages mapped into pagetables.
 			   only modified from process context */
@@ -820,14 +814,11 @@ static inline bool pgdat_is_empty(pg_data_t *pgdat)
 
 extern struct mutex zonelists_mutex;
 void build_all_zonelists(pg_data_t *pgdat, struct zone *zone);
-<<<<<<< HEAD
 void wake_all_kswapds(unsigned int order,
 			     struct zonelist *zonelist,
 			     enum zone_type high_zoneidx,
 			     struct zone *preferred_zone,
 			     nodemask_t *nodemask);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 void wakeup_kswapd(struct zone *zone, int order, enum zone_type classzone_idx);
 bool zone_watermark_ok(struct zone *z, unsigned int order,
 		unsigned long mark, int classzone_idx, int alloc_flags);

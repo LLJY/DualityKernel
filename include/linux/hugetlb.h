@@ -415,7 +415,6 @@ static inline spinlock_t *huge_pte_lockptr(struct hstate *h,
 	return &mm->page_table_lock;
 }
 
-<<<<<<< HEAD
 #ifndef hugepages_supported
 /*
  * Some platform decide whether they support huge pages at boot
@@ -424,17 +423,6 @@ static inline spinlock_t *huge_pte_lockptr(struct hstate *h,
  */
 #define hugepages_supported() (HPAGE_SHIFT != 0)
 #endif
-=======
-static inline bool hugepages_supported(void)
-{
-	/*
-	 * Some platform decide whether they support huge pages at boot
-	 * time. On these, such as powerpc, HPAGE_SHIFT is set to 0 when
-	 * there is no such support
-	 */
-	return HPAGE_SHIFT != 0;
-}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #else	/* CONFIG_HUGETLB_PAGE */
 struct hstate {};

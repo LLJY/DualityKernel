@@ -19,14 +19,11 @@
  * 02110-1301 USA
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
@@ -42,11 +39,8 @@
 #include <linux/slab.h>
 #include <linux/compiler.h>
 #include <linux/pstore_ram.h>
-<<<<<<< HEAD
 #include <linux/of.h>
 #include <linux/of_address.h>
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define RAMOOPS_KERNMSG_HDR "===="
 #define MIN_MEM_SIZE 4096UL
@@ -56,15 +50,11 @@ module_param(record_size, ulong, 0400);
 MODULE_PARM_DESC(record_size,
 		"size of each dump done on oops/panic");
 
-<<<<<<< HEAD
 #ifdef CONFIG_LOG_BUF_SHIFT
 static ulong ramoops_console_size = (1 << CONFIG_LOG_BUF_SHIFT);
 #else
 static ulong ramoops_console_size = MIN_MEM_SIZE;
 #endif
-=======
-static ulong ramoops_console_size = MIN_MEM_SIZE;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 module_param_named(console_size, ramoops_console_size, ulong, 0400);
 MODULE_PARM_DESC(console_size, "size of kernel console log");
 
@@ -478,7 +468,6 @@ static int ramoops_probe(struct platform_device *pdev)
 	if (cxt->max_dump_cnt)
 		goto fail_out;
 
-<<<<<<< HEAD
 	if (!pdata && dev->of_node) {
 		struct device_node *pnode;
 		pdata = kzalloc(sizeof(*pdata), GFP_KERNEL);
@@ -518,8 +507,6 @@ static int ramoops_probe(struct platform_device *pdev)
 		dev->platform_data = &pdata;
 	}
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!pdata->mem_size || (!pdata->record_size && !pdata->console_size &&
 			!pdata->ftrace_size && !pdata->pmsg_size)) {
 		pr_err("The memory size and the record/console size must be "
@@ -644,24 +631,18 @@ static int __exit ramoops_remove(struct platform_device *pdev)
 	return -EBUSY;
 }
 
-<<<<<<< HEAD
 static struct of_device_id ramoops_match_table[] = {
 	{.compatible = "pstore-ramoops"},
 	{},
 };
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct platform_driver ramoops_driver = {
 	.probe		= ramoops_probe,
 	.remove		= __exit_p(ramoops_remove),
 	.driver		= {
 		.name	= "ramoops",
 		.owner	= THIS_MODULE,
-<<<<<<< HEAD
 		.of_match_table = ramoops_match_table
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	},
 };
 
@@ -710,15 +691,10 @@ postcore_initcall(ramoops_init);
 static void __exit ramoops_exit(void)
 {
 	platform_driver_unregister(&ramoops_driver);
-<<<<<<< HEAD
 	if (dummy) {
 		platform_device_unregister(dummy);
 		kfree(dummy_data);
 	}
-=======
-	platform_device_unregister(dummy);
-	kfree(dummy_data);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 module_exit(ramoops_exit);
 

@@ -54,14 +54,11 @@
  *              Hans Verkuil <hverkuil@xs4all.nl>
  *		et al.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef _UAPI__LINUX_VIDEODEV2_H
 #define _UAPI__LINUX_VIDEODEV2_H
 
@@ -78,13 +75,9 @@
  * Common stuff for both V4L1 and V4L2
  * Moved from videodev.h
  */
-<<<<<<< HEAD
 /* extension begin */
 #define VIDEO_MAX_FRAME               96
 /* extension end */
-=======
-#define VIDEO_MAX_FRAME               32
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define VIDEO_MAX_PLANES               8
 
 /*
@@ -1916,10 +1909,6 @@ struct v4l2_streamparm {
 
 #define V4L2_EVENT_BITDEPTH_FLAG	0x1
 #define V4L2_EVENT_PICSTRUCT_FLAG	0x2
-<<<<<<< HEAD
-=======
-#define V4L2_EVENT_COLOUR_SPACE_FLAG    0x4
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define V4L2_EVENT_MSM_VIDC_START	(V4L2_EVENT_PRIVATE_START + 0x00001000)
 #define V4L2_EVENT_MSM_VIDC_FLUSH_DONE	(V4L2_EVENT_MSM_VIDC_START + 1)

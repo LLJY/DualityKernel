@@ -1572,10 +1572,7 @@ struct security_operations {
 				    struct fown_struct *fown, int sig);
 	int (*file_receive) (struct file *file);
 	int (*file_open) (struct file *file, const struct cred *cred);
-<<<<<<< HEAD
 	int (*file_close)(struct file *file);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	bool (*allow_merge_bio)(struct bio *bio1, struct bio *bio2);
 
 	int (*task_create) (unsigned long clone_flags);
@@ -1858,10 +1855,7 @@ int security_file_send_sigiotask(struct task_struct *tsk,
 				 struct fown_struct *fown, int sig);
 int security_file_receive(struct file *file);
 int security_file_open(struct file *file, const struct cred *cred);
-<<<<<<< HEAD
 int security_file_close(struct file *file);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 bool security_allow_merge_bio(struct bio *bio1, struct bio *bio2);
 
 int security_task_create(unsigned long clone_flags);
@@ -2387,14 +2381,11 @@ static inline int security_file_open(struct file *file,
 	return 0;
 }
 
-<<<<<<< HEAD
 static inline int security_file_close(struct file *file)
 {
 	return 0;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline bool security_allow_merge_bio(struct bio *bio1, struct bio *bio2)
 {
 	return true;

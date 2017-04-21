@@ -9513,11 +9513,7 @@ static const struct file_operations btrfs_dir_file_operations = {
 	.iterate	= btrfs_real_readdir,
 	.unlocked_ioctl	= btrfs_ioctl,
 #ifdef CONFIG_COMPAT
-<<<<<<< HEAD
 	.compat_ioctl	= btrfs_compat_ioctl,
-=======
-	.compat_ioctl	= btrfs_ioctl,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 	.release        = btrfs_release_file,
 	.fsync		= btrfs_sync_file,

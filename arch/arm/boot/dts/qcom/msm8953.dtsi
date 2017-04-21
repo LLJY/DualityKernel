@@ -43,23 +43,10 @@
 			reg = <0x0 0x86c00000 0x0 0x6a00000>;
 		};
 
-<<<<<<< HEAD
 		reloc_mem: reloc_region@0 {
 			compatible = "removed-dma-pool";
 			no-map;
 			reg = <0x0 0x8d600000 0x0 0x1800000>;
-=======
-		adsp_fw_mem: adsp_fw_region@0 {
-			compatible = "removed-dma-pool";
-			no-map;
-			reg = <0x0 0x8d600000 0x0 0x1100000>;
-		};
-
-		wcnss_fw_mem: wcnss_fw_region@0 {
-			compatible = "removed-dma-pool";
-			no-map;
-			reg = <0x0 0x8e700000 0x0 0x700000>;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		};
 
 		venus_mem: venus_region@0 {
@@ -878,11 +865,7 @@
 			< 1036800000 2>,
 			< 1401600000 3>,
 			< 1689600000 4>,
-<<<<<<< HEAD
 			< 1843200000 5>,
-=======
-			< 1804800000 5>,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			< 1958400000 6>,
 			< 2016000000 7>;
 		qcom,speed0-bin-v0-cci =
@@ -891,11 +874,7 @@
 			<  414720000 2>,
 			<  560640000 3>,
 			<  675840000 4>,
-<<<<<<< HEAD
 			<  737280000 5>,
-=======
-			<  721920000 5>,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			<  783360000 6>,
 			<  806400000 7>;
 		qcom,speed2-bin-v0-cl =
@@ -904,11 +883,7 @@
 			< 1036800000 2>,
 			< 1401600000 3>,
 			< 1689600000 4>,
-<<<<<<< HEAD
 			< 1843200000 5>,
-=======
-			< 1804800000 5>,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			< 1958400000 6>,
 			< 2016000000 7>;
 		qcom,speed2-bin-v0-cci =
@@ -917,11 +892,7 @@
 			<  414720000 2>,
 			<  560640000 3>,
 			<  675840000 4>,
-<<<<<<< HEAD
 			<  737280000 5>,
-=======
-			<  721920000 5>,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			<  783360000 6>,
 			<  806400000 7>;
 		qcom,speed7-bin-v0-cl =
@@ -930,11 +901,7 @@
 			< 1036800000 2>,
 			< 1401600000 3>,
 			< 1689600000 4>,
-<<<<<<< HEAD
 			< 1843200000 5>,
-=======
-			< 1804800000 5>,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			< 1958400000 6>,
 			< 2016000000 7>,
 			< 2150400000 8>,
@@ -945,32 +912,11 @@
 			<  414720000 2>,
 			<  560640000 3>,
 			<  675840000 4>,
-<<<<<<< HEAD
 			<  737280000 5>,
-=======
-			<  721920000 5>,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			<  783360000 6>,
 			<  806400000 7>,
 			<  860160000 8>,
 			<  883200000 9>;
-<<<<<<< HEAD
-=======
-		qcom,speed6-bin-v0-cl =
-			<          0 0>,
-			<  652800000 1>,
-			< 1036800000 2>,
-			< 1401600000 3>,
-			< 1689600000 4>,
-			< 1804800000 5>;
-		qcom,speed6-bin-v0-cci =
-			<          0 0>,
-			<  261120000 1>,
-			<  414720000 2>,
-			<  560640000 3>,
-			<  675840000 4>,
-			<  721920000 5>;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		#clock-cells = <1>;
 	};
 
@@ -994,11 +940,7 @@
 			 < 1036800 >,
 			 < 1401600 >,
 			 < 1689600 >,
-<<<<<<< HEAD
 			 < 1843200 >,
-=======
-			 < 1804800 >,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			 < 1958400 >,
 			 < 2016000 >,
 			 < 2150400 >,
@@ -1060,11 +1002,7 @@
 			 < 1036800  3221>,
 			 < 1401600  5859>,
 			 < 1689600  6445>,
-<<<<<<< HEAD
 			 < 1843200  7104>,
-=======
-			 < 1804800  7104>,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			 < 1958400  7104>,
 			 < 2208000  7104>;
 		};
@@ -1367,11 +1305,6 @@
 		interrupt-names = "ipa-irq", "bam-irq";
 		qcom,ipa-hw-ver = <6>; /* IPA core version = IPAv2.6L */
 		qcom,ipa-hw-mode = <0>; /* IPA hw type = Normal */
-<<<<<<< HEAD
-=======
-		qcom,wan-rx-ring-size = <192>; /* IPA WAN-rx-ring-size*/
-		qcom,lan-rx-ring-size = <192>; /* IPA LAN-rx-ring-size*/
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		clock-names = "core_clk";
 		clocks = <&clock_gcc clk_ipa_clk>;
 		qcom,ee = <0>;
@@ -1968,11 +1901,7 @@
 		/* GPIO output to lpass */
 		qcom,gpio-force-stop = <&smp2pgpio_ssr_smp2p_2_out 0 0>;
 
-<<<<<<< HEAD
 		memory-region = <&reloc_mem>;
-=======
-		memory-region = <&adsp_fw_mem>;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	qcom,venus@1de0000 {
@@ -2052,11 +1981,7 @@
 
 		/* GPIO output to wcnss */
 		qcom,gpio-force-stop = <&smp2pgpio_ssr_smp2p_4_out 0 0>;
-<<<<<<< HEAD
 		memory-region = <&reloc_mem>;
-=======
-		memory-region = <&wcnss_fw_mem>;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	usb3: ssusb@7000000{
@@ -2178,21 +2103,11 @@
 		reg = <0x079000 0x180>,
 			<0x070f8800 0x400>,
 			<0x01841030 0x4>,
-<<<<<<< HEAD
 			<0x0193f044 0x4>;
 		reg-names = "qusb_phy_base",
 			"qscratch_base",
 			"ref_clk_addr",
 			"tcsr_phy_clk_scheme_sel";
-=======
-			<0x0193f044 0x4>,
-			<0x0193f020 0x4>;
-		reg-names = "qusb_phy_base",
-			"qscratch_base",
-			"ref_clk_addr",
-			"tcsr_phy_clk_scheme_sel",
-			"tcsr_phy_level_shift_keeper";
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		USB3_GDSC-supply = <&gdsc_usb30>;
 		vdd-supply = <&pm8953_l3>;
@@ -2336,14 +2251,6 @@
 
 	};
 
-<<<<<<< HEAD
-=======
-	usb_audio_qmi_dev {
-		compatible = "qcom,usb-audio-qmi-dev";
-		qcom,usb-audio-intr-num = <2>;
-	};
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	dbm_1p5: dbm@70f8000 {
 		compatible = "qcom,usb-dbm-1p5";
 		reg = <0x070f8000 0x300>;

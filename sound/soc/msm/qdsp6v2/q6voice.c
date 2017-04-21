@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/slab.h>
 #include <linux/kthread.h>
 #include <linux/kernel.h>
@@ -5573,7 +5570,6 @@ int voc_set_device_mute(uint32_t session_id, uint32_t dir, uint32_t mute,
 	return ret;
 }
 
-<<<<<<< HEAD
 int voc_get_tx_device_mute(uint32_t session_id)
 {
 	struct voice_data *v = voice_get_session(session_id);
@@ -5594,8 +5590,6 @@ int voc_get_tx_device_mute(uint32_t session_id)
 	return ret;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int voc_get_rx_device_mute(uint32_t session_id)
 {
 	struct voice_data *v = voice_get_session(session_id);

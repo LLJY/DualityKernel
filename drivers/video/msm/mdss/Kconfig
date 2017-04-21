@@ -4,7 +4,6 @@ config FB_MSM_MDSS_WRITEBACK
 	The MDSS Writeback Panel provides support for routing the output of
 	MDSS frame buffer driver and MDP processing to memory.
 
-<<<<<<< HEAD
 config FB_MSM_MDSS_SPECIFIC_PANEL
 	depends on FB_MSM_MDSS
 	bool
@@ -14,8 +13,6 @@ config FB_MSM_MDSS_SPECIFIC_PANEL
 	The MDSS Specific Panel provides support for specific panel driver
 	file.
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config FB_MSM_MDSS_HDMI_PANEL
 	depends on FB_MSM_MDSS
 	bool "MDSS HDMI Tx Panel"
@@ -74,7 +71,6 @@ config FB_MSM_MDSS_XLOG_DEBUG
 	features to: Dump MDSS registers during driver errors, panic
 	driver during fatal errors and enable some display-driver logging
 	into an internal buffer (this avoids logging overhead).
-<<<<<<< HEAD
 
 config FB_MSM_MDSS_KCAL_CTRL
 	depends on FB_MSM_MDSS
@@ -83,5 +79,3 @@ config FB_MSM_MDSS_KCAL_CTRL
 	---help---
 	  Enable sysfs for post-processing control of mdss-mdp5 display
 	  controllers in MDSS.
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

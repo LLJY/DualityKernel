@@ -9,14 +9,11 @@
  *
  *  You may use this code as per GPL version 2
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef __LINUX_POWER_SUPPLY_H__
 #define __LINUX_POWER_SUPPLY_H__
@@ -109,10 +106,7 @@ enum {
 	POWER_SUPPLY_DP_DM_HVDCP3_SUPPORTED = 10,
 	POWER_SUPPLY_DP_DM_ICL_DOWN = 11,
 	POWER_SUPPLY_DP_DM_ICL_UP = 12,
-<<<<<<< HEAD
 	POWER_SUPPLY_DP_DM_DP3P3_DM3P3 = 13,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 enum power_supply_property {
@@ -228,7 +222,6 @@ enum power_supply_property {
 	POWER_SUPPLY_PROP_ENABLE_JEITA_DETECTION,
 	POWER_SUPPLY_PROP_BATTERY_INFO,
 	POWER_SUPPLY_PROP_BATTERY_INFO_ID,
-<<<<<<< HEAD
 	POWER_SUPPLY_PROP_USBIN_DET,
 	POWER_SUPPLY_PROP_SUB_TYPE,
 	POWER_SUPPLY_PROP_ENABLE_SHUTDOWN_AT_LOW_BATTERY,
@@ -248,8 +241,6 @@ enum power_supply_property {
 	POWER_SUPPLY_PROP_CHARGE_FULL_RAW,
 	POWER_SUPPLY_PROP_TIME_TO_CAP_LEARNING,
 	POWER_SUPPLY_PROP_CHGERR_STS,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Local extensions of type int64_t */
 	POWER_SUPPLY_PROP_CHARGE_COUNTER_EXT,
 	/* Properties of type `const char *' */
@@ -257,10 +248,7 @@ enum power_supply_property {
 	POWER_SUPPLY_PROP_MANUFACTURER,
 	POWER_SUPPLY_PROP_SERIAL_NUMBER,
 	POWER_SUPPLY_PROP_BATTERY_TYPE,
-<<<<<<< HEAD
 	POWER_SUPPLY_PROP_CHARGER_TYPE,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 enum power_supply_type {
@@ -281,17 +269,13 @@ enum power_supply_type {
 	POWER_SUPPLY_TYPE_TYPEC,	/*Type-C */
 	POWER_SUPPLY_TYPE_UFP,		/* Type-C UFP */
 	POWER_SUPPLY_TYPE_DFP,		/* TYpe-C DFP */
-<<<<<<< HEAD
 	POWER_SUPPLY_TYPE_RETRY_DET,	/* Retry charger detection */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 enum power_supply_notifier_events {
 	PSY_EVENT_PROP_CHANGED,
 };
 
-<<<<<<< HEAD
 enum power_supply_sub_type {
 	POWER_SUPPLY_SUB_TYPE_UNKNOWN = 0,
 	POWER_SUPPLY_SUB_TYPE_PROPRIETARY,
@@ -301,8 +285,6 @@ enum power_supply_sub_type {
 	POWER_SUPPLY_SUB_TYPE_INVALID,
 };
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 union power_supply_propval {
 	int intval;
 	const char *strval;

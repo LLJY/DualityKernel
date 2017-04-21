@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1257,25 +1253,6 @@ int ipahal_get_proc_ctx_needed_len(enum ipa_hdr_proc_type type)
 	return res;
 }
 
-<<<<<<< HEAD
-=======
-/*
- * Get IPA Data Processing Star image memory size at IPA SRAM
- */
-u32 ipahal_get_dps_img_mem_size(void)
-{
-	return IPA_HW_DPS_IMG_MEM_SIZE_V3_0;
-}
-
-/*
- * Get IPA Header Processing Star image memory size at IPA SRAM
- */
-u32 ipahal_get_hps_img_mem_size(void)
-{
-	return IPA_HW_HPS_IMG_MEM_SIZE_V3_0;
-}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int ipahal_init(enum ipa_hw_type ipa_hw_type, void __iomem *base)
 {
 	int result;

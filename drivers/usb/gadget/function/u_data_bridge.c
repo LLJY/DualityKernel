@@ -138,11 +138,7 @@ static int gbridge_alloc_requests(struct usb_ep *ep, struct list_head *head,
 	int i;
 	struct usb_request *req;
 
-<<<<<<< HEAD
 	pr_debug("ep:%p head:%p num:%d size:%d cb:%p",
-=======
-	pr_debug("ep:%pK head:%pK num:%d size:%d cb:%pK",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				ep, head, num, size, cb);
 
 	for (i = 0; i < num; i++) {
@@ -192,11 +188,7 @@ static void gbridge_start_rx(struct gbridge_port *port)
 		ret = usb_ep_queue(ep, req, GFP_KERNEL);
 		spin_lock_irqsave(&port->port_lock, flags);
 		if (ret) {
-<<<<<<< HEAD
 			pr_err("port(%d):%p usb ep(%s) queue failed\n",
-=======
-			pr_err("port(%d):%pK usb ep(%s) queue failed\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					port->port_num, port, ep->name);
 			list_add(&req->list, pool);
 			break;
@@ -211,11 +203,7 @@ static void gbridge_read_complete(struct usb_ep *ep, struct usb_request *req)
 	struct gbridge_port *port = ep->driver_data;
 	unsigned long flags;
 
-<<<<<<< HEAD
 	pr_debug("ep:(%p)(%s) port:%p req_status:%d req->actual:%u\n",
-=======
-	pr_debug("ep:(%pK)(%s) port:%pK req_status:%d req->actual:%u\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			ep, ep->name, port, req->status, req->actual);
 	if (!port) {
 		pr_err("port is null\n");
@@ -242,11 +230,7 @@ static void gbridge_write_complete(struct usb_ep *ep, struct usb_request *req)
 	unsigned long flags;
 	struct gbridge_port *port = ep->driver_data;
 
-<<<<<<< HEAD
 	pr_debug("ep:(%p)(%s) port:%p req_stats:%d\n",
-=======
-	pr_debug("ep:(%pK)(%s) port:%pK req_stats:%d\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			ep, ep->name, port, req->status);
 
 	spin_lock_irqsave(&port->port_lock, flags);
@@ -282,11 +266,7 @@ static void gbridge_start_io(struct gbridge_port *port)
 	int ret = -ENODEV;
 	unsigned long	flags;
 
-<<<<<<< HEAD
 	pr_debug("port: %p\n", port);
-=======
-	pr_debug("port: %pK\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	spin_lock_irqsave(&port->port_lock, flags);
 	if (!port->port_usb)
@@ -329,11 +309,7 @@ static void gbridge_stop_io(struct gbridge_port *port)
 	struct usb_ep	*out;
 	unsigned long	flags;
 
-<<<<<<< HEAD
 	pr_debug("port:%p\n", port);
-=======
-	pr_debug("port:%pK\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	spin_lock_irqsave(&port->port_lock, flags);
 	if (!port->port_usb) {
 		spin_unlock_irqrestore(&port->port_lock, flags);
@@ -382,11 +358,7 @@ int gbridge_port_open(struct inode *inode, struct file *file)
 	}
 
 	file->private_data = port;
-<<<<<<< HEAD
 	pr_debug("opening port(%p)\n", port);
-=======
-	pr_debug("opening port(%pK)\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ret = wait_event_interruptible(port->open_wq,
 					port->is_connected);
 	if (ret) {
@@ -399,11 +371,7 @@ int gbridge_port_open(struct inode *inode, struct file *file)
 	spin_unlock_irqrestore(&port->port_lock, flags);
 	gbridge_start_rx(port);
 
-<<<<<<< HEAD
 	pr_debug("port(%p) open is success\n", port);
-=======
-	pr_debug("port(%pK) open is success\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return 0;
 }
@@ -419,20 +387,12 @@ int gbridge_port_release(struct inode *inode, struct file *file)
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	pr_debug("closing port(%p)\n", port);
-=======
-	pr_debug("closing port(%pK)\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	spin_lock_irqsave(&port->port_lock, flags);
 	port->port_open = false;
 	port->cbits_updated = false;
 	spin_unlock_irqrestore(&port->port_lock, flags);
-<<<<<<< HEAD
 	pr_debug("port(%p) is closed.\n", port);
-=======
-	pr_debug("port(%pK) is closed.\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return 0;
 }
@@ -456,11 +416,7 @@ ssize_t gbridge_port_read(struct file *file,
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	pr_debug("read on port(%p) count:%zu\n", port, count);
-=======
-	pr_debug("read on port(%pK) count:%zu\n", port, count);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	spin_lock_irqsave(&port->port_lock, flags);
 	current_rx_req = port->current_rx_req;
 	pending_rx_bytes = port->pending_rx_bytes;
@@ -561,11 +517,7 @@ ssize_t gbridge_port_write(struct file *file,
 	}
 
 	spin_lock_irqsave(&port->port_lock, flags);
-<<<<<<< HEAD
 	pr_debug("write on port(%p)\n", port);
-=======
-	pr_debug("write on port(%pK)\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!port->is_connected || !port->port_usb) {
 		spin_unlock_irqrestore(&port->port_lock, flags);
@@ -753,11 +705,7 @@ static long gbridge_port_ioctl(struct file *fp, unsigned cmd,
 	case TIOCMBIC:
 	case TIOCMBIS:
 	case TIOCMSET:
-<<<<<<< HEAD
 		pr_debug("TIOCMSET on port:%p\n", port);
-=======
-		pr_debug("TIOCMSET on port:%pK\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		i = get_user(val, (uint32_t *)arg);
 		if (i) {
 			pr_err("Error getting TIOCMSET value\n");
@@ -766,11 +714,7 @@ static long gbridge_port_ioctl(struct file *fp, unsigned cmd,
 		ret = gbridge_port_tiocmset(port, val, ~val);
 		break;
 	case TIOCMGET:
-<<<<<<< HEAD
 		pr_debug("TIOCMGET on port:%p\n", port);
-=======
-		pr_debug("TIOCMGET on port:%pK\n", port);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ret = gbridge_port_tiocmget(port);
 		if (ret >= 0) {
 			ret = put_user(ret, (uint32_t *)arg);
@@ -943,11 +887,7 @@ static void gbridge_debugfs_init(void) {}
 
 int gbridge_setup(void *gptr, u8 no_ports)
 {
-<<<<<<< HEAD
 	pr_debug("gptr:%p, no_bridge_ports:%d\n", gptr, no_ports);
-=======
-	pr_debug("gptr:%pK, no_bridge_ports:%d\n", gptr, no_ports);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (no_ports >= num_of_instance) {
 		pr_err("More ports are requested\n");
 		return -EINVAL;
@@ -970,11 +910,7 @@ int gbridge_connect(void *gptr, u8 portno)
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	pr_debug("gbridge:%p portno:%u\n", gptr, portno);
-=======
-	pr_debug("gbridge:%pK portno:%u\n", gptr, portno);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	port = ports[portno];
 	gser = gptr;
 
@@ -985,11 +921,7 @@ int gbridge_connect(void *gptr, u8 portno)
 
 	ret = usb_ep_enable(gser->in);
 	if (ret) {
-<<<<<<< HEAD
 		pr_err("usb_ep_enable failed eptype:IN ep:%p, err:%d",
-=======
-		pr_err("usb_ep_enable failed eptype:IN ep:%pK, err:%d",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					gser->in, ret);
 		port->port_usb = 0;
 		return ret;
@@ -998,11 +930,7 @@ int gbridge_connect(void *gptr, u8 portno)
 
 	ret = usb_ep_enable(gser->out);
 	if (ret) {
-<<<<<<< HEAD
 		pr_err("usb_ep_enable failed eptype:OUT ep:%p, err: %d",
-=======
-		pr_err("usb_ep_enable failed eptype:OUT ep:%pK, err: %d",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					gser->out, ret);
 		port->port_usb = 0;
 		gser->in->driver_data = 0;
@@ -1030,11 +958,7 @@ void gbridge_disconnect(void *gptr, u8 portno)
 		return;
 	}
 
-<<<<<<< HEAD
 	pr_debug("gptr:%p portno:%u\n", gptr, portno);
-=======
-	pr_debug("gptr:%pK portno:%u\n", gptr, portno);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (portno >= num_of_instance) {
 		pr_err("Wrong port no %d\n", portno);
 		return;
@@ -1086,11 +1010,7 @@ static int gbridge_port_alloc(int portno)
 	INIT_LIST_HEAD(&ports[portno]->read_pool);
 	INIT_LIST_HEAD(&ports[portno]->read_queued);
 	INIT_LIST_HEAD(&ports[portno]->write_pool);
-<<<<<<< HEAD
 	pr_debug("port:%p portno:%d\n", ports[portno], portno);
-=======
-	pr_debug("port:%pK portno:%d\n", ports[portno], portno);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 

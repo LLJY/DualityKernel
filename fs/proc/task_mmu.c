@@ -506,7 +506,6 @@ struct mem_size_stats {
 	u64 swap_pss;
 };
 
-<<<<<<< HEAD
 static void smaps_account(struct mem_size_stats *mss, struct page *page,
 		unsigned long size, bool young, bool dirty)
 {
@@ -541,30 +540,16 @@ static void smaps_account(struct mem_size_stats *mss, struct page *page,
 
 static void smaps_pte_entry(pte_t *pte, unsigned long addr,
 		struct mm_walk *walk)
-=======
-
-static void smaps_pte_entry(pte_t ptent, unsigned long addr,
-		unsigned long ptent_size, struct mm_walk *walk)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	struct mem_size_stats *mss = walk->private;
 	struct vm_area_struct *vma = mss->vma;
 	pgoff_t pgoff = linear_page_index(vma, addr);
 	struct page *page = NULL;
-<<<<<<< HEAD
 
 	if (pte_present(*pte)) {
 		page = vm_normal_page(vma, addr, *pte);
 	} else if (is_swap_pte(*pte)) {
 		swp_entry_t swpent = pte_to_swp_entry(*pte);
-=======
-	int mapcount;
-
-	if (pte_present(ptent)) {
-		page = vm_normal_page(vma, addr, ptent);
-	} else if (is_swap_pte(ptent)) {
-		swp_entry_t swpent = pte_to_swp_entry(ptent);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		if (!non_swap_entry(swpent)) {
 			int mapcount;
@@ -581,21 +566,14 @@ static void smaps_pte_entry(pte_t ptent, unsigned long addr,
 			}
 		} else if (is_migration_entry(swpent))
 			page = migration_entry_to_page(swpent);
-<<<<<<< HEAD
 	} else if (pte_file(*pte)) {
 		if (pte_to_pgoff(*pte) != pgoff)
 			mss->nonlinear += PAGE_SIZE;
-=======
-	} else if (pte_file(ptent)) {
-		if (pte_to_pgoff(ptent) != pgoff)
-			mss->nonlinear += ptent_size;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	if (!page)
 		return;
 
-<<<<<<< HEAD
 	if (page->index != pgoff)
 		mss->nonlinear += PAGE_SIZE;
 
@@ -624,33 +602,6 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
 {
 }
 #endif
-=======
-	if (PageAnon(page))
-		mss->anonymous += ptent_size;
-
-	if (page->index != pgoff)
-		mss->nonlinear += ptent_size;
-
-	mss->resident += ptent_size;
-	/* Accumulate the size in pages that have been accessed. */
-	if (pte_young(ptent) || PageReferenced(page))
-		mss->referenced += ptent_size;
-	mapcount = page_mapcount(page);
-	if (mapcount >= 2) {
-		if (pte_dirty(ptent) || PageDirty(page))
-			mss->shared_dirty += ptent_size;
-		else
-			mss->shared_clean += ptent_size;
-		mss->pss += (ptent_size << PSS_SHIFT) / mapcount;
-	} else {
-		if (pte_dirty(ptent) || PageDirty(page))
-			mss->private_dirty += ptent_size;
-		else
-			mss->private_clean += ptent_size;
-		mss->pss += (ptent_size << PSS_SHIFT);
-	}
-}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int smaps_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 			   struct mm_walk *walk)
@@ -661,14 +612,8 @@ static int smaps_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 	spinlock_t *ptl;
 
 	if (pmd_trans_huge_lock(pmd, vma, &ptl) == 1) {
-<<<<<<< HEAD
 		smaps_pmd_entry(pmd, addr, walk);
 		spin_unlock(ptl);
-=======
-		smaps_pte_entry(*(pte_t *)pmd, addr, HPAGE_PMD_SIZE, walk);
-		spin_unlock(ptl);
-		mss->anonymous_thp += HPAGE_PMD_SIZE;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return 0;
 	}
 
@@ -681,11 +626,7 @@ static int smaps_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
 	 */
 	pte = pte_offset_map_lock(vma->vm_mm, pmd, addr, &ptl);
 	for (; addr != end; pte++, addr += PAGE_SIZE)
-<<<<<<< HEAD
 		smaps_pte_entry(pte, addr, walk);
-=======
-		smaps_pte_entry(*pte, addr, PAGE_SIZE, walk);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pte_unmap_unlock(pte - 1, ptl);
 	cond_resched();
 	return 0;

@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef _LINUX_KERNEL_H
 #define _LINUX_KERNEL_H
 
@@ -559,10 +556,7 @@ void tracing_snapshot_alloc(void);
 extern void tracing_start(void);
 extern void tracing_stop(void);
 
-<<<<<<< HEAD
 #ifdef CONFIG_TRACE_PRINTK
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline __printf(1, 2)
 void ____trace_printk_check_format(const char *fmt, ...)
 {
@@ -632,7 +626,6 @@ int __trace_bprintk(unsigned long ip, const char *fmt, ...);
 extern __printf(2, 3)
 int __trace_printk(unsigned long ip, const char *fmt, ...);
 
-<<<<<<< HEAD
 #else
 static inline __printf(1, 2)
 int trace_printk(const char *fmt, ...)
@@ -647,8 +640,6 @@ ftrace_vprintk(const char *fmt, va_list ap)
 }
 #endif /* CONFIG_TRACE_PRINTK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * trace_puts - write a string into the ftrace buffer
  * @str: the string to record

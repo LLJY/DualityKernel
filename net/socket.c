@@ -2449,10 +2449,7 @@ int __sys_recvmmsg(int fd, struct mmsghdr __user *mmsg, unsigned int vlen,
 			break;
 	}
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (err == 0)
 		goto out_put;
 

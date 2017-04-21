@@ -16,7 +16,4 @@ obj-$(CONFIG_SUSPEND_TIME)	+= suspend_time.o
 obj-$(CONFIG_MAGIC_SYSRQ)	+= poweroff.o
 
 obj-$(CONFIG_SUSPEND)	+= wakeup_reason.o
-<<<<<<< HEAD
 obj-$(CONFIG_WAKEUP_IRQ_DEBUG) += wakeup_irq_debug.o
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

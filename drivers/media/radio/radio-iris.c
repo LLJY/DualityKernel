@@ -628,23 +628,11 @@ int radio_hci_unregister_dev(void)
 	struct iris_device *radio = video_get_drvdata(video_get_dev());
 	struct radio_hci_dev *hdev = NULL;
 
-<<<<<<< HEAD
 	if (!radio && !radio->fm_hdev) {
 		FMDERR("radio/hdev is null");
 		return -EINVAL;
 	}
 	hdev = radio->fm_hdev;
-=======
-	if (!radio) {
-		FMDERR("radio is null");
-		return -EINVAL;
-	}
-	hdev = radio->fm_hdev;
-	if (!hdev) {
-		FMDERR("hdev is null");
-		return -EINVAL;
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	tasklet_kill(&hdev->rx_task);
 	tasklet_kill(&hdev->cmd_task);
@@ -3892,25 +3880,8 @@ static int iris_vidioc_s_ext_ctrls(struct file *file, void *priv,
 		bytes_to_copy = (ctrl->controls[0]).size;
 		spur_tbl_req.mode = data[0];
 		spur_tbl_req.no_of_freqs_entries = data[1];
-<<<<<<< HEAD
 		spur_data = kmalloc((data[1] * SPUR_DATA_LEN) + 2,
 							GFP_ATOMIC);
-=======
-
-		if (((spur_tbl_req.no_of_freqs_entries * SPUR_DATA_LEN) !=
-					bytes_to_copy - 2) ||
-		    ((spur_tbl_req.no_of_freqs_entries * SPUR_DATA_LEN) >
-					2 * FM_SPUR_TBL_SIZE)) {
-			FMDERR("Invalid data len: data[1] = %d, bytes = %zu",
-				spur_tbl_req.no_of_freqs_entries,
-				bytes_to_copy);
-			retval = -EINVAL;
-			goto END;
-		}
-		spur_data =
-		    kmalloc((spur_tbl_req.no_of_freqs_entries * SPUR_DATA_LEN)
-							+ 2, GFP_ATOMIC);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (!spur_data) {
 			FMDERR("Allocation failed for Spur data");
 			retval = -EFAULT;
@@ -3925,12 +3896,7 @@ static int iris_vidioc_s_ext_ctrls(struct file *file, void *priv,
 
 		if (spur_tbl_req.no_of_freqs_entries <= ENTRIES_EACH_CMD) {
 			memcpy(&spur_tbl_req.spur_data[0], spur_data,
-<<<<<<< HEAD
 					(data[1] * SPUR_DATA_LEN));
-=======
-				(spur_tbl_req.no_of_freqs_entries *
-							SPUR_DATA_LEN));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			retval = radio_hci_request(radio->fm_hdev,
 					hci_fm_set_spur_tbl_req,
 					(unsigned long)&spur_tbl_req,

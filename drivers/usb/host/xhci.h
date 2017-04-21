@@ -1452,12 +1452,6 @@ struct xhci_hcd {
 	/* Our HCD's current interrupter register set */
 	struct	xhci_intr_reg __iomem *ir_set;
 
-<<<<<<< HEAD
-=======
-	/* secondary interrupter */
-	struct	xhci_intr_reg __iomem **sec_ir_set;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Cached register copies of read-only HC data */
 	__u32		hcs_params1;
 	__u32		hcs_params2;
@@ -1497,14 +1491,6 @@ struct xhci_hcd {
 	struct xhci_command	*current_cmd;
 	struct xhci_ring	*event_ring;
 	struct xhci_erst	erst;
-<<<<<<< HEAD
-=======
-
-	/* secondary event ring and erst */
-	struct xhci_ring	**sec_event_ring;
-	struct xhci_erst	*sec_erst;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Scratchpad */
 	struct xhci_scratchpad  *scratchpad;
 	/* Store LPM test failed devices' information */
@@ -1752,11 +1738,6 @@ struct xhci_command *xhci_alloc_command(struct xhci_hcd *xhci,
 void xhci_urb_free_priv(struct xhci_hcd *xhci, struct urb_priv *urb_priv);
 void xhci_free_command(struct xhci_hcd *xhci,
 		struct xhci_command *command);
-<<<<<<< HEAD
-=======
-int xhci_sec_event_ring_setup(struct usb_hcd *hcd, unsigned intr_num);
-int xhci_sec_event_ring_cleanup(struct usb_hcd *hcd, unsigned intr_num);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* xHCI host controller glue */
 typedef void (*xhci_get_quirks_t)(struct device *, struct xhci_hcd *);

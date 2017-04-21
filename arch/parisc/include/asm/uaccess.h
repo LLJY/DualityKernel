@@ -76,10 +76,7 @@ struct exception_table_entry {
  */
 struct exception_data {
 	unsigned long fault_ip;
-<<<<<<< HEAD
 	unsigned long fault_gp;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	unsigned long fault_space;
 	unsigned long fault_addr;
 };

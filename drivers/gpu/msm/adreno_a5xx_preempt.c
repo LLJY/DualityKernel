@@ -311,11 +311,6 @@ void a5xx_preempt_callback(struct adreno_device *adreno_dev, int bit)
 		adreno_dev->cur_rb->dispatch_q.expires);
 
 	adreno_set_preempt_state(adreno_dev, ADRENO_PREEMPT_NONE);
-<<<<<<< HEAD
-=======
-
-	a5xx_preemption_trigger(adreno_dev);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 void a5xx_preemption_schedule(struct adreno_device *adreno_dev)
@@ -495,12 +490,7 @@ static int a5xx_preemption_ringbuffer_init(struct adreno_device *adreno_dev,
 	int ret;
 
 	ret = kgsl_allocate_global(device, &rb->preemption_desc,
-<<<<<<< HEAD
 		A5XX_CP_CTXRECORD_SIZE_IN_BYTES, 0, KGSL_MEMDESC_PRIVILEGED);
-=======
-		A5XX_CP_CTXRECORD_SIZE_IN_BYTES, 0, KGSL_MEMDESC_PRIVILEGED,
-		"preemption_desc");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		return ret;
 
@@ -535,12 +525,7 @@ static int a5xx_preemption_iommu_init(struct adreno_device *adreno_dev)
 
 	/* Allocate mem for storing preemption smmu record */
 	return kgsl_allocate_global(device, &iommu->smmu_info, PAGE_SIZE,
-<<<<<<< HEAD
 		KGSL_MEMFLAGS_GPUREADONLY, KGSL_MEMDESC_PRIVILEGED);
-=======
-		KGSL_MEMFLAGS_GPUREADONLY, KGSL_MEMDESC_PRIVILEGED,
-		"smmu_info");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 #else
 static int a5xx_preemption_iommu_init(struct adreno_device *adreno_dev)
@@ -570,12 +555,7 @@ int a5xx_preemption_init(struct adreno_device *adreno_dev)
 	/* Allocate mem for storing preemption counters */
 	ret = kgsl_allocate_global(device, &preempt->counters,
 		adreno_dev->num_ringbuffers *
-<<<<<<< HEAD
 		A5XX_CP_CTXRECORD_PREEMPTION_COUNTER_SIZE, 0, 0);
-=======
-		A5XX_CP_CTXRECORD_PREEMPTION_COUNTER_SIZE, 0, 0,
-		"preemption_counters");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		return ret;
 

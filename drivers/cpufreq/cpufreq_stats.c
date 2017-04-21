@@ -8,14 +8,11 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/cpu.h>
 #include <linux/cpufreq.h>
@@ -76,13 +73,8 @@ static int cpufreq_stats_update(unsigned int cpu)
 	struct all_cpufreq_stats *all_stat;
 	unsigned long long cur_time;
 
-<<<<<<< HEAD
 	spin_lock(&cpufreq_stats_lock);
 	cur_time = get_jiffies_64();
-=======
-	cur_time = get_jiffies_64();
-	spin_lock(&cpufreq_stats_lock);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	stat = per_cpu(cpufreq_stats_table, cpu);
 	all_stat = per_cpu(all_cpufreq_stats, cpu);
 	if (!stat) {
@@ -90,7 +82,6 @@ static int cpufreq_stats_update(unsigned int cpu)
 		return 0;
 	}
 	if (stat->time_in_state) {
-<<<<<<< HEAD
 		u64 delta = 0;
 
 		if (time_after64((u64)cur_time, (u64)stat->last_time))
@@ -99,13 +90,6 @@ static int cpufreq_stats_update(unsigned int cpu)
 		stat->time_in_state[stat->last_index] += delta;
 		if (all_stat)
 			all_stat->time_in_state[stat->last_index] += delta;
-=======
-		stat->time_in_state[stat->last_index] +=
-			cur_time - stat->last_time;
-		if (all_stat)
-			all_stat->time_in_state[stat->last_index] +=
-					cur_time - stat->last_time;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	stat->last_time = cur_time;
 	spin_unlock(&cpufreq_stats_lock);
@@ -626,12 +610,6 @@ static int cpufreq_stat_notifier_policy(struct notifier_block *nb,
 	if (val == CPUFREQ_UPDATE_POLICY_CPU) {
 		cpufreq_stats_update_policy_cpu(policy);
 		return 0;
-<<<<<<< HEAD
-=======
-	} else if (val == CPUFREQ_REMOVE_POLICY) {
-		__cpufreq_stats_free_table(policy);
-		return 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	table = cpufreq_frequency_get_table(cpu);
@@ -651,11 +629,8 @@ static int cpufreq_stat_notifier_policy(struct notifier_block *nb,
 
 	if (val == CPUFREQ_CREATE_POLICY)
 		ret = __cpufreq_stats_create_table(policy, table, count);
-<<<<<<< HEAD
 	else if (val == CPUFREQ_REMOVE_POLICY)
 		__cpufreq_stats_free_table(policy);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return ret;
 }

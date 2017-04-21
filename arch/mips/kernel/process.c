@@ -437,11 +437,7 @@ unsigned long notrace unwind_stack_by_address(unsigned long stack_page,
 		    *sp + sizeof(*regs) <= stack_page + THREAD_SIZE - 32) {
 			regs = (struct pt_regs *)*sp;
 			pc = regs->cp0_epc;
-<<<<<<< HEAD
 			if (!user_mode(regs) && __kernel_text_address(pc)) {
-=======
-			if (__kernel_text_address(pc)) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				*sp = regs->regs[29];
 				*ra = regs->regs[31];
 				return pc;

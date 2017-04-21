@@ -8,14 +8,11 @@
  * Software Foundation; either version 2 of the License, or (at your option)
  * any later version.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -228,15 +225,11 @@ static struct xfrm_algo_desc aalg_list[] = {
 
 	.uinfo = {
 		.auth = {
-<<<<<<< HEAD
 #ifdef CONFIG_XFRM_RFC_4868_TRUNCATION
 			.icv_truncbits = 128,
 #else
 			.icv_truncbits = 96,
 #endif
-=======
-			.icv_truncbits = 96,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			.icv_fullbits = 256,
 		}
 	},

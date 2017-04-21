@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -513,10 +509,7 @@ static int btfm_slim_remove(struct slim_device *slim)
 	BTFMSLIM_DBG("");
 	mutex_destroy(&btfm_slim->io_lock);
 	mutex_destroy(&btfm_slim->xfer_lock);
-<<<<<<< HEAD
 	kfree(btfm_slim);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	snd_soc_unregister_codec(&slim->dev);
 
 	BTFMSLIM_DBG("slim_remove_device() - btfm_slim->slim_ifd");
@@ -524,11 +517,6 @@ static int btfm_slim_remove(struct slim_device *slim)
 
 	BTFMSLIM_DBG("slim_remove_device() - btfm_slim->slim_pgd");
 	slim_remove_device(slim);
-<<<<<<< HEAD
-=======
-
-	kfree(btfm_slim);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 

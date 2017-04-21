@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -13,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/clk.h>
 #include <linux/compat.h>
@@ -746,12 +739,7 @@ static long ipa_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 			retval = -EINVAL;
 			break;
 		}
-<<<<<<< HEAD
 		if (ipa2_del_hdr((struct ipa_ioc_del_hdr *)param)) {
-=======
-		if (ipa2_del_hdr_by_user((struct ipa_ioc_del_hdr *)param,
-			true)) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			retval = -EFAULT;
 			break;
 		}
@@ -1435,13 +1423,8 @@ static long ipa_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 			retval = -EINVAL;
 			break;
 		}
-<<<<<<< HEAD
 		if (ipa2_del_hdr_proc_ctx(
 			(struct ipa_ioc_del_hdr_proc_ctx *)param)) {
-=======
-		if (ipa2_del_hdr_proc_ctx_by_user(
-			(struct ipa_ioc_del_hdr_proc_ctx *)param, true)) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			retval = -EFAULT;
 			break;
 		}
@@ -1859,11 +1842,7 @@ static int ipa_q6_clean_q6_tables(void)
 	u32 max_cmds = ipa_get_max_flt_rt_cmds(ipa_ctx->ipa_num_pipes);
 
 	mem.base = dma_alloc_coherent(ipa_ctx->pdev, 4, &mem.phys_base,
-<<<<<<< HEAD
 		GFP_ATOMIC);
-=======
-		GFP_KERNEL);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!mem.base) {
 		IPAERR("failed to alloc DMA buff of size 4\n");
 		return -ENOMEM;
@@ -2827,11 +2806,7 @@ fail_schedule_delayed_work:
 	if (ipa_ctx->dflt_v4_rt_rule_hdl)
 		__ipa_del_rt_rule(ipa_ctx->dflt_v4_rt_rule_hdl);
 	if (ipa_ctx->excp_hdr_hdl)
-<<<<<<< HEAD
 		__ipa_del_hdr(ipa_ctx->excp_hdr_hdl);
-=======
-		__ipa_del_hdr(ipa_ctx->excp_hdr_hdl, false);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ipa2_teardown_sys_pipe(ipa_ctx->clnt_hdl_cmd);
 fail_cmd:
 	return result;
@@ -2843,11 +2818,7 @@ static void ipa_teardown_apps_pipes(void)
 	ipa2_teardown_sys_pipe(ipa_ctx->clnt_hdl_data_in);
 	__ipa_del_rt_rule(ipa_ctx->dflt_v6_rt_rule_hdl);
 	__ipa_del_rt_rule(ipa_ctx->dflt_v4_rt_rule_hdl);
-<<<<<<< HEAD
 	__ipa_del_hdr(ipa_ctx->excp_hdr_hdl);
-=======
-	__ipa_del_hdr(ipa_ctx->excp_hdr_hdl, false);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ipa2_teardown_sys_pipe(ipa_ctx->clnt_hdl_cmd);
 }
 
@@ -3452,11 +3423,7 @@ void ipa_inc_acquire_wakelock(enum ipa_wakelock_ref_client ref_client)
 		return;
 	spin_lock_irqsave(&ipa_ctx->wakelock_ref_cnt.spinlock, flags);
 	if (ipa_ctx->wakelock_ref_cnt.cnt & (1 << ref_client))
-<<<<<<< HEAD
 		IPAERR("client enum %d mask already set. ref cnt = %d\n",
-=======
-		IPADBG("client enum %d mask already set. ref cnt = %d\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ref_client, ipa_ctx->wakelock_ref_cnt.cnt);
 	ipa_ctx->wakelock_ref_cnt.cnt |= (1 << ref_client);
 	if (ipa_ctx->wakelock_ref_cnt.cnt)

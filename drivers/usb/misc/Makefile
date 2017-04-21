@@ -28,7 +28,4 @@ obj-$(CONFIG_USB_HSIC_USB3503)		+= usb3503.o
 
 obj-$(CONFIG_USB_SISUSBVGA)		+= sisusbvga/
 obj-$(CONFIG_USB_LINK_LAYER_TEST)	+= lvstest.o
-<<<<<<< HEAD
 obj-$(CONFIG_USB_CC_FUSB301)		+= fusb301.o
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

@@ -1302,7 +1302,6 @@ static int sd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
 	struct scsi_disk *sdkp = scsi_disk(bdev->bd_disk);
 	struct scsi_device *sdp = sdkp->device;
 	struct Scsi_Host *host = sdp->host;
-<<<<<<< HEAD
 	sector_t capacity = logical_to_sectors(sdp, sdkp->capacity);
 	int diskinfo[4];
 
@@ -1316,20 +1315,6 @@ static int sd_getgeo(struct block_device *bdev, struct hd_geometry *geo)
 		host->hostt->bios_param(sdp, bdev, capacity, diskinfo);
 	else
 		scsicam_bios_param(bdev, capacity, diskinfo);
-=======
-	int diskinfo[4];
-
-	/* default to most commonly used values */
-        diskinfo[0] = 0x40;	/* 1 << 6 */
-       	diskinfo[1] = 0x20;	/* 1 << 5 */
-       	diskinfo[2] = sdkp->capacity >> 11;
-	
-	/* override with calculated, extended default, or driver values */
-	if (host->hostt->bios_param)
-		host->hostt->bios_param(sdp, bdev, sdkp->capacity, diskinfo);
-	else
-		scsicam_bios_param(bdev, sdkp->capacity, diskinfo);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	geo->heads = diskinfo[0];
 	geo->sectors = diskinfo[1];
@@ -2231,17 +2216,6 @@ got_data:
 	} else
 		sdkp->max_xfer_blocks = SD_DEF_XFER_BLOCKS;
 
-<<<<<<< HEAD
-=======
-	/* Rescale capacity to 512-byte units */
-	if (sector_size == 4096)
-		sdkp->capacity <<= 3;
-	else if (sector_size == 2048)
-		sdkp->capacity <<= 2;
-	else if (sector_size == 1024)
-		sdkp->capacity <<= 1;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	blk_queue_physical_block_size(sdp->request_queue,
 				      sdkp->physical_block_size);
 	sdkp->device->sector_size = sector_size;
@@ -2759,11 +2733,7 @@ static int sd_revalidate_disk(struct gendisk *disk)
 	sdkp->disk->queue->limits.max_sectors =
 		min_not_zero(queue_max_hw_sectors(sdkp->disk->queue), max_xfer);
 
-<<<<<<< HEAD
 	set_capacity(disk, logical_to_sectors(sdp, sdkp->capacity));
-=======
-	set_capacity(disk, sdkp->capacity);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	sd_config_write_same(sdkp);
 	kfree(buffer);
 

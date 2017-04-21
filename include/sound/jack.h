@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef __SOUND_JACK_H
 #define __SOUND_JACK_H
 
@@ -57,11 +54,8 @@ enum snd_jack_types {
 	SND_JACK_MICROPHONE2    = 0x0000200,
 	SND_JACK_ANC_HEADPHONE = SND_JACK_HEADPHONE | SND_JACK_MICROPHONE |
 				 SND_JACK_MICROPHONE2,
-<<<<<<< HEAD
 	SND_JACK_STEREO_MICROPHONE = SND_JACK_MICROPHONE |
 				     SND_JACK_MICROPHONE2,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Kept separate from switches to facilitate implementation */
 	SND_JACK_BTN_0		= 0x4000000,
 	SND_JACK_BTN_1		= 0x2000000,

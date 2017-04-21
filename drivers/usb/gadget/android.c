@@ -15,14 +15,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2012 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/init.h>
 #include <linux/module.h>
@@ -44,17 +41,10 @@
 
 #include "gadget_chips.h"
 
-<<<<<<< HEAD
 
 /* Wait time (ms) before sending CONFIGURED uevent */
 #define WAIT_TIME_BEFORE_SENDING_CONFIGURED		(50)
 
-=======
-#ifdef CONFIG_MEDIA_SUPPORT
-#include "f_uvc.h"
-#include "u_uvc.h"
-#endif
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "u_fs.h"
 #include "u_ecm.h"
 #include "u_ncm.h"
@@ -77,12 +67,9 @@
 #include "f_accessory.c"
 #include "f_charger.c"
 #define USB_ETH_RNDIS y
-<<<<<<< HEAD
 #include "f_hid.h"
 #include "f_hid_android_keyboard.c"
 #include "f_hid_android_mouse.c"
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "f_rndis.c"
 #include "rndis.c"
 #include "f_qc_ecm.c"
@@ -96,12 +83,6 @@
 #include "f_mass_storage.h"
 
 USB_ETHERNET_MODULE_PARAMETERS();
-<<<<<<< HEAD
-=======
-#ifdef CONFIG_MEDIA_SUPPORT
-USB_VIDEO_MODULE_PARAMETERS();
-#endif
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include "debug.h"
 
 MODULE_AUTHOR("Mike Lockwood");
@@ -115,12 +96,9 @@ static const char longname[] = "Gadget Android";
 #define VENDOR_ID		0x18D1
 #define PRODUCT_ID		0x0001
 
-<<<<<<< HEAD
 /* Wait time (ms) before sending CONFIGURED uevent */
 #define WAIT_TIME_BEFORE_SENDING_CONFIGURED		(50)
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define ANDROID_DEVICE_NODE_NAME_LENGTH 11
 /* f_midi configuration */
 #define MIDI_INPUT_PORTS    1
@@ -275,11 +253,6 @@ static struct android_configuration *alloc_android_config
 static void free_android_config(struct android_dev *dev,
 				struct android_configuration *conf);
 
-<<<<<<< HEAD
-=======
-static bool video_enabled;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* string IDs are assigned dynamically */
 #define STRING_MANUFACTURER_IDX		0
 #define STRING_PRODUCT_IDX		1
@@ -513,11 +486,7 @@ static void android_work(struct work_struct *data)
 		 * a chance to wakeup userspace threads and notify disconnect
 		 */
 		if (uevent_envp == configured)
-<<<<<<< HEAD
 			msleep(WAIT_TIME_BEFORE_SENDING_CONFIGURED);
-=======
-			msleep(50);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		/* Do not notify on suspend / resume */
 		if (next_state != USB_SUSPENDED && next_state != USB_RESUMED) {
@@ -527,11 +496,7 @@ static void android_work(struct work_struct *data)
 		}
 		pr_info("%s: sent uevent %s\n", __func__, uevent_envp[0]);
 	} else {
-<<<<<<< HEAD
 		pr_info("%s: did not send uevent (%d %d %p)\n", __func__,
-=======
-		pr_info("%s: did not send uevent (%d %d %pK)\n", __func__,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			 dev->connected, dev->sw_connected, cdev->config);
 	}
 }
@@ -570,15 +535,7 @@ static int android_enable(struct android_dev *dev)
 		if (ktime_to_ms(diff) < MIN_DISCONNECT_DELAY_MS)
 			msleep(MIN_DISCONNECT_DELAY_MS - ktime_to_ms(diff));
 
-<<<<<<< HEAD
 		usb_gadget_connect(cdev->gadget);
-=======
-		/* Userspace UVC driver will trigger connect for video */
-		if (!video_enabled)
-			usb_gadget_connect(cdev->gadget);
-		else
-			pr_debug("defer gadget connect until usersapce opens video device\n");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	return err;
@@ -588,18 +545,8 @@ static void android_disable(struct android_dev *dev)
 {
 	struct usb_composite_dev *cdev = dev->cdev;
 	struct android_configuration *conf;
-<<<<<<< HEAD
 
 	if (dev->disable_depth++ == 0) {
-=======
-	bool do_put = false;
-
-	if (dev->disable_depth++ == 0) {
-		if (cdev->suspended && cdev->config) {
-			usb_gadget_autopm_get(cdev->gadget);
-			do_put = true;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (gadget_is_dwc3(cdev->gadget)) {
 			/* Cancel pending control requests */
 			usb_ep_dequeue(cdev->gadget->ep0, cdev->req);
@@ -618,11 +565,6 @@ static void android_disable(struct android_dev *dev)
 			list_for_each_entry(conf, &dev->configs, list_item)
 				usb_remove_config(cdev, &conf->usb_config);
 		}
-<<<<<<< HEAD
-=======
-		if (do_put)
-			usb_gadget_autopm_put_async(cdev->gadget);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 }
 
@@ -1567,188 +1509,6 @@ static struct android_usb_function audio_function = {
 };
 #endif
 
-<<<<<<< HEAD
-=======
-/* PERIPHERAL uac2 */
-struct uac2_function_config {
-	struct usb_function *func;
-	struct usb_function_instance *fi;
-};
-
-static int uac2_function_init(struct android_usb_function *f,
-			       struct usb_composite_dev *cdev)
-{
-	struct uac2_function_config *config;
-
-	f->config = kzalloc(sizeof(*config), GFP_KERNEL);
-	if (!f->config)
-		return -ENOMEM;
-
-	config = f->config;
-
-	config->fi = usb_get_function_instance("uac2");
-	if (IS_ERR(config->fi))
-		return PTR_ERR(config->fi);
-
-	config->func = usb_get_function(config->fi);
-	if (IS_ERR(config->func)) {
-		usb_put_function_instance(config->fi);
-		return PTR_ERR(config->func);
-	}
-
-	return 0;
-}
-
-static void uac2_function_cleanup(struct android_usb_function *f)
-{
-	struct uac2_function_config *config = f->config;
-
-	if (config) {
-		usb_put_function(config->func);
-		usb_put_function_instance(config->fi);
-	}
-
-	kfree(f->config);
-	f->config = NULL;
-}
-
-static int uac2_function_bind_config(struct android_usb_function *f,
-					  struct usb_configuration *c)
-{
-	struct uac2_function_config *config = f->config;
-
-	return usb_add_function(c, config->func);
-}
-
-static struct android_usb_function uac2_function = {
-	.name		= "uac2_func",
-	.init		= uac2_function_init,
-	.cleanup	= uac2_function_cleanup,
-	.bind_config	= uac2_function_bind_config,
-};
-
-#ifdef CONFIG_MEDIA_SUPPORT
-/* PERIPHERAL VIDEO */
-struct video_function_config {
-	struct usb_function *func;
-	struct usb_function_instance *fi;
-};
-
-static int video_function_init(struct android_usb_function *f,
-			       struct usb_composite_dev *cdev)
-{
-	struct f_uvc_opts *uvc_opts;
-	struct video_function_config *config;
-
-	f->config = kzalloc(sizeof(*config), GFP_KERNEL);
-	if (!f->config)
-		return -ENOMEM;
-
-	config = f->config;
-
-	config->fi = usb_get_function_instance("uvc");
-	if (IS_ERR(config->fi))
-		return PTR_ERR(config->fi);
-
-	uvc_opts = container_of(config->fi, struct f_uvc_opts, func_inst);
-
-	uvc_opts->streaming_interval = streaming_interval;
-	uvc_opts->streaming_maxpacket = streaming_maxpacket;
-	uvc_opts->streaming_maxburst = streaming_maxburst;
-	uvc_set_trace_param(trace);
-
-	uvc_opts->fs_control = uvc_fs_control_cls;
-	uvc_opts->ss_control = uvc_ss_control_cls;
-	uvc_opts->fs_streaming = uvc_fs_streaming_cls;
-	uvc_opts->hs_streaming = uvc_hs_streaming_cls;
-	uvc_opts->ss_streaming = uvc_ss_streaming_cls;
-
-	config->func = usb_get_function(config->fi);
-	if (IS_ERR(config->func)) {
-		usb_put_function_instance(config->fi);
-		return PTR_ERR(config->func);
-	}
-
-	return 0;
-}
-
-static void video_function_cleanup(struct android_usb_function *f)
-{
-	struct video_function_config *config = f->config;
-
-	if (config) {
-		usb_put_function(config->func);
-		usb_put_function_instance(config->fi);
-	}
-
-	kfree(f->config);
-	f->config = NULL;
-}
-
-static int video_function_bind_config(struct android_usb_function *f,
-					  struct usb_configuration *c)
-{
-	struct video_function_config *config = f->config;
-
-	return usb_add_function(c, config->func);
-}
-
-static void video_function_enable(struct android_usb_function *f)
-{
-	video_enabled = true;
-}
-
-static void video_function_disable(struct android_usb_function *f)
-{
-	video_enabled = false;
-}
-
-static struct android_usb_function video_function = {
-	.name		= "video",
-	.init		= video_function_init,
-	.cleanup	= video_function_cleanup,
-	.bind_config	= video_function_bind_config,
-	.enable		= video_function_enable,
-	.disable	= video_function_disable,
-};
-
-int video_ready_callback(struct usb_function *function)
-{
-	struct android_dev *dev = video_function.android_dev;
-	struct usb_composite_dev *cdev;
-
-	if (!dev) {
-		pr_err("%s: dev is NULL\n", __func__);
-		return -ENODEV;
-	}
-
-	cdev = dev->cdev;
-
-	pr_debug("%s: connect\n", __func__);
-	usb_gadget_connect(cdev->gadget);
-
-	return 0;
-}
-
-int video_closed_callback(struct usb_function *function)
-{
-	struct android_dev *dev = video_function.android_dev;
-	struct usb_composite_dev *cdev;
-
-	if (!dev) {
-		pr_err("%s: dev is NULL\n", __func__);
-		return -ENODEV;
-	}
-
-	cdev = dev->cdev;
-
-	pr_debug("%s: disconnect\n", __func__);
-	usb_gadget_disconnect(cdev->gadget);
-
-	return 0;
-}
-#endif
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* DIAG */
 static char diag_clients[32];	    /*enabled DIAG clients- "diag[,diag_mdm]" */
@@ -2178,10 +1938,6 @@ static int serial_function_bind_config(struct android_usb_function *f,
 	err = gport_setup(c);
 	if (err) {
 		pr_err("serial: Cannot setup transports");
-<<<<<<< HEAD
-=======
-		gserial_deinit_port();
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		goto out;
 	}
 
@@ -2866,12 +2622,9 @@ static int mass_storage_function_init(struct android_usb_function *f,
 	}
 
 	fsg_mod_data.removable[0] = true;
-<<<<<<< HEAD
 	fsg_mod_data.removable_count = 1;
 	fsg_mod_data.cdrom[0] = true;
 	fsg_mod_data.cdrom_count = 1;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	fsg_config_from_params(&m_config, &fsg_mod_data, fsg_num_buffers);
 	fsg_opts = fsg_opts_from_func_inst(config->f_ms_inst);
 	ret = fsg_common_set_num_buffers(fsg_opts->common, fsg_num_buffers);
@@ -3305,7 +3058,6 @@ static struct android_usb_function dpl_gsi_function = {
 	.bind_config	= dpl_gsi_function_bind_config,
 };
 
-<<<<<<< HEAD
 static int hid_function_init(struct android_usb_function *f, struct usb_composite_dev *cdev)
 {
 	return ghid_setup(cdev->gadget, 2);
@@ -3341,8 +3093,6 @@ static struct android_usb_function hid_function = {
 	.bind_config	= hid_function_bind_config,
 };
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct android_usb_function *supported_functions[] = {
 	[ANDROID_FFS] = &ffs_function,
 	[ANDROID_MBIM_BAM] = &mbim_function,
@@ -3384,13 +3134,6 @@ static struct android_usb_function *default_functions[] = {
 	&ecm_qc_function,
 #ifdef CONFIG_SND_PCM
 	&audio_function,
-<<<<<<< HEAD
-=======
-	&uac2_function,
-#endif
-#ifdef CONFIG_MEDIA_SUPPORT
-	&video_function,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 	&rmnet_function,
 	&gps_function,
@@ -3408,10 +3151,7 @@ static struct android_usb_function *default_functions[] = {
 	&mass_storage_function,
 	&accessory_function,
 	&audio_source_function,
-<<<<<<< HEAD
 	&hid_function,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	&charger_function,
 #ifdef CONFIG_SND_RAWMIDI
 	&midi_function,
@@ -3782,11 +3522,8 @@ functions_store(struct device *pdev, struct device_attribute *attr,
 		}
 	}
 
-<<<<<<< HEAD
 	/* HID driver always enabled, it's the whole point of this kernel patch */
 	android_enable_function(dev, conf, "hid");
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Free uneeded configurations if exists */
 	while (curr_conf->next != &dev->configs) {
 		conf = list_entry(curr_conf->next,
@@ -4046,7 +3783,6 @@ static struct device_attribute *android_usb_attributes[] = {
 	NULL
 };
 
-<<<<<<< HEAD
 #ifdef CONFIG_USB_MIRRORLINK
 static struct miscdevice mirrorlink_device = {
 	.minor = MISC_DYNAMIC_MINOR,
@@ -4105,8 +3841,6 @@ static void mirrorlink_cleanup(void)
 }
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /*-------------------------------------------------------------------------*/
 /* Composite driver */
 
@@ -4170,16 +3904,12 @@ static int android_bind(struct usb_composite_dev *cdev)
 	strlcpy(product_string, "Android", sizeof(product_string) - 1);
 	strlcpy(serial_string, "0123456789ABCDEF", sizeof(serial_string) - 1);
 
-<<<<<<< HEAD
 #ifdef CONFIG_USB_ANDROID_PRODUCTION
 	/* Set id to 0 to comply with Sony production tools */
 	id = 0;
 #else
 	id = usb_string_id(cdev);
 #endif
-=======
-	id = usb_string_id(cdev);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (id < 0)
 		return id;
 	strings_dev[STRING_SERIAL_IDX].id = id;
@@ -4258,7 +3988,6 @@ android_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *c)
 	if (value < 0)
 		value = acc_ctrlrequest(cdev, c);
 
-<<<<<<< HEAD
 #ifdef CONFIG_USB_MIRRORLINK
 	/* Also handle the control request to enable CDC NCM mode
 	 * for MirrorLink. */
@@ -4266,8 +3995,6 @@ android_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *c)
 		value = mirrorlink_ctrlrequest(cdev, c);
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (value < 0)
 		value = composite_setup_func(gadget, c);
 
@@ -4439,11 +4166,7 @@ static int usb_diag_update_pid_and_serial_num(u32 pid, const char *snum)
 		return -ENODEV;
 	}
 
-<<<<<<< HEAD
 	pr_debug("%s: dload:%p pid:%x serial_num:%s\n",
-=======
-	pr_debug("%s: dload:%pK pid:%x serial_num:%s\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				__func__, diag_dload, pid, snum);
 
 	/* update pid */
@@ -4610,7 +4333,6 @@ static int android_probe(struct platform_device *pdev)
 		goto err_probe;
 	}
 
-<<<<<<< HEAD
 #ifdef CONFIG_USB_MIRRORLINK
 	ret = mirrorlink_init();
 	if (ret) {
@@ -4619,8 +4341,6 @@ static int android_probe(struct platform_device *pdev)
 	}
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* pm qos request to prevent apps idle power collapse */
 	android_dev->curr_pm_qos_state = NO_USB_VOTE;
 	if (pdata && pdata->pm_qos_latency[0]) {
@@ -4658,13 +4378,10 @@ static int android_remove(struct platform_device *pdev)
 	if (pdata)
 		usb_core_id = pdata->usb_core_id;
 
-<<<<<<< HEAD
 #ifdef CONFIG_USB_MIRRORLINK
 	mirrorlink_cleanup();
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Find the android dev from the list */
 	list_for_each_entry(dev, &android_dev_list, list_item) {
 		if (!dev->pdata)

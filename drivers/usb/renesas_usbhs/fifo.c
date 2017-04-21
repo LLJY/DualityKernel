@@ -192,12 +192,8 @@ static int usbhsf_pkt_handler(struct usbhs_pipe *pipe, int type)
 		goto __usbhs_pkt_handler_end;
 	}
 
-<<<<<<< HEAD
 	if (likely(func))
 		ret = func(pkt, &is_done);
-=======
-	ret = func(pkt, &is_done);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (is_done)
 		__usbhsf_pkt_del(pkt);
@@ -899,10 +895,7 @@ static int usbhsf_dma_prepare_push(struct usbhs_pkt *pkt, int *is_done)
 
 	pkt->trans = len;
 
-<<<<<<< HEAD
 	usbhsf_tx_irq_ctrl(pipe, 0);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	INIT_WORK(&pkt->work, xfer_work);
 	schedule_work(&pkt->work);
 

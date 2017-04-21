@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -14,14 +10,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <asm/dma-iommu.h>
 #include <asm/memory.h>
@@ -117,15 +110,7 @@ static int __tzbsp_set_video_state(enum tzbsp_video_state state);
  */
 static inline void __strict_check(struct venus_hfi_device *device)
 {
-<<<<<<< HEAD
 	WARN_ON(!mutex_is_locked(&device->lock));
-=======
-	if (!mutex_is_locked(&device->lock)) {
-		dprintk(VIDC_WARN,
-			"device->lock mutex is not locked\n");
-		WARN_ON(VIDC_DBG_WARN_ENABLE);
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static inline void __set_state(struct venus_hfi_device *device,
@@ -287,11 +272,7 @@ static int __acquire_regulator(struct regulator_info *rinfo)
 	if (!regulator_is_enabled(rinfo->regulator)) {
 		dprintk(VIDC_WARN, "Regulator is not enabled %s\n",
 			rinfo->name);
-<<<<<<< HEAD
 		WARN_ON(1);
-=======
-		WARN_ON(VIDC_DBG_WARN_ENABLE);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	return rc;
@@ -641,11 +622,7 @@ static void __write_register(struct venus_hfi_device *device,
 	if (!device->power_enabled) {
 		dprintk(VIDC_WARN,
 			"HFI Write register failed : Power is OFF\n");
-<<<<<<< HEAD
 		WARN_ON(1);
-=======
-		WARN_ON(VIDC_DBG_WARN_ENABLE);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return;
 	}
 
@@ -671,11 +648,7 @@ static int __read_register(struct venus_hfi_device *device, u32 reg)
 	if (!device->power_enabled) {
 		dprintk(VIDC_WARN,
 			"HFI Read register failed : Power is OFF\n");
-<<<<<<< HEAD
 		WARN_ON(1);
-=======
-		WARN_ON(VIDC_DBG_WARN_ENABLE);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return -EINVAL;
 	}
 
@@ -1378,11 +1351,7 @@ static int __halt_axi(struct venus_hfi_device *device)
 	if (!device->power_enabled) {
 		dprintk(VIDC_WARN,
 			"Clocks are OFF, skipping AXI HALT\n");
-<<<<<<< HEAD
 		WARN_ON(1);
-=======
-		WARN_ON(VIDC_DBG_WARN_ENABLE);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return -EINVAL;
 	}
 
@@ -3237,11 +3206,8 @@ static void venus_hfi_pm_handler(struct work_struct *work)
 	const int max_tries = 5;
 	struct venus_hfi_device *device = list_first_entry(
 			&hal_ctxt.dev_head, struct venus_hfi_device, list);
-<<<<<<< HEAD
 	char msg[SUBSYS_CRASH_REASON_LEN];
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!device) {
 		dprintk(VIDC_ERR, "%s: NULL device\n", __func__);
 		return;
@@ -3255,12 +3221,9 @@ static void venus_hfi_pm_handler(struct work_struct *work)
 		dprintk(VIDC_WARN, "Failed to PC for %d times\n",
 				device->skip_pc_count);
 		device->skip_pc_count = 0;
-<<<<<<< HEAD
 		snprintf(msg, sizeof(msg),
 			"Failed to prepare for PC, rc : %d\n", rc);
 		subsystem_crash_reason("venus", msg);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		__process_fatal_error(device);
 		return;
 	}
@@ -3359,7 +3322,6 @@ static void __dump_venus_debug_registers(struct venus_hfi_device *device)
 	dprintk(VIDC_ERR, "VIDC_CPU_CS_SCIACMDARG0: 0x%x\n", reg);
 }
 
-<<<<<<< HEAD
 static void venus_hfi_crash_reason(struct hfi_sfr_struct *vsfr)
 {
 	char msg[SUBSYS_CRASH_REASON_LEN];
@@ -3369,8 +3331,6 @@ static void venus_hfi_crash_reason(struct hfi_sfr_struct *vsfr)
 	subsystem_crash_reason("venus", msg);
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void __process_sys_error(struct venus_hfi_device *device)
 {
 	struct hfi_sfr_struct *vsfr = NULL;
@@ -3395,10 +3355,7 @@ static void __process_sys_error(struct venus_hfi_device *device)
 
 		dprintk(VIDC_ERR, "SFR Message from FW: %s\n",
 				vsfr->rg_data);
-<<<<<<< HEAD
 		venus_hfi_crash_reason(vsfr);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 }
 
@@ -3486,17 +3443,11 @@ static int __response_handler(struct venus_hfi_device *device)
 			}
 		};
 
-<<<<<<< HEAD
 		if (vsfr) {
 			dprintk(VIDC_ERR, "SFR Message from FW: %s\n",
 					vsfr->rg_data);
 			venus_hfi_crash_reason(vsfr);
 		}
-=======
-		if (vsfr)
-			dprintk(VIDC_ERR, "SFR Message from FW: %s\n",
-					vsfr->rg_data);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		__dump_venus_debug_registers(device);
 		dprintk(VIDC_ERR, "Received watchdog timeout\n");
@@ -3603,15 +3554,7 @@ static int __response_handler(struct venus_hfi_device *device)
 		if (session_id) {
 			struct hal_session *session = NULL;
 
-<<<<<<< HEAD
 			WARN_ON(upper_32_bits((uintptr_t)*session_id) != 0);
-=======
-			if (upper_32_bits((uintptr_t)*session_id) != 0) {
-				dprintk(VIDC_WARN,
-					"Upper 32 bits of session_id != 0\n");
-				WARN_ON(VIDC_DBG_WARN_ENABLE);
-			}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			session = __get_session(device,
 					(u32)(uintptr_t)*session_id);
 			if (!session) {
@@ -4151,11 +4094,7 @@ static int __disable_regulator(struct regulator_info *rinfo)
 disable_regulator_failed:
 
 	/* Bring attention to this issue */
-<<<<<<< HEAD
 	WARN_ON(1);
-=======
-	WARN_ON(VIDC_DBG_WARN_ENABLE);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return rc;
 }
 

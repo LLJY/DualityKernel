@@ -88,7 +88,6 @@ static char *inode_to_filename(struct inode *inode)
 	return filename;
 }
 
-<<<<<<< HEAD
 static int pfk_inode_alloc_security(struct inode *inode)
 {
 	struct inode_security_struct *i_sec = NULL;
@@ -144,13 +143,6 @@ static int __init pfk_lsm_init(void)
 			return -ENODEV;
 		}
 
-=======
-static int __init pfk_lsm_init(void)
-{
-	if (!selinux_is_enabled()) {
-		pr_err("se linux is not enabled.\n");
-		return -ENODEV;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	return 0;

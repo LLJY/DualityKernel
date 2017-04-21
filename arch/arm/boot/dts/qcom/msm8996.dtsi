@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2014-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -13,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include "skeleton64.dtsi"
 #include <dt-bindings/clock/msm-clocks-8996.h>
@@ -33,11 +26,7 @@
 	interrupt-parent = <&intc>;
 
 	chosen {
-<<<<<<< HEAD
 		bootargs = "sched_enable_hmp=1 sched_enable_power_aware=1";
-=======
-		bootargs = "sched_enable_hmp=1 sched_enable_power_aware=1 app_setting.use_32bit_app_setting=1";
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	aliases {
@@ -74,10 +63,7 @@
 			qcom,limits-info = <&mitigation_profile0>;
 			enable-method = "psci";
 			qcom,ea = <&ea0>;
-<<<<<<< HEAD
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			next-level-cache = <&L2_0>;
 			L2_0: l2-cache {
 			      compatible = "arm,arch-cache";
@@ -100,10 +86,7 @@
 			qcom,limits-info = <&mitigation_profile1>;
 			enable-method = "psci";
 			qcom,ea = <&ea1>;
-<<<<<<< HEAD
 			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			next-level-cache = <&L2_0>;
 			L1_D_1: l1-dcache {
 				compatible = "arm,arch-cache";
@@ -121,10 +104,7 @@
 			qcom,limits-info = <&mitigation_profile2>;
 			enable-method = "psci";
 			qcom,ea = <&ea2>;
-<<<<<<< HEAD
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			next-level-cache = <&L2_1>;
 			L2_1: l2-cache {
 			      compatible = "arm,arch-cache";
@@ -147,10 +127,7 @@
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile3>;
 			qcom,ea = <&ea3>;
-<<<<<<< HEAD
 			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			next-level-cache = <&L2_1>;
 			L1_D_101: l1-dcache {
 				compatible = "arm,arch-cache";
@@ -182,7 +159,6 @@
 				};
 			};
 		};
-<<<<<<< HEAD
 		energy-costs {
 			CPU_COST_0: core-cost0 {
 				busy-cost-data = <
@@ -298,8 +274,6 @@
 			};
 		};
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	soc: soc { };
@@ -3387,12 +3361,6 @@
 			qcom,msm-dai-q6-mi2s-dev-id = <2>;
 			qcom,msm-mi2s-rx-lines = <2>;
 			qcom,msm-mi2s-tx-lines = <1>;
-<<<<<<< HEAD
-=======
-			pinctrl-names = "default", "sleep";
-			pinctrl-0 = <&tert_mi2s_active &tert_mi2s_sd0_active>;
-			pinctrl-1 = <&tert_mi2s_sleep &tert_mi2s_sd0_sleep>;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		};
 
 		dai_mi2s_quat: qcom,msm-dai-q6-mi2s-quat {

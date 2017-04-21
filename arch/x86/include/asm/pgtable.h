@@ -99,14 +99,11 @@ static inline int pte_young(pte_t pte)
 	return pte_flags(pte) & _PAGE_ACCESSED;
 }
 
-<<<<<<< HEAD
 static inline int pmd_dirty(pmd_t pmd)
 {
 	return pmd_flags(pmd) & _PAGE_DIRTY;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline int pmd_young(pmd_t pmd)
 {
 	return pmd_flags(pmd) & _PAGE_ACCESSED;

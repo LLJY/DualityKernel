@@ -69,7 +69,6 @@ static int devfreq_simple_ondemand_func(struct devfreq *df,
 		return 0;
 	}
 
-<<<<<<< HEAD
 	/* Set MAX if it's busy enough - only if current frequency is not below 180 MHz */
 	if (stat.busy_time * 100 >
 		stat.total_time * dfso_upthreshold) {
@@ -77,12 +76,6 @@ static int devfreq_simple_ondemand_func(struct devfreq *df,
 			*freq = max;
 		else
 			*freq = 180000000;
-=======
-	/* Set MAX if it's busy enough */
-	if (stat.busy_time * 100 >
-	    stat.total_time * dfso_upthreshold) {
-		*freq = max;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return 0;
 	}
 

@@ -75,10 +75,7 @@ obj-$(CONFIG_QPNP_CHARGER)	+= qpnp-charger.o
 obj-$(CONFIG_QPNP_LINEAR_CHARGER)	+= qpnp-linear-charger.o
 obj-$(CONFIG_QPNP_SMBCHARGER)	+= qpnp-smbcharger.o pmic-voter.o
 obj-$(CONFIG_QPNP_TYPEC)	+= qpnp-typec.o
-<<<<<<< HEAD
 obj-$(CONFIG_QNS_SYSTEM)	+= qns_system.o
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 obj-$(CONFIG_CHARGER_TPS65090)	+= tps65090-charger.o
 obj-$(CONFIG_BATTERY_BCL)	+= battery_current_limit.o
 obj-$(CONFIG_MSM_BCL_CTL)	+= msm_bcl.o

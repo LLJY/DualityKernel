@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -546,11 +542,4 @@ struct ipa_hw_hdr_proc_ctx_add_hdr_cmd_seq {
 	struct ipa_hw_hdr_proc_ctx_tlv end;
 };
 
-<<<<<<< HEAD
-=======
-/* IPA HW DPS/HPS image memory sizes */
-#define IPA_HW_DPS_IMG_MEM_SIZE_V3_0 128
-#define IPA_HW_HPS_IMG_MEM_SIZE_V3_0 320
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif /* _IPAHAL_I_H_ */

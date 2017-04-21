@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2011-2015, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -128,10 +124,6 @@ void wcnss_suspend_notify(void);
 void wcnss_resume_notify(void);
 void wcnss_riva_log_debug_regs(void);
 void wcnss_pronto_log_debug_regs(void);
-<<<<<<< HEAD
-=======
-void wcnss_pronto_dump_regs(void);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int wcnss_is_hw_pronto_ver3(void);
 int wcnss_device_ready(void);
 bool wcnss_cbc_complete(void);

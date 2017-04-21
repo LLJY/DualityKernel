@@ -21,10 +21,7 @@
 #ifdef CONFIG_OF_GPIO
 #include <linux/of_platform.h>
 #endif
-<<<<<<< HEAD
 #include <asm/unaligned.h>
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define PCA953X_INPUT		0
 #define PCA953X_OUTPUT		1
@@ -158,11 +155,7 @@ static int pca953x_write_regs(struct pca953x_chip *chip, int reg, u8 *val)
 		switch (chip->chip_type) {
 		case PCA953X_TYPE:
 			ret = i2c_smbus_write_word_data(chip->client,
-<<<<<<< HEAD
 			    reg << 1, cpu_to_le16(get_unaligned((u16 *)val)));
-=======
-							reg << 1, (u16) *val);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			break;
 		case PCA957X_TYPE:
 			ret = i2c_smbus_write_byte_data(chip->client, reg << 1,

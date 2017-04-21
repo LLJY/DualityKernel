@@ -13,10 +13,7 @@
 #ifndef _NET_CNSS_COMMON_H_
 #define _NET_CNSS_COMMON_H_
 
-<<<<<<< HEAD
 #define MAX_FIRMWARE_SIZE (1 * 1024 * 1024)
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* max 20mhz channel count */
 #define CNSS_MAX_CH_NUM		45
 

@@ -48,13 +48,7 @@
 #define MSM_CAMERA_SUBDEV_SENSOR_INIT  14
 #define MSM_CAMERA_SUBDEV_OIS          15
 #define MSM_CAMERA_SUBDEV_FLASH        16
-<<<<<<< HEAD
 #define MSM_CAMERA_SUBDEV_EXT          17
-=======
-#define MSM_CAMERA_SUBDEV_IR_LED       17
-#define MSM_CAMERA_SUBDEV_IR_CUT       18
-#define MSM_CAMERA_SUBDEV_EXT          19
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define MSM_MAX_CAMERA_SENSORS  5
 

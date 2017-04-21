@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/init.h>
 #include <linux/err.h>
@@ -474,7 +471,6 @@ done:
 	return ret;
 }
 
-<<<<<<< HEAD
 static int msm_volte_tx_device_mute_get(struct snd_kcontrol *kcontrol,
 					struct snd_ctl_elem_value *ucontrol)
 {
@@ -509,8 +505,6 @@ done:
 	return ret;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int msm_voice_rx_device_mute_put(struct snd_kcontrol *kcontrol,
 					struct snd_ctl_elem_value *ucontrol)
 {
@@ -537,7 +531,6 @@ done:
 	return ret;
 }
 
-<<<<<<< HEAD
 static int msm_voice2_tx_device_mute_get(struct snd_kcontrol *kcontrol,
 					 struct snd_ctl_elem_value *ucontrol)
 {
@@ -605,9 +598,6 @@ static int msm_volte_rx_device_mute_put(struct snd_kcontrol *kcontrol,
 done:
 	return ret;
 }
-=======
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static const char const *tty_mode[] = {"OFF", "HCO", "VCO", "FULL"};
 static const struct soc_enum msm_tty_mode_enum[] = {
@@ -735,7 +725,6 @@ static struct snd_kcontrol_new msm_voice_controls[] = {
 				msm_voice_tty_mode_put),
 	SOC_SINGLE_MULTI_EXT("Slowtalk Enable", SND_SOC_NOPM, 0, VSID_MAX, 0, 2,
 				NULL, msm_voice_slowtalk_put),
-<<<<<<< HEAD
 	SOC_SINGLE_MULTI_EXT("VoLTE Rx Device Mute", SND_SOC_NOPM, 0, VSID_MAX,
 				0, 3, msm_volte_rx_device_mute_get,
 				msm_volte_rx_device_mute_put),
@@ -745,8 +734,6 @@ static struct snd_kcontrol_new msm_voice_controls[] = {
 	SOC_SINGLE_MULTI_EXT("Voice2 Tx Device Mute", SND_SOC_NOPM, 0, VSID_MAX,
 				0, 3, msm_voice2_tx_device_mute_get,
 				msm_voice2_tx_device_mute_put),
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	SOC_SINGLE_MULTI_EXT("Voice Topology Disable", SND_SOC_NOPM, 0,
 			     VSID_MAX, 0, 2, NULL,
 			     msm_voice_topology_disable_put),

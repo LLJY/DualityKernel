@@ -309,11 +309,7 @@ nonblock:
 	// case STATE_EP_DISABLED:		/* "can't happen" */
 	// case STATE_EP_READY:			/* "can't happen" */
 	default:				/* error! */
-<<<<<<< HEAD
 		pr_debug ("%s: ep %p not available, state %d\n",
-=======
-		pr_debug ("%s: ep %pK not available, state %d\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				shortname, epdata, epdata->state);
 		// FALLTHROUGH
 	case STATE_EP_UNBOUND:			/* clean disconnect */
@@ -1944,11 +1940,7 @@ dev_config (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
 
 fail:
 	spin_unlock_irq (&dev->lock);
-<<<<<<< HEAD
 	pr_debug ("%s: %s fail %Zd, %p\n", shortname, __func__, value, dev);
-=======
-	pr_debug ("%s: %s fail %Zd, %pK\n", shortname, __func__, value, dev);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	kfree (dev->buf);
 	dev->buf = NULL;
 	return value;

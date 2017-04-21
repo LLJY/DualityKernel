@@ -10,14 +10,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/firmware.h>
@@ -195,11 +192,7 @@ module_param(sido_buck_svs_voltage, int,
 MODULE_PARM_DESC(sido_buck_svs_voltage,
 			"setting for SVS voltage for SIDO BUCK");
 
-<<<<<<< HEAD
 #define TASHA_TX_UNMUTE_DELAY_MS	50
-=======
-#define TASHA_TX_UNMUTE_DELAY_MS	25
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int tx_unmute_delay = TASHA_TX_UNMUTE_DELAY_MS;
 module_param(tx_unmute_delay, int,
@@ -1647,11 +1640,7 @@ static inline void tasha_mbhc_get_result_params(struct wcd9xxx *wcd9xxx,
 	if ((c1 < 2) && x1)
 		usleep_range(5000, 5050);
 
-<<<<<<< HEAD
 	if (!c1) {
-=======
-	if (!c1 || !x1) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		dev_dbg(wcd9xxx->dev,
 			"%s: Impedance detect ramp error, c1=%d, x1=0x%x\n",
 			__func__, c1, x1);
@@ -2932,7 +2921,6 @@ static int tasha_codec_enable_slimrx(struct snd_soc_dapm_widget *w,
 					      dai->rate, dai->bit_width,
 					      &dai->grph);
 		break;
-<<<<<<< HEAD
 	case SND_SOC_DAPM_PRE_PMD:
 		if (!test_bit(SB_CLK_GEAR, &tasha_p->status_mask)) {
 			tasha_codec_vote_max_bw(codec, true);
@@ -2940,10 +2928,6 @@ static int tasha_codec_enable_slimrx(struct snd_soc_dapm_widget *w,
 		}
 		break;
 	case SND_SOC_DAPM_POST_PMD:
-=======
-	case SND_SOC_DAPM_POST_PMD:
-		tasha_codec_vote_max_bw(codec, true);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ret = wcd9xxx_disconnect_port(core, &dai->wcd9xxx_ch_list,
 					      dai->grph);
 		dev_dbg(codec->dev, "%s: Disconnect RX port, ret = %d\n",
@@ -2957,10 +2941,6 @@ static int tasha_codec_enable_slimrx(struct snd_soc_dapm_widget *w,
 				__func__);
 		ret = wcd9xxx_close_slim_sch_rx(core, &dai->wcd9xxx_ch_list,
 						dai->grph);
-<<<<<<< HEAD
-=======
-		tasha_codec_vote_max_bw(codec, false);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	}
 	return ret;
@@ -7592,16 +7572,6 @@ static int tasha_mad_input_put(struct snd_kcontrol *kcontrol,
 
 	tasha_mad_input = ucontrol->value.integer.value[0];
 
-<<<<<<< HEAD
-=======
-	if (tasha_mad_input >= ARRAY_SIZE(tasha_conn_mad_text)) {
-		dev_err(codec->dev,
-			"%s: tasha_mad_input = %d out of bounds\n",
-			__func__, tasha_mad_input);
-		return -EINVAL;
-	}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!strcmp(tasha_conn_mad_text[tasha_mad_input], "NOTUSED1") ||
 	    !strcmp(tasha_conn_mad_text[tasha_mad_input], "NOTUSED2") ||
 	    !strcmp(tasha_conn_mad_text[tasha_mad_input], "NOTUSED3") ||
@@ -10024,7 +9994,6 @@ static const struct snd_soc_dapm_widget tasha_dapm_widgets[] = {
 	SND_SOC_DAPM_OUTPUT("ANC EAR"),
 	SND_SOC_DAPM_AIF_IN_E("AIF1 PB", "AIF1 Playback", 0, SND_SOC_NOPM,
 				AIF1_PB, 0, tasha_codec_enable_slimrx,
-<<<<<<< HEAD
 				SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
 				SND_SOC_DAPM_POST_PMD),
 	SND_SOC_DAPM_AIF_IN_E("AIF2 PB", "AIF2 Playback", 0, SND_SOC_NOPM,
@@ -10044,22 +10013,6 @@ static const struct snd_soc_dapm_widget tasha_dapm_widgets[] = {
 			       tasha_codec_enable_slimrx,
 			       SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |
 			       SND_SOC_DAPM_POST_PMD),
-=======
-				SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-	SND_SOC_DAPM_AIF_IN_E("AIF2 PB", "AIF2 Playback", 0, SND_SOC_NOPM,
-				AIF2_PB, 0, tasha_codec_enable_slimrx,
-				SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-	SND_SOC_DAPM_AIF_IN_E("AIF3 PB", "AIF3 Playback", 0, SND_SOC_NOPM,
-				AIF3_PB, 0, tasha_codec_enable_slimrx,
-				SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-	SND_SOC_DAPM_AIF_IN_E("AIF4 PB", "AIF4 Playback", 0, SND_SOC_NOPM,
-				AIF4_PB, 0, tasha_codec_enable_slimrx,
-				SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
-	SND_SOC_DAPM_AIF_IN_E("AIF MIX1 PB", "AIF Mix Playback", 0,
-			       SND_SOC_NOPM, AIF_MIX1_PB, 0,
-			       tasha_codec_enable_slimrx,
-			       SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	SND_SOC_DAPM_MUX("SLIM RX0 MUX", SND_SOC_NOPM, TASHA_RX0, 0,
 				&slim_rx_mux[TASHA_RX0]),
@@ -10914,7 +10867,6 @@ static int tasha_startup(struct snd_pcm_substream *substream,
 static void tasha_shutdown(struct snd_pcm_substream *substream,
 		struct snd_soc_dai *dai)
 {
-<<<<<<< HEAD
 	struct tasha_priv *tasha = snd_soc_codec_get_drvdata(dai->codec);
 
 	pr_debug("%s(): substream = %s  stream = %d\n" , __func__,
@@ -10924,10 +10876,6 @@ static void tasha_shutdown(struct snd_pcm_substream *substream,
 		tasha_codec_vote_max_bw(dai->codec, false);
 		clear_bit(SB_CLK_GEAR, &tasha->status_mask);
 	}
-=======
-	pr_debug("%s(): substream = %s  stream = %d\n" , __func__,
-		 substream->name, substream->stream);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static int tasha_set_decimator_rate(struct snd_soc_dai *dai,
@@ -13116,7 +13064,6 @@ static struct regulator *tasha_codec_find_ondemand_regulator(
 	return NULL;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOUND_CONTROL
 struct snd_soc_codec *sound_control_codec_ptr;
 
@@ -13168,8 +13115,6 @@ static struct attribute_group sound_control_attr_group = {
 static struct kobject *sound_control_kobj;
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int tasha_codec_probe(struct snd_soc_codec *codec)
 {
 	struct wcd9xxx *control;
@@ -13180,12 +13125,9 @@ static int tasha_codec_probe(struct snd_soc_codec *codec)
 	void *ptr = NULL;
 	struct regulator *supply;
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOUND_CONTROL
 	sound_control_codec_ptr = codec;
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	control = dev_get_drvdata(codec->dev->parent);
 
 	dev_info(codec->dev, "%s()\n", __func__);
@@ -13942,7 +13884,6 @@ static int tasha_probe(struct platform_device *pdev)
 	tasha_get_codec_ver(tasha);
 
 	dev_info(&pdev->dev, "%s: Tasha driver probe done\n", __func__);
-<<<<<<< HEAD
 
 #ifdef CONFIG_SOUND_CONTROL
 	sound_control_kobj = kobject_create_and_add("sound_control", kernel_kobj);
@@ -13956,8 +13897,6 @@ static int tasha_probe(struct platform_device *pdev)
 	}
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return ret;
 
 err_cdc_reg:

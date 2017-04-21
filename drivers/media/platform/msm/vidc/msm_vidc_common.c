@@ -10,14 +10,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/jiffies.h>
 #include <linux/sched.h>
@@ -1202,20 +1199,12 @@ static void handle_event_change(enum hal_command_response cmd, void *data)
 	 * ptr[2] = flag to indicate bit depth or/and pic struct changed
 	 * ptr[3] = bit depth
 	 * ptr[4] = pic struct (progressive or interlaced)
-<<<<<<< HEAD
-=======
-	 * ptr[5] = colour space
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	 */
 
 	ptr = (u32 *)seq_changed_event.u.data;
 	ptr[2] = 0x0;
 	ptr[3] = inst->bit_depth;
 	ptr[4] = inst->pic_struct;
-<<<<<<< HEAD
-=======
-	ptr[5] = inst->colour_space;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (inst->bit_depth != event_notify->bit_depth) {
 		inst->bit_depth = event_notify->bit_depth;
@@ -1223,11 +1212,7 @@ static void handle_event_change(enum hal_command_response cmd, void *data)
 		ptr[3] = inst->bit_depth;
 		event = V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT;
 		dprintk(VIDC_DBG,
-<<<<<<< HEAD
 			"V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT due to bit-depth change\n");
-=======
-				"V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT due to bit-depth change\n");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	if (inst->fmts[CAPTURE_PORT]->fourcc == V4L2_PIX_FMT_NV12 &&
@@ -1237,22 +1222,7 @@ static void handle_event_change(enum hal_command_response cmd, void *data)
 		ptr[2] |= V4L2_EVENT_PICSTRUCT_FLAG;
 		ptr[4] = inst->pic_struct;
 		dprintk(VIDC_DBG,
-<<<<<<< HEAD
 			"V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT due to pic-struct change\n");
-=======
-				"V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT due to pic-struct change\n");
-	}
-
-	if (inst->bit_depth == MSM_VIDC_BIT_DEPTH_10
-		&& inst->colour_space !=
-		event_notify->colour_space) {
-		inst->colour_space = event_notify->colour_space;
-		event = V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT;
-		ptr[2] |= V4L2_EVENT_COLOUR_SPACE_FLAG;
-		ptr[5] = inst->colour_space;
-		dprintk(VIDC_DBG,
-				"V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT due to colour space change\n");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	if (event == V4L2_EVENT_SEQ_CHANGED_INSUFFICIENT) {
@@ -1655,13 +1625,10 @@ static void handle_sys_error(enum hal_command_response cmd, void *data)
 	dprintk(VIDC_WARN, "SYS_ERROR %d received for core %pK\n", cmd, core);
 	msm_comm_clean_notify_client(core);
 
-<<<<<<< HEAD
 #ifdef SYSTEM_RESET_WITH_VENUS_CRASH
 	panic("internal panic for Venus SSR\n");
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	hdev = core->device;
 	mutex_lock(&core->lock);
 	if (core->state == VIDC_CORE_INVALID) {

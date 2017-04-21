@@ -13,14 +13,11 @@
  *	it under the terms of the GNU General Public License as published by
  *	the Free Software Foundation, version 2.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/kernel.h>
 #include <linux/pagemap.h>
@@ -48,12 +45,9 @@
 #include "security.h"
 #include "objsec.h"
 #include "conditional.h"
-<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_SELINUX_TRAP
 #include "trap.h"
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* Policy capability filenames */
 static char *policycap_names[] = {
@@ -183,11 +177,8 @@ static ssize_t sel_write_enforce(struct file *file, const char __user *buf,
 	if (sscanf(page, "%d", &new_value) != 1)
 		goto out;
 
-<<<<<<< HEAD
 	new_value = selinux_enforcing;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (new_value != selinux_enforcing) {
 		length = task_has_security(current, SECURITY__SETENFORCE);
 		if (length)
@@ -1478,7 +1469,6 @@ static const struct file_operations sel_avc_cache_stats_ops = {
 };
 #endif
 
-<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_SELINUX_TRAP
 static void sel_trap_clear_list_entry(struct selinux_trap_list *entry)
 {
@@ -1949,8 +1939,6 @@ void trapped_node_entry(pid_t pid_num, char *msg)
 
 #endif /* CONFIG_SECURITY_SELINUX_TRAP */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int sel_make_avc_files(struct dentry *dir)
 {
 	int i;
@@ -2348,7 +2336,6 @@ static int sel_fill_super(struct super_block *sb, void *data, int silent)
 	if (ret)
 		goto err;
 
-<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_SELINUX_TRAP
 	dentry = sel_make_dir(sb->s_root, "trap", &sel_last_ino);
 	if (IS_ERR(dentry)) {
@@ -2361,8 +2348,6 @@ static int sel_fill_super(struct super_block *sb, void *data, int silent)
 		goto err;
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	dentry = sel_make_dir(sb->s_root, "initial_contexts", &sel_last_ino);
 	if (IS_ERR(dentry)) {
 		ret = PTR_ERR(dentry);

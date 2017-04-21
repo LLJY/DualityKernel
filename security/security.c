@@ -10,14 +10,11 @@
  *	the Free Software Foundation; either version 2 of the License, or
  *	(at your option) any later version.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/capability.h>
 #include <linux/dcache.h>
@@ -33,15 +30,10 @@
 #include <linux/mount.h>
 #include <linux/personality.h>
 #include <linux/backing-dev.h>
-<<<<<<< HEAD
 #include <net/flow.h>
 #if defined(CONFIG_SECURITY_SONY_RIC) && !defined(CONFIG_DEFAULT_SECURITY_SONY)
 #include "sony/ric.h"
 #endif
-=======
-#include <linux/pfk.h>
-#include <net/flow.h>
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define MAX_LSM_EVM_XATTR	2
 
@@ -316,7 +308,6 @@ int security_sb_statfs(struct dentry *dentry)
 int security_sb_mount(const char *dev_name, struct path *path,
                        const char *type, unsigned long flags, void *data)
 {
-<<<<<<< HEAD
 #if defined(CONFIG_SECURITY_SONY_RIC) && !defined(CONFIG_DEFAULT_SECURITY_SONY)
 	int ret;
 
@@ -324,8 +315,6 @@ int security_sb_mount(const char *dev_name, struct path *path,
 	if (ret)
 		return ret;
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return security_ops->sb_mount(dev_name, path, type, flags, data);
 }
 
@@ -858,7 +847,6 @@ int security_file_open(struct file *file, const struct cred *cred)
 	return fsnotify_perm(file, MAY_OPEN);
 }
 
-<<<<<<< HEAD
 int security_file_close(struct file *file)
 {
 	if (security_ops->file_close)
@@ -873,16 +861,6 @@ bool security_allow_merge_bio(struct bio *bio1, struct bio *bio2)
 		return security_ops->allow_merge_bio(bio1, bio2);
 
 	return true;
-=======
-bool security_allow_merge_bio(struct bio *bio1, struct bio *bio2)
-{
-	bool ret = pfk_allow_merge_bio(bio1, bio2);
-
-	if (security_ops->allow_merge_bio)
-		ret = ret && security_ops->allow_merge_bio(bio1, bio2);
-
-	return ret;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 int security_task_create(unsigned long clone_flags)

@@ -11,14 +11,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef __SDHCI_MSM_H__
 #define __SDHCI_MSM_H__
@@ -151,10 +148,7 @@ struct sdhci_msm_pltfm_data {
 	struct sdhci_msm_pin_data *pin_data;
 	struct sdhci_pinctrl_data *pctrl_data;
 	int status_gpio; /* card detection GPIO that is configured as IRQ */
-<<<<<<< HEAD
 	int uim2_gpio;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct sdhci_msm_bus_voting_data *voting_data;
 	u32 *sup_clk_table;
 	unsigned char sup_clk_cnt;

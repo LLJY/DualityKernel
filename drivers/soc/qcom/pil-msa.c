@@ -527,11 +527,7 @@ int pil_mss_reset_load_mba(struct pil_desc *pil)
 {
 	struct q6v5_data *drv = container_of(pil, struct q6v5_data, desc);
 	struct modem_data *md = dev_get_drvdata(pil->dev);
-<<<<<<< HEAD
 	const struct firmware *fw, *dp_fw;
-=======
-	const struct firmware *fw, *dp_fw = NULL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	char fw_name_legacy[10] = "mba.b00";
 	char fw_name[10] = "mba.mbn";
 	char *dp_name = "msadp";

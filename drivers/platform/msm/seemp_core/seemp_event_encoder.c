@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2015, The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2015, 2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -52,21 +48,9 @@ static void check_param_range(char *section_eq, bool param,
 
 void encode_seemp_params(struct seemp_logk_blk *blk)
 {
-<<<<<<< HEAD
 	char *s = blk->payload.msg + 1;
 
 	blk->payload.msg[BLK_MAX_MSG_SZ - 1] = 0; /* zero-terminate */
-=======
-	struct seemp_logk_blk tmp;
-	char *s = 0;
-	char *msg_section_start = 0;
-	char *msg_section_eq = 0;
-	char *msg_s = 0;
-
-	memcpy(tmp.payload.msg, blk->payload.msg, BLK_MAX_MSG_SZ);
-	s = tmp.payload.msg + 1;
-	tmp.payload.msg[BLK_MAX_MSG_SZ - 1] = 0; /* zero-terminate */
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	while (true) {
 		char *section_start = s;
@@ -121,18 +105,8 @@ void encode_seemp_params(struct seemp_logk_blk *blk)
 			}
 		}
 
-<<<<<<< HEAD
 		encode_seemp_section(section_start, section_eq, s, param,
 					numeric, id, numeric_value);
-=======
-		msg_section_start = blk->payload.msg + (section_start -
-				tmp.payload.msg);
-		msg_section_eq = blk->payload.msg + (section_eq -
-				tmp.payload.msg);
-		msg_s = blk->payload.msg + (s - tmp.payload.msg);
-		encode_seemp_section(msg_section_start, msg_section_eq,
-				msg_s, param, numeric, id, numeric_value);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		if (*s == 0)
 			break;

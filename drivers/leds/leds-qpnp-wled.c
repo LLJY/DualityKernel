@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/init.h>
@@ -102,11 +99,7 @@
 #define QPNP_WLED_SWITCH_FREQ_800_KHZ	800
 #define QPNP_WLED_SWITCH_FREQ_1600_KHZ	1600
 #define QPNP_WLED_SWITCH_FREQ_OVERWRITE 0x80
-<<<<<<< HEAD
 #define QPNP_WLED_OVP_MASK		0xFC
-=======
-#define QPNP_WLED_OVP_MASK		GENMASK(1, 0)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define QPNP_WLED_OVP_17800_MV		17800
 #define QPNP_WLED_OVP_19400_MV		19400
 #define QPNP_WLED_OVP_29500_MV		29500
@@ -212,12 +205,9 @@
 #define QPNP_WLED_AVDD_MAX_TRIM_VALUE		0xF
 #define QPNP_WLED_AVDD_SET_BIT			BIT(4)
 
-<<<<<<< HEAD
 #define QPNP_WLED_BL_SCALE_MAX	1000
 #define QPNP_WLED_BUFF_SIZE	50
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* output feedback mode */
 enum qpnp_wled_fdbk_op {
 	QPNP_WLED_FDBK_AUTO,
@@ -339,7 +329,6 @@ struct qpnp_wled {
 	bool disp_type_amoled;
 	bool en_ext_pfet_sc_pro;
 	bool prev_state;
-<<<<<<< HEAD
 	int init_br_ua;
 	bool bl_scale_enabled;
 	int bl_scale;
@@ -356,10 +345,6 @@ static int __init continous_splash_setup(char *str)
 }
 __setup("display_status=", continous_splash_setup);
 
-=======
-};
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* helper to read a pmic register */
 static int qpnp_wled_read_reg(struct qpnp_wled *wled, u8 *data, u16 addr)
 {
@@ -452,15 +437,12 @@ static int qpnp_wled_set_level(struct qpnp_wled *wled, int level)
 	int i, rc;
 	u8 reg;
 
-<<<<<<< HEAD
 	if (wled->bl_scale_enabled && wled->bl_scale > 0 &&
 		wled->bl_scale < QPNP_WLED_BL_SCALE_MAX)
 		level = level * wled->bl_scale / QPNP_WLED_BL_SCALE_MAX;
 
 	pr_debug("%s: brightness=%d level=%d\n",
 			__func__, wled->cdev.brightness, level);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* set brightness registers */
 	for (i = 0; i < wled->num_strings; i++) {
 		reg = level & QPNP_WLED_BRIGHT_LSB_MASK;
@@ -816,7 +798,6 @@ static ssize_t qpnp_wled_fs_curr_ua_store(struct device *dev,
 	return count;
 }
 
-<<<<<<< HEAD
 static ssize_t qpnp_wled_bl_scale_show(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
@@ -857,8 +838,6 @@ exit:
 	return ret;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* sysfs attributes exported by wled */
 static struct device_attribute qpnp_wled_attrs[] = {
 	__ATTR(dump_regs, (S_IRUGO | S_IWUSR | S_IWGRP),
@@ -879,12 +858,9 @@ static struct device_attribute qpnp_wled_attrs[] = {
 	__ATTR(ramp_step, (S_IRUGO | S_IWUSR | S_IWGRP),
 			qpnp_wled_ramp_step_show,
 			qpnp_wled_ramp_step_store),
-<<<<<<< HEAD
 	__ATTR(bl_scale, (S_IRUGO | S_IWUSR | S_IWGRP),
 			qpnp_wled_bl_scale_show,
 			qpnp_wled_bl_scale_store),
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 /* worker for setting wled brightness */
@@ -914,10 +890,7 @@ static void qpnp_wled_work(struct work_struct *work)
 						level ? "en" : "dis");
 			goto unlock_mutex;
 		}
-<<<<<<< HEAD
 		usleep_range(100, 101);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	wled->prev_state = !!level;
@@ -1199,7 +1172,6 @@ static int qpnp_wled_config(struct qpnp_wled *wled)
 	if (rc)
 		return rc;
 
-<<<<<<< HEAD
 	/* Configure the OVP register */
 	if (wled->ovp_mv <= QPNP_WLED_OVP_17800_MV) {
 		wled->ovp_mv = QPNP_WLED_OVP_17800_MV;
@@ -1225,30 +1197,6 @@ static int qpnp_wled_config(struct qpnp_wled *wled)
 			QPNP_WLED_OVP_REG(wled->ctrl_base));
 	if (rc)
 		return rc;
-=======
-	/* Configure the OVP register only if display type is not AMOLED */
-	if (!wled->disp_type_amoled) {
-		if (wled->ovp_mv <= QPNP_WLED_OVP_17800_MV) {
-			wled->ovp_mv = QPNP_WLED_OVP_17800_MV;
-			temp = 3;
-		} else if (wled->ovp_mv <= QPNP_WLED_OVP_19400_MV) {
-			wled->ovp_mv = QPNP_WLED_OVP_19400_MV;
-			temp = 2;
-		} else if (wled->ovp_mv <= QPNP_WLED_OVP_29500_MV) {
-			wled->ovp_mv = QPNP_WLED_OVP_29500_MV;
-			temp = 1;
-		} else {
-			wled->ovp_mv = QPNP_WLED_OVP_31000_MV;
-			temp = 0;
-		}
-
-		reg = (u8)temp;
-		rc = qpnp_wled_masked_write_reg(wled, QPNP_WLED_OVP_MASK, &reg,
-				QPNP_WLED_OVP_REG(wled->ctrl_base));
-		if (rc)
-			return rc;
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	rc = qpnp_wled_read_reg(wled, &reg,
 			QPNP_WLED_CTRL_SPARE_REG(wled->ctrl_base));
@@ -1274,13 +1222,8 @@ static int qpnp_wled_config(struct qpnp_wled *wled)
 
 		/* Update WLED_OVP register based on desired target voltage */
 		reg = qpnp_wled_ovp_reg_settings[i];
-<<<<<<< HEAD
 		rc = qpnp_wled_write_reg(wled, &reg,
 			QPNP_WLED_OVP_REG(wled->ctrl_base));
-=======
-		rc = qpnp_wled_masked_write_reg(wled, QPNP_WLED_OVP_MASK, &reg,
-				QPNP_WLED_OVP_REG(wled->ctrl_base));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (rc)
 			return rc;
 
@@ -1389,7 +1332,6 @@ static int qpnp_wled_config(struct qpnp_wled *wled)
 			QPNP_WLED_SINK_TEST5_REG(wled->sink_base));
 	if (rc)
 		return rc;
-<<<<<<< HEAD
 	if (!bl_on_in_boot) {
 		/* disable all current sinks and enable selected strings */
 		reg = 0x00;
@@ -1484,101 +1426,6 @@ static int qpnp_wled_config(struct qpnp_wled *wled)
 			if (rc)
 				return rc;
 		}
-=======
-
-	/* disable all current sinks and enable selected strings */
-	reg = 0x00;
-	rc = qpnp_wled_write_reg(wled, &reg,
-			QPNP_WLED_CURR_SINK_REG(wled->sink_base));
-
-	for (i = 0; i < wled->num_strings; i++) {
-		if (wled->strings[i] >= QPNP_WLED_MAX_STRINGS) {
-			dev_err(&wled->spmi->dev, "Invalid string number\n");
-			return -EINVAL;
-		}
-
-		/* MODULATOR */
-		rc = qpnp_wled_read_reg(wled, &reg,
-				QPNP_WLED_MOD_EN_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc < 0)
-			return rc;
-		reg &= QPNP_WLED_MOD_EN_MASK;
-		reg |= (QPNP_WLED_MOD_EN << QPNP_WLED_MOD_EN_SHFT);
-
-		if (wled->dim_mode == QPNP_WLED_DIM_HYBRID)
-			reg &= QPNP_WLED_GATE_DRV_MASK;
-		else
-			reg |= ~QPNP_WLED_GATE_DRV_MASK;
-
-		rc = qpnp_wled_write_reg(wled, &reg,
-				QPNP_WLED_MOD_EN_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc)
-			return rc;
-
-		/* SYNC DELAY */
-		if (wled->sync_dly_us > QPNP_WLED_SYNC_DLY_MAX_US)
-			wled->sync_dly_us = QPNP_WLED_SYNC_DLY_MAX_US;
-
-		rc = qpnp_wled_read_reg(wled, &reg,
-				QPNP_WLED_SYNC_DLY_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc < 0)
-			return rc;
-		reg &= QPNP_WLED_SYNC_DLY_MASK;
-		temp = wled->sync_dly_us / QPNP_WLED_SYNC_DLY_STEP_US;
-		reg |= temp;
-		rc = qpnp_wled_write_reg(wled, &reg,
-				QPNP_WLED_SYNC_DLY_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc)
-			return rc;
-
-		/* FULL SCALE CURRENT */
-		if (wled->fs_curr_ua > QPNP_WLED_FS_CURR_MAX_UA)
-			wled->fs_curr_ua = QPNP_WLED_FS_CURR_MAX_UA;
-
-		rc = qpnp_wled_read_reg(wled, &reg,
-				QPNP_WLED_FS_CURR_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc < 0)
-			return rc;
-		reg &= QPNP_WLED_FS_CURR_MASK;
-		temp = wled->fs_curr_ua / QPNP_WLED_FS_CURR_STEP_UA;
-		reg |= temp;
-		rc = qpnp_wled_write_reg(wled, &reg,
-				QPNP_WLED_FS_CURR_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc)
-			return rc;
-
-		/* CABC */
-		rc = qpnp_wled_read_reg(wled, &reg,
-				QPNP_WLED_CABC_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc < 0)
-			return rc;
-		reg &= QPNP_WLED_CABC_MASK;
-		reg |= (wled->en_cabc << QPNP_WLED_CABC_SHIFT);
-		rc = qpnp_wled_write_reg(wled, &reg,
-				QPNP_WLED_CABC_REG(wled->sink_base,
-						wled->strings[i]));
-		if (rc)
-			return rc;
-
-		/* Enable CURRENT SINK */
-		rc = qpnp_wled_read_reg(wled, &reg,
-				QPNP_WLED_CURR_SINK_REG(wled->sink_base));
-		if (rc < 0)
-			return rc;
-		temp = wled->strings[i] + QPNP_WLED_CURR_SINK_SHIFT;
-		reg |= (1 << temp);
-		rc = qpnp_wled_write_reg(wled, &reg,
-				QPNP_WLED_CURR_SINK_REG(wled->sink_base));
-		if (rc)
-			return rc;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	rc = qpnp_wled_sync_reg_toggle(wled);
@@ -1670,7 +1517,6 @@ static int qpnp_wled_config(struct qpnp_wled *wled)
 	return 0;
 }
 
-<<<<<<< HEAD
 static void qpnp_wled_set_init_br(struct qpnp_wled *wled)
 {
 	int calc_init_br;
@@ -1684,8 +1530,6 @@ static void qpnp_wled_set_init_br(struct qpnp_wled *wled)
 	qpnp_wled_set(&wled->cdev, calc_init_br);
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* parse wled dtsi parameters */
 static int qpnp_wled_parse_dt(struct qpnp_wled *wled)
 {
@@ -1816,11 +1660,7 @@ static int qpnp_wled_parse_dt(struct qpnp_wled *wled)
 	if (!rc) {
 		wled->ovp_mv = temp_val;
 	} else if (rc != -EINVAL) {
-<<<<<<< HEAD
 		dev_err(&spmi->dev, "Unable to read vref\n");
-=======
-		dev_err(&spmi->dev, "Unable to read ovp\n");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return rc;
 	}
 
@@ -1907,11 +1747,8 @@ static int qpnp_wled_parse_dt(struct qpnp_wled *wled)
 	if (!rc)
 		wled->cons_sync_write_delay_us = temp_val;
 
-<<<<<<< HEAD
 	wled->bl_scale_enabled = of_property_read_bool(spmi->dev.of_node,
 			"somc,bl-scale-enabled");
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	wled->en_9b_dim_res = of_property_read_bool(spmi->dev.of_node,
 			"qcom,en-9b-dim-res");
 	wled->en_phase_stag = of_property_read_bool(spmi->dev.of_node,
@@ -1944,7 +1781,6 @@ static int qpnp_wled_parse_dt(struct qpnp_wled *wled)
 	wled->en_ext_pfet_sc_pro = of_property_read_bool(spmi->dev.of_node,
 					"qcom,en-ext-pfet-sc-pro");
 
-<<<<<<< HEAD
 	wled->init_br_ua = LED_OFF;
 	rc = of_property_read_u32(spmi->dev.of_node,
 					"somc,init-br-ua", &temp_val);
@@ -1954,8 +1790,6 @@ static int qpnp_wled_parse_dt(struct qpnp_wled *wled)
 		dev_err(&spmi->dev, "Unable to read init ua\n");
 		return rc;
 	}
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -2027,12 +1861,9 @@ static int qpnp_wled_probe(struct spmi_device *spmi)
 		}
 	}
 
-<<<<<<< HEAD
 	if (wled->init_br_ua && !bl_on_in_boot)
 		qpnp_wled_set_init_br(wled);
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 
 sysfs_fail:

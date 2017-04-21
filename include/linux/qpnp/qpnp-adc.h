@@ -11,14 +11,11 @@
  * GNU General Public License for more details.
  */
 /*
-<<<<<<< HEAD
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
 /*
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * Qualcomm PMIC QPNP ADC driver header file
  *
  */
@@ -387,11 +384,8 @@ enum qpnp_adc_channel_scaling_param {
  * %SCALE_QRD_SKUT1_BATT_THERM: Conversion to temperature(decidegC) based on
  *          btm parameters for SKUT1
  * %SCALE_PMI_CHG_TEMP: Conversion for PMI CHG temp
-<<<<<<< HEAD
  * %SCALE_THERM_100K_PULLUP_DECI: Returns temperature in decidegC.
  *				 Uses a mapping table with 100K pullup.
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * %SCALE_NONE: Do not use this scaling type.
  */
 enum qpnp_adc_scale_fn_type {
@@ -409,10 +403,7 @@ enum qpnp_adc_scale_fn_type {
 	SCALE_NCP_03WF683_THERM,
 	SCALE_QRD_SKUT1_BATT_THERM,
 	SCALE_PMI_CHG_TEMP = 16,
-<<<<<<< HEAD
 	SCALE_THERM_100K_PULLUP_DECI,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	SCALE_NONE,
 };
 
@@ -1578,7 +1569,6 @@ int32_t qpnp_adc_scale_therm_pu2(struct qpnp_vadc_chip *dev, int32_t adc_code,
 			const struct qpnp_vadc_chan_properties *chan_prop,
 			struct qpnp_vadc_result *chan_rslt);
 /**
-<<<<<<< HEAD
  * qpnp_adc_scale_therm_pu2_decidegc() - Scales the pre-calibrated digital output
  *		of an ADC to the ADC reference and compensates for the
  *		gain and offset.
@@ -1599,8 +1589,6 @@ int32_t qpnp_adc_scale_therm_pu2_decidegc(struct qpnp_vadc_chip *dev,
 			const struct qpnp_vadc_chan_properties *chan_prop,
 			struct qpnp_vadc_result *chan_rslt);
 /**
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * qpnp_adc_scale_therm_ncp03() - Scales the pre-calibrated digital output
  *		of an ADC to the ADC reference and compensates for the
  *		gain and offset. Returns the temperature of the therm in degC.
@@ -1737,7 +1725,6 @@ int32_t qpnp_adc_tm_scale_therm_voltage_pu2(struct qpnp_vadc_chip *dev,
 int32_t qpnp_adc_tm_scale_voltage_therm_pu2(struct qpnp_vadc_chip *dev,
 				uint32_t reg, int64_t *result);
 /**
-<<<<<<< HEAD
  * qpnp_adc_tm_scale_therm_voltage_pu2_decidegc() - Performs reverse calibration
  *		and convert given temperature to voltage on supported
  *		thermistor channels using 100k pull-up.
@@ -1757,8 +1744,6 @@ int32_t qpnp_adc_tm_scale_therm_voltage_pu2_decidegc(struct qpnp_vadc_chip *dev,
 int32_t qpnp_adc_tm_scale_voltage_therm_pu2_decidegc(struct qpnp_vadc_chip *dev,
 				uint32_t reg, int64_t *result);
 /**
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * qpnp_adc_usb_scaler() - Performs reverse calibration on the low/high
  *		voltage threshold values passed by the client.
  *		The function applies ratiometric calibration on the
@@ -2029,15 +2014,12 @@ static inline int32_t qpnp_adc_scale_therm_pu2(struct qpnp_vadc_chip *vadc,
 			const struct qpnp_vadc_chan_properties *chan_prop,
 			struct qpnp_vadc_result *chan_rslt)
 { return -ENXIO; }
-<<<<<<< HEAD
 static inline int32_t qpnp_adc_scale_therm_pu2_decidegc(
 			struct qpnp_vadc_chip *vadc, int32_t adc_code,
 			const struct qpnp_adc_properties *adc_prop,
 			const struct qpnp_vadc_chan_properties *chan_prop,
 			struct qpnp_vadc_result *chan_rslt)
 { return -ENXIO; }
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline int32_t qpnp_adc_scale_therm_ncp03(struct qpnp_vadc_chip *vadc,
 			int32_t adc_code,
 			const struct qpnp_adc_properties *adc_prop,
@@ -2093,7 +2075,6 @@ static inline int32_t qpnp_adc_tm_scale_voltage_therm_pu2(
 				struct qpnp_vadc_chip *dev,
 				uint32_t reg, int64_t *result)
 { return -ENXIO; }
-<<<<<<< HEAD
 static inline int32_t qpnp_adc_tm_scale_therm_voltage_pu2_decidegc(
 				struct qpnp_vadc_chip *dev,
 				struct qpnp_adc_tm_config *param)
@@ -2102,8 +2083,6 @@ static inline int32_t qpnp_adc_tm_scale_voltage_therm_pu2_decidegc(
 				struct qpnp_vadc_chip *dev,
 				uint32_t reg, int64_t *result)
 { return -ENXIO; }
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline int32_t qpnp_adc_smb_btm_rscaler(struct qpnp_vadc_chip *dev,
 		struct qpnp_adc_tm_btm_param *param,
 		uint32_t *low_threshold, uint32_t *high_threshold)

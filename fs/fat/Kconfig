@@ -74,7 +74,6 @@ config VFAT_FS
 	  To compile this as a module, choose M here: the module will be called
 	  vfat.
 
-<<<<<<< HEAD
 config VFAT_FS_NO_DUALNAMES
 	bool "disable VFAT dual names support (patent workaround)"
 	depends on VFAT_FS
@@ -96,8 +95,6 @@ config VFAT_FS_NO_DUALNAMES
 
 	  If unsure, say N
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config FAT_DEFAULT_CODEPAGE
 	int "Default codepage for FAT"
 	depends on MSDOS_FS || VFAT_FS

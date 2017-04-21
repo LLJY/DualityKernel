@@ -138,11 +138,7 @@ static struct osi_linux {
 	unsigned int	enable:1;
 	unsigned int	dmi:1;
 	unsigned int	cmdline:1;
-<<<<<<< HEAD
 	u8		default_disabling;
-=======
-	unsigned int	default_disabling:1;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 } osi_linux = {0, 0, 0, 0};
 
 static u32 acpi_osi_handler(acpi_string interface, u32 supported)
@@ -1447,7 +1443,6 @@ void __init acpi_osi_setup(char *str)
 	if (*str == '!') {
 		str++;
 		if (*str == '\0') {
-<<<<<<< HEAD
 			/* Do not override acpi_osi=!* */
 			if (!osi_linux.default_disabling)
 				osi_linux.default_disabling =
@@ -1455,12 +1450,6 @@ void __init acpi_osi_setup(char *str)
 			return;
 		} else if (*str == '*') {
 			osi_linux.default_disabling = ACPI_DISABLE_ALL_STRINGS;
-=======
-			osi_linux.default_disabling = 1;
-			return;
-		} else if (*str == '*') {
-			acpi_update_interfaces(ACPI_DISABLE_ALL_STRINGS);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			for (i = 0; i < OSI_STRING_ENTRIES_MAX; i++) {
 				osi = &osi_setup_entries[i];
 				osi->enable = false;
@@ -1533,7 +1522,6 @@ static void __init acpi_osi_setup_late(void)
 	acpi_status status;
 
 	if (osi_linux.default_disabling) {
-<<<<<<< HEAD
 		status = acpi_update_interfaces(osi_linux.default_disabling);
 
 		if (ACPI_SUCCESS(status))
@@ -1541,12 +1529,6 @@ static void __init acpi_osi_setup_late(void)
 				osi_linux.default_disabling ==
 				ACPI_DISABLE_ALL_STRINGS ?
 				" and feature groups" : "");
-=======
-		status = acpi_update_interfaces(ACPI_DISABLE_ALL_VENDOR_STRINGS);
-
-		if (ACPI_SUCCESS(status))
-			printk(KERN_INFO PREFIX "Disabled all _OSI OS vendors\n");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	for (i = 0; i < OSI_STRING_ENTRIES_MAX; i++) {

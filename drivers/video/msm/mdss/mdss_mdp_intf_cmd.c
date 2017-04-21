@@ -10,14 +10,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/kernel.h>
 #include <linux/pm_runtime.h>
@@ -29,12 +26,9 @@
 #include "mdss_debug.h"
 #include "mdss_mdp_trace.h"
 #include "mdss_dsi_clk.h"
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 #include "mdss_dsi_panel_driver.h"
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define MAX_RECOVERY_TRIALS 10
 #define MAX_SESSIONS 2
@@ -90,10 +84,7 @@ struct mdss_mdp_cmd_ctx {
 	struct work_struct gate_clk_work;
 	struct delayed_work delayed_off_clk_work;
 	struct work_struct pp_done_work;
-<<<<<<< HEAD
 	struct workqueue_struct *early_wakeup_clk_wq;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct work_struct early_wakeup_clk_work;
 	atomic_t pp_done_cnt;
 	struct completion rdptr_done;
@@ -123,13 +114,10 @@ struct mdss_mdp_cmd_ctx {
 
 struct mdss_mdp_cmd_ctx mdss_mdp_cmd_ctx_list[MAX_SESSIONS];
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 static bool disp_on_in_hs;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int mdss_mdp_cmd_do_notifier(struct mdss_mdp_cmd_ctx *ctx);
 static inline void mdss_mdp_cmd_clk_on(struct mdss_mdp_cmd_ctx *ctx);
 static inline void mdss_mdp_cmd_clk_off(struct mdss_mdp_cmd_ctx *ctx);
@@ -205,15 +193,11 @@ exit:
 	return cnt;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 int mdss_mdp_tearcheck_enable(struct mdss_mdp_ctl *ctl, bool enable)
 #else
 static int mdss_mdp_tearcheck_enable(struct mdss_mdp_ctl *ctl, bool enable)
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-static int mdss_mdp_tearcheck_enable(struct mdss_mdp_ctl *ctl, bool enable)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	struct mdss_data_type *mdata = mdss_mdp_get_mdata();
 	struct mdss_mdp_ctl *sctl;
@@ -756,11 +740,7 @@ int mdss_mdp_resource_control(struct mdss_mdp_ctl *ctl, u32 sw_event)
 				schedule_work(&ctx->gate_clk_work);
 
 			/* start work item to shut down after delay */
-<<<<<<< HEAD
 			queue_delayed_work(system_power_efficient_wq,
-=======
-			schedule_delayed_work(
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					&ctx->delayed_off_clk_work,
 					CMD_MODE_IDLE_TIMEOUT);
 		}
@@ -924,12 +904,8 @@ int mdss_mdp_resource_control(struct mdss_mdp_ctl *ctl, u32 sw_event)
 			 * reached. This is to prevent the case where early wake
 			 * up is called but no frame update is sent.
 			 */
-<<<<<<< HEAD
 			queue_delayed_work(system_power_efficient_wq,
 				&ctx->delayed_off_clk_work,
-=======
-			schedule_delayed_work(&ctx->delayed_off_clk_work,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				      CMD_MODE_IDLE_TIMEOUT);
 			pr_debug("off work scheduled\n");
 		}
@@ -1067,11 +1043,7 @@ static int mdss_mdp_cmd_wait4readptr(struct mdss_mdp_cmd_ctx *ctx)
 	return rc;
 }
 
-<<<<<<< HEAD
 static void mdss_mdp_cmd_intf_callback(void *data, int event)
-=======
-static int mdss_mdp_cmd_intf_callback(void *data, int event)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	struct mdss_mdp_cmd_ctx *ctx = data;
 	struct mdss_mdp_pp_tear_check *te = NULL;
@@ -1080,19 +1052,11 @@ static int mdss_mdp_cmd_intf_callback(void *data, int event)
 
 	if (!data) {
 		pr_err("%s: invalid ctx\n", __func__);
-<<<<<<< HEAD
 		return;
 	}
 
 	if (!ctx->ctl)
 		return;
-=======
-		return -EINVAL;
-	}
-
-	if (!ctx->ctl)
-		return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	switch (event) {
 	case MDP_INTF_CALLBACK_DSI_WAIT:
@@ -1104,11 +1068,7 @@ static int mdss_mdp_cmd_intf_callback(void *data, int event)
 		 * just return
 		 */
 		if (ctx->intf_stopped || !is_pingpong_split(ctx->ctl->mfd))
-<<<<<<< HEAD
 			return;
-=======
-			return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		atomic_inc(&ctx->rdptr_cnt);
 
 		/* enable clks and rd_ptr interrupt */
@@ -1117,11 +1077,7 @@ static int mdss_mdp_cmd_intf_callback(void *data, int event)
 		mixer = mdss_mdp_mixer_get(ctx->ctl, MDSS_MDP_MIXER_MUX_LEFT);
 		if (!mixer) {
 			pr_err("%s: null mixer\n", __func__);
-<<<<<<< HEAD
 			return;
-=======
-			return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 
 		/* wait for read pointer */
@@ -1145,10 +1101,6 @@ static int mdss_mdp_cmd_intf_callback(void *data, int event)
 		pr_debug("%s: unhandled event=%d\n", __func__, event);
 		break;
 	}
-<<<<<<< HEAD
-=======
-	return 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void mdss_mdp_cmd_lineptr_done(void *arg)
@@ -1174,11 +1126,7 @@ static void mdss_mdp_cmd_lineptr_done(void *arg)
 	spin_unlock(&ctx->clk_lock);
 }
 
-<<<<<<< HEAD
 static void mdss_mdp_cmd_intf_recovery(void *data, int event)
-=======
-static int mdss_mdp_cmd_intf_recovery(void *data, int event)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	struct mdss_mdp_cmd_ctx *ctx = data;
 	unsigned long flags;
@@ -1186,19 +1134,11 @@ static int mdss_mdp_cmd_intf_recovery(void *data, int event)
 
 	if (!data) {
 		pr_err("%s: invalid ctx\n", __func__);
-<<<<<<< HEAD
 		return;
 	}
 
 	if (!ctx->ctl)
 		return;
-=======
-		return -EINVAL;
-	}
-
-	if (!ctx->ctl)
-		return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/*
 	 * Currently, only intf_fifo_underflow is
@@ -1208,11 +1148,7 @@ static int mdss_mdp_cmd_intf_recovery(void *data, int event)
 	if (event != MDP_INTF_DSI_CMD_FIFO_UNDERFLOW) {
 		pr_warn("%s: unsupported recovery event:%d\n",
 					__func__, event);
-<<<<<<< HEAD
 		return;
-=======
-		return -EPERM;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	if (atomic_read(&ctx->koff_cnt)) {
@@ -1236,10 +1172,6 @@ static int mdss_mdp_cmd_intf_recovery(void *data, int event)
 	if (notify_frame_timeout)
 		mdss_mdp_ctl_notify(ctx->ctl, MDP_NOTIFY_FRAME_TIMEOUT);
 
-<<<<<<< HEAD
-=======
-	return 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void mdss_mdp_cmd_pingpong_done(void *arg)
@@ -1912,14 +1844,11 @@ static int mdss_mdp_cmd_remove_vsync_handler(struct mdss_mdp_ctl *ctl,
 	spin_unlock_irqrestore(&ctx->clk_lock, flags);
 
 	if (disable_vsync_irq) {
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		if (ctx->vsync_irq_cnt == 0)
 			return 0;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/* disable rd_ptr interrupt and clocks */
 		mdss_mdp_setup_vsync(ctx, false);
 		complete(&ctx->stop_comp);
@@ -1968,13 +1897,10 @@ static int mdss_mdp_cmd_wait4pingpong(struct mdss_mdp_ctl *ctl, void *arg)
 	struct mdss_panel_data *pdata;
 	unsigned long flags;
 	int rc = 0;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct mdss_panel_specific_pdata *spec_pdata;
 	struct incell_ctrl *incell = incell_get_info();
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	ctx = (struct mdss_mdp_cmd_ctx *) ctl->intf_ctx[MASTER_CTX];
 	if (!ctx) {
@@ -1999,15 +1925,12 @@ static int mdss_mdp_cmd_wait4pingpong(struct mdss_mdp_ctl *ctl, void *arg)
 
 	if (rc <= 0) {
 		u32 status, mask;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		spec_pdata = mdss_panel2spec_pdata(pdata);
 		if (spec_pdata->blackscreen_det)
 			spec_pdata->blackscreen_det();
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		mask = mdss_mdp_get_irq_mask(MDSS_MDP_IRQ_TYPE_PING_PONG_COMP,
 				ctx->current_pp_num);
 		status = mask & readl_relaxed(ctl->mdata->mdp_base +
@@ -2033,7 +1956,6 @@ static int mdss_mdp_cmd_wait4pingpong(struct mdss_mdp_ctl *ctl, void *arg)
 				ctl->num, rc, ctx->pp_timeout_report_cnt,
 				atomic_read(&ctx->koff_cnt));
 		if (ctx->pp_timeout_report_cnt == 0) {
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 			if (!incell)
 				pr_err("%s: Invalid incell data\n", __func__);
@@ -2049,12 +1971,6 @@ static int mdss_mdp_cmd_wait4pingpong(struct mdss_mdp_ctl *ctl, void *arg)
 #else
 				"dbg_bus", "vbif_dbg_bus", "panic");
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-			MDSS_XLOG(0xbad);
-			MDSS_XLOG_TOUT_HANDLER("mdp", "dsi0_ctrl", "dsi0_phy",
-				"dsi1_ctrl", "dsi1_phy", "vbif", "vbif_nrt",
-				"dbg_bus", "vbif_dbg_bus", "panic");
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		} else if (ctx->pp_timeout_report_cnt == MAX_RECOVERY_TRIALS) {
 			MDSS_XLOG(0xbad2);
 			MDSS_XLOG_TOUT_HANDLER("mdp", "dsi0_ctrl", "dsi0_phy",
@@ -2209,7 +2125,6 @@ static int mdss_mdp_cmd_panel_on(struct mdss_mdp_ctl *ctl,
 			WARN(rc, "intf %d panel on error (%d)\n",
 					ctl->intf_num, rc);
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 			disp_on_in_hs =
 				mdss_dsi_panel_driver_check_disp_on_in_hs(ctl);
@@ -2221,14 +2136,6 @@ static int mdss_mdp_cmd_panel_on(struct mdss_mdp_ctl *ctl,
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 		}
 
-=======
-		}
-
-		rc = mdss_mdp_tearcheck_enable(ctl, true);
-		WARN(rc, "intf %d tearcheck enable error (%d)\n",
-				ctl->intf_num, rc);
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ctx->panel_power_state = MDSS_PANEL_POWER_ON;
 		if (sctx)
 			sctx->panel_power_state = MDSS_PANEL_POWER_ON;
@@ -2319,10 +2226,6 @@ int mdss_mdp_cmd_set_autorefresh_mode(struct mdss_mdp_ctl *mctl, int frame_cnt)
 		 */
 		ctx->autorefresh_state = MDP_AUTOREFRESH_ON_REQUESTED;
 		ctx->autorefresh_frame_cnt = frame_cnt;
-<<<<<<< HEAD
-=======
-		mctl->mdata->serialize_wait4pp = true;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		/* Cancel GATE Work Item */
 		if (cancel_work_sync(&ctx->gate_clk_work))
@@ -2336,15 +2239,8 @@ int mdss_mdp_cmd_set_autorefresh_mode(struct mdss_mdp_ctl *mctl, int frame_cnt)
 		if (frame_cnt == 0) {
 			ctx->autorefresh_state = MDP_AUTOREFRESH_OFF;
 			ctx->autorefresh_frame_cnt = 0;
-<<<<<<< HEAD
 		} else {
 			ctx->autorefresh_frame_cnt = frame_cnt;
-=======
-			mctl->mdata->serialize_wait4pp = false;
-		} else {
-			ctx->autorefresh_frame_cnt = frame_cnt;
-			mctl->mdata->serialize_wait4pp = true;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 		break;
 	case MDP_AUTOREFRESH_ON:
@@ -2356,10 +2252,6 @@ int mdss_mdp_cmd_set_autorefresh_mode(struct mdss_mdp_ctl *mctl, int frame_cnt)
 			ctx->autorefresh_state = MDP_AUTOREFRESH_OFF_REQUESTED;
 		} else {
 			ctx->autorefresh_frame_cnt = frame_cnt;
-<<<<<<< HEAD
-=======
-			mctl->mdata->serialize_wait4pp = true;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 		break;
 	case MDP_AUTOREFRESH_OFF_REQUESTED:
@@ -2369,10 +2261,6 @@ int mdss_mdp_cmd_set_autorefresh_mode(struct mdss_mdp_ctl *mctl, int frame_cnt)
 			pr_debug("cancelling autorefresh off request\n");
 			ctx->autorefresh_state = MDP_AUTOREFRESH_ON;
 			ctx->autorefresh_frame_cnt = frame_cnt;
-<<<<<<< HEAD
-=======
-			mctl->mdata->serialize_wait4pp = true;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 		break;
 	default:
@@ -2483,11 +2371,7 @@ static void mdss_mdp_cmd_wait4_autorefresh_pp(struct mdss_mdp_ctl *ctl)
 
 	MDSS_XLOG(ctl->num, line_out, ctl->mixer_left->roi.h);
 
-<<<<<<< HEAD
 	if (line_out < ctl->mixer_left->roi.h) {
-=======
-	if ((line_out < ctl->mixer_left->roi.h) && line_out) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		reinit_completion(&ctx->autorefresh_ppdone);
 
 		/* enable ping pong done */
@@ -2739,10 +2623,6 @@ static int mdss_mdp_disable_autorefresh(struct mdss_mdp_ctl *ctl,
 	mdss_mdp_pingpong_write(pp_base,
 				MDSS_MDP_REG_PP_SYNC_CONFIG_VSYNC, cfg);
 
-<<<<<<< HEAD
-=======
-	ctl->mdata->serialize_wait4pp = false;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -2927,7 +2807,6 @@ static int mdss_mdp_cmd_kickoff(struct mdss_mdp_ctl *ctl, void *arg)
 
 	MDSS_XLOG(ctl->num, ctx->current_pp_num,
 		sctx ? sctx->current_pp_num : -1, atomic_read(&ctx->koff_cnt));
-<<<<<<< HEAD
 
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if (disp_on_in_hs) {
@@ -2935,8 +2814,6 @@ static int mdss_mdp_cmd_kickoff(struct mdss_mdp_ctl *ctl, void *arg)
 		mdss_dsi_panel_driver_post_on_event(ctl);
 	}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -3045,11 +2922,6 @@ int mdss_mdp_cmd_ctx_stop(struct mdss_mdp_ctl *ctl,
 		ctx->default_pp_num, NULL, NULL);
 
 	memset(ctx, 0, sizeof(*ctx));
-<<<<<<< HEAD
-=======
-	/* intf stopped,  no more kickoff */
-	ctx->intf_stopped = 1;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return 0;
 }
@@ -3192,15 +3064,7 @@ int mdss_mdp_cmd_stop(struct mdss_mdp_ctl *ctl, int panel_power_state)
 			ctx->intf_stopped = 0;
 			if (sctx)
 				sctx->intf_stopped = 0;
-<<<<<<< HEAD
 
-=======
-			/*
-			 * Tearcheck was disabled while entering LP2 state.
-			 * Enable it back to allow updates in LP1 state.
-			 */
-			mdss_mdp_tearcheck_enable(ctl, true);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			goto end;
 		}
 	}
@@ -3327,12 +3191,8 @@ static int mdss_mdp_cmd_early_wake_up(struct mdss_mdp_ctl *ctl)
 	 * Only schedule if the interface has not been stopped.
 	 */
 	if (ctx && !ctx->intf_stopped)
-<<<<<<< HEAD
 		queue_work(ctx->early_wakeup_clk_wq,
 			&ctx->early_wakeup_clk_work);
-=======
-		schedule_work(&ctx->early_wakeup_clk_work);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -3355,11 +3215,8 @@ static int mdss_mdp_cmd_ctx_setup(struct mdss_mdp_ctl *ctl,
 	ctx->aux_pp_num = aux_pp_num;
 	ctx->pingpong_split_slave = pingpong_split_slave;
 	ctx->pp_timeout_report_cnt = 0;
-<<<<<<< HEAD
 	ctx->early_wakeup_clk_wq
 		= alloc_workqueue("early_wakeup_clk_wq", WQ_HIGHPRI, 0);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	init_waitqueue_head(&ctx->pp_waitq);
 	init_waitqueue_head(&ctx->rdptr_waitq);
 	init_completion(&ctx->stop_comp);

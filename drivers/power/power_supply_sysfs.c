@@ -10,14 +10,11 @@
  *
  *  You may use this code as per GPL version 2
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/ctype.h>
 #include <linux/device.h>
@@ -261,7 +258,6 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(enable_jeita_detection),
 	POWER_SUPPLY_ATTR(battery_info),
 	POWER_SUPPLY_ATTR(battery_info_id),
-<<<<<<< HEAD
 	POWER_SUPPLY_ATTR(usbin_det),
 	POWER_SUPPLY_ATTR(sub_type),
 	POWER_SUPPLY_ATTR(enable_shutdown_at_low_battery),
@@ -281,8 +277,6 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(charge_full_raw),
 	POWER_SUPPLY_ATTR(time_to_cap_learning),
 	POWER_SUPPLY_ATTR(chgerr_sts),
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* Local extensions of type int64_t */
 	POWER_SUPPLY_ATTR(charge_counter_ext),
 	/* Properties of type `const char *' */
@@ -290,10 +284,7 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(manufacturer),
 	POWER_SUPPLY_ATTR(serial_number),
 	POWER_SUPPLY_ATTR(battery_type),
-<<<<<<< HEAD
 	POWER_SUPPLY_ATTR(charger_type),
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static struct attribute *

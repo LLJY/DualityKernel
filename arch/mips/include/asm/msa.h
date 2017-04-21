@@ -67,7 +67,6 @@ static inline void restore_msa(struct task_struct *t)
 		_restore_msa(t);
 }
 
-<<<<<<< HEAD
 static inline void init_msa_upper(void)
 {
 	/*
@@ -81,8 +80,6 @@ static inline void init_msa_upper(void)
 	_init_msa_upper();
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifdef TOOLCHAIN_SUPPORTS_MSA
 
 #define __BUILD_MSA_CTL_REG(name, cs)				\

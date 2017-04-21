@@ -87,18 +87,10 @@ static int wil_ioc_memio_dword(struct wil6210_priv *wil, void __user *data)
 		io.val = readl(a);
 		need_copy = true;
 		break;
-<<<<<<< HEAD
-=======
-#if defined(CONFIG_WIL6210_WRITE_IOCTL)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	case wil_mmio_write:
 		writel(io.val, a);
 		wmb(); /* make sure write propagated to HW */
 		break;
-<<<<<<< HEAD
-=======
-#endif
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		wil_err(wil, "Unsupported operation, op = 0x%08x\n", io.op);
 		return -EINVAL;
@@ -155,10 +147,6 @@ static int wil_ioc_memio_block(struct wil6210_priv *wil, void __user *data)
 			goto out_free;
 		}
 		break;
-<<<<<<< HEAD
-=======
-#if defined(CONFIG_WIL6210_WRITE_IOCTL)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	case wil_mmio_write:
 		if (copy_from_user(block, io.block, io.size)) {
 			rc = -EFAULT;
@@ -168,10 +156,6 @@ static int wil_ioc_memio_block(struct wil6210_priv *wil, void __user *data)
 		wmb(); /* make sure write propagated to HW */
 		wil_hex_dump_ioctl("Write ", block, io.size);
 		break;
-<<<<<<< HEAD
-=======
-#endif
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		wil_err(wil, "Unsupported operation, op = 0x%08x\n", io.op);
 		rc = -EINVAL;

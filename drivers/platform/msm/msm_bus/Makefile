@@ -11,10 +11,6 @@ ifdef CONFIG_BUS_TOPOLOGY_ADHOC
 	obj-$(CONFIG_OF) += msm_bus_of_adhoc.o
 	obj-$(CONFIG_DEBUG_BUS_VOTER) += msm_bus_dbg_voter.o
 	obj-$(CONFIG_CORESIGHT) +=  msm_buspm_coresight_adhoc.o
-<<<<<<< HEAD
-=======
-	obj-$(CONFIG_BW_MONITOR) += msm_bandwidth_monitor.o
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 else
 	obj-y += msm_bus_fabric.o msm_bus_config.o msm_bus_arb.o \
 		msm_bus_bimc.o msm_bus_noc.o

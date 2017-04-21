@@ -1087,15 +1087,6 @@ static int cpr3_panic_notifier_init(struct cpr3_controller *ctrl)
 				rc);
 			return rc;
 		}
-<<<<<<< HEAD
-=======
-		regs[i].virt_addr = devm_ioremap(ctrl->dev, regs[i].addr, 0x4);
-		if (!regs[i].virt_addr) {
-			pr_err("Unable to map panic register addr 0x%08x\n",
-				regs[i].addr);
-			return -EINVAL;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		regs[i].value = 0xFFFFFFFF;
 	}
 

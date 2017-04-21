@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2014-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -334,12 +330,9 @@ struct qpnp_hap {
 	u32 timeout_ms;
 	u32 time_required_to_generate_back_emf_us;
 	u32 vmax_mv;
-<<<<<<< HEAD
 	u32 vtg_min;
 	u32 vtg_max;
 	u32 vtg_default;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	u32 ilim_ma;
 	u32 sc_deb_cycles;
 	u32 int_pwm_freq_khz;
@@ -360,10 +353,6 @@ struct qpnp_hap {
 	u8 lra_res_cal_period;
 	u8 sc_duration;
 	u8 ext_pwm_dtest_line;
-<<<<<<< HEAD
-=======
-	bool vcc_pon_enabled;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	bool state;
 	bool use_play_irq;
 	bool use_sc_irq;
@@ -741,27 +730,16 @@ static int qpnp_hap_vmax_config(struct qpnp_hap *hap)
 	u8 reg = 0;
 	int rc, temp;
 
-<<<<<<< HEAD
 	if (hap->vmax_mv < hap->vtg_min)
 		hap->vmax_mv = hap->vtg_min;
 	else if (hap->vmax_mv > hap->vtg_max)
 		hap->vmax_mv = hap->vtg_max;
-=======
-	if (hap->vmax_mv < QPNP_HAP_VMAX_MIN_MV)
-		hap->vmax_mv = QPNP_HAP_VMAX_MIN_MV;
-	else if (hap->vmax_mv > QPNP_HAP_VMAX_MAX_MV)
-		hap->vmax_mv = QPNP_HAP_VMAX_MAX_MV;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	rc = qpnp_hap_read_reg(hap, &reg, QPNP_HAP_VMAX_REG(hap->base));
 	if (rc < 0)
 		return rc;
 	reg &= QPNP_HAP_VMAX_MASK;
-<<<<<<< HEAD
 	temp = hap->vmax_mv / hap->vtg_min;
-=======
-	temp = hap->vmax_mv / QPNP_HAP_VMAX_MIN_MV;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	reg |= (temp << QPNP_HAP_VMAX_SHIFT);
 	rc = qpnp_hap_write_reg(hap, &reg, QPNP_HAP_VMAX_REG(hap->base));
 	if (rc)
@@ -1346,7 +1324,6 @@ static ssize_t qpnp_hap_ramp_test_data_show(struct device *dev,
 
 }
 
-<<<<<<< HEAD
 static ssize_t qpnp_hap_vmax_mv_show(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
@@ -1420,8 +1397,6 @@ static ssize_t qpnp_hap_default_show(struct device *dev,
 	return scnprintf(buf, PAGE_SIZE, "%d\n", hap->vtg_default);
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* sysfs attributes */
 static struct device_attribute qpnp_hap_attrs[] = {
 	__ATTR(wf_s0, (S_IRUGO | S_IWUSR | S_IWGRP),
@@ -1469,7 +1444,6 @@ static struct device_attribute qpnp_hap_attrs[] = {
 	__ATTR(min_max_test, (S_IRUGO | S_IWUSR | S_IWGRP),
 			qpnp_hap_min_max_test_data_show,
 			qpnp_hap_min_max_test_data_store),
-<<<<<<< HEAD
 	__ATTR(vtg_level, (S_IRUGO | S_IWUSR | S_IWGRP),
 			qpnp_hap_vmax_mv_show,
 			qpnp_hap_vmax_mv_store),
@@ -1482,8 +1456,6 @@ static struct device_attribute qpnp_hap_attrs[] = {
 	__ATTR(vtg_default, S_IRUGO,
 			qpnp_hap_default_show,
 			NULL),
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static int calculate_lra_code(struct qpnp_hap *hap)
@@ -1852,7 +1824,6 @@ static void qpnp_hap_worker(struct work_struct *work)
 	struct qpnp_hap *hap = container_of(work, struct qpnp_hap,
 					 work);
 	u8 val = 0x00;
-<<<<<<< HEAD
 	int rc, reg_en;
 
 	if (hap->vcc_pon) {
@@ -1860,17 +1831,6 @@ static void qpnp_hap_worker(struct work_struct *work)
 		if (reg_en)
 			pr_err("%s: could not enable vcc_pon regulator\n",
 				 __func__);
-=======
-	int rc;
-
-	if (hap->vcc_pon && hap->state && !hap->vcc_pon_enabled) {
-		rc = regulator_enable(hap->vcc_pon);
-		if (rc < 0)
-			pr_err("%s: could not enable vcc_pon regulator rc=%d\n",
-				 __func__, rc);
-		else
-			hap->vcc_pon_enabled = true;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	/* Disable haptics module if the duration of short circuit
@@ -1885,21 +1845,11 @@ static void qpnp_hap_worker(struct work_struct *work)
 		qpnp_hap_set(hap, hap->state);
 	}
 
-<<<<<<< HEAD
 	if (hap->vcc_pon && !reg_en) {
 		rc = regulator_disable(hap->vcc_pon);
 		if (rc)
 			pr_err("%s: could not disable vcc_pon regulator\n",
 				 __func__);
-=======
-	if (hap->vcc_pon && !hap->state && hap->vcc_pon_enabled) {
-		rc = regulator_disable(hap->vcc_pon);
-		if (rc)
-			pr_err("%s: could not disable vcc_pon regulator rc=%d\n",
-				 __func__, rc);
-		else
-			hap->vcc_pon_enabled = false;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 }
 
@@ -2398,7 +2348,6 @@ static int qpnp_hap_parse_dt(struct qpnp_hap *hap)
 		return rc;
 	}
 
-<<<<<<< HEAD
 	hap->vtg_min = QPNP_HAP_VMAX_MIN_MV;
 	rc = of_property_read_u32(spmi->dev.of_node,
 			"qcom,hap-vtg-min-mv", &temp);
@@ -2426,8 +2375,6 @@ static int qpnp_hap_parse_dt(struct qpnp_hap *hap)
 
 	hap->vtg_default = hap->vmax_mv;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	hap->ilim_ma = QPNP_HAP_ILIM_MIN_MV;
 	rc = of_property_read_u32(spmi->dev.of_node,
 			"qcom,ilim-ma", &temp);
@@ -2682,7 +2629,4 @@ module_exit(qpnp_haptic_exit);
 
 MODULE_DESCRIPTION("qpnp haptic driver");
 MODULE_LICENSE("GPL v2");
-<<<<<<< HEAD
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

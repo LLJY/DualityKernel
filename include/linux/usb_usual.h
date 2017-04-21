@@ -79,11 +79,8 @@
 		/* Cannot handle MI_REPORT_SUPPORTED_OPERATION_CODES */	\
 	US_FLAG(MAX_SECTORS_240,	0x08000000)		\
 		/* Sets max_sectors to 240 */			\
-<<<<<<< HEAD
 	US_FLAG(NO_REPORT_LUNS,	0x10000000)			\
 		/* Cannot handle REPORT_LUNS */			\
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define US_FLAG(name, value)	US_FL_##name = value ,
 enum { US_DO_ALL_FLAGS };

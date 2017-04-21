@@ -62,13 +62,6 @@ bool radeon_has_atpx(void) {
 	return radeon_atpx_priv.atpx_detected;
 }
 
-<<<<<<< HEAD
-=======
-bool radeon_has_atpx_dgpu_power_cntl(void) {
-	return radeon_atpx_priv.atpx.functions.power_cntl;
-}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * radeon_atpx_call - call an ATPX method
  *
@@ -148,13 +141,10 @@ static void radeon_atpx_parse_functions(struct radeon_atpx_functions *f, u32 mas
  */
 static int radeon_atpx_validate(struct radeon_atpx *atpx)
 {
-<<<<<<< HEAD
 	/* make sure required functions are enabled */
 	/* dGPU power control is required */
 	atpx->functions.power_cntl = true;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (atpx->functions.px_params) {
 		union acpi_object *info;
 		struct atpx_px_params output;

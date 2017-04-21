@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -87,11 +83,6 @@ enum ipahal_reg_name {
 	IPA_RX_HPS_CLIENTS_MAX_DEPTH_1,
 	IPA_QSB_MAX_WRITES,
 	IPA_QSB_MAX_READS,
-<<<<<<< HEAD
-=======
-	IPA_DPS_SEQUENCER_FIRST,
-	IPA_HPS_SEQUENCER_FIRST,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	IPA_REG_MAX,
 };
 

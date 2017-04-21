@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef MSM_SENSOR_H
 #define MSM_SENSOR_H
@@ -100,15 +97,12 @@ struct msm_sensor_ctrl_t {
 
 int msm_sensor_config(struct msm_sensor_ctrl_t *s_ctrl, void __user *argp);
 
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 #ifdef CONFIG_COMPAT
 int msm_sensor_config32(struct msm_sensor_ctrl_t *s_ctrl, void __user *argp);
 #endif
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int msm_sensor_power_up(struct msm_sensor_ctrl_t *s_ctrl);
 
 int msm_sensor_power_down(struct msm_sensor_ctrl_t *s_ctrl);
@@ -117,14 +111,11 @@ int msm_sensor_check_id(struct msm_sensor_ctrl_t *s_ctrl);
 
 int msm_sensor_match_id(struct msm_sensor_ctrl_t *s_ctrl);
 
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 int32_t msm_sensor_platform_probe(struct platform_device *pdev,
 	const void *data);
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 int msm_sensor_update_cfg(struct msm_sensor_ctrl_t *s_ctrl);
 
 int msm_sensor_free_sensor_data(struct msm_sensor_ctrl_t *s_ctrl);

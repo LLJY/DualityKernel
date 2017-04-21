@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -42,10 +38,6 @@ static void mem_share_svc_recv_msg(struct work_struct *work);
 static DECLARE_DELAYED_WORK(work_recv_msg, mem_share_svc_recv_msg);
 static struct workqueue_struct *mem_share_svc_workqueue;
 static uint64_t bootup_request;
-<<<<<<< HEAD
-=======
-static bool ramdump_event;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void *memshare_ramdump_dev[MAX_CLIENTS];
 
 /* Memshare Driver Structure */
@@ -313,31 +305,6 @@ static int modem_notifier_cb(struct notifier_block *this, unsigned long code,
 		bootup_request++;
 		break;
 
-<<<<<<< HEAD
-=======
-	case SUBSYS_RAMDUMP_NOTIFICATION:
-		ramdump_event = 1;
-		break;
-
-	case SUBSYS_BEFORE_POWERUP:
-		if (_cmd) {
-			notifdata = (struct notif_data *) _cmd;
-		} else {
-			ramdump_event = 0;
-			break;
-		}
-
-		if (notifdata->enable_ramdump && ramdump_event) {
-			pr_info("memshare: %s, Ramdump collection is enabled\n",
-					__func__);
-			ret = mem_share_do_ramdump();
-			if (ret)
-				pr_err("Ramdump collection failed\n");
-			ramdump_event = 0;
-		}
-		break;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	case SUBSYS_AFTER_POWERUP:
 		pr_debug("memshare: Modem has booted up\n");
 		for (i = 0; i < MAX_CLIENTS; i++) {
@@ -388,7 +355,6 @@ static int modem_notifier_cb(struct notifier_block *this, unsigned long code,
 		bootup_request++;
 		break;
 
-<<<<<<< HEAD
 		case SUBSYS_RAMDUMP_NOTIFICATION:
 
 			if (_cmd)
@@ -406,8 +372,6 @@ static int modem_notifier_cb(struct notifier_block *this, unsigned long code,
 			}
 			break;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		pr_debug("Memshare: code: %lu\n", code);
 		break;

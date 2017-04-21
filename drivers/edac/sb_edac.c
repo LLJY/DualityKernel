@@ -1264,11 +1264,7 @@ static int get_memory_error_data(struct mem_ctl_info *mci,
 	}
 
 	ch_way = TAD_CH(reg) + 1;
-<<<<<<< HEAD
 	sck_way = TAD_SOCK(reg);
-=======
-	sck_way = 1 << TAD_SOCK(reg);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (ch_way == 3)
 		idx = addr >> 6;
@@ -1307,11 +1303,7 @@ static int get_memory_error_data(struct mem_ctl_info *mci,
 		switch(ch_way) {
 		case 2:
 		case 4:
-<<<<<<< HEAD
 			sck_xch = (1 << sck_way) * (ch_way >> 1);
-=======
-			sck_xch = 1 << sck_way * (ch_way >> 1);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			break;
 		default:
 			sprintf(msg, "Invalid mirror set. Can't decode addr");
@@ -1347,11 +1339,7 @@ static int get_memory_error_data(struct mem_ctl_info *mci,
 
 	ch_addr = addr - offset;
 	ch_addr >>= (6 + shiftup);
-<<<<<<< HEAD
 	ch_addr /= sck_xch;
-=======
-	ch_addr /= ch_way * sck_way;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ch_addr <<= (6 + shiftup);
 	ch_addr |= addr & ((1 << (6 + shiftup)) - 1);
 
@@ -2059,11 +2047,7 @@ static int sbridge_mce_check_error(struct notifier_block *nb, unsigned long val,
 
 	mci = get_mci_for_node_id(mce->socketid);
 	if (!mci)
-<<<<<<< HEAD
 		return NOTIFY_DONE;
-=======
-		return NOTIFY_BAD;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pvt = mci->pvt_info;
 
 	/*

@@ -841,7 +841,6 @@ static int stage2_set_pmd_huge(struct kvm *kvm, struct kvm_mmu_memory_cache
 	VM_BUG_ON(pmd_present(*pmd) && pmd_pfn(*pmd) != pmd_pfn(*new_pmd));
 
 	old_pmd = *pmd;
-<<<<<<< HEAD
 	if (pmd_present(old_pmd)) {
 		pmd_clear(pmd);
 		kvm_tlb_flush_vmid_ipa(kvm, addr);
@@ -850,13 +849,6 @@ static int stage2_set_pmd_huge(struct kvm *kvm, struct kvm_mmu_memory_cache
 	}
 
 	kvm_set_pmd(pmd, *new_pmd);
-=======
-	kvm_set_pmd(pmd, *new_pmd);
-	if (pmd_present(old_pmd))
-		kvm_tlb_flush_vmid_ipa(kvm, addr);
-	else
-		get_page(virt_to_page(pmd));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -893,7 +885,6 @@ static int stage2_set_pte(struct kvm *kvm, struct kvm_mmu_memory_cache *cache,
 
 	/* Create 2nd stage page table mapping - Level 3 */
 	old_pte = *pte;
-<<<<<<< HEAD
 	if (pte_present(old_pte)) {
 		kvm_set_pte(pte, __pte(0));
 		kvm_tlb_flush_vmid_ipa(kvm, addr);
@@ -902,14 +893,6 @@ static int stage2_set_pte(struct kvm *kvm, struct kvm_mmu_memory_cache *cache,
 	}
 
 	kvm_set_pte(pte, *new_pte);
-=======
-	kvm_set_pte(pte, *new_pte);
-	if (pte_present(old_pte))
-		kvm_tlb_flush_vmid_ipa(kvm, addr);
-	else
-		get_page(virt_to_page(pte));
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 

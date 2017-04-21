@@ -203,11 +203,8 @@ int get_rock_ridge_filename(struct iso_directory_record *de,
 	int retnamlen = 0;
 	int truncate = 0;
 	int ret = 0;
-<<<<<<< HEAD
 	char *p;
 	int len;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!ISOFS_SB(inode->i_sb)->s_rock)
 		return 0;
@@ -272,7 +269,6 @@ repeat:
 					rr->u.NM.flags);
 				break;
 			}
-<<<<<<< HEAD
 			len = rr->len - 5;
 			if (retnamlen + len >= 254) {
 				truncate = 1;
@@ -284,14 +280,6 @@ repeat:
 			memcpy(retname + retnamlen, rr->u.NM.name, len);
 			retnamlen += len;
 			retname[retnamlen] = '\0';
-=======
-			if ((strlen(retname) + rr->len - 5) >= 254) {
-				truncate = 1;
-				break;
-			}
-			strncat(retname, rr->u.NM.name, rr->len - 5);
-			retnamlen += rr->len - 5;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			break;
 		case SIG('R', 'E'):
 			kfree(rs.buffer);

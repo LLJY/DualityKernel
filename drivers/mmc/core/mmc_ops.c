@@ -8,14 +8,11 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/slab.h>
 #include <linux/export.h>
@@ -65,36 +62,6 @@ int mmc_send_status(struct mmc_card *card, u32 *status)
 	return __mmc_send_status(card, status, false);
 }
 
-<<<<<<< HEAD
-=======
-static int mmc_switch_status_error(struct mmc_host *host, u32 status)
-{
-	if (mmc_host_is_spi(host)) {
-		if (status & R1_SPI_ILLEGAL_COMMAND)
-			return -EBADMSG;
-	} else {
-		if (status & 0xFDFFA000)
-			pr_warn("%s: unexpected status %#x after switch\n",
-				mmc_hostname(host), status);
-		if (status & R1_SWITCH_ERROR)
-			return -EBADMSG;
-	}
-	return 0;
-}
-
-int mmc_switch_status(struct mmc_card *card, bool ignore_crc)
-{
-	u32 status;
-	int err;
-
-	err = __mmc_send_status(card, &status, ignore_crc);
-	if (err)
-		return err;
-
-	return mmc_switch_status_error(card->host, status);
-}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int _mmc_select_card(struct mmc_host *host, struct mmc_card *card)
 {
 	int err;
@@ -602,7 +569,6 @@ int __mmc_switch(struct mmc_card *card, u8 set, u8 index, u8 value,
 		}
 	} while (R1_CURRENT_STATE(status) == R1_STATE_PRG);
 
-<<<<<<< HEAD
 	if (mmc_host_is_spi(host)) {
 		if (status & R1_SPI_ILLEGAL_COMMAND)
 			return -EBADMSG;
@@ -615,11 +581,6 @@ int __mmc_switch(struct mmc_card *card, u8 set, u8 index, u8 value,
 	}
 
 	return 0;
-=======
-	err = mmc_switch_status_error(host, status);
-
-	return err;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 EXPORT_SYMBOL_GPL(__mmc_switch);
 
@@ -631,7 +592,6 @@ int mmc_switch(struct mmc_card *card, u8 set, u8 index, u8 value,
 }
 EXPORT_SYMBOL_GPL(mmc_switch);
 
-<<<<<<< HEAD
 int mmc_switch_ignore_timeout(struct mmc_card *card, u8 set, u8 index, u8 value,
 		unsigned int timeout_ms)
 {
@@ -640,8 +600,6 @@ int mmc_switch_ignore_timeout(struct mmc_card *card, u8 set, u8 index, u8 value,
 }
 EXPORT_SYMBOL(mmc_switch_ignore_timeout);
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int
 mmc_send_bus_test(struct mmc_card *card, struct mmc_host *host, u8 opcode,
 		  u8 len)

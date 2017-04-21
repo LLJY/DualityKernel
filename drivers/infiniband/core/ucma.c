@@ -1487,12 +1487,9 @@ static ssize_t ucma_write(struct file *filp, const char __user *buf,
 	struct rdma_ucm_cmd_hdr hdr;
 	ssize_t ret;
 
-<<<<<<< HEAD
 	if (WARN_ON_ONCE(!ib_safe_file_access(filp)))
 		return -EACCES;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (len < sizeof(hdr))
 		return -EINVAL;
 

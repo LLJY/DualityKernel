@@ -642,15 +642,12 @@ struct rq {
 #endif
 	int skip_clock_update;
 
-<<<<<<< HEAD
    /* time-based average load */
   	u64 nr_last_stamp;
  	unsigned int ave_nr_running;
  	u64 nr_running_integral;
  	seqcount_t ave_seqcnt;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/* capture load from *all* tasks on this cpu: */
 	struct load_weight load;
 	unsigned long nr_load_updates;
@@ -1869,7 +1866,6 @@ static inline void add_nr_running(struct rq *rq, unsigned count)
 #endif
 	}
 }
-<<<<<<< HEAD
 #define NR_AVE_PERIOD_EXP	28
 #define NR_AVE_SCALE(x)		((x) << FSHIFT)
 #define NR_AVE_PERIOD		(1 << NR_AVE_PERIOD_EXP)
@@ -1891,8 +1887,6 @@ static inline unsigned int do_avg_nr_running(struct rq *rq)
  
  	return ave_nr_running;
 }
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static inline void sub_nr_running(struct rq *rq, unsigned count)
 {

@@ -13,14 +13,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt)	"%s: " fmt, __func__
 
@@ -63,15 +60,12 @@
 #include "mdss_smmu.h"
 #include "mdss_mdp.h"
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 #include "mdss_dsi_panel_driver.h"
 #include "mdss_dsi_panel_debugfs.h"
 #include "mdss_dsi_panel_driver.h"
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MDSS_FB_NUM 3
 #else
@@ -92,15 +86,12 @@
 #define BLANK_FLAG_ULP	FB_BLANK_NORMAL
 #endif
 
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 #include <linux/input.h>
 /* with a define we avoid modifying fb.h's FB-enum */
 #define FB_EARLY_UNBLANK 0xC0FFEE
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct fb_info *fbi_list[MAX_FBI_LIST];
 static int fbi_list_index;
 
@@ -186,7 +177,6 @@ void mdss_fb_bl_update_notify(struct msm_fb_data_type *mfd,
 #ifndef TARGET_HW_MDSS_MDP3
 	mdp5_data = mfd_to_mdp5_data(mfd);
 	if (mdp5_data) {
-<<<<<<< HEAD
 #ifndef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		if (notification_type == NOTIFY_TYPE_BL_AD_ATTEN_UPDATE) {
 			mdp5_data->ad_bl_events++;
@@ -194,12 +184,6 @@ void mdss_fb_bl_update_notify(struct msm_fb_data_type *mfd,
 		} else
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 		if (notification_type == NOTIFY_TYPE_BL_UPDATE) {
-=======
-		if (notification_type == NOTIFY_TYPE_BL_AD_ATTEN_UPDATE) {
-			mdp5_data->ad_bl_events++;
-			sysfs_notify_dirent(mdp5_data->ad_bl_event_sd);
-		} else if (notification_type == NOTIFY_TYPE_BL_UPDATE) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			mdp5_data->bl_events++;
 			sysfs_notify_dirent(mdp5_data->bl_event_sd);
 		}
@@ -291,7 +275,6 @@ static int mdss_fb_notify_update(struct msm_fb_data_type *mfd,
 	return ret;
 }
 
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 static void mdss_background_unblank(struct work_struct *ws);
 
@@ -392,8 +375,6 @@ static struct input_handler mdss_input_handler = {
 };
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int lcd_backlight_registered;
 
 static void mdss_fb_set_bl_brightness(struct led_classdev *led_cdev,
@@ -689,17 +670,7 @@ static ssize_t mdss_fb_get_panel_info(struct device *dev,
 			"min_w=%d\nmin_h=%d\nroi_merge=%d\ndyn_fps_en=%d\n"
 			"min_fps=%d\nmax_fps=%d\npanel_name=%s\n"
 			"primary_panel=%d\nis_pluggable=%d\ndisplay_id=%s\n"
-<<<<<<< HEAD
 			"is_cec_supported=%d\nis_pingpong_split=%d\n",
-=======
-			"is_cec_supported=%d\nis_pingpong_split=%d\n"
-			"is_hdr_enabled=%d\n"
-			"peak_brightness=%d\nblackness_level=%d\n"
-			"white_chromaticity_x=%d\nwhite_chromaticity_y=%d\n"
-			"red_chromaticity_x=%d\nred_chromaticity_y=%d\n"
-			"green_chromaticity_x=%d\ngreen_chromaticity_y=%d\n"
-			"blue_chromaticity_x=%d\nblue_chromaticity_y=%d\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			pinfo->partial_update_enabled,
 			pinfo->roi_alignment.xstart_pix_align,
 			pinfo->roi_alignment.width_pix_align,
@@ -711,22 +682,7 @@ static ssize_t mdss_fb_get_panel_info(struct device *dev,
 			pinfo->dynamic_fps, pinfo->min_fps, pinfo->max_fps,
 			pinfo->panel_name, pinfo->is_prim_panel,
 			pinfo->is_pluggable, pinfo->display_id,
-<<<<<<< HEAD
 			pinfo->is_cec_supported, is_pingpong_split(mfd));
-=======
-			pinfo->is_cec_supported, is_pingpong_split(mfd),
-			pinfo->hdr_properties.hdr_enabled,
-			pinfo->hdr_properties.peak_brightness,
-			pinfo->hdr_properties.blackness_level,
-			pinfo->hdr_properties.display_primaries[0],
-			pinfo->hdr_properties.display_primaries[1],
-			pinfo->hdr_properties.display_primaries[2],
-			pinfo->hdr_properties.display_primaries[3],
-			pinfo->hdr_properties.display_primaries[4],
-			pinfo->hdr_properties.display_primaries[5],
-			pinfo->hdr_properties.display_primaries[6],
-			pinfo->hdr_properties.display_primaries[7]);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return ret;
 }
@@ -1239,12 +1195,9 @@ static int mdss_fb_probe(struct platform_device *pdev)
 	struct mdss_panel_data *pdata;
 	struct fb_info *fbi;
 	int rc;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct incell_ctrl *incell = NULL;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (fbi_list_index >= MAX_FBI_LIST)
 		return -ENOMEM;
@@ -1311,15 +1264,12 @@ static int mdss_fb_probe(struct platform_device *pdev)
 
 	INIT_LIST_HEAD(&mfd->file_list);
 
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 	mfd->early_unblank_completed = false;
 	mfd->unblank_kworker = NULL;
 	INIT_WORK(&mfd->unblank_work, mdss_background_unblank);
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_init(&mfd->bl_lock);
 	mutex_init(&mfd->switch_lock);
 
@@ -1393,7 +1343,6 @@ static int mdss_fb_probe(struct platform_device *pdev)
 		if (mdss_fb_register_input_handler(mfd))
 			pr_err("failed to register input handler\n");
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if ((mfd->panel_info->type == MIPI_VIDEO_PANEL) ||
 		(mfd->panel_info->type == MIPI_CMD_PANEL))
@@ -1425,10 +1374,6 @@ skip:
 	}
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
-	INIT_DELAYED_WORK(&mfd->idle_notify_work, __mdss_fb_idle_notify_work);
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return rc;
 }
 
@@ -1521,13 +1466,10 @@ static int mdss_fb_suspend_sub(struct msm_fb_data_type *mfd)
 
 	pr_debug("mdss_fb suspend index=%d\n", mfd->index);
 
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 	mdss_ensure_kworker_done(mfd->unblank_kworker);
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ret = mdss_fb_pan_idle(mfd);
 	if (ret) {
 		pr_warn("mdss_fb_pan_idle for fb%d failed. ret=%d\n",
@@ -1551,7 +1493,6 @@ static int mdss_fb_suspend_sub(struct msm_fb_data_type *mfd)
 		 * as a fall back option, enter ulp state to leave the display
 		 * on, but turn off all interface clocks.
 		 */
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 		/* Check if Early Unblank has done an early power on of
 		 * the panel, but got no request from layers above to do so.
@@ -1571,8 +1512,6 @@ static int mdss_fb_suspend_sub(struct msm_fb_data_type *mfd)
 			mfd->suspend.panel_power_state = mfd->panel_power_state;
 		} else
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (mdss_fb_is_power_on(mfd)) {
 			ret = mdss_fb_blank_sub(BLANK_FLAG_ULP, mfd->fbi,
 					mfd->suspend.op_enable);
@@ -1584,14 +1523,11 @@ static int mdss_fb_suspend_sub(struct msm_fb_data_type *mfd)
 		mfd->op_enable = false;
 		fb_set_suspend(mfd->fbi, FBINFO_STATE_SUSPENDED);
 	}
-<<<<<<< HEAD
 
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 	pwr_pressed = false;
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 exit:
 	return ret;
 }
@@ -1629,7 +1565,6 @@ static int mdss_fb_resume_sub(struct msm_fb_data_type *mfd)
 	 * flag. If fb was in ulp state when entering suspend, then nothing
 	 * needs to be done.
 	 */
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 	if (mfd->unblank_kworker && pwr_pressed &&
 	    !mdss_panel_is_power_on_ulp(mfd->suspend.panel_power_state)) {
@@ -1641,10 +1576,6 @@ static int mdss_fb_resume_sub(struct msm_fb_data_type *mfd)
 	if (mdss_panel_is_power_on(mfd->suspend.panel_power_state) &&
 		!mdss_panel_is_power_on_ulp(mfd->suspend.panel_power_state)) {
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
-=======
-	if (mdss_panel_is_power_on(mfd->suspend.panel_power_state) &&
-		!mdss_panel_is_power_on_ulp(mfd->suspend.panel_power_state)) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		int unblank_flag = mdss_panel_is_power_on_interactive(
 			mfd->suspend.panel_power_state) ? FB_BLANK_UNBLANK :
 			BLANK_FLAG_LP;
@@ -2111,7 +2042,6 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 
 	switch (blank_mode) {
 	case FB_BLANK_UNBLANK:
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 		mdss_ensure_kworker_done(mfd->unblank_kworker);
 		mdss_fb_update_early_unblank_completed(mfd, false);
@@ -2120,8 +2050,6 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 		 */
 	case FB_EARLY_UNBLANK:
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pr_debug("unblank called. cur pwr state=%d\n", cur_power_state);
 		ret = mdss_fb_blank_unblank(mfd);
 		break;
@@ -2155,7 +2083,6 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 	case FB_BLANK_HSYNC_SUSPEND:
 	case FB_BLANK_POWERDOWN:
 	default:
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		mdss_dsi_panel_driver_fb_notifier_call_chain(mfd,
 				FB_BLANK_POWERDOWN, FB_NOTIFIER_PRE);
@@ -2170,11 +2097,6 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 			mdss_dsi_panel_driver_fb_notifier_call_chain(mfd,
 					FB_BLANK_POWERDOWN, FB_NOTIFIER_POST);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-		req_power_state = MDSS_PANEL_POWER_OFF;
-		pr_debug("blank powerdown called\n");
-		ret = mdss_fb_blank_blank(mfd, req_power_state);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	}
 
@@ -2186,7 +2108,6 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 	return ret;
 }
 
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 static void mdss_background_unblank(struct work_struct *ws)
 {
@@ -2218,8 +2139,6 @@ static void mdss_background_unblank(struct work_struct *ws)
 }
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int mdss_fb_blank(int blank_mode, struct fb_info *info)
 {
 	int ret;
@@ -2385,13 +2304,6 @@ err_put:
 	dma_buf_put(mfd->fbmem_buf);
 fb_mmap_failed:
 	ion_free(mfd->fb_ion_client, mfd->fb_ion_handle);
-<<<<<<< HEAD
-=======
-	mfd->fb_attachment = NULL;
-	mfd->fb_table = NULL;
-	mfd->fb_ion_handle = NULL;
-	mfd->fbmem_buf = NULL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return rc;
 }
 
@@ -3008,24 +2920,18 @@ static int mdss_fb_release_all(struct fb_info *info, bool release_all)
 				pr_err("PP release failed ret %d\n", ret);
 		}
 
-<<<<<<< HEAD
 #ifndef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		/* reset backlight before blank to prevent backlight from
 		 * enabling ahead of unblank. for some special cases like
 		 * adb shell stop/start.
 		 */
 		mdss_fb_set_backlight(mfd, 0);
-<<<<<<< HEAD
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 		mdss_ensure_kworker_done(mfd->unblank_kworker);
 		mdss_fb_update_early_unblank_completed(mfd, false);
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		ret = mdss_fb_blank_sub(FB_BLANK_POWERDOWN, info,
 			mfd->op_enable);
@@ -3078,7 +2984,6 @@ static void mdss_fb_power_setting_idle(struct msm_fb_data_type *mfd)
 static void __mdss_fb_copy_fence(struct msm_sync_pt_data *sync_pt_data,
 	struct sync_fence **fences, u32 *fence_cnt)
 {
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct msm_fb_data_type *mfd;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
@@ -3092,10 +2997,6 @@ static void __mdss_fb_copy_fence(struct msm_sync_pt_data *sync_pt_data,
 		return;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
-	pr_debug("%s: wait for fences\n", sync_pt_data->fence_name);
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_lock(&sync_pt_data->sync_mutex);
 	/*
 	 * Assuming that acq_fen_cnt is sanitized in bufsync ioctl
@@ -3255,19 +3156,15 @@ static int __mdss_fb_sync_buf_done_callback(struct notifier_block *p,
 	struct msm_fb_data_type *mfd;
 	int fence_cnt;
 	int ret = NOTIFY_OK;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct mdss_panel_data *pdata;
 	struct mdss_panel_specific_pdata *spec_pdata;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	sync_pt_data = container_of(p, struct msm_sync_pt_data, notifier);
 	mfd = container_of(sync_pt_data, struct msm_fb_data_type,
 		mdp_sync_pt_data);
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if (mfd->spec_mfd.off_sts) {
 		mdss_fb_signal_timeline(sync_pt_data);
@@ -3275,8 +3172,6 @@ static int __mdss_fb_sync_buf_done_callback(struct notifier_block *p,
 	}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	switch (event) {
 	case MDP_NOTIFY_FRAME_BEGIN:
 		if (mfd->idle_time && !mod_delayed_work(system_wq,
@@ -3307,7 +3202,6 @@ static int __mdss_fb_sync_buf_done_callback(struct notifier_block *p,
 	case MDP_NOTIFY_FRAME_FLUSHED:
 		pr_debug("%s: frame flushed\n", sync_pt_data->fence_name);
 		sync_pt_data->flushed = true;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		if (mfd->panel.type == MIPI_VIDEO_PANEL ||
 		    mfd->panel.type == MIPI_CMD_PANEL) {
@@ -3322,8 +3216,6 @@ static int __mdss_fb_sync_buf_done_callback(struct notifier_block *p,
 				spec_pdata->fff_time_update(spec_pdata);
 		}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		break;
 	case MDP_NOTIFY_FRAME_TIMEOUT:
 		pr_err("%s: frame timeout\n", sync_pt_data->fence_name);
@@ -3840,13 +3732,10 @@ static int __mdss_fb_perform_commit(struct msm_fb_data_type *mfd)
 	int ret = -ENOSYS;
 	u32 new_dsi_mode, dynamic_dsi_switch = 0;
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if (mfd->spec_mfd.off_sts)
 		return 0;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!sync_pt_data->async_wait_fences)
 		mdss_fb_wait_for_fence(sync_pt_data);
 	sync_pt_data->flushed = false;
@@ -3879,12 +3768,9 @@ static int __mdss_fb_perform_commit(struct msm_fb_data_type *mfd)
 		else
 			pr_warn("no kickoff function setup for fb%d\n",
 					mfd->index);
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		mdss_dsi_panel_driver_fps_data_update(mfd, FPSD);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else if (fb_backup->atomic_commit) {
 		if (mfd->mdp.kickoff_fnc)
 			ret = mfd->mdp.kickoff_fnc(mfd,
@@ -3892,12 +3778,9 @@ static int __mdss_fb_perform_commit(struct msm_fb_data_type *mfd)
 		else
 			pr_warn("no kickoff function setup for fb%d\n",
 				mfd->index);
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		mdss_dsi_panel_driver_fps_data_update(mfd, FPSD);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		fb_backup->atomic_commit = false;
 	} else {
 		ret = mdss_fb_pan_display_sub(&fb_backup->disp_commit.var,
@@ -3949,7 +3832,6 @@ static int __mdss_fb_display_thread(void *data)
 				mfd->index);
 
 	while (1) {
-<<<<<<< HEAD
 		ret = wait_event_interruptible(mfd->commit_wait_q,
 				(atomic_read(&mfd->commits_pending) ||
 				 kthread_should_stop()));
@@ -3959,12 +3841,6 @@ static int __mdss_fb_display_thread(void *data)
 			continue;
 		}
 
-=======
-		wait_event(mfd->commit_wait_q,
-				(atomic_read(&mfd->commits_pending) ||
-				 kthread_should_stop()));
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (kthread_should_stop())
 			break;
 
@@ -5003,14 +4879,11 @@ int mdss_fb_do_ioctl(struct fb_info *info, unsigned int cmd,
 	if (!mfd)
 		return -EINVAL;
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	if (mfd->spec_mfd.off_sts)
 		return 0;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (mfd->shutdown_pending)
 		return -ESHUTDOWN;
 
@@ -5232,14 +5105,11 @@ int __init mdss_fb_init(void)
 	if (platform_driver_register(&mdss_fb_driver))
 		return rc;
 
-<<<<<<< HEAD
 #ifdef SOMC_FEATURE_EARLY_UNBLANK
 	if (input_register_handler(&mdss_input_handler))
 		return rc;
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 

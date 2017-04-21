@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -14,14 +10,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt)	"%s: " fmt, __func__
 
@@ -35,13 +28,10 @@
 #include <linux/msm-bus-board.h>
 #include "mdss_mdp_pp_cache_config.h"
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 #include "mdss_dsi_panel_driver.h"
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 struct mdp_csc_cfg mdp_csc_8bit_convert[MDSS_MDP_MAX_CSC] = {
 	[MDSS_MDP_CSC_YUV2RGB_601L] = {
 		0,
@@ -79,33 +69,6 @@ struct mdp_csc_cfg mdp_csc_8bit_convert[MDSS_MDP_MAX_CSC] = {
 		{ 0x10, 0xeb, 0x10, 0xf0, 0x10, 0xf0,},
 		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
 	},
-<<<<<<< HEAD
-=======
-	[MDSS_MDP_CSC_YUV2RGB_2020L] = {
-		0,
-		{
-			0x0256, 0x0000, 0x035e,
-			0x0256, 0xffa0, 0xfeb2,
-			0x0256, 0x044c, 0x0000,
-		},
-		{ 0xfff0, 0xff80, 0xff80,},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x10, 0xeb, 0x10, 0xf0, 0x10, 0xf0,},
-		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
-	},
-	[MDSS_MDP_CSC_YUV2RGB_2020FR] = {
-		0,
-		{
-			0x0200, 0x0000, 0x02f3,
-			0x0200, 0xffac, 0xfedb,
-			0x0200, 0x03c3, 0x0000,
-		},
-		{ 0x0000, 0xff80, 0xff80,},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
-		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
-	},
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	[MDSS_MDP_CSC_RGB2YUV_601L] = {
 		0,
 		{
@@ -142,33 +105,6 @@ struct mdp_csc_cfg mdp_csc_8bit_convert[MDSS_MDP_MAX_CSC] = {
 		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
 		{ 0x0010, 0x00eb, 0x0010, 0x00f0, 0x0010, 0x00f0,},
 	},
-<<<<<<< HEAD
-=======
-	[MDSS_MDP_CSC_RGB2YUV_2020L] = {
-		0,
-		{
-			0x0073, 0x0129, 0x001a,
-			0xffc1, 0xff5e, 0x00e0,
-			0x00e0, 0xff32, 0xffee
-		},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x0010, 0x0080, 0x0080,},
-		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
-		{ 0x0010, 0x00eb, 0x0010, 0x00f0, 0x0010, 0x00f0,},
-	},
-	[MDSS_MDP_CSC_RGB2YUV_2020FR] = {
-		0,
-		{
-			0x0086, 0x015b, 0x001e,
-			0xffb9, 0xff47, 0x0100,
-			0x0100, 0xff15, 0xffeb
-		},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x0, 0x0080, 0x0080,},
-		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
-		{ 0x0, 0xff, 0x0, 0xff, 0x0, 0xff,},
-	},
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	[MDSS_MDP_CSC_YUV2YUV] = {
 		0,
 		{
@@ -232,33 +168,6 @@ struct mdp_csc_cfg mdp_csc_10bit_convert[MDSS_MDP_MAX_CSC] = {
 		{ 0x40, 0x3ac, 0x40, 0x3c0, 0x40, 0x3c0,},
 		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
 	},
-<<<<<<< HEAD
-=======
-	[MDSS_MDP_CSC_YUV2RGB_2020L] = {
-		0,
-		{
-			0x0256, 0x0000, 0x035e,
-			0x0256, 0xffa0, 0xfeb2,
-			0x0256, 0x044c, 0x0000,
-		},
-		{ 0xffc0, 0xfe00, 0xfe00,},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x40, 0x3ac, 0x40, 0x3c0, 0x40, 0x3c0,},
-		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
-	},
-	[MDSS_MDP_CSC_YUV2RGB_2020FR] = {
-		0,
-		{
-			0x0200, 0x0000, 0x02f3,
-			0x0200, 0xffac, 0xfedb,
-			0x0200, 0x03c3, 0x0000,
-		},
-		{ 0x0000, 0xfe00, 0xfe00,},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
-		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
-	},
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	[MDSS_MDP_CSC_RGB2YUV_601L] = {
 		0,
 		{
@@ -295,33 +204,6 @@ struct mdp_csc_cfg mdp_csc_10bit_convert[MDSS_MDP_MAX_CSC] = {
 		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
 		{ 0x0040, 0x03ac, 0x0040, 0x03c0, 0x0040, 0x03c0,},
 	},
-<<<<<<< HEAD
-=======
-	[MDSS_MDP_CSC_RGB2YUV_2020L] = {
-		0,
-		{
-			0x0073, 0x0129, 0x001a,
-			0xffc1, 0xff5e, 0x00e0,
-			0x00e0, 0xff32, 0xffee
-		},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x0040, 0x0200, 0x0200,},
-		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
-		{ 0x0040, 0x03ac, 0x0040, 0x03c0, 0x0040, 0x03c0,},
-	},
-	[MDSS_MDP_CSC_RGB2YUV_2020FR] = {
-		0,
-		{
-			0x0086, 0x015b, 0x001e,
-			0xffb9, 0xff47, 0x0100,
-			0x0100, 0xff15, 0xffeb
-		},
-		{ 0x0, 0x0, 0x0,},
-		{ 0x0, 0x0200, 0x0200,},
-		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
-		{ 0x0, 0x3ff, 0x0, 0x3ff, 0x0, 0x3ff,},
-	},
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	[MDSS_MDP_CSC_YUV2YUV] = {
 		0,
 		{
@@ -627,14 +509,8 @@ static void mdss_mdp_hist_irq_set_mask(u32 irq);
 static void mdss_mdp_hist_irq_clear_mask(u32 irq);
 static void mdss_mdp_hist_intr_notify(u32 disp);
 static int mdss_mdp_panel_default_dither_config(struct msm_fb_data_type *mfd,
-<<<<<<< HEAD
 					u32 panel_bpp);
 static int mdss_mdp_limited_lut_igc_config(struct msm_fb_data_type *mfd);
-=======
-					u32 panel_bpp, bool enable);
-static int mdss_mdp_limited_lut_igc_config(struct msm_fb_data_type *mfd,
-					bool enable);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline int pp_validate_dspp_mfd_block(struct msm_fb_data_type *mfd,
 					int block);
 static int pp_mfd_release_all(struct msm_fb_data_type *mfd);
@@ -3079,12 +2955,7 @@ int mdss_mdp_pp_overlay_init(struct msm_fb_data_type *mfd)
 }
 
 int mdss_mdp_pp_default_overlay_config(struct msm_fb_data_type *mfd,
-<<<<<<< HEAD
 					struct mdss_panel_data *pdata)
-=======
-					struct mdss_panel_data *pdata,
-					bool enable)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	int ret = 0;
 
@@ -3093,22 +2964,13 @@ int mdss_mdp_pp_default_overlay_config(struct msm_fb_data_type *mfd,
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	ret = mdss_mdp_panel_default_dither_config(mfd, pdata->panel_info.bpp);
-=======
-	ret = mdss_mdp_panel_default_dither_config(mfd, pdata->panel_info.bpp,
-						enable);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (ret)
 		pr_err("Unable to configure default dither on fb%d ret %d\n",
 			mfd->index, ret);
 
 	if (pdata->panel_info.type == DTV_PANEL) {
-<<<<<<< HEAD
 		ret = mdss_mdp_limited_lut_igc_config(mfd);
-=======
-		ret = mdss_mdp_limited_lut_igc_config(mfd, enable);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (ret)
 			pr_err("Unable to configure DTV panel default IGC ret %d\n",
 				ret);
@@ -3629,7 +3491,6 @@ static void pp_update_pcc_regs(char __iomem *addr,
 	writel_relaxed(cfg_ptr->b.rgb_1, addr + 8);
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 int mdss_mdp_pcc_config(struct msm_fb_data_type *mfd,
 				struct mdp_pcc_cfg_data *config,
@@ -3639,11 +3500,6 @@ int mdss_mdp_pcc_config(struct msm_fb_data_type *mfd,
 				struct mdp_pcc_cfg_data *config,
 				u32 *copyback)
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-int mdss_mdp_pcc_config(struct msm_fb_data_type *mfd,
-				struct mdp_pcc_cfg_data *config,
-				u32 *copyback)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	int ret = 0;
 	u32 disp_num, dspp_num = 0;
@@ -3691,7 +3547,6 @@ int mdss_mdp_pcc_config(struct msm_fb_data_type *mfd,
 				goto pcc_clk_off;
 			}
 			addr += mdata->pp_block_off.dspp_pcc_off;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 			if (copy_from_kernel)
 				ret = __pp_pcc_get_config(addr, config,
@@ -3700,10 +3555,6 @@ int mdss_mdp_pcc_config(struct msm_fb_data_type *mfd,
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 				ret = pp_ops[PCC].pp_get_config(addr, config,
 								DSPP, disp_num);
-=======
-			ret = pp_ops[PCC].pp_get_config(addr, config,
-					DSPP, disp_num);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			if (ret)
 				pr_err("pcc get config failed %d\n", ret);
 			goto pcc_clk_off;
@@ -3721,16 +3572,12 @@ pcc_clk_off:
 			res_cache.block = DSPP;
 			res_cache.mdss_pp_res = mdss_pp_res;
 			res_cache.pipe_res = NULL;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 			ret = pp_pcc_cache_params(config, &res_cache, copy_from_kernel);
 #else
 			ret = pp_pcc_cache_params(config, &res_cache);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
-			ret = pp_pcc_cache_params(config, &res_cache);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			if (ret) {
 				pr_err("pcc config failed version %d ret %d\n",
 					config->version, ret);
@@ -3830,12 +3677,7 @@ static void pp_update_igc_lut(struct mdp_igc_lut_data *cfg,
 		writel_relaxed((cfg->c2_data[i] & 0xFFF) | data, addr);
 }
 
-<<<<<<< HEAD
 static int mdss_mdp_limited_lut_igc_config(struct msm_fb_data_type *mfd)
-=======
-static int mdss_mdp_limited_lut_igc_config(struct msm_fb_data_type *mfd,
-					bool enable)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	int ret = 0;
 	u32 copyback = 0;
@@ -3860,14 +3702,7 @@ static int mdss_mdp_limited_lut_igc_config(struct msm_fb_data_type *mfd,
 		pr_err("failed to get default IGC version, ret %d\n", ret);
 
 	config.version = igc_version.version_info;
-<<<<<<< HEAD
 	config.ops = MDP_PP_OPS_WRITE | MDP_PP_OPS_ENABLE;
-=======
-	if (enable)
-		config.ops = MDP_PP_OPS_WRITE | MDP_PP_OPS_ENABLE;
-	else
-		config.ops = MDP_PP_OPS_DISABLE;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	config.block = (mfd->index) + MDP_LOGICAL_BLOCK_DISP_0;
 	switch (config.version) {
 	case mdp_igc_v1_7:
@@ -4457,11 +4292,7 @@ enhist_config_exit:
 }
 
 static int mdss_mdp_panel_default_dither_config(struct msm_fb_data_type *mfd,
-<<<<<<< HEAD
 					u32 panel_bpp)
-=======
-					u32 panel_bpp, bool enable)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	int ret = 0;
 	struct mdp_dither_cfg_data dither;
@@ -4486,7 +4317,6 @@ static int mdss_mdp_panel_default_dither_config(struct msm_fb_data_type *mfd,
 		return ret;
 	}
 	dither.version = dither_version.version_info;
-<<<<<<< HEAD
 
 	switch (panel_bpp) {
 	case 24:
@@ -4536,60 +4366,6 @@ static int mdss_mdp_panel_default_dither_config(struct msm_fb_data_type *mfd,
 	default:
 		dither.cfg_payload = NULL;
 		break;
-=======
-	dither.cfg_payload = NULL;
-
-	if (enable) {
-		switch (panel_bpp) {
-		case 24:
-			dither.flags = MDP_PP_OPS_ENABLE | MDP_PP_OPS_WRITE;
-			switch (dither.version) {
-			case mdp_dither_v1_7:
-				dither_data.g_y_depth = 8;
-				dither_data.r_cr_depth = 8;
-				dither_data.b_cb_depth = 8;
-				/*
-				 * Use default dither table by setting len to 0
-				 */
-				dither_data.len = 0;
-				dither.cfg_payload = &dither_data;
-				break;
-			case mdp_pp_legacy:
-			default:
-				dither.g_y_depth = 8;
-				dither.r_cr_depth = 8;
-				dither.b_cb_depth = 8;
-				dither.cfg_payload = NULL;
-				break;
-			}
-			break;
-		case 18:
-			dither.flags = MDP_PP_OPS_ENABLE | MDP_PP_OPS_WRITE;
-			switch (dither.version) {
-			case mdp_dither_v1_7:
-				dither_data.g_y_depth = 6;
-				dither_data.r_cr_depth = 6;
-				dither_data.b_cb_depth = 6;
-				/*
-				 * Use default dither table by setting len to 0
-				 */
-				dither_data.len = 0;
-				dither.cfg_payload = &dither_data;
-				break;
-			case mdp_pp_legacy:
-			default:
-				dither.g_y_depth = 6;
-				dither.r_cr_depth = 6;
-				dither.b_cb_depth = 6;
-				dither.cfg_payload = NULL;
-				break;
-			}
-			break;
-		default:
-			dither.cfg_payload = NULL;
-			break;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	ret = mdss_mdp_dither_config(mfd, &dither, NULL, true);
 	if (ret)
@@ -4824,14 +4600,6 @@ gamut_clk_off:
 				goto gamut_set_dirty;
 			}
 		}
-<<<<<<< HEAD
-=======
-		if (pp_gm_has_invalid_lut_size(config)) {
-			pr_err("invalid lut size for gamut\n");
-			ret = -EINVAL;
-			goto gamut_config_exit;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		local_cfg = *config;
 		tbl_off = mdss_pp_res->gamut_tbl[disp_num];
 		for (i = 0; i < MDP_GAMUT_TABLE_NUM; i++) {
@@ -6965,12 +6733,9 @@ static int is_valid_calib_addr(void *addr, u32 operation)
 	int ret = 0;
 	char __iomem *ptr = addr;
 	char __iomem *mixer_base = mdss_res->mixer_intf->base;
-<<<<<<< HEAD
 	char __iomem *rgb_base   = mdss_res->rgb_pipes->base;
 	char __iomem *dma_base   = mdss_res->dma_pipes->base;
 	char __iomem *vig_base   = mdss_res->vig_pipes->base;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	char __iomem *ctl_base   = mdss_res->ctl_off->base;
 	char __iomem *dspp_base  = mdss_res->mixer_intf->dspp_base;
 
@@ -7002,32 +6767,17 @@ static int is_valid_calib_addr(void *addr, u32 operation)
 			if (ret)
 				goto valid_addr;
 		}
-<<<<<<< HEAD
 		if (ptr >= vig_base) {
-=======
-		if (mdss_res->vig_pipes &&
-		  ptr >= mdss_res->vig_pipes->base) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			ret = is_valid_calib_vig_addr(ptr);
 			if (ret)
 				goto valid_addr;
 		}
-<<<<<<< HEAD
 		if (ptr >= rgb_base) {
-=======
-		if (mdss_res->rgb_pipes &&
-		  ptr >= mdss_res->rgb_pipes->base) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			ret = is_valid_calib_rgb_addr(ptr);
 			if (ret)
 				goto valid_addr;
 		}
-<<<<<<< HEAD
 		if (ptr >= dma_base) {
-=======
-		if (mdss_res->dma_pipes &&
-		  ptr >= mdss_res->dma_pipes->base) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			ret = is_valid_calib_dma_addr(ptr);
 			if (ret)
 				goto valid_addr;
@@ -7175,12 +6925,9 @@ int mdss_mdp_pp_sspp_config(struct mdss_mdp_pipe *pipe)
 	struct mdp_pp_cache_res cache_res;
 	u32 len = 0;
 	int ret = 0;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	u32 copy_from_kernel = 0;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!pipe) {
 		pr_err("invalid params, pipe %pK\n", pipe);
@@ -7281,7 +7028,6 @@ int mdss_mdp_pp_sspp_config(struct mdss_mdp_pipe *pipe)
 	}
 	if (pipe->pp_cfg.config_ops & MDP_OVERLAY_PP_PCC_CFG
 	    && pp_ops[PCC].pp_set_config) {
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		ret = pp_pcc_cache_params(&pipe->pp_cfg.pcc_cfg_data,
 					  &cache_res, copy_from_kernel);
@@ -7289,10 +7035,6 @@ int mdss_mdp_pp_sspp_config(struct mdss_mdp_pipe *pipe)
 		ret = pp_pcc_cache_params(&pipe->pp_cfg.pcc_cfg_data,
 					  &cache_res);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-		ret = pp_pcc_cache_params(&pipe->pp_cfg.pcc_cfg_data,
-					  &cache_res);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (ret) {
 			pr_err("failed to cache the pcc params ret %d\n", ret);
 			goto exit_fail;

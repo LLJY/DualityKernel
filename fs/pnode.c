@@ -198,7 +198,6 @@ static struct mount *next_group(struct mount *m, struct mount *origin)
 
 /* all accesses are serialized by namespace_sem */
 static struct user_namespace *user_ns;
-<<<<<<< HEAD
 static struct mount *last_dest, *first_source, *last_source, *dest_master;
 static struct mountpoint *mp;
 static struct hlist_head *list;
@@ -208,12 +207,6 @@ static inline bool peers(struct mount *m1, struct mount *m2)
 	return m1->mnt_group_id == m2->mnt_group_id && m1->mnt_group_id;
 }
 
-=======
-static struct mount *last_dest, *last_source, *dest_master;
-static struct mountpoint *mp;
-static struct hlist_head *list;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int propagate_one(struct mount *m)
 {
 	struct mount *child;
@@ -224,7 +217,6 @@ static int propagate_one(struct mount *m)
 	/* skip if mountpoint isn't covered by it */
 	if (!is_subdir(mp->m_dentry, m->mnt.mnt_root))
 		return 0;
-<<<<<<< HEAD
 	if (peers(m, last_dest)) {
 		type = CL_MAKE_SHARED;
 	} else {
@@ -245,26 +237,6 @@ static int propagate_one(struct mount *m)
 			last_source = last_source->mnt_master;
 		} while (!done);
 
-=======
-	if (m->mnt_group_id == last_dest->mnt_group_id) {
-		type = CL_MAKE_SHARED;
-	} else {
-		struct mount *n, *p;
-		for (n = m; ; n = p) {
-			p = n->mnt_master;
-			if (p == dest_master || IS_MNT_MARKED(p)) {
-				while (last_dest->mnt_master != p) {
-					last_source = last_source->mnt_master;
-					last_dest = last_source->mnt_parent;
-				}
-				if (n->mnt_group_id != last_dest->mnt_group_id) {
-					last_source = last_source->mnt_master;
-					last_dest = last_source->mnt_parent;
-				}
-				break;
-			}
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		type = CL_SLAVE;
 		/* beginning of peer group among the slaves? */
 		if (IS_MNT_SHARED(m))
@@ -315,10 +287,7 @@ int propagate_mnt(struct mount *dest_mnt, struct mountpoint *dest_mp,
 	 */
 	user_ns = current->nsproxy->mnt_ns->user_ns;
 	last_dest = dest_mnt;
-<<<<<<< HEAD
 	first_source = source_mnt;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	last_source = source_mnt;
 	mp = dest_mp;
 	list = tree_list;

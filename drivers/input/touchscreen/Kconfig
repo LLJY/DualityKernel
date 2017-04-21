@@ -558,7 +558,6 @@ config TOUCHSCREEN_MIGOR
 	  To compile this driver as a module, choose M here: the
 	  module will be called migor_ts.
 
-<<<<<<< HEAD
 config TOUCHSCREEN_CLEARPAD
 	tristate "Synaptics ClearPad"
 	default n
@@ -579,8 +578,6 @@ config TOUCHSCREEN_CLEARPAD_RMI_DEV
 	help
 		Say Y here to enable Synaptics ClearPad RMI dev.
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config TOUCHSCREEN_TOUCHRIGHT
 	tristate "Touchright serial touchscreen"
 	select SERIO
@@ -1018,7 +1015,6 @@ config TOUCHSCREEN_FT5X06_GESTURE
 
          If unsure, say N.
 
-<<<<<<< HEAD
 config TOUCHSCREEN_MSTAR21XX
 	tristate "mstar touchscreens"
 	depends on I2C
@@ -1029,17 +1025,6 @@ config TOUCHSCREEN_MSTAR21XX
 
 	 To compile this driver as a module, choose M here: the
 	 module will be called msg21xx_ts.
-=======
-config TOUCHSCREEN_SYNAPTICS_DSX_FW_UPDATE_EXTRA_SYSFS
-	bool "Synaptics DSX firmware update extra sysfs attributes"
-	depends on TOUCHSCREEN_SYNAPTICS_DSX_FW_UPDATE
-	help
-	  Say Y here to enable support for extra sysfs attributes
-	  supporting firmware update in a development environment.
-	  This does not affect the core or other subsystem attributes.
-
-	  If unsure, say N.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 config SECURE_TOUCH
 	bool "Secure Touch"

@@ -2376,13 +2376,10 @@ static void keyspan_release(struct usb_serial *serial)
 
 	s_priv = usb_get_serial_data(serial);
 
-<<<<<<< HEAD
 	/* Make sure to unlink the URBs submitted in attach. */
 	usb_kill_urb(s_priv->instat_urb);
 	usb_kill_urb(s_priv->indat_urb);
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	usb_free_urb(s_priv->instat_urb);
 	usb_free_urb(s_priv->indat_urb);
 	usb_free_urb(s_priv->glocont_urb);

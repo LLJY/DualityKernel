@@ -1923,11 +1923,7 @@ int gether_get_host_addr_cdc(struct net_device *net, char *host_addr, int len)
 		return -EINVAL;
 
 	dev = netdev_priv(net);
-<<<<<<< HEAD
 	snprintf(host_addr, len, "%pm", dev->host_mac);
-=======
-	snprintf(host_addr, len, "%pM", dev->host_mac);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return strlen(host_addr);
 }

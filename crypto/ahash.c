@@ -68,14 +68,9 @@ static int hash_walk_new_entry(struct crypto_hash_walk *walk)
 	struct scatterlist *sg;
 
 	sg = walk->sg;
-<<<<<<< HEAD
 	walk->offset = sg->offset;
 	walk->pg = sg_page(walk->sg) + (walk->offset >> PAGE_SHIFT);
 	walk->offset = offset_in_page(walk->offset);
-=======
-	walk->pg = sg_page(sg);
-	walk->offset = sg->offset;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	walk->entrylen = sg->length;
 
 	if (walk->entrylen > walk->total)

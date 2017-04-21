@@ -2797,11 +2797,7 @@ const struct file_operations btrfs_file_operations = {
 	.fallocate	= btrfs_fallocate,
 	.unlocked_ioctl	= btrfs_ioctl,
 #ifdef CONFIG_COMPAT
-<<<<<<< HEAD
 	.compat_ioctl	= btrfs_compat_ioctl,
-=======
-	.compat_ioctl	= btrfs_ioctl,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 };
 

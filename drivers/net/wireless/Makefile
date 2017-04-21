@@ -55,11 +55,8 @@ obj-$(CONFIG_WL_TI)	+= ti/
 
 obj-$(CONFIG_MWIFIEX)	+= mwifiex/
 
-<<<<<<< HEAD
 obj-$(CONFIG_SOMC_WIFI_CONTROL)	+= somcwifictrl/
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 obj-$(CONFIG_BRCMFMAC)	+= brcm80211/
 obj-$(CONFIG_BRCMSMAC)	+= brcm80211/
 

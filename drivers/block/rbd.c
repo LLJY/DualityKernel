@@ -1929,11 +1929,7 @@ static struct ceph_osd_request *rbd_osd_req_create(
 
 	osdc = &rbd_dev->rbd_client->client->osdc;
 	osd_req = ceph_osdc_alloc_request(osdc, snapc, num_ops, false,
-<<<<<<< HEAD
 					  GFP_NOIO);
-=======
-					  GFP_ATOMIC);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!osd_req)
 		return NULL;	/* ENOMEM */
 
@@ -1982,11 +1978,7 @@ rbd_osd_req_create_copyup(struct rbd_obj_request *obj_request)
 	rbd_dev = img_request->rbd_dev;
 	osdc = &rbd_dev->rbd_client->client->osdc;
 	osd_req = ceph_osdc_alloc_request(osdc, snapc, num_osd_ops,
-<<<<<<< HEAD
 						false, GFP_NOIO);
-=======
-						false, GFP_ATOMIC);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!osd_req)
 		return NULL;	/* ENOMEM */
 
@@ -2478,11 +2470,7 @@ static int rbd_img_request_fill(struct rbd_img_request *img_request,
 					bio_chain_clone_range(&bio_list,
 								&bio_offset,
 								clone_size,
-<<<<<<< HEAD
 								GFP_NOIO);
-=======
-								GFP_ATOMIC);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			if (!obj_request->bio_list)
 				goto out_unwind;
 		} else if (type == OBJ_REQUEST_PAGES) {

@@ -11,14 +11,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt)	"%s: " fmt, __func__
 
@@ -635,7 +632,6 @@ cleanup:
 	return 0;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 static int pp_pcc_cache_params_v1_7(struct mdp_pcc_cfg_data *config,
 				      struct mdss_pp_res_type *mdss_pp_res, u32 copy_from_kernel)
@@ -643,10 +639,6 @@ static int pp_pcc_cache_params_v1_7(struct mdp_pcc_cfg_data *config,
 static int pp_pcc_cache_params_v1_7(struct mdp_pcc_cfg_data *config,
 				      struct mdss_pp_res_type *mdss_pp_res)
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-static int pp_pcc_cache_params_v1_7(struct mdp_pcc_cfg_data *config,
-				      struct mdss_pp_res_type *mdss_pp_res)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	u32 disp_num;
 	int ret = 0;
@@ -679,7 +671,6 @@ static int pp_pcc_cache_params_v1_7(struct mdp_pcc_cfg_data *config,
 		v17_cache_data = &res_cache->pcc_v17_data[disp_num];
 		mdss_pp_res->pcc_disp_cfg[disp_num].cfg_payload =
 			(void *) v17_cache_data;
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		if (copy_from_kernel) {
 			memcpy(&v17_usr_config, config->cfg_payload,
@@ -700,14 +691,6 @@ static int pp_pcc_cache_params_v1_7(struct mdp_pcc_cfg_data *config,
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 		}
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-		if (copy_from_user(&v17_usr_config, config->cfg_payload,
-				   sizeof(v17_usr_config))) {
-			pr_err("failed to copy v17 pcc\n");
-			ret = -EFAULT;
-			goto pcc_config_exit;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if ((config->ops & MDP_PP_OPS_DISABLE)) {
 			pr_debug("disable pcc\n");
 			ret = 0;
@@ -723,7 +706,6 @@ pcc_config_exit:
 	return ret;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 int pp_pcc_cache_params(struct mdp_pcc_cfg_data *config,
 			struct mdp_pp_cache_res *res_cache, u32 copy_from_kernel)
@@ -731,10 +713,6 @@ int pp_pcc_cache_params(struct mdp_pcc_cfg_data *config,
 int pp_pcc_cache_params(struct mdp_pcc_cfg_data *config,
 			struct mdp_pp_cache_res *res_cache)
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-int pp_pcc_cache_params(struct mdp_pcc_cfg_data *config,
-			struct mdp_pp_cache_res *res_cache)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	int ret = 0;
 	if (!config || !res_cache) {
@@ -755,7 +733,6 @@ int pp_pcc_cache_params(struct mdp_pcc_cfg_data *config,
 	switch (config->version) {
 	case mdp_pcc_v1_7:
 		if (res_cache->block == DSPP) {
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 			ret = pp_pcc_cache_params_v1_7(config,
 					res_cache->mdss_pp_res, copy_from_kernel);
@@ -763,10 +740,6 @@ int pp_pcc_cache_params(struct mdp_pcc_cfg_data *config,
 			ret = pp_pcc_cache_params_v1_7(config,
 					res_cache->mdss_pp_res);
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-			ret = pp_pcc_cache_params_v1_7(config,
-					res_cache->mdss_pp_res);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			if (ret)
 				pr_err("caching for DSPP failed for PCC ret %d\n",
 					ret);
@@ -1219,7 +1192,6 @@ static int pp_pa_cache_params_v1_7(struct mdp_pa_v2_cfg_data *config,
 
 	if (copy_from_user(&pa_usr_config, config->cfg_payload,
 			   sizeof(pa_usr_config))) {
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_KCAL_CTRL
 		pr_err("%s Failed to copy v1_7 PA - copying in kernel \n",__func__);
 		memcpy(&pa_usr_config, config->cfg_payload, sizeof(pa_usr_config));
@@ -1229,11 +1201,6 @@ static int pp_pa_cache_params_v1_7(struct mdp_pa_v2_cfg_data *config,
 		ret = -EFAULT;
 		goto pa_config_exit;
 #endif
-=======
-		pr_err("Failed to copy v1_7 PA\n");
-		ret = -EFAULT;
-		goto pa_config_exit;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	if ((config->flags & MDP_PP_OPS_DISABLE)) {

@@ -457,17 +457,10 @@ static int sha_complete_job(struct mcryptd_hash_request_ctx *rctx,
 
 			req = cast_mcryptd_ctx_to_req(req_ctx);
 			if (irqs_disabled())
-<<<<<<< HEAD
 				req_ctx->complete(&req->base, ret);
 			else {
 				local_bh_disable();
 				req_ctx->complete(&req->base, ret);
-=======
-				rctx->complete(&req->base, ret);
-			else {
-				local_bh_disable();
-				rctx->complete(&req->base, ret);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				local_bh_enable();
 			}
 		}

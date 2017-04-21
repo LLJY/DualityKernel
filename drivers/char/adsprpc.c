@@ -706,15 +706,9 @@ static int overlap_ptr_cmp(const void *a, const void *b)
 	return st == 0 ? ed : st;
 }
 
-<<<<<<< HEAD
 static void context_build_overlap(struct smq_invoke_ctx *ctx)
 {
 	int i;
-=======
-static int context_build_overlap(struct smq_invoke_ctx *ctx)
-{
-	int i, err = 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	remote_arg_t *lpra = ctx->lpra;
 	int inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
 	int outbufs = REMOTE_SCALARS_OUTBUFS(ctx->sc);
@@ -723,14 +717,6 @@ static int context_build_overlap(struct smq_invoke_ctx *ctx)
 	for (i = 0; i < nbufs; ++i) {
 		ctx->overs[i].start = (uintptr_t)lpra[i].buf.pv;
 		ctx->overs[i].end = ctx->overs[i].start + lpra[i].buf.len;
-<<<<<<< HEAD
-=======
-		if (lpra[i].buf.len) {
-			VERIFY(err, ctx->overs[i].end > ctx->overs[i].start);
-			if (err)
-				goto bail;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ctx->overs[i].raix = i;
 		ctx->overps[i] = &ctx->overs[i];
 	}
@@ -756,11 +742,6 @@ static int context_build_overlap(struct smq_invoke_ctx *ctx)
 			max = *ctx->overps[i];
 		}
 	}
-<<<<<<< HEAD
-=======
-bail:
-	return err;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 #define K_COPY_FROM_USER(err, kernel, dst, src, size) \
@@ -824,16 +805,8 @@ static int context_alloc(struct fastrpc_file *fl, uint32_t kernel,
 			goto bail;
 	}
 	ctx->sc = invoke->sc;
-<<<<<<< HEAD
 	if (bufs)
 		context_build_overlap(ctx);
-=======
-	if (bufs) {
-		VERIFY(err, 0 == context_build_overlap(ctx));
-		if (err)
-			goto bail;
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ctx->retval = -1;
 	ctx->pid = current->pid;
 	ctx->tgid = current->tgid;
@@ -999,10 +972,6 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 	/* calculate len requreed for copying */
 	for (oix = 0; oix < inbufs + outbufs; ++oix) {
 		int i = ctx->overps[oix]->raix;
-<<<<<<< HEAD
-=======
-		uintptr_t mstart, mend;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ssize_t len = lpra[i].buf.len;
 		if (!len)
 			continue;
@@ -1010,19 +979,7 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 			continue;
 		if (ctx->overps[oix]->offset == 0)
 			copylen = ALIGN(copylen, BALIGN);
-<<<<<<< HEAD
 		copylen += ctx->overps[oix]->mend - ctx->overps[oix]->mstart;
-=======
-		mstart = ctx->overps[oix]->mstart;
-		mend = ctx->overps[oix]->mend;
-		VERIFY(err, (mend - mstart) <= LONG_MAX);
-		if (err)
-			goto bail;
-		copylen += mend - mstart;
-		VERIFY(err, copylen >= 0);
-		if (err)
-			goto bail;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	ctx->used = copylen;
 
@@ -1087,11 +1044,7 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 	for (oix = 0; oix < inbufs + outbufs; ++oix) {
 		int i = ctx->overps[oix]->raix;
 		struct fastrpc_mmap *map = ctx->maps[i];
-<<<<<<< HEAD
 		int mlen = ctx->overps[oix]->mend - ctx->overps[oix]->mstart;
-=======
-		ssize_t mlen;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		uint64_t buf;
 		ssize_t len = lpra[i].buf.len;
 		if (!len)
@@ -1102,10 +1055,6 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 			rlen -= ALIGN(args, BALIGN) - args;
 			args = ALIGN(args, BALIGN);
 		}
-<<<<<<< HEAD
-=======
-		mlen = ctx->overps[oix]->mend - ctx->overps[oix]->mstart;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		VERIFY(err, rlen >= mlen);
 		if (err)
 			goto bail;
@@ -1905,14 +1854,7 @@ static void file_free_work_handler(struct work_struct *w)
 			break;
 		}
 		mutex_unlock(&me->flfree_mutex);
-<<<<<<< HEAD
 		fastrpc_file_free(freefl->fl);
-=======
-		if (freefl) {
-			fastrpc_file_free(freefl->fl);
-			kfree(freefl);
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		mutex_lock(&me->flfree_mutex);
 
 		if (hlist_empty(&me->fls)) {
@@ -1922,10 +1864,7 @@ static void file_free_work_handler(struct work_struct *w)
 			break;
 		}
 		mutex_unlock(&me->flfree_mutex);
-<<<<<<< HEAD
 		kfree(freefl);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	return;
 }

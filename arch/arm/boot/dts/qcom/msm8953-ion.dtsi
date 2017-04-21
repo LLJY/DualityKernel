@@ -21,14 +21,11 @@
 			qcom,ion-heap-type = "SYSTEM";
 		};
 
-<<<<<<< HEAD
 		qcom,ion-heap@21 {
 			reg = <21>;
 			qcom,ion-heap-type = "SYSTEM_CONTIG";
 		};
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		qcom,ion-heap@8 { /* CP_MM HEAP */
 			reg = <8>;
 			memory-region = <&secure_mem>;

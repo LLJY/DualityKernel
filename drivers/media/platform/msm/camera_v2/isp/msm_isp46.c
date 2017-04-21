@@ -87,21 +87,6 @@ static uint8_t stats_pingpong_offset_map[] = {
 
 #define VFE46_CLK_IDX 2
 
-<<<<<<< HEAD
-=======
-uint32_t msm_vfe46_ub_reg_offset(struct vfe_device *vfe_dev, int wm_idx)
-{
-	return (VFE46_WM_BASE(wm_idx) + 0x10);
-}
-
-uint32_t msm_vfe46_get_ub_size(struct vfe_device *vfe_dev)
-{
-	if (vfe_dev->pdev->id == ISP_VFE0)
-		return MSM_ISP46_TOTAL_IMAGE_UB_VFE0;
-	return MSM_ISP46_TOTAL_IMAGE_UB_VFE1;
-}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void msm_vfe46_config_irq(struct vfe_device *vfe_dev,
 		uint32_t irq0_mask, uint32_t irq1_mask,
 		enum msm_isp_irq_operation oper)
@@ -1119,11 +1104,7 @@ static void msm_vfe46_update_camif_state(struct vfe_device *vfe_dev,
 		msm_camera_io_w(0x0, vfe_dev->vfe_base + 0x64);
 		msm_camera_io_w(0x81, vfe_dev->vfe_base + 0x68);
 		msm_camera_io_w(0x1, vfe_dev->vfe_base + 0x58);
-<<<<<<< HEAD
 		msm_vfe46_config_irq(vfe_dev, 0x15, 0x81,
-=======
-		msm_vfe46_config_irq(vfe_dev, 0x17, 0x81,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					MSM_ISP_IRQ_ENABLE);
 
 		bus_en =
@@ -1309,7 +1290,6 @@ static void msm_vfe46_axi_clear_wm_xbar_reg(
 		vfe_dev->vfe_base + VFE46_XBAR_BASE(wm));
 }
 
-<<<<<<< HEAD
 
 static void msm_vfe46_cfg_axi_ub_equal_default(
 	struct vfe_device *vfe_dev)
@@ -1389,8 +1369,6 @@ static void msm_vfe46_cfg_axi_ub(struct vfe_device *vfe_dev)
 		msm_vfe46_cfg_axi_ub_equal_default(vfe_dev);
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void msm_vfe46_read_wm_ping_pong_addr(
 	struct vfe_device *vfe_dev)
 {
@@ -1958,10 +1936,6 @@ struct msm_vfe_hardware_info vfe46_hw_info = {
 			.process_stats_irq = msm_isp_process_stats_irq,
 			.process_epoch_irq = msm_vfe46_process_epoch_irq,
 			.config_irq = msm_vfe46_config_irq,
-<<<<<<< HEAD
-=======
-			.process_eof_irq = msm_isp47_process_eof_irq,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		},
 		.axi_ops = {
 			.reload_wm = msm_vfe46_axi_reload_wm,
@@ -1977,11 +1951,7 @@ struct msm_vfe_hardware_info vfe46_hw_info = {
 			.clear_wm_reg = msm_vfe46_axi_clear_wm_reg,
 			.cfg_wm_xbar_reg = msm_vfe46_axi_cfg_wm_xbar_reg,
 			.clear_wm_xbar_reg = msm_vfe46_axi_clear_wm_xbar_reg,
-<<<<<<< HEAD
 			.cfg_ub = msm_vfe46_cfg_axi_ub,
-=======
-			.cfg_ub = msm_vfe47_cfg_axi_ub,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			.read_wm_ping_pong_addr =
 				msm_vfe46_read_wm_ping_pong_addr,
 			.update_ping_pong_addr =
@@ -1993,11 +1963,6 @@ struct msm_vfe_hardware_info vfe46_hw_info = {
 			.restart = msm_vfe46_axi_restart,
 			.update_cgc_override =
 				msm_vfe46_axi_update_cgc_override,
-<<<<<<< HEAD
-=======
-			.ub_reg_offset = msm_vfe46_ub_reg_offset,
-			.get_ub_size = msm_vfe46_get_ub_size,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		},
 		.core_ops = {
 			.reg_update = msm_vfe46_reg_update,

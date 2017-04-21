@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/msm/pm.h>
@@ -335,17 +332,11 @@
 			<0xff 115>, /* mdss_irq */
 			<0xff 126>, /* bam_irq[0] */
 			<0xff 127>, /* blsp1_qup_irq(0) */
-<<<<<<< HEAD
 			<0xff 129>, /* hwirq */
 			<0xff 132>, /* blsp1_qup_irq(5) */
 			<0xff 133>, /* blsp2_qup_irq(0) */
 			<0xff 134>, /* blsp2_qup_irq(1) */
 			<0xff 137>, /* hwirq */
-=======
-			<0xff 132>, /* blsp1_qup_irq(5) */
-			<0xff 133>, /* blsp2_qup_irq(0) */
-			<0xff 134>, /* blsp2_qup_irq(1) */
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			<0xff 138>, /* blsp2_qup_irq(5) */
 			<0xff 140>, /* blsp1_uart_irq(1) */
 			<0xff 146>, /* blsp2_uart_irq(1) */
@@ -537,12 +528,8 @@
 			<66  131>,
 			<67  132>, /* PCIe1 */
 			<68  133>,
-<<<<<<< HEAD
 			<69  145>,
 			<70  85>; /* hwirq */
-=======
-			<69  145>;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	};
 
 	rpm_msg_ram: memory@0x200000 {

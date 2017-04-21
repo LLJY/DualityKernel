@@ -77,11 +77,7 @@ static inline unsigned long create_zero_mask(unsigned long bits)
 	    "andc	%1,%1,%2\n\t"
 	    "popcntd	%0,%1"
 		: "=r" (leading_zero_bits), "=&r" (trailing_zero_bit_mask)
-<<<<<<< HEAD
 		: "b" (bits));
-=======
-		: "r" (bits));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return leading_zero_bits;
 }

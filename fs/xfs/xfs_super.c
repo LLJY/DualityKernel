@@ -1248,7 +1248,6 @@ xfs_fs_remount(
 
 	/* ro -> rw */
 	if ((mp->m_flags & XFS_MOUNT_RDONLY) && !(*flags & MS_RDONLY)) {
-<<<<<<< HEAD
 		if (mp->m_flags & XFS_MOUNT_NORECOVERY) {
 			xfs_warn(mp,
 		"ro->rw transition prohibited on norecovery mount");
@@ -1265,8 +1264,6 @@ xfs_fs_remount(
 			return -EINVAL;
 		}
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		mp->m_flags &= ~XFS_MOUNT_RDONLY;
 
 		/*

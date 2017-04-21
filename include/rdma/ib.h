@@ -34,10 +34,7 @@
 #define _RDMA_IB_H
 
 #include <linux/types.h>
-<<<<<<< HEAD
 #include <linux/sched.h>
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 struct ib_addr {
 	union {
@@ -90,7 +87,6 @@ struct sockaddr_ib {
 	__u64			sib_scope_id;
 };
 
-<<<<<<< HEAD
 /*
  * The IB interfaces that use write() as bi-directional ioctl() are
  * fundamentally unsafe, since there are lots of ways to trigger "write()"
@@ -106,6 +102,4 @@ static inline bool ib_safe_file_access(struct file *filp)
 	return filp->f_cred == current_cred() && segment_eq(get_fs(), USER_DS);
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif /* _RDMA_IB_H */

@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef _LINUX_TIME_H
 #define _LINUX_TIME_H
 
@@ -146,12 +143,9 @@ extern int do_getitimer(int which, struct itimerval *value);
 extern unsigned int alarm_setitimer(unsigned int seconds);
 
 extern long do_utimes(int dfd, const char __user *filename, struct timespec *times, int flags);
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_TAGS
 int timekeeping_ramdump_setup(void);
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 struct tms;
 extern void do_sys_times(struct tms *);

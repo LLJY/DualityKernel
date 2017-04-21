@@ -1,8 +1,4 @@
 /*
-<<<<<<< HEAD
-=======
- * Copyright (c) 2013, Sony Mobile Communications AB.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -14,14 +10,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/delay.h>
 #include <linux/err.h>
@@ -78,10 +71,7 @@ struct msm_pinctrl {
 
 	DECLARE_BITMAP(dual_edge_irqs, MAX_NR_GPIO);
 	DECLARE_BITMAP(enabled_irqs, MAX_NR_GPIO);
-<<<<<<< HEAD
 	DECLARE_BITMAP(disabled_pins, MAX_NR_GPIO);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	const struct msm_pinctrl_soc_data *soc;
 	void __iomem *regs;
@@ -550,7 +540,6 @@ static void msm_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
 {
 	unsigned gpio = chip->base;
 	unsigned i;
-<<<<<<< HEAD
 	struct msm_pinctrl *pctrl = container_of(chip,
 			struct msm_pinctrl, chip);
 
@@ -559,11 +548,6 @@ static void msm_gpio_dbg_show(struct seq_file *s, struct gpio_chip *chip)
 			seq_printf(s, " gpio%d is not accessible.", i);
 		else
 			msm_gpio_dbg_show_one(s, NULL, chip, i, gpio);
-=======
-
-	for (i = 0; i < chip->ngpio; i++, gpio++) {
-		msm_gpio_dbg_show_one(s, NULL, chip, i, gpio);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		seq_puts(s, "\n");
 	}
 }
@@ -1010,11 +994,8 @@ int msm_pinctrl_probe(struct platform_device *pdev,
 	struct resource *res;
 	int ret;
 	u32 tlmm_emmc_boot_select;
-<<<<<<< HEAD
 	int disabled_pins_num;
 	const struct device_node *np = pdev->dev.of_node;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	msm_pinctrl_data = pctrl = devm_kzalloc(&pdev->dev,
 				sizeof(*pctrl), GFP_KERNEL);
@@ -1055,7 +1036,6 @@ int msm_pinctrl_probe(struct platform_device *pdev,
 		return -ENODEV;
 	}
 
-<<<<<<< HEAD
 	disabled_pins_num = of_property_count_u32_elems(np, "disabled-pins");
 	if (disabled_pins_num > 0) {
 		int i;
@@ -1073,8 +1053,6 @@ int msm_pinctrl_probe(struct platform_device *pdev,
 			}
 		}
 	}
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ret = msm_gpio_init(pctrl);
 	if (ret) {
 		pinctrl_unregister(pctrl->pctrl);

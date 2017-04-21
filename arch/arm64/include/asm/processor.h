@@ -131,14 +131,10 @@ extern void release_thread(struct task_struct *);
 
 unsigned long get_wchan(struct task_struct *p);
 
-<<<<<<< HEAD
 static inline void cpu_relax(void)
 {
 	asm volatile("yield" : : : "memory");
 }
-=======
-#define cpu_relax()			barrier()
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define cpu_relax_lowlatency()                cpu_relax()
 
 /* Thread switching */

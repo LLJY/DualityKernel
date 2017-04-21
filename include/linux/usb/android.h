@@ -132,10 +132,6 @@ extern int gport_setup(struct usb_configuration *c);
 extern void gport_cleanup(void);
 extern int gserial_init_port(int port_num, const char *name,
 					const char *port_name);
-<<<<<<< HEAD
-=======
-extern void gserial_deinit_port(void);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 extern bool gserial_is_connected(void);
 extern bool gserial_is_dun_w_softap_enabled(void);
 extern void gserial_dun_w_softap_enable(bool enable);

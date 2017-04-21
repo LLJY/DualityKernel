@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2010-2016, The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2010-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -38,11 +34,6 @@
 
 #define AAC_FORMAT_ADTS 65535
 
-<<<<<<< HEAD
-=======
-#define MAX_SAMPLE_RATE_384K 384000
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static long aac_in_ioctl_shared(struct file *file, unsigned int cmd, void *arg)
 {
 	struct q6audio_in  *audio = file->private_data;
@@ -242,16 +233,6 @@ static long aac_in_ioctl_shared(struct file *file, unsigned int cmd, void *arg)
 			break;
 		}
 
-<<<<<<< HEAD
-=======
-		if (cfg->sample_rate > MAX_SAMPLE_RATE_384K) {
-			pr_err("%s: ERROR: invalid sample rate = %u",
-				__func__, cfg->sample_rate);
-			rc = -EINVAL;
-			break;
-		}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		min_bitrate = ((cfg->sample_rate)*(cfg->channels))/2;
 		/* This calculation should be based on AAC mode. But we cannot
 		 * get AAC mode in this setconfig. min_bitrate's logical max

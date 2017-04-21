@@ -6,10 +6,7 @@
  *
  * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
  * Written by David Howells (dhowells@redhat.com)
-<<<<<<< HEAD
  * Copyright (c) 2014, NVIDIA CORPORATION.  All rights reserved.
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public Licence
@@ -133,13 +130,10 @@ ATOMIC_OP(or, |)
 #define atomic_read(v)	ACCESS_ONCE((v)->counter)
 #endif
 
-<<<<<<< HEAD
 #ifndef cpu_relaxed_read_atomic
 #define cpu_relaxed_read_atomic(v) atomic_read(v)
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * atomic_set - set atomic variable
  * @v: pointer of type atomic_t

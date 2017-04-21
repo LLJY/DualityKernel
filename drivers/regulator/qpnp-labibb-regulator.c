@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt)	"%s: " fmt, __func__
 
@@ -34,14 +31,11 @@
 #include <linux/regulator/machine.h>
 #include <linux/regulator/of_regulator.h>
 #include <linux/qpnp/qpnp-revid.h>
-<<<<<<< HEAD
 #include <linux/regulator/qpnp-labibb-regulator.h>
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 #include <linux/interrupt.h>
 #include <linux/qpnp/power-on.h>
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define QPNP_LABIBB_REGULATOR_DRIVER_NAME	"qcom,qpnp-labibb-regulator"
 
@@ -58,7 +52,6 @@
 
 /* LAB register offset definitions */
 #define REG_LAB_STATUS1			0x08
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 #define REG_LAB_INT_SET_TYPE		0x11
 #define REG_LAB_INT_POLARITY_HIGH	0x12
@@ -67,8 +60,6 @@
 #define REG_LAB_INT_EN_SET		0x15
 #define REG_LAB_INT_EN_CLR		0x16
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define REG_LAB_VOLTAGE			0x41
 #define REG_LAB_RING_SUPPRESSION_CTL	0x42
 #define REG_LAB_LCD_AMOLED_SEL		0x44
@@ -91,7 +82,6 @@
 #define LAB_STATUS1_VREG_OK_MASK	BIT(7)
 #define LAB_STATUS1_VREG_OK		BIT(7)
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 /* REG_LAB_INT_SET_TYPE */
 #define LAB_INT_SET_TYPE_VREG_OK_MASK	BIT(0)
@@ -119,8 +109,6 @@
 #define LAB_INT_EN_CLR_VREG_OK		1
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* REG_LAB_VOLTAGE */
 #define LAB_VOLTAGE_OVERRIDE_EN		BIT(7)
 #define LAB_VOLTAGE_SET_BITS		4
@@ -149,13 +137,10 @@
 #define LAB_CURRENT_LIMIT_MASK		((1 << LAB_CURRENT_LIMIT_BITS) - 1)
 #define LAB_CURRENT_LIMIT_EN		BIT(7)
 
-<<<<<<< HEAD
 #ifdef SOMC_LABIBB_REGULATOR_ORG_IMPL
 #define LAB_CURRENT_LIMIT_OVERRIDE	BIT(3)
 #endif /* SOMC_LABIBB_REGULATOR_ORG_IMPL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* REG_LAB_CURRENT_SENSE */
 #define LAB_CURRENT_SENSE_GAIN_BITS	2
 #define LAB_CURRENT_SENSE_GAIN_MASK	((1 << LAB_CURRENT_SENSE_GAIN_BITS) \
@@ -193,7 +178,6 @@
 /* IBB register offset definitions */
 #define REG_IBB_REVISION4		0x03
 #define REG_IBB_STATUS1			0x08
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 #define REG_IBB_INT_SET_TYPE		0x11
 #define REG_IBB_INT_POLARITY_HIGH	0x12
@@ -202,8 +186,6 @@
 #define REG_IBB_INT_EN_SET		0x15
 #define REG_IBB_INT_EN_CLR		0x16
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define REG_IBB_VOLTAGE		0x41
 #define REG_IBB_RING_SUPPRESSION_CTL	0x42
 #define REG_IBB_LCD_AMOLED_SEL		0x44
@@ -229,7 +211,6 @@
 #define IBB_STATUS1_VREG_OK_MASK	BIT(7)
 #define IBB_STATUS1_VREG_OK		BIT(7)
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 /* REG_IBB_INT_SET_TYPE */
 #define IBB_INT_SET_TYPE_VREG_OK_MASK	BIT(0)
@@ -257,8 +238,6 @@
 #define IBB_INT_EN_CLR_VREG_OK		1
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* REG_IBB_VOLTAGE */
 #define IBB_VOLTAGE_OVERRIDE_EN		BIT(7)
 #define IBB_VOLTAGE_SET_BITS		6
@@ -361,7 +340,6 @@ enum pmic_subtype {
 	PMI8996		= 19,
 };
 
-<<<<<<< HEAD
 
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 /* request_irq */
@@ -421,8 +399,6 @@ static struct labibb_vreg_status_ctrl {
 
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * enum qpnp_labibb_mode - working mode of LAB/IBB regulators
  * %QPNP_LABIBB_LCD_MODE:		configure LAB and IBB regulators
@@ -638,26 +614,20 @@ struct qpnp_labibb {
 	struct device			*dev;
 	struct spmi_device		*spmi;
 	struct pmic_revid_data		*pmic_rev_id;
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 	struct spmi_resource		*lab_spmi_res;
 	struct spmi_resource		*ibb_spmi_res;
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	u16				lab_base;
 	u16				ibb_base;
 	struct lab_regulator		lab_vreg;
 	struct ibb_regulator		ibb_vreg;
 	enum qpnp_labibb_mode		mode;
 	bool				standalone;
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 	int				lab_vreg_irq;
 	int				ibb_vreg_irq;
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	bool				ttw_en;
 	bool				in_ttw_mode;
 	bool				ibb_settings_saved;
@@ -844,7 +814,6 @@ static int qpnp_labibb_get_matching_idx(const char *val)
 	return -EINVAL;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 static int qpnp_lab_interrupt_enable_ctl(struct qpnp_labibb *labibb,
 	bool inWork)
@@ -1166,8 +1135,6 @@ exit:
 }
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int qpnp_ibb_set_mode(struct qpnp_labibb *labibb, enum ibb_mode mode)
 {
 	int rc;
@@ -1298,17 +1265,12 @@ static int qpnp_lab_dt_init(struct qpnp_labibb *labibb,
 	}
 
 	if (of_property_read_bool(of_node,
-<<<<<<< HEAD
 		"qcom,qpnp-lab-limit-max-current-enable")) {
 		val |= LAB_CURRENT_LIMIT_EN;
 #ifdef SOMC_LABIBB_REGULATOR_ORG_IMPL
 		val |= LAB_CURRENT_LIMIT_OVERRIDE;
 #endif /* SOMC_LABIBB_REGULATOR_ORG_IMPL */
 	}
-=======
-		"qcom,qpnp-lab-limit-max-current-enable"))
-		val |= LAB_CURRENT_LIMIT_EN;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	rc = qpnp_labibb_write(labibb, labibb->lab_base +
 				REG_LAB_CURRENT_LIMIT, &val, 1);
@@ -1892,12 +1854,9 @@ static int qpnp_labibb_regulator_enable(struct qpnp_labibb *labibb)
 
 	labibb->lab_vreg.vreg_enabled = 1;
 	labibb->ibb_vreg.vreg_enabled = 1;
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 	qpnp_labibb_interrupt_enable_ctl(labibb, VREG_WORKER_PASSIVE);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	return 0;
 err_out:
@@ -1917,13 +1876,10 @@ static int qpnp_labibb_regulator_disable(struct qpnp_labibb *labibb)
 	int retries;
 	bool disabled = false;
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 	qpnp_labibb_interrupt_disable_ctl(labibb);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * When TTW mode is enabled and LABIBB regulators are disabled, it is
 	 * recommended not to disable IBB through IBB_ENABLE_CTL when switching
@@ -2024,12 +1980,9 @@ static int qpnp_lab_regulator_enable(struct regulator_dev *rdev)
 		}
 
 		labibb->lab_vreg.vreg_enabled = 1;
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 		qpnp_lab_interrupt_enable_ctl(labibb, VREG_WORKER_PASSIVE);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	return 0;
@@ -2045,12 +1998,9 @@ static int qpnp_lab_regulator_disable(struct regulator_dev *rdev)
 
 		if (!labibb->standalone)
 			return qpnp_labibb_regulator_disable(labibb);
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 		qpnp_lab_interrupt_disable_ctl(labibb);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		val = 0;
 		rc = qpnp_labibb_write(labibb,
@@ -2447,7 +2397,6 @@ static int register_qpnp_lab_regulator(struct qpnp_labibb *labibb,
 		}
 
 		labibb->lab_vreg.vreg_enabled = 1;
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 		/* request interrupt */
 		rc = qpnp_lab_request_interrupt(labibb);
@@ -2457,8 +2406,6 @@ static int register_qpnp_lab_regulator(struct qpnp_labibb *labibb,
 			return rc;
 		}
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	rc = qpnp_labibb_read(labibb, &val,
@@ -2520,7 +2467,6 @@ static int register_qpnp_lab_regulator(struct qpnp_labibb *labibb,
 	return 0;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 static void force_labibb_regulator_disable(struct qpnp_labibb *labibb)
 {
@@ -2878,8 +2824,6 @@ int qpnp_ibb_set_current_max(struct regulator *regulator, u32 limit)
 EXPORT_SYMBOL(qpnp_ibb_set_current_max);
 #endif /* SOMC_LABIBB_REGULATOR_ORG_IMPL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int qpnp_ibb_dt_init(struct qpnp_labibb *labibb,
 				struct device_node *of_node)
 {
@@ -3172,12 +3116,9 @@ static int qpnp_ibb_regulator_enable(struct regulator_dev *rdev)
 		}
 
 		labibb->ibb_vreg.vreg_enabled = 1;
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 		qpnp_ibb_interrupt_enable_ctl(labibb, VREG_WORKER_PASSIVE);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	return 0;
 }
@@ -3187,13 +3128,10 @@ static int qpnp_ibb_regulator_disable(struct regulator_dev *rdev)
 	int rc;
 	struct qpnp_labibb *labibb  = rdev_get_drvdata(rdev);
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 		qpnp_ibb_interrupt_disable_ctl(labibb);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (labibb->ibb_vreg.vreg_enabled && !labibb->swire_control) {
 
 		if (!labibb->standalone)
@@ -3482,7 +3420,6 @@ static int register_qpnp_ibb_regulator(struct qpnp_labibb *labibb,
 					IBB_PWRUP_PWRDN_CTL_1_DLY2_MASK];
 
 		labibb->ibb_vreg.vreg_enabled = 1;
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 		/* request interrupt */
 		rc = qpnp_ibb_request_interrupt(labibb);
@@ -3492,8 +3429,6 @@ static int register_qpnp_ibb_regulator(struct qpnp_labibb *labibb,
 			return rc;
 		}
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else {
 		/* SWIRE_RDY and IBB_MODULE_EN not enabled */
 		rc = qpnp_ibb_dt_init(labibb, of_node);
@@ -3663,7 +3598,6 @@ static int qpnp_labibb_check_ttw_supported(struct qpnp_labibb *labibb)
 	return rc;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 static irqreturn_t lab_vreg_handler(int irq, void *_chip)
 {
@@ -3763,8 +3697,6 @@ exit:
 }
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int qpnp_labibb_regulator_probe(struct spmi_device *spmi)
 {
 	struct qpnp_labibb *labibb;
@@ -3818,7 +3750,6 @@ static int qpnp_labibb_regulator_probe(struct spmi_device *spmi)
 	labibb->standalone = of_property_read_bool(labibb->dev->of_node,
 				"qcom,labibb-standalone");
 
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 	/* initialize labibb_vreg_status_ctrl */
 	labibb_vreg_check.labibb = labibb;
@@ -3844,8 +3775,6 @@ static int qpnp_labibb_regulator_probe(struct spmi_device *spmi)
 				vreg_check_worker);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	labibb->ttw_en = of_property_read_bool(labibb->dev->of_node,
 				"qcom,labibb-touch-to-wake-en");
 	if (labibb->ttw_en && labibb->mode != QPNP_LABIBB_LCD_MODE) {
@@ -3904,12 +3833,9 @@ static int qpnp_labibb_regulator_probe(struct spmi_device *spmi)
 
 		switch (type) {
 		case QPNP_LAB_TYPE:
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 			labibb->lab_spmi_res = spmi_resource;
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			labibb->lab_base = resource->start;
 			rc = qpnp_lab_register_irq(spmi_resource, labibb);
 			if (rc) {
@@ -3924,12 +3850,9 @@ static int qpnp_labibb_regulator_probe(struct spmi_device *spmi)
 		break;
 
 		case QPNP_IBB_TYPE:
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 			labibb->ibb_spmi_res = spmi_resource;
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			labibb->ibb_base = resource->start;
 			rc = register_qpnp_ibb_regulator(labibb,
 				spmi_resource->of_node);
@@ -3962,16 +3885,12 @@ fail_registration:
 		regulator_unregister(labibb->lab_vreg.rdev);
 	if (labibb->ibb_vreg.rdev)
 		regulator_unregister(labibb->ibb_vreg.rdev);
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 	if (labibb->lab_vreg_irq)
 		free_irq(labibb->lab_vreg_irq, labibb);
 	if (labibb->ibb_vreg_irq)
 		free_irq(labibb->ibb_vreg_irq, labibb);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return rc;
 }
 
@@ -3984,7 +3903,6 @@ static int qpnp_labibb_regulator_remove(struct spmi_device *spmi)
 			regulator_unregister(labibb->lab_vreg.rdev);
 		if (labibb->ibb_vreg.rdev)
 			regulator_unregister(labibb->ibb_vreg.rdev);
-<<<<<<< HEAD
 #ifdef CONFIG_SOMC_LCD_OCP_ENABLED
 		if (labibb->lab_vreg_irq)
 			free_irq(labibb->lab_vreg_irq, labibb);
@@ -3992,8 +3910,6 @@ static int qpnp_labibb_regulator_remove(struct spmi_device *spmi)
 			free_irq(labibb->ibb_vreg_irq, labibb);
 		cancel_delayed_work_sync(&labibb_vreg_check.vreg_check_work);
 #endif /* CONFIG_SOMC_LCD_OCP_ENABLED */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	return 0;
 }

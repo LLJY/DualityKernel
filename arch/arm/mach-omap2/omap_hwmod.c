@@ -1439,13 +1439,7 @@ static void _enable_sysc(struct omap_hwmod *oh)
 	    (sf & SYSC_HAS_CLOCKACTIVITY))
 		_set_clockactivity(oh, oh->class->sysc->clockact, &v);
 
-<<<<<<< HEAD
 	_write_sysconfig(v, oh);
-=======
-	/* If the cached value is the same as the new value, skip the write */
-	if (oh->_sysc_cache != v)
-		_write_sysconfig(v, oh);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/*
 	 * Set the autoidle bit only after setting the smartidle bit
@@ -1508,13 +1502,9 @@ static void _idle_sysc(struct omap_hwmod *oh)
 		_set_master_standbymode(oh, idlemode, &v);
 	}
 
-<<<<<<< HEAD
 	/* If the cached value is the same as the new value, skip the write */
 	if (oh->_sysc_cache != v)
 		_write_sysconfig(v, oh);
-=======
-	_write_sysconfig(v, oh);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /**

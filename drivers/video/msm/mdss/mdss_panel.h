@@ -10,14 +10,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef MDSS_PANEL_H
 #define MDSS_PANEL_H
@@ -63,12 +60,6 @@ struct panel_id {
 
 #define DSC_PPS_LEN		128
 
-<<<<<<< HEAD
-=======
-/* HDR propeties count */
-#define DISPLAY_PRIMARIES_COUNT	8	/* WRGB x and y values*/
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static inline const char *mdss_panel2str(u32 panel)
 {
 	static const char const *names[] = {
@@ -121,15 +112,12 @@ enum {
 };
 
 enum {
-<<<<<<< HEAD
 	MDSS_PANEL_BLANK_BLANK = 0,
 	MDSS_PANEL_BLANK_UNBLANK,
 	MDSS_PANEL_BLANK_LOW_POWER,
 };
 
 enum {
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	MODE_GPIO_NOT_VALID = 0,
 	MODE_GPIO_HIGH,
 	MODE_GPIO_LOW,
@@ -181,11 +169,7 @@ enum {
 };
 
 struct mdss_intf_recovery {
-<<<<<<< HEAD
 	void (*fxn)(void *ctx, int event);
-=======
-	int (*fxn)(void *ctx, int event);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	void *data;
 };
 
@@ -609,22 +593,6 @@ struct mdss_panel_roi_alignment {
 	u32 min_height;
 };
 
-<<<<<<< HEAD
-=======
-struct mdss_panel_hdr_properties {
-	bool hdr_enabled;
-
-	/* WRGB X and y values arrayed in format */
-	/* [WX, WY, RX, RY, GX, GY, BX, BY] */
-	u32 display_primaries[DISPLAY_PRIMARIES_COUNT];
-
-	/* peak brightness supported by panel */
-	u32 peak_brightness;
-	/* Blackness level supported by panel */
-	u32 blackness_level;
-};
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 struct mdss_panel_info {
 	u32 xres;
 	u32 yres;
@@ -759,15 +727,10 @@ struct mdss_panel_info {
 	/* debugfs structure for the panel */
 	struct mdss_panel_debugfs_info *debugfs_info;
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	const char *panel_id_name;
 	int dsi_master;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
-=======
-	/* HDR properties of display panel*/
-	struct mdss_panel_hdr_properties hdr_properties;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 struct mdss_panel_timing {
@@ -809,13 +772,10 @@ struct mdss_panel_data {
 	void (*set_backlight) (struct mdss_panel_data *pdata, u32 bl_level);
 	unsigned char *mmss_cc_base;
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct platform_device *panel_pdev;
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/**
 	 * event_handler() - callback handler for MDP core events
 	 * @pdata:	Pointer refering to the panel struct associated to this

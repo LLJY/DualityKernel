@@ -12,20 +12,6 @@ config MMC_CLKGATE
 
 	  If unsure, say N.
 
-<<<<<<< HEAD
-=======
-config MMC_RING_BUFFER
-	bool "MMC_RING_BUFFER"
-	depends on MMC
-	default n
-	help
-	  This enables the ring buffer tracing of significant
-	  events for mmc driver to provide command history for
-	  debugging purpose.
-
-	  If unsure, say N.
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config MMC_EMBEDDED_SDIO
 	boolean "MMC embedded SDIO device support (EXPERIMENTAL)"
 	help
@@ -40,7 +26,6 @@ config MMC_PARANOID_SD_INIT
 	  about re-trying SD init requests. This can be a useful
 	  work-around for buggy controllers and hardware. Enable
 	  if you are experiencing issues with SD detection.
-<<<<<<< HEAD
 
 config MMC_CMD_DEBUG
 	bool "Debug feature to get mmc command issued"
@@ -63,5 +48,3 @@ config MMC_DISABLE_SD_SDR104
 	help
 	  If you say N here, the SD layer uses a speed bus mode
 	  of SDR104.
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

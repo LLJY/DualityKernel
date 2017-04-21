@@ -136,11 +136,7 @@ enum {
 	MSM_MPM_DEBUG_NON_DETECTABLE_IRQ_IDLE = BIT(3),
 };
 
-<<<<<<< HEAD
 static int msm_mpm_debug_mask = 0;
-=======
-static int msm_mpm_debug_mask = 1;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 module_param_named(
 	debug_mask, msm_mpm_debug_mask, int, S_IRUGO | S_IWUSR | S_IWGRP
 );
@@ -686,11 +682,7 @@ static void msm_mpm_work_fn(struct work_struct *work)
 	unsigned long flags;
 	while (1) {
 		bool allow;
-<<<<<<< HEAD
 		wait_for_completion_interruptible(&wake_wq);
-=======
-		wait_for_completion(&wake_wq);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		spin_lock_irqsave(&msm_mpm_lock, flags);
 		allow = msm_mpm_irqs_detectable(true) &&
 				msm_mpm_gpio_irqs_detectable(true);

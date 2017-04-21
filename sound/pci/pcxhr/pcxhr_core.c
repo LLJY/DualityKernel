@@ -1339,9 +1339,6 @@ irqreturn_t pcxhr_threaded_irq(int irq, void *dev_id)
 	}
 
 	pcxhr_msg_thread(mgr);
-<<<<<<< HEAD
 	mutex_unlock(&mgr->lock);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return IRQ_HANDLED;
 }

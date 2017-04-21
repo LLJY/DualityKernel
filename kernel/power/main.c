@@ -7,14 +7,11 @@
  * This file is released under the GPLv2
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/export.h>
 #include <linux/kobject.h>
@@ -23,7 +20,6 @@
 #include <linux/workqueue.h>
 #include <linux/debugfs.h>
 #include <linux/seq_file.h>
-<<<<<<< HEAD
 #include <linux/random.h>
 #ifdef CONFIG_PM_WAKEUP_TIMES
 #include <linux/poll.h>
@@ -39,10 +35,6 @@
 
 static unsigned suspend_short_count;
 static struct wakeup_source *ws;
-=======
-
-#include "power.h"
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 DEFINE_MUTEX(pm_mutex);
 
@@ -234,7 +226,6 @@ static int suspend_stats_show(struct seq_file *s, void *unused)
 				suspend_stats.failed_steps[index]));
 	}
 
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	seq_printf(s,	"%s\n%s  %lldms (%s %lldms %s %lldms)\n" \
 			"%s  %lldms (%s %lldms %s %lldms)\n" \
@@ -280,8 +271,6 @@ static int suspend_stats_show(struct seq_file *s, void *unused)
 		"end:", ktime_to_ms(suspend_stats.resume_last_time.end),
 		"  avg:", ktime_to_ms(suspend_stats.resume_avg_time));
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -290,7 +279,6 @@ static int suspend_stats_open(struct inode *inode, struct file *file)
 	return single_open(file, suspend_stats_show, NULL);
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 static unsigned int suspend_stats_poll(struct file *filp,
 			struct poll_table_struct *wait)
@@ -307,18 +295,13 @@ static unsigned int suspend_stats_poll(struct file *filp,
 }
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static const struct file_operations suspend_stats_operations = {
 	.open           = suspend_stats_open,
 	.read           = seq_read,
 	.llseek         = seq_lseek,
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	.poll           = suspend_stats_poll,
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.release        = single_release,
 };
 
@@ -326,12 +309,9 @@ static int __init pm_debugfs_init(void)
 {
 	debugfs_create_file("suspend_stats", S_IFREG | S_IRUGO,
 			NULL, NULL, &suspend_stats_operations);
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	init_waitqueue_head(&suspend_stats_queue.wait_queue);
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return 0;
 }
 
@@ -440,7 +420,6 @@ static suspend_state_t decode_state(const char *buf, size_t n)
 	return PM_SUSPEND_ON;
 }
 
-<<<<<<< HEAD
 static void
 suspend_backoff_range(u32 start, u32 end)
 {
@@ -456,18 +435,13 @@ suspend_backoff_range(u32 start, u32 end)
 	__pm_wakeup_event(ws, timeout);
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static ssize_t state_store(struct kobject *kobj, struct kobj_attribute *attr,
 			   const char *buf, size_t n)
 {
 	suspend_state_t state;
-<<<<<<< HEAD
 	struct timespec ts_entry, ts_exit;
 	u64 elapsed_msecs64;
 	u32 elapsed_msecs32;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int error;
 
 	error = pm_autosleep_lock();
@@ -480,7 +454,6 @@ static ssize_t state_store(struct kobject *kobj, struct kobj_attribute *attr,
 	}
 
 	state = decode_state(buf, n);
-<<<<<<< HEAD
 	if (state < PM_SUSPEND_MAX) {
 		/*
 		 * We want to prevent system from frequent periodic wake-ups
@@ -507,11 +480,6 @@ static ssize_t state_store(struct kobject *kobj, struct kobj_attribute *attr,
 			suspend_short_count = 0;
 		}
 	} else if (state == PM_SUSPEND_MAX)
-=======
-	if (state < PM_SUSPEND_MAX)
-		error = pm_suspend(state);
-	else if (state == PM_SUSPEND_MAX)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		error = hibernate();
 	else
 		error = -EINVAL;
@@ -798,11 +766,8 @@ static int __init pm_init(void)
 	if (error)
 		return error;
 	pm_print_times_init();
-<<<<<<< HEAD
 
 	ws = wakeup_source_register("suspend_backoff");
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return pm_autosleep_init();
 }
 

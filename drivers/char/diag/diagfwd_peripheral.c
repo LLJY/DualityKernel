@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -644,7 +640,6 @@ void diagfwd_close_transport(uint8_t transport, uint8_t peripheral)
 		break;
 	default:
 		return;
-<<<<<<< HEAD
 
 	}
 
@@ -652,14 +647,6 @@ void diagfwd_close_transport(uint8_t transport, uint8_t peripheral)
 	if (fwd_info->p_ops && fwd_info->p_ops->close)
 		fwd_info->p_ops->close(fwd_info->ctxt);
 	mutex_lock(&driver->diagfwd_channel_mutex);
-=======
-	}
-
-	mutex_lock(&driver->diagfwd_channel_mutex[peripheral]);
-	fwd_info = &early_init_info[transport][peripheral];
-	if (fwd_info->p_ops && fwd_info->p_ops->close)
-		fwd_info->p_ops->close(fwd_info->ctxt);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	fwd_info = &early_init_info[transport_open][peripheral];
 	dest_info = &peripheral_info[TYPE_CNTL][peripheral];
 	dest_info->inited = 1;
@@ -678,11 +665,7 @@ void diagfwd_close_transport(uint8_t transport, uint8_t peripheral)
 		diagfwd_late_open(dest_info);
 	diagfwd_cntl_open(dest_info);
 	init_fn(peripheral);
-<<<<<<< HEAD
 	mutex_unlock(&driver->diagfwd_channel_mutex);
-=======
-	mutex_unlock(&driver->diagfwd_channel_mutex[peripheral]);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	diagfwd_queue_read(&peripheral_info[TYPE_DATA][peripheral]);
 	diagfwd_queue_read(&peripheral_info[TYPE_CMD][peripheral]);
 }

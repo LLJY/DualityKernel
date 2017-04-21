@@ -548,11 +548,7 @@ static void qh_link_periodic(struct ehci_hcd *ehci, struct ehci_qh *qh)
 	unsigned	period = qh->ps.period;
 
 	dev_dbg(&qh->ps.udev->dev,
-<<<<<<< HEAD
 		"link qh%d-%04x/%p start %d [%d/%d us]\n",
-=======
-		"link qh%d-%04x/%pK start %d [%d/%d us]\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		period, hc32_to_cpup(ehci, &qh->hw->hw_info2)
 			& (QH_CMASK | QH_SMASK),
 		qh, qh->ps.phase, qh->ps.usecs, qh->ps.c_usecs);
@@ -645,11 +641,7 @@ static void qh_unlink_periodic(struct ehci_hcd *ehci, struct ehci_qh *qh)
 		: (qh->ps.usecs * 8);
 
 	dev_dbg(&qh->ps.udev->dev,
-<<<<<<< HEAD
 		"unlink qh%d-%04x/%p start %d [%d/%d us]\n",
-=======
-		"unlink qh%d-%04x/%pK start %d [%d/%d us]\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		qh->ps.period,
 		hc32_to_cpup(ehci, &qh->hw->hw_info2) & (QH_CMASK | QH_SMASK),
 		qh, qh->ps.phase, qh->ps.usecs, qh->ps.c_usecs);
@@ -759,11 +751,7 @@ static void end_unlink_intr(struct ehci_hcd *ehci, struct ehci_qh *qh)
 		 * FIXME kill the now-dysfunctional queued urbs
 		 */
 		else {
-<<<<<<< HEAD
 			ehci_err(ehci, "can't reschedule qh %p, err %d\n",
-=======
-			ehci_err(ehci, "can't reschedule qh %pK, err %d\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					qh, rc);
 		}
 	}
@@ -881,11 +869,7 @@ static int qh_schedule(struct ehci_hcd *ehci, struct ehci_qh *qh)
 
 	/* reuse the previous schedule slots, if we can */
 	if (qh->ps.phase != NO_FRAME) {
-<<<<<<< HEAD
 		ehci_dbg(ehci, "reused qh %p schedule\n", qh);
-=======
-		ehci_dbg(ehci, "reused qh %pK schedule\n", qh);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return 0;
 	}
 
@@ -1568,11 +1552,7 @@ iso_stream_schedule (
 
 			/* no room in the schedule */
 			if (!done) {
-<<<<<<< HEAD
 				ehci_dbg(ehci, "iso sched full %p", urb);
-=======
-				ehci_dbg(ehci, "iso sched full %pK", urb);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				status = -ENOSPC;
 				goto fail;
 			}
@@ -1626,11 +1606,7 @@ iso_stream_schedule (
 
 	/* Is the schedule already full? */
 	if (unlikely(!empty && start < period)) {
-<<<<<<< HEAD
 		ehci_dbg(ehci, "iso sched full %p (%u-%u < %u mod %u)\n",
-=======
-		ehci_dbg(ehci, "iso sched full %pK (%u-%u < %u mod %u)\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				urb, stream->next_uframe, base, period, mod);
 		status = -ENOSPC;
 		goto fail;
@@ -1659,11 +1635,7 @@ iso_stream_schedule (
 	/* How many uframes and packets do we need to skip? */
 	skip = (now2 - start + period - 1) & -period;
 	if (skip >= span) {		/* Entirely in the past? */
-<<<<<<< HEAD
 		ehci_dbg(ehci, "iso underrun %p (%u+%u < %u) [%u]\n",
-=======
-		ehci_dbg(ehci, "iso underrun %pK (%u+%u < %u) [%u]\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				urb, start + base, span - period, now2 + base,
 				base);
 
@@ -1690,11 +1662,7 @@ iso_stream_schedule (
  use_start:
 	/* Tried to schedule too far into the future? */
 	if (unlikely(start + span - period >= mod + wrap)) {
-<<<<<<< HEAD
 		ehci_dbg(ehci, "request %p would overflow (%u+%u >= %u)\n",
-=======
-		ehci_dbg(ehci, "request %pK would overflow (%u+%u >= %u)\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				urb, start, span - period, mod + wrap);
 		status = -EFBIG;
 		goto fail;
@@ -1989,11 +1957,7 @@ static int itd_submit (struct ehci_hcd *ehci, struct urb *urb,
 
 #ifdef EHCI_URB_TRACE
 	ehci_dbg (ehci,
-<<<<<<< HEAD
 		"%s %s urb %p ep%d%s len %d, %d pkts %d uframes [%p]\n",
-=======
-		"%s %s urb %pK ep%d%s len %d, %d pkts %d uframes [%pK]\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		__func__, urb->dev->devpath, urb,
 		usb_pipeendpoint (urb->pipe),
 		usb_pipein (urb->pipe) ? "in" : "out",
@@ -2373,11 +2337,7 @@ static int sitd_submit (struct ehci_hcd *ehci, struct urb *urb,
 
 #ifdef EHCI_URB_TRACE
 	ehci_dbg (ehci,
-<<<<<<< HEAD
 		"submit %p dev%s ep%d%s-iso len %d\n",
-=======
-		"submit %pK dev%s ep%d%s-iso len %d\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		urb, urb->dev->devpath,
 		usb_pipeendpoint (urb->pipe),
 		usb_pipein (urb->pipe) ? "in" : "out",
@@ -2530,11 +2490,7 @@ restart:
 				q = *q_p;
 				break;
 			default:
-<<<<<<< HEAD
 				ehci_dbg(ehci, "corrupt type %d frame %d shadow %p\n",
-=======
-				ehci_dbg(ehci, "corrupt type %d frame %d shadow %pK\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					type, frame, q.ptr);
 				// BUG ();
 				/* FALL THROUGH */

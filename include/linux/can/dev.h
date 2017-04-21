@@ -39,16 +39,11 @@ struct can_priv {
 	struct can_clock clock;
 
 	enum can_state state;
-<<<<<<< HEAD
 
 	/* CAN controller features - see include/uapi/linux/can/netlink.h */
 	u32 ctrlmode;		/* current options setting */
 	u32 ctrlmode_supported;	/* options that can be modified by netlink */
 	u32 ctrlmode_static;	/* static enabled options for driver/hardware */
-=======
-	u32 ctrlmode;
-	u32 ctrlmode_supported;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	int restart_ms;
 	struct timer_list restart_timer;
@@ -113,7 +108,6 @@ static inline bool can_is_canfd_skb(const struct sk_buff *skb)
 	return skb->len == CANFD_MTU;
 }
 
-<<<<<<< HEAD
 /* helper to define static CAN controller features at device creation time */
 static inline void can_set_static_ctrlmode(struct net_device *dev,
 					   u32 static_mode)
@@ -129,8 +123,6 @@ static inline void can_set_static_ctrlmode(struct net_device *dev,
 		dev->mtu = CANFD_MTU;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* get data length from can_dlc with sanitized can_dlc */
 u8 can_dlc2len(u8 can_dlc);
 

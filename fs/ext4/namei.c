@@ -2598,11 +2598,7 @@ int ext4_orphan_add(handle_t *handle, struct inode *inode)
 			 * list entries can cause panics at unmount time.
 			 */
 			mutex_lock(&sbi->s_orphan_lock);
-<<<<<<< HEAD
 			list_del_init(&EXT4_I(inode)->i_orphan);
-=======
-			list_del(&EXT4_I(inode)->i_orphan);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			mutex_unlock(&sbi->s_orphan_lock);
 		}
 	}

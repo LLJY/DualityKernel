@@ -3964,18 +3964,7 @@ static void remove_task_from_group(struct task_struct *p)
 
 	if (empty_group) {
 		list_del(&grp->list);
-<<<<<<< HEAD
 		call_rcu(&grp->rcu, free_related_thread_group);
-=======
-		/*
-		 * RCU, kswapd etc tasks can get woken up from
-		 * call_rcu(). As the wakeup path also acquires
-		 * the related_thread_group_lock, drop it here.
-		 */
-		write_unlock(&related_thread_group_lock);
-		call_rcu(&grp->rcu, free_related_thread_group);
-		write_lock(&related_thread_group_lock);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 }
 
@@ -5647,12 +5636,6 @@ prepare_task_switch(struct rq *rq, struct task_struct *prev,
 #ifdef CONFIG_MSM_APP_SETTINGS
 	if (use_app_setting)
 		switch_app_setting_bit(prev, next);
-<<<<<<< HEAD
-=======
-
-	if (use_32bit_app_setting || use_32bit_app_setting_pro)
-		switch_32bit_app_setting_bit(prev, next);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 }
 
@@ -5882,7 +5865,6 @@ void get_iowait_load(unsigned long *nr_waiters, unsigned long *load)
 	*nr_waiters = atomic_read(&this->nr_iowait);
 	*load = this->cpu_load[0];
 }
-<<<<<<< HEAD
 unsigned long avg_cpu_nr_running(unsigned int cpu)
  {
  	unsigned int seqcnt, ave_nr_running;
@@ -5944,8 +5926,6 @@ EXPORT_SYMBOL(avg_cpu_nr_running);
  	return sum;
  }
  EXPORT_SYMBOL(avg_nr_running);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #if defined(CONFIG_SMP)
 

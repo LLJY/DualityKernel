@@ -10,14 +10,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/init.h>
@@ -957,11 +954,7 @@ static void wsa881x_init(struct snd_soc_codec *codec)
 				    0x03, 0x00);
 		if (snd_soc_read(codec, WSA881X_OTP_REG_0))
 			snd_soc_update_bits(codec, WSA881X_BOOST_PRESET_OUT1,
-<<<<<<< HEAD
 					    0xF0, 0x30);
-=======
-					    0xF0, 0x70);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		snd_soc_update_bits(codec, WSA881X_BOOST_PRESET_OUT2,
 				    0xF0, 0x30);
 		snd_soc_update_bits(codec, WSA881X_SPKR_DRV_EN, 0x08, 0x08);
@@ -987,11 +980,7 @@ static void wsa881x_init(struct snd_soc_codec *codec)
 		snd_soc_update_bits(codec, WSA881X_SPKR_PA_INT, 0x0F, 0x0E);
 		snd_soc_update_bits(codec, WSA881X_BOOST_PS_CTL, 0x80, 0x00);
 		snd_soc_update_bits(codec, WSA881X_BOOST_PRESET_OUT1,
-<<<<<<< HEAD
 				    0xF0, 0x30);
-=======
-				    0xF0, 0xB0);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		snd_soc_update_bits(codec, WSA881X_BOOST_PRESET_OUT2,
 				    0xF0, 0x30);
 		snd_soc_update_bits(codec, WSA881X_SPKR_DRV_EN, 0x0F, 0x0C);

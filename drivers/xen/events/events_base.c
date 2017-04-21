@@ -483,7 +483,6 @@ static void eoi_pirq(struct irq_data *data)
 	struct physdev_eoi eoi = { .irq = pirq_from_irq(data->irq) };
 	int rc = 0;
 
-<<<<<<< HEAD
 	if (!VALID_EVTCHN(evtchn))
 		return;
 
@@ -498,11 +497,6 @@ static void eoi_pirq(struct irq_data *data)
 		if (!masked)
 			unmask_evtchn(evtchn);
 	} else
-=======
-	irq_move_irq(data);
-
-	if (VALID_EVTCHN(evtchn))
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		clear_evtchn(evtchn);
 
 	if (pirq_needs_eoi(data->irq)) {
@@ -1377,7 +1371,6 @@ static void ack_dynirq(struct irq_data *data)
 {
 	int evtchn = evtchn_from_irq(data->irq);
 
-<<<<<<< HEAD
 	if (!VALID_EVTCHN(evtchn))
 		return;
 
@@ -1392,11 +1385,6 @@ static void ack_dynirq(struct irq_data *data)
 		if (!masked)
 			unmask_evtchn(evtchn);
 	} else
-=======
-	irq_move_irq(data);
-
-	if (VALID_EVTCHN(evtchn))
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		clear_evtchn(evtchn);
 }
 

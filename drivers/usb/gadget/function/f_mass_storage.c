@@ -36,14 +36,11 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /*
  * The Mass Storage Function acts as a USB Mass Storage device,
@@ -257,11 +254,8 @@ static struct usb_gadget_strings *fsg_strings_array[] = {
 	NULL,
 };
 
-<<<<<<< HEAD
 #define TOC_FORMAT2_SIZE		(11 * 3 + 4)
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /*-------------------------------------------------------------------------*/
 
 /*
@@ -1345,11 +1339,8 @@ static int do_read_toc(struct fsg_common *common, struct fsg_buffhd *bh)
 	int		msf = common->cmnd[1] & 0x02;
 	int		start_track = common->cmnd[6];
 	u8		*buf = (u8 *)bh->buf;
-<<<<<<< HEAD
 	u8		format;
 	int		offset;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if ((common->cmnd[1] & ~0x02) != 0 ||	/* Mask away MSF */
 			start_track > 1) {
@@ -1357,7 +1348,6 @@ static int do_read_toc(struct fsg_common *common, struct fsg_buffhd *bh)
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	format = common->cmnd[2] & 0x07;
 	/* SFF-8020i: When Format in Byte 2 is zero, then Byte 9 is used. */
 	if (format == 0)
@@ -1407,20 +1397,6 @@ static int do_read_toc(struct fsg_common *common, struct fsg_buffhd *bh)
 	}
 	curlun->sense_data = SS_INVALID_FIELD_IN_CDB;
 	return -EINVAL;
-=======
-	memset(buf, 0, 20);
-	buf[1] = (20-2);		/* TOC data length */
-	buf[2] = 1;			/* First track number */
-	buf[3] = 1;			/* Last track number */
-	buf[5] = 0x16;			/* Data track, copying allowed */
-	buf[6] = 0x01;			/* Only track is number 1 */
-	store_cdrom_address(&buf[8], msf, 0);
-
-	buf[13] = 0x16;			/* Lead-out track is data */
-	buf[14] = 0xAA;			/* Lead-out track number */
-	store_cdrom_address(&buf[16], msf, curlun->num_sectors);
-	return 20;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static int do_mode_sense(struct fsg_common *common, struct fsg_buffhd *bh)
@@ -1559,10 +1535,7 @@ static int do_start_stop(struct fsg_common *common)
 	return 0;
 }
 
-<<<<<<< HEAD
 #if !defined(CONFIG_USB_G_ANDROID)
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int do_prevent_allow(struct fsg_common *common)
 {
 	struct fsg_lun	*curlun = common->curlun;
@@ -1590,10 +1563,7 @@ static int do_prevent_allow(struct fsg_common *common)
 	curlun->prevent_medium_removal = prevent;
 	return 0;
 }
-<<<<<<< HEAD
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static int do_read_format_capacities(struct fsg_common *common,
 			struct fsg_buffhd *bh)
@@ -1779,13 +1749,9 @@ static int finish_reply(struct fsg_common *common)
 			if (!start_in_transfer(common, bh))
 				rc = -EIO;
 			common->next_buffhd_to_fill = bh->next;
-<<<<<<< HEAD
 			if (common->can_stall &&
 					common->residue ==
 						common->data_size_from_cmnd)
-=======
-			if (common->can_stall)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				rc = halt_bulk_in_endpoint(common->fsg);
 		}
 		break;
@@ -2126,10 +2092,7 @@ static int do_scsi_command(struct fsg_common *common)
 			reply = do_mode_sense(common, bh);
 		break;
 
-<<<<<<< HEAD
 #if !defined(CONFIG_USB_G_ANDROID)
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	case ALLOW_MEDIUM_REMOVAL:
 		common->data_size_from_cmnd = 0;
 		reply = check_command(common, 6, DATA_DIR_NONE,
@@ -2138,10 +2101,7 @@ static int do_scsi_command(struct fsg_common *common)
 		if (reply == 0)
 			reply = do_prevent_allow(common);
 		break;
-<<<<<<< HEAD
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	case READ_6:
 		i = common->cmnd[4];
@@ -2203,11 +2163,7 @@ static int do_scsi_command(struct fsg_common *common)
 		common->data_size_from_cmnd =
 			get_unaligned_be16(&common->cmnd[7]);
 		reply = check_command(common, 10, DATA_DIR_TO_HOST,
-<<<<<<< HEAD
 				      (0x0f<<6) | (1<<1), 1,
-=======
-				      (7<<6) | (1<<1), 1,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				      "READ TOC");
 		if (reply == 0)
 			reply = do_read_toc(common, bh);
@@ -3467,11 +3423,7 @@ static int fsg_bind(struct usb_configuration *c, struct usb_function *f)
 					  fsg->common->can_stall);
 		if (ret)
 			return ret;
-<<<<<<< HEAD
 		fsg_common_set_inquiry_string(fsg->common, "SONY", "CD-ROM");
-=======
-		fsg_common_set_inquiry_string(fsg->common, NULL, NULL);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		ret = fsg_common_run_thread(fsg->common);
 		if (ret)
 			return ret;
@@ -4014,13 +3966,8 @@ void fsg_config_from_params(struct fsg_config *cfg,
 	}
 
 	/* Let MSF use defaults */
-<<<<<<< HEAD
 	cfg->vendor_name = params->vendor_name;
 	cfg->product_name = params->product_name;
-=======
-	cfg->vendor_name = NULL;
-	cfg->product_name = NULL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	cfg->ops = NULL;
 	cfg->private_data = NULL;

@@ -149,10 +149,6 @@
 
 /**
  * struct samsung_aes_variant - platform specific SSS driver data
-<<<<<<< HEAD
-=======
- * @has_hash_irq: true if SSS module uses hash interrupt, false otherwise
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * @aes_offset: AES register offset from SSS module's base.
  *
  * Specifies platform specific configuration of SSS module.
@@ -160,10 +156,6 @@
  * expansion of its usage.
  */
 struct samsung_aes_variant {
-<<<<<<< HEAD
-=======
-	bool			    has_hash_irq;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	unsigned int		    aes_offset;
 };
 
@@ -184,10 +176,6 @@ struct s5p_aes_dev {
 	struct clk                 *clk;
 	void __iomem               *ioaddr;
 	void __iomem               *aes_ioaddr;
-<<<<<<< HEAD
-=======
-	int                         irq_hash;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	int                         irq_fc;
 
 	struct ablkcipher_request  *req;
@@ -206,18 +194,10 @@ struct s5p_aes_dev {
 static struct s5p_aes_dev *s5p_dev;
 
 static const struct samsung_aes_variant s5p_aes_data = {
-<<<<<<< HEAD
-=======
-	.has_hash_irq	= true,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.aes_offset	= 0x4000,
 };
 
 static const struct samsung_aes_variant exynos_aes_data = {
-<<<<<<< HEAD
-=======
-	.has_hash_irq	= false,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.aes_offset	= 0x200,
 };
 
@@ -328,7 +308,6 @@ static int s5p_set_indata(struct s5p_aes_dev *dev, struct scatterlist *sg)
 	return err;
 }
 
-<<<<<<< HEAD
 /*
  * Returns true if new transmitting (output) data is ready and its
  * address+length have to be written to device (by calling
@@ -338,36 +317,21 @@ static bool s5p_aes_tx(struct s5p_aes_dev *dev)
 {
 	int err = 0;
 	bool ret = false;
-=======
-static void s5p_aes_tx(struct s5p_aes_dev *dev)
-{
-	int err = 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	s5p_unset_outdata(dev);
 
 	if (!sg_is_last(dev->sg_dst)) {
 		err = s5p_set_outdata(dev, sg_next(dev->sg_dst));
-<<<<<<< HEAD
 		if (err)
 			s5p_aes_complete(dev, err);
 		else
 			ret = true;
-=======
-		if (err) {
-			s5p_aes_complete(dev, err);
-			return;
-		}
-
-		s5p_set_dma_outdata(dev, dev->sg_dst);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else {
 		s5p_aes_complete(dev, err);
 
 		dev->busy = true;
 		tasklet_schedule(&dev->tasklet);
 	}
-<<<<<<< HEAD
 
 	return ret;
 }
@@ -381,19 +345,11 @@ static bool s5p_aes_rx(struct s5p_aes_dev *dev)
 {
 	int err;
 	bool ret = false;
-=======
-}
-
-static void s5p_aes_rx(struct s5p_aes_dev *dev)
-{
-	int err;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	s5p_unset_indata(dev);
 
 	if (!sg_is_last(dev->sg_src)) {
 		err = s5p_set_indata(dev, sg_next(dev->sg_src));
-<<<<<<< HEAD
 		if (err)
 			s5p_aes_complete(dev, err);
 		else
@@ -401,15 +357,6 @@ static void s5p_aes_rx(struct s5p_aes_dev *dev)
 	}
 
 	return ret;
-=======
-		if (err) {
-			s5p_aes_complete(dev, err);
-			return;
-		}
-
-		s5p_set_dma_indata(dev, dev->sg_src);
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static irqreturn_t s5p_aes_interrupt(int irq, void *dev_id)
@@ -418,7 +365,6 @@ static irqreturn_t s5p_aes_interrupt(int irq, void *dev_id)
 	struct s5p_aes_dev     *dev  = platform_get_drvdata(pdev);
 	uint32_t                status;
 	unsigned long           flags;
-<<<<<<< HEAD
 	bool			set_dma_tx = false;
 	bool			set_dma_rx = false;
 
@@ -442,20 +388,6 @@ static irqreturn_t s5p_aes_interrupt(int irq, void *dev_id)
 		s5p_set_dma_outdata(dev, dev->sg_dst);
 	if (set_dma_rx)
 		s5p_set_dma_indata(dev, dev->sg_src);
-=======
-
-	spin_lock_irqsave(&dev->lock, flags);
-
-	if (irq == dev->irq_fc) {
-		status = SSS_READ(dev, FCINTSTAT);
-		if (status & SSS_FCINTSTAT_BRDMAINT)
-			s5p_aes_rx(dev);
-		if (status & SSS_FCINTSTAT_BTDMAINT)
-			s5p_aes_tx(dev);
-
-		SSS_WRITE(dev, FCINTPEND, status);
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	spin_unlock_irqrestore(&dev->lock, flags);
 
@@ -757,24 +689,6 @@ static int s5p_aes_probe(struct platform_device *pdev)
 		goto err_irq;
 	}
 
-<<<<<<< HEAD
-=======
-	if (variant->has_hash_irq) {
-		pdata->irq_hash = platform_get_irq(pdev, 1);
-		if (pdata->irq_hash < 0) {
-			err = pdata->irq_hash;
-			dev_warn(dev, "hash interrupt is not available.\n");
-			goto err_irq;
-		}
-		err = devm_request_irq(dev, pdata->irq_hash, s5p_aes_interrupt,
-				       IRQF_SHARED, pdev->name, pdev);
-		if (err < 0) {
-			dev_warn(dev, "hash interrupt is not available.\n");
-			goto err_irq;
-		}
-	}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pdata->busy = false;
 	pdata->variant = variant;
 	pdata->dev = dev;

@@ -60,11 +60,8 @@ do {								\
 } while (0)
 extern int init_cifs_idmap(void);
 extern void exit_cifs_idmap(void);
-<<<<<<< HEAD
 extern int init_cifs_spnego(void);
 extern void exit_cifs_spnego(void);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 extern char *build_path_from_dentry(struct dentry *);
 extern char *cifs_build_path_to_root(struct smb_vol *vol,
 				     struct cifs_sb_info *cifs_sb,

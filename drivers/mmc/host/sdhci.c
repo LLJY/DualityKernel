@@ -12,14 +12,11 @@
  *
  *     - JMicron (hardware and technical support)
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/delay.h>
 #include <linux/highmem.h>
@@ -113,20 +110,6 @@ static void sdhci_dump_state(struct sdhci_host *host)
 
 static void sdhci_dumpregs(struct sdhci_host *host)
 {
-<<<<<<< HEAD
-=======
-	MMC_TRACE(host->mmc,
-		"%s: 0x04=0x%08x 0x06=0x%08x 0x0E=0x%08x 0x30=0x%08x 0x34=0x%08x 0x38=0x%08x\n",
-		__func__,
-		sdhci_readw(host, SDHCI_BLOCK_SIZE),
-		sdhci_readw(host, SDHCI_BLOCK_COUNT),
-		sdhci_readw(host, SDHCI_COMMAND),
-		sdhci_readl(host, SDHCI_INT_STATUS),
-		sdhci_readl(host, SDHCI_INT_ENABLE),
-		sdhci_readl(host, SDHCI_SIGNAL_ENABLE));
-	mmc_stop_tracing(host->mmc);
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pr_info(DRIVER_NAME ": =========== REGISTER DUMP (%s)===========\n",
 		mmc_hostname(host->mmc));
 
@@ -584,12 +567,9 @@ static int sdhci_pre_dma_transfer(struct sdhci_host *host,
 				  struct sdhci_next *next)
 {
 	int sg_count;
-<<<<<<< HEAD
 	unsigned long flags;
 
 	spin_lock_irqsave(&host->next_lock, flags);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!next && data->host_cookie &&
 	    data->host_cookie != host->next_data.cookie) {
@@ -611,15 +591,10 @@ static int sdhci_pre_dma_transfer(struct sdhci_host *host,
 		host->next_data.sg_count = 0;
 	}
 
-<<<<<<< HEAD
 	if (sg_count == 0) {
 		spin_unlock_irqrestore(&host->next_lock, flags);
 		return -EINVAL;
 	}
-=======
-	if (sg_count == 0)
-		return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (next) {
 		next->sg_count = sg_count;
@@ -627,11 +602,8 @@ static int sdhci_pre_dma_transfer(struct sdhci_host *host,
 	} else
 		host->sg_count = sg_count;
 
-<<<<<<< HEAD
 	spin_unlock_irqrestore(&host->next_lock, flags);
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	return sg_count;
 }
 
@@ -1086,14 +1058,6 @@ static void sdhci_prepare_data(struct sdhci_host *host, struct mmc_command *cmd)
 	/* Set the DMA boundary value and block size */
 	sdhci_set_blk_size_reg(host, data->blksz, SDHCI_DEFAULT_BOUNDARY_ARG);
 	sdhci_writew(host, data->blocks, SDHCI_BLOCK_COUNT);
-<<<<<<< HEAD
-=======
-	MMC_TRACE(host->mmc,
-		"%s: 0x28=0x%08x 0x3E=0x%08x 0x06=0x%08x\n", __func__,
-		sdhci_readb(host, SDHCI_HOST_CONTROL),
-		sdhci_readw(host, SDHCI_HOST_CONTROL2),
-		sdhci_readw(host, SDHCI_BLOCK_COUNT));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void sdhci_set_transfer_mode(struct sdhci_host *host,
@@ -1144,12 +1108,6 @@ static void sdhci_set_transfer_mode(struct sdhci_host *host,
 		mode |= SDHCI_TRNS_DMA;
 
 	sdhci_writew(host, mode, SDHCI_TRANSFER_MODE);
-<<<<<<< HEAD
-=======
-	MMC_TRACE(host->mmc, "%s: 0x00=0x%08x 0x0C=0x%08x\n", __func__,
-		sdhci_readw(host, SDHCI_ARGUMENT2),
-		sdhci_readw(host, SDHCI_TRANSFER_MODE));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static void sdhci_finish_data(struct sdhci_host *host)
@@ -1161,11 +1119,6 @@ static void sdhci_finish_data(struct sdhci_host *host)
 	data = host->data;
 	host->data = NULL;
 
-<<<<<<< HEAD
-=======
-	MMC_TRACE(host->mmc, "%s: 0x24=0x%08x\n", __func__,
-		sdhci_readl(host, SDHCI_PRESENT_STATE));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (host->flags & SDHCI_REQ_USE_DMA) {
 		if (host->flags & SDHCI_USE_ADMA)
 			sdhci_adma_table_post(host, data);
@@ -1292,14 +1245,6 @@ void sdhci_send_command(struct sdhci_host *host, struct mmc_command *cmd)
 	if (cmd->data)
 		host->data_start_time = ktime_get();
 	trace_mmc_cmd_rw_start(cmd->opcode, cmd->arg, cmd->flags);
-<<<<<<< HEAD
-=======
-	MMC_TRACE(host->mmc,
-		"%s: updated 0x8=0x%08x 0xC=0x%08x 0xE=0x%08x\n", __func__,
-		sdhci_readl(host, SDHCI_ARGUMENT),
-		sdhci_readw(host, SDHCI_TRANSFER_MODE),
-		sdhci_readw(host, SDHCI_COMMAND));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	sdhci_writew(host, SDHCI_MAKE_CMD(cmd->opcode, flags), SDHCI_COMMAND);
 }
 EXPORT_SYMBOL_GPL(sdhci_send_command);
@@ -1321,19 +1266,8 @@ static void sdhci_finish_command(struct sdhci_host *host)
 						sdhci_readb(host,
 						SDHCI_RESPONSE + (3-i)*4-1);
 			}
-<<<<<<< HEAD
 		} else {
 			host->cmd->resp[0] = sdhci_readl(host, SDHCI_RESPONSE);
-=======
-			MMC_TRACE(host->mmc,
-			"%s: resp 0: 0x%08x resp 1: 0x%08x resp 2: 0x%08x resp 3: 0x%08x\n",
-			__func__, host->cmd->resp[0], host->cmd->resp[1],
-			host->cmd->resp[2], host->cmd->resp[3]);
-		} else {
-			host->cmd->resp[0] = sdhci_readl(host, SDHCI_RESPONSE);
-			MMC_TRACE(host->mmc, "%s: resp 0: 0x%08x\n",
-				__func__, host->cmd->resp[0]);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 	}
 
@@ -3265,12 +3199,6 @@ static irqreturn_t sdhci_irq(int irq, void *dev_id)
 				goto out;
 		}
 
-<<<<<<< HEAD
-=======
-		MMC_TRACE(host->mmc,
-			"%s: intmask: 0x%x\n", __func__, intmask);
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (intmask & SDHCI_INT_AUTO_CMD_ERR)
 			host->auto_cmd_err_sts = sdhci_readw(host,
 					SDHCI_AUTO_CMD_ERR);
@@ -3621,10 +3549,7 @@ struct sdhci_host *sdhci_alloc_host(struct device *dev,
 	host->mmc = mmc;
 
 	spin_lock_init(&host->lock);
-<<<<<<< HEAD
 	spin_lock_init(&host->next_lock);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ratelimit_state_init(&host->dbg_dump_rs, SDHCI_DBG_DUMP_RS_INTERVAL,
 			SDHCI_DBG_DUMP_RS_BURST);
 

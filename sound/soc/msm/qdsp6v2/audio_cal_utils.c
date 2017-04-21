@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2014-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -605,10 +601,7 @@ static struct cal_block_data *create_cal_block(struct cal_type_data *cal_type,
 	}
 
 	INIT_LIST_HEAD(&cal_block->list);
-<<<<<<< HEAD
 	list_add_tail(&cal_block->list, &cal_type->cal_blocks);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	cal_block->map_data.ion_map_handle = basic_cal->cal_data.mem_handle;
 	if (basic_cal->cal_data.mem_handle > 0) {
@@ -640,10 +633,6 @@ static struct cal_block_data *create_cal_block(struct cal_type_data *cal_type,
 		goto err;
 	}
 	cal_block->buffer_number = basic_cal->cal_hdr.buffer_number;
-<<<<<<< HEAD
-=======
-	list_add_tail(&cal_block->list, &cal_type->cal_blocks);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	pr_debug("%s: created block for cal type %d, buf num %d, map handle %d, map size %zd paddr 0x%pK!\n",
 		__func__, cal_type->info.reg.cal_type,
 		cal_block->buffer_number,
@@ -653,11 +642,6 @@ static struct cal_block_data *create_cal_block(struct cal_type_data *cal_type,
 done:
 	return cal_block;
 err:
-<<<<<<< HEAD
-=======
-	kfree(cal_block->cal_info);
-	kfree(cal_block->client_info);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	kfree(cal_block);
 	cal_block = NULL;
 	return cal_block;

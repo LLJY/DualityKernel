@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2015,2017 The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -17,11 +13,7 @@
 
 #include "msm_ba_debug.h"
 
-<<<<<<< HEAD
 #define MAX_DBG_BUF_SIZE 4096
-=======
-#define MAX_DBG_BUF_SIZE 1008
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 int msm_ba_debug = BA_ERR | BA_WARN;
 int msm_ba_debug_out = BA_OUT_PRINTK;
@@ -32,17 +24,11 @@ struct debug_buffer {
 	u32 filled_size;
 };
 
-<<<<<<< HEAD
 static struct debug_buffer dbg_buf;
 
 #define INIT_DBG_BUF(__buf) ({ \
 	__buf.curr = __buf.ptr;\
 	__buf.filled_size = 0; \
-=======
-#define INIT_DBG_BUF(__buf) ({ \
-	__buf->curr = __buf->ptr;\
-	__buf->filled_size = 0; \
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 })
 
 static int dev_info_open(struct inode *inode, struct file *file)
@@ -72,17 +58,11 @@ static ssize_t dev_info_read(struct file *file, char __user *buf,
 		size_t count, loff_t *ppos)
 {
 	struct msm_ba_dev *dev_ctxt = file->private_data;
-<<<<<<< HEAD
-=======
-	struct debug_buffer *dbg_buf = NULL;
-	ssize_t size = 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!dev_ctxt) {
 		dprintk(BA_ERR, "Invalid params, dev: 0x%p", dev_ctxt);
 		return 0;
 	}
-<<<<<<< HEAD
 	INIT_DBG_BUF(dbg_buf);
 	write_str(&dbg_buf, "===============================");
 	write_str(&dbg_buf, "DEV: 0x%p", dev_ctxt);
@@ -91,25 +71,6 @@ static ssize_t dev_info_read(struct file *file, char __user *buf,
 
 	return simple_read_from_buffer(buf, count, ppos,
 			dbg_buf.ptr, dbg_buf.filled_size);
-=======
-
-	dbg_buf = kmalloc(sizeof(struct debug_buffer), GFP_KERNEL);
-	if (NULL == dbg_buf)
-		return 0;
-
-	INIT_DBG_BUF(dbg_buf);
-	write_str(dbg_buf, "===============================");
-	write_str(dbg_buf, "DEV: 0x%p", dev_ctxt);
-	write_str(dbg_buf, "===============================");
-	write_str(dbg_buf, "state: %d", dev_ctxt->state);
-
-	size = simple_read_from_buffer(buf, count, ppos,
-			dbg_buf->ptr, dbg_buf->filled_size);
-
-	kfree(dbg_buf);
-
-	return size;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static const struct file_operations dev_info_fops = {
@@ -194,17 +155,11 @@ static ssize_t inst_info_read(struct file *file, char __user *buf,
 		size_t count, loff_t *ppos)
 {
 	struct msm_ba_inst *inst = file->private_data;
-<<<<<<< HEAD
-=======
-	struct debug_buffer *dbg_buf = NULL;
-	ssize_t size = 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!inst) {
 		dprintk(BA_ERR, "Invalid params, dev: %p", inst);
 		return 0;
 	}
-<<<<<<< HEAD
 	INIT_DBG_BUF(dbg_buf);
 	write_str(&dbg_buf, "===============================");
 	write_str(&dbg_buf, "INSTANCE: %p (%s)", inst,
@@ -215,27 +170,6 @@ static ssize_t inst_info_read(struct file *file, char __user *buf,
 
 	return simple_read_from_buffer(buf, count, ppos,
 		dbg_buf.ptr, dbg_buf.filled_size);
-=======
-
-	dbg_buf = kmalloc(sizeof(struct debug_buffer), GFP_KERNEL);
-	if (NULL == dbg_buf)
-		return 0;
-
-	INIT_DBG_BUF(dbg_buf);
-	write_str(dbg_buf, "===============================");
-	write_str(dbg_buf, "INSTANCE: %p (%s)", inst,
-								"BA device");
-	write_str(dbg_buf, "===============================");
-	write_str(dbg_buf, "dev: %p", inst->dev_ctxt);
-	write_str(dbg_buf, "state: %d", inst->state);
-
-	size = simple_read_from_buffer(buf, count, ppos,
-		dbg_buf->ptr, dbg_buf->filled_size);
-
-	kfree(dbg_buf);
-
-	return size;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static const struct file_operations inst_info_fops = {

@@ -1478,12 +1478,9 @@ static struct of_device_id ucc_uart_match[] = {
 		.type = "serial",
 		.compatible = "ucc_uart",
 	},
-<<<<<<< HEAD
 	{
 		.compatible = "fsl,t1040-ucc-uart",
 	},
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	{},
 };
 MODULE_DEVICE_TABLE(of, ucc_uart_match);

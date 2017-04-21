@@ -13,14 +13,11 @@
  *  Per cpu hot/cold page lists, bulk allocation, Martin J. Bligh, Sept 2002
  *          (lots of bits borrowed from Ingo Molnar & Andrew Morton)
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2013 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/stddef.h>
 #include <linux/mm.h>
@@ -861,10 +858,7 @@ bool is_cma_pageblock(struct page *page)
 {
 	return get_pageblock_migratetype(page) == MIGRATE_CMA;
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL(is_cma_pageblock);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* Free whole pageblock and set its migration type to MIGRATE_CMA. */
 void __init init_cma_reserved_pageblock(struct page *page)
@@ -2386,10 +2380,7 @@ void warn_alloc_failed(gfp_t gfp_mask, unsigned int order, const char *fmt, ...)
 	pr_warn("%s: page allocation failure: order:%u, mode:0x%x\n",
 		current->comm, order, gfp_mask);
 
-<<<<<<< HEAD
 	trace_mm_page_alloc_fail(order);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	dump_stack();
 	if (!should_suppress_show_mem())
 		show_mem(filter);
@@ -2693,11 +2684,7 @@ __alloc_pages_high_priority(gfp_t gfp_mask, unsigned int order,
 	return page;
 }
 
-<<<<<<< HEAD
 void wake_all_kswapds(unsigned int order,
-=======
-static void wake_all_kswapds(unsigned int order,
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			     struct zonelist *zonelist,
 			     enum zone_type high_zoneidx,
 			     struct zone *preferred_zone,
@@ -3073,12 +3060,9 @@ retry_cpuset:
 	}
 
 	trace_mm_page_alloc(page, order, gfp_mask, migratetype);
-<<<<<<< HEAD
 	if (order > 1)
 		trace_mm_page_alloc_highorder(page, order,
 					      gfp_mask, migratetype);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 out:
 	/*

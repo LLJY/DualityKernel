@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef __MSM_MEMORY_DUMP_H
 #define __MSM_MEMORY_DUMP_H
@@ -128,27 +125,21 @@ struct msm_dump_entry {
 #ifdef CONFIG_MSM_MEMORY_DUMP_V2
 extern int msm_dump_data_register(enum msm_dump_table_ids id,
 				  struct msm_dump_entry *entry);
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_TAGS
 extern int dump_table_ramdump_setup(void);
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #else
 static inline int msm_dump_data_register(enum msm_dump_table_ids id,
 					 struct msm_dump_entry *entry)
 {
 	return -ENOSYS;
 }
-<<<<<<< HEAD
 #ifdef CONFIG_RAMDUMP_TAGS
 static inline int dump_table_ramdump_setup(void)
 {
 	return -ENOSYS;
 }
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #endif
 
 #endif

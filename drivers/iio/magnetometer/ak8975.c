@@ -160,11 +160,8 @@ static int ak8975_setup_irq(struct ak8975_data *data)
 	int rc;
 	int irq;
 
-<<<<<<< HEAD
 	init_waitqueue_head(&data->data_ready_queue);
 	clear_bit(0, &data->flags);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (client->irq)
 		irq = client->irq;
 	else
@@ -180,11 +177,6 @@ static int ak8975_setup_irq(struct ak8975_data *data)
 		return rc;
 	}
 
-<<<<<<< HEAD
-=======
-	init_waitqueue_head(&data->data_ready_queue);
-	clear_bit(0, &data->flags);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	data->eoc_irq = irq;
 
 	return rc;

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -39,17 +35,6 @@ bool use_app_setting = true;
 module_param(use_app_setting, bool, 0644);
 MODULE_PARM_DESC(use_app_setting, "control use of app specific settings");
 
-<<<<<<< HEAD
-=======
-bool use_32bit_app_setting = false;
-module_param(use_32bit_app_setting, bool, 0644);
-MODULE_PARM_DESC(use_32bit_app_setting, "control use of 32 bit app specific settings");
-
-bool use_32bit_app_setting_pro = false;
-module_param(use_32bit_app_setting_pro, bool, 0644);
-MODULE_PARM_DESC(use_32bit_app_setting_pro, "control use of 32 bit app specific settings");
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int set_name(const char *str, struct kernel_param *kp)
 {
 	int len = strlen(str);
@@ -102,20 +87,6 @@ void switch_app_setting_bit(struct task_struct *prev, struct task_struct *next)
 }
 EXPORT_SYMBOL(switch_app_setting_bit);
 
-<<<<<<< HEAD
-=======
-void switch_32bit_app_setting_bit(struct task_struct *prev,
-					struct task_struct *next)
-{
-	if (prev->mm && unlikely(is_compat_thread(task_thread_info(prev))))
-		clear_app_setting_bit_for_32bit_apps();
-
-	if (next->mm && unlikely(is_compat_thread(task_thread_info(next))))
-		set_app_setting_bit_for_32bit_apps();
-}
-EXPORT_SYMBOL(switch_32bit_app_setting_bit);
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 void apply_app_setting_bit(struct file *file)
 {
 	bool found = false;

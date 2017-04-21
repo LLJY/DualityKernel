@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License version 2 and
 * only version 2 as published by the Free Software Foundation.
@@ -12,14 +8,11 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/err.h>
 #include <linux/module.h>
@@ -210,12 +203,7 @@ static void msm_ds2_dap_check_and_update_ramp_wait(int port_id, int copp_idx,
 	uint32_t param_payload_len = PARAM_PAYLOAD_SIZE * sizeof(uint32_t);
 	int rc = 0;
 
-<<<<<<< HEAD
 	update_params_value = kzalloc(params_length, GFP_KERNEL);
-=======
-	update_params_value = kzalloc(params_length + param_payload_len,
-				      GFP_KERNEL);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!update_params_value) {
 		pr_err("%s: params memory alloc failed\n", __func__);
 		goto end;
@@ -350,21 +338,10 @@ int qti_set_custom_stereo_on(int port_id, int copp_idx,
 	pr_debug("%s: port 0x%x, copp_idx %d, is_custom_stereo_on %d\n",
 		 __func__, port_id, copp_idx, is_custom_stereo_on);
 	if (is_custom_stereo_on) {
-<<<<<<< HEAD
 		op_FL_ip_FL_weight = 0;
 		op_FL_ip_FR_weight = Q14_GAIN_UNITY;
 		op_FR_ip_FL_weight = Q14_GAIN_UNITY;
 		op_FR_ip_FR_weight = 0;
-=======
-		op_FL_ip_FL_weight =
-			Q14_GAIN_ZERO_POINT_FIVE;
-		op_FL_ip_FR_weight =
-			Q14_GAIN_ZERO_POINT_FIVE;
-		op_FR_ip_FL_weight =
-			Q14_GAIN_ZERO_POINT_FIVE;
-		op_FR_ip_FR_weight =
-			Q14_GAIN_ZERO_POINT_FIVE;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else {
 		op_FL_ip_FL_weight = Q14_GAIN_UNITY;
 		op_FL_ip_FR_weight = 0;
@@ -1666,10 +1643,6 @@ static int msm_ds2_dap_param_visualizer_control_get(u32 cmd, void *arg)
 		ret = 0;
 		dolby_data->length = 0;
 		pr_err("%s Incorrect VCNB length", __func__);
-<<<<<<< HEAD
-=======
-		return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	params_length = (2*length + DOLBY_VIS_PARAM_HEADER_SIZE) *

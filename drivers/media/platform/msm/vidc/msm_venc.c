@@ -185,16 +185,6 @@ static const char *const timestamp_mode[] = {
 	"Ignore",
 };
 
-<<<<<<< HEAD
-=======
-static const char *const iframe_sizes[] = {
-	"Default",
-	"Medium",
-	"Huge",
-	"Unlimited"
-};
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct msm_vidc_ctrl msm_venc_ctrls[] = {
 	{
 		.id = V4L2_CID_MPEG_VIDC_VIDEO_IDR_PERIOD,
@@ -1310,23 +1300,6 @@ static struct msm_vidc_ctrl msm_venc_ctrls[] = {
 		.default_value = V4L2_MPEG_VIDC_VIDEO_H264_TRANSFORM_8x8_ENABLE,
 		.step = 1,
 	},
-<<<<<<< HEAD
-=======
-	{
-		.id = V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_TYPE,
-		.name = "Bounds of I-frame size",
-		.type = V4L2_CTRL_TYPE_MENU,
-		.minimum = V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_DEFAULT,
-		.maximum = V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_UNLIMITED,
-		.default_value = V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_DEFAULT,
-		.menu_skip_mask = ~(
-			(1 << V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_DEFAULT) |
-			(1 << V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_MEDIUM) |
-			(1 << V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_HUGE) |
-			(1 << V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_UNLIMITED)),
-		.qmenu = iframe_sizes,
-	},
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static struct v4l2_ctrl *get_ctrl_from_cluster(int id,
@@ -2169,22 +2142,6 @@ static inline int venc_v4l2_to_hal(int id, int value)
 		default:
 			goto unknown_value;
 		}
-<<<<<<< HEAD
-=======
-	case V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_TYPE:
-		switch (value) {
-		case V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_DEFAULT:
-			return HAL_IFRAMESIZE_TYPE_DEFAULT;
-		case V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_MEDIUM:
-			return HAL_IFRAMESIZE_TYPE_MEDIUM;
-		case V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_HUGE:
-			return HAL_IFRAMESIZE_TYPE_HUGE;
-		case V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_UNLIMITED:
-			return HAL_IFRAMESIZE_TYPE_UNLIMITED;
-		default:
-			goto unknown_value;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 unknown_value:
@@ -2273,10 +2230,6 @@ static int try_set_ctrl(struct msm_vidc_inst *inst, struct v4l2_ctrl *ctrl)
 	int frameqp = 0;
 	int pic_order_cnt = 0;
 	struct hal_video_signal_info signal_info = {0};
-<<<<<<< HEAD
-=======
-	enum hal_iframesize_type iframesize_type = HAL_IFRAMESIZE_TYPE_DEFAULT;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (!inst || !inst->core || !inst->core->device) {
 		dprintk(VIDC_ERR, "%s invalid parameters\n", __func__);
@@ -3366,16 +3319,6 @@ static int try_set_ctrl(struct msm_vidc_inst *inst, struct v4l2_ctrl *ctrl)
 		}
 		pdata = &enable;
 		break;
-<<<<<<< HEAD
-=======
-	case V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_TYPE:
-		property_id = HAL_PARAM_VENC_IFRAMESIZE_TYPE;
-		iframesize_type = venc_v4l2_to_hal(
-				V4L2_CID_MPEG_VIDC_VIDEO_IFRAME_SIZE_TYPE,
-				ctrl->val);
-		pdata = &iframesize_type;
-		break;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	default:
 		dprintk(VIDC_ERR, "Unsupported index: %x\n", ctrl->id);
 		rc = -ENOTSUPP;

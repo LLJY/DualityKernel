@@ -21,14 +21,11 @@
 			qcom,ion-heap-type = "SYSTEM";
 		};
 
-<<<<<<< HEAD
 		system_contig_heap: qcom,ion-heap@21 {
 			reg = <21>;
 			qcom,ion-heap-type = "SYSTEM_CONTIG";
 		};
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		qcom,ion-heap@22 { /* ADSP HEAP */
 			reg = <22>;
 			memory-region = <&adsp_mem>;

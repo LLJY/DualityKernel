@@ -2,11 +2,7 @@
  * USB Attached SCSI
  * Note that this is not the same as the USB Mass Storage driver
  *
-<<<<<<< HEAD
  * Copyright Hans de Goede <hdegoede@redhat.com> for Red Hat, Inc. 2013 - 2016
-=======
- * Copyright Hans de Goede <hdegoede@redhat.com> for Red Hat, Inc. 2013 - 2014
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  * Copyright Matthew Wilcox for Intel Corp, 2010
  * Copyright Sarah Sharp for Intel Corp, 2010
  *
@@ -772,7 +768,6 @@ static int uas_eh_bus_reset_handler(struct scsi_cmnd *cmnd)
 	return SUCCESS;
 }
 
-<<<<<<< HEAD
 static int uas_target_alloc(struct scsi_target *starget)
 {
 	struct uas_dev_info *devinfo = (struct uas_dev_info *)
@@ -784,8 +779,6 @@ static int uas_target_alloc(struct scsi_target *starget)
 	return 0;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int uas_slave_alloc(struct scsi_device *sdev)
 {
 	struct uas_dev_info *devinfo =
@@ -834,10 +827,7 @@ static struct scsi_host_template uas_host_template = {
 	.module = THIS_MODULE,
 	.name = "uas",
 	.queuecommand = uas_queuecommand,
-<<<<<<< HEAD
 	.target_alloc = uas_target_alloc,
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	.slave_alloc = uas_slave_alloc,
 	.slave_configure = uas_slave_configure,
 	.eh_abort_handler = uas_eh_abort_handler,

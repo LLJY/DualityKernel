@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -314,11 +310,7 @@ int mdss_mdp_video_addr_setup(struct mdss_data_type *mdata,
 	return 0;
 }
 
-<<<<<<< HEAD
 static void mdss_mdp_video_intf_recovery(void *data, int event)
-=======
-static int mdss_mdp_video_intf_recovery(void *data, int event)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 {
 	struct mdss_mdp_video_ctx *ctx;
 	struct mdss_mdp_ctl *ctl = data;
@@ -330,11 +322,7 @@ static int mdss_mdp_video_intf_recovery(void *data, int event)
 
 	if (!data) {
 		pr_err("%s: invalid ctl\n", __func__);
-<<<<<<< HEAD
 		return;
-=======
-		return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	/*
@@ -345,11 +333,7 @@ static int mdss_mdp_video_intf_recovery(void *data, int event)
 	if (event != MDP_INTF_DSI_VIDEO_FIFO_OVERFLOW) {
 		pr_warn("%s: unsupported recovery event:%d\n",
 					__func__, event);
-<<<<<<< HEAD
 		return;
-=======
-		return -EPERM;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	ctx = ctl->intf_ctx[MASTER_CTX];
@@ -364,11 +348,7 @@ static int mdss_mdp_video_intf_recovery(void *data, int event)
 	clk_rate = DIV_ROUND_UP_ULL(clk_rate, 1000); /* in kHz */
 	if (!clk_rate) {
 		pr_err("Unable to get proper clk_rate\n");
-<<<<<<< HEAD
 		return;
-=======
-		return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	/*
 	 * calculate clk_period as pico second to maintain good
@@ -378,11 +358,7 @@ static int mdss_mdp_video_intf_recovery(void *data, int event)
 	clk_period = DIV_ROUND_UP_ULL(1000000000, clk_rate);
 	if (!clk_period) {
 		pr_err("Unable to calculate clock period\n");
-<<<<<<< HEAD
 		return;
-=======
-		return -EINVAL;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	min_ln_cnt = pinfo->lcdc.v_back_porch + pinfo->lcdc.v_pulse_width;
 	active_lns_cnt = pinfo->yres;
@@ -408,11 +384,7 @@ static int mdss_mdp_video_intf_recovery(void *data, int event)
 				!ctx->timegen_en) {
 			pr_warn("Target is in suspend or shutdown pending\n");
 			mutex_unlock(&ctl->offlock);
-<<<<<<< HEAD
 			return;
-=======
-			return -EPERM;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 
 		line_cnt = mdss_mdp_video_line_count(ctl);
@@ -422,11 +394,7 @@ static int mdss_mdp_video_intf_recovery(void *data, int event)
 			pr_debug("%s, Needed lines left line_cnt=%d\n",
 						__func__, line_cnt);
 			mutex_unlock(&ctl->offlock);
-<<<<<<< HEAD
 			return;
-=======
-			return 0;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		} else {
 			pr_warn("line count is less. line_cnt = %d\n",
 								line_cnt);
@@ -2141,28 +2109,10 @@ static int mdss_mdp_video_early_wake_up(struct mdss_mdp_ctl *ctl)
 	 * lot of latency rendering the input events useless in preventing the
 	 * idle time out.
 	 */
-<<<<<<< HEAD
 	if (ctl->mfd->idle_state == MDSS_FB_IDLE_TIMER_RUNNING) {
 		if (ctl->mfd->idle_time)
 			mod_delayed_work(system_wq, &ctl->mfd->idle_notify_work,
 					 msecs_to_jiffies(ctl->mfd->idle_time));
-=======
-	if ((ctl->mfd->idle_state == MDSS_FB_IDLE_TIMER_RUNNING) ||
-				(ctl->mfd->idle_state == MDSS_FB_IDLE)) {
-		/*
-		 * Modify the idle time so that an idle fallback can be
-		 * triggered for those cases, where we have no update
-		 * despite of a touch event and idle time is 0.
-		 */
-		if (!ctl->mfd->idle_time) {
-			ctl->mfd->idle_time = 70;
-			schedule_delayed_work(&ctl->mfd->idle_notify_work,
-							msecs_to_jiffies(200));
-		} else {
-			mod_delayed_work(system_wq, &ctl->mfd->idle_notify_work,
-					 msecs_to_jiffies(ctl->mfd->idle_time));
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pr_debug("Delayed idle time\n");
 	} else {
 		pr_debug("Nothing to done for this state (%d)\n",

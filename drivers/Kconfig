@@ -156,11 +156,6 @@ source "drivers/remoteproc/Kconfig"
 
 source "drivers/rpmsg/Kconfig"
 
-<<<<<<< HEAD
-=======
-source "drivers/soc/Kconfig"
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 source "drivers/devfreq/Kconfig"
 
 source "drivers/extcon/Kconfig"

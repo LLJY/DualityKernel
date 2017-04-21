@@ -448,10 +448,6 @@ static void arm64_dma_unremap(struct device *dev, void *remapped_addr,
 {
 	struct vm_struct *area;
 
-<<<<<<< HEAD
-=======
-	size = PAGE_ALIGN(size);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	remapped_addr = (void *)((unsigned long)remapped_addr & PAGE_MASK);
 
 	area = find_vm_area(remapped_addr);

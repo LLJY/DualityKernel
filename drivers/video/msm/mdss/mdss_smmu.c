@@ -36,11 +36,6 @@
 #include "mdss_smmu.h"
 #include "mdss_debug.h"
 
-<<<<<<< HEAD
-=======
-#define SZ_4G 0xF0000000
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static DEFINE_MUTEX(mdp_iommu_lock);
 
 void mdss_iommu_lock(void)
@@ -542,7 +537,6 @@ int mdss_smmu_init(struct mdss_data_type *mdata, struct device *dev)
 }
 
 static struct mdss_smmu_domain mdss_mdp_unsec = {
-<<<<<<< HEAD
 	"mdp_0", MDSS_IOMMU_DOMAIN_UNSECURE, SZ_128K, (SZ_1G - SZ_128K)};
 static struct mdss_smmu_domain mdss_rot_unsec = {
 	NULL, MDSS_IOMMU_DOMAIN_ROT_UNSECURE, SZ_128K, (SZ_1G - SZ_128K)};
@@ -550,15 +544,6 @@ static struct mdss_smmu_domain mdss_mdp_sec = {
 	"mdp_1", MDSS_IOMMU_DOMAIN_SECURE, SZ_1G, SZ_2G};
 static struct mdss_smmu_domain mdss_rot_sec = {
 	NULL, MDSS_IOMMU_DOMAIN_ROT_SECURE, SZ_1G, SZ_2G};
-=======
-	"mdp_0", MDSS_IOMMU_DOMAIN_UNSECURE, SZ_1M, (SZ_4G - SZ_1M)};
-static struct mdss_smmu_domain mdss_rot_unsec = {
-	NULL, MDSS_IOMMU_DOMAIN_ROT_UNSECURE, SZ_1M, (SZ_4G - SZ_1M)};
-static struct mdss_smmu_domain mdss_mdp_sec = {
-	"mdp_1", MDSS_IOMMU_DOMAIN_SECURE, SZ_1M, (SZ_4G - SZ_1M)};
-static struct mdss_smmu_domain mdss_rot_sec = {
-	NULL, MDSS_IOMMU_DOMAIN_ROT_SECURE, SZ_1M, (SZ_4G - SZ_1M)};
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 static const struct of_device_id mdss_smmu_dt_match[] = {
 	{ .compatible = "qcom,smmu_mdp_unsec", .data = &mdss_mdp_unsec},

@@ -112,10 +112,6 @@ static int hfi_process_sess_evt_seq_changed(u32 device_id,
 	u8 *data_ptr;
 	int prop_id;
 	enum msm_vidc_pixel_depth luma_bit_depth, chroma_bit_depth;
-<<<<<<< HEAD
-=======
-	struct hfi_colour_space *colour_info;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (sizeof(struct hfi_msg_event_notify_packet) > pkt->size) {
 		dprintk(VIDC_ERR,
@@ -209,21 +205,6 @@ static int hfi_process_sess_evt_seq_changed(u32 device_id,
 				data_ptr +=
 					sizeof(struct hfi_pic_struct);
 				break;
-<<<<<<< HEAD
-=======
-			case HFI_PROPERTY_PARAM_VDEC_COLOUR_SPACE:
-				data_ptr = data_ptr + sizeof(u32);
-				colour_info =
-					(struct hfi_colour_space *) data_ptr;
-				event_notify.colour_space =
-					colour_info->colour_space;
-				dprintk(VIDC_DBG,
-					"Colour space value is: %d\n",
-						colour_info->colour_space);
-				data_ptr +=
-					sizeof(struct hfi_colour_space);
-				break;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			default:
 				dprintk(VIDC_ERR,
 					"%s cmd: %#x not supported\n",

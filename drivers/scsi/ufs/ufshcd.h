@@ -421,10 +421,6 @@ struct ufs_clk_gating {
 	struct device_attribute enable_attr;
 	bool is_enabled;
 	int active_reqs;
-<<<<<<< HEAD
-=======
-	struct workqueue_struct *ungating_workq;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 /* Hibern8 state  */

@@ -106,7 +106,6 @@ static int __init efifb_set_system(const struct dmi_system_id *id)
 					continue;
 				for (i = 0; i < DEVICE_COUNT_RESOURCE; i++) {
 					resource_size_t start, end;
-<<<<<<< HEAD
 					unsigned long flags;
 
 					flags = pci_resource_flags(dev, i);
@@ -120,20 +119,11 @@ static int __init efifb_set_system(const struct dmi_system_id *id)
 						continue;
 
 					start = pci_resource_start(dev, i);
-=======
-
-					start = pci_resource_start(dev, i);
-					if (start == 0)
-						break;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					end = pci_resource_end(dev, i);
 					if (screen_info.lfb_base >= start &&
 					    screen_info.lfb_base < end) {
 						found_bar = 1;
-<<<<<<< HEAD
 						break;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					}
 				}
 			}

@@ -122,12 +122,7 @@ static void __do_user_fault(struct task_struct *tsk, unsigned long addr,
 
 	trace_user_fault(tsk, addr, esr);
 
-<<<<<<< HEAD
 	if (print_user_debug(sig, UDBG_BUS | UDBG_SEGV)) {
-=======
-	if (show_unhandled_signals && unhandled_signal(tsk, sig) &&
-	    printk_ratelimit()) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		pr_info("%s[%d]: unhandled %s (%d) at 0x%08lx, esr 0x%03x\n",
 			tsk->comm, task_pid_nr(tsk), fault_name(esr), sig,
 			addr, esr);
@@ -230,12 +225,7 @@ static int __kprobes do_page_fault(unsigned long addr, unsigned int esr,
 
 	if (esr & ESR_LNX_EXEC) {
 		vm_flags = VM_EXEC;
-<<<<<<< HEAD
 	} else if (esr & ESR_EL1_WRITE) {
-=======
-	} else if (((esr & ESR_EL1_WRITE) && !(esr & ESR_EL1_CM)) ||
-			((esr & ESR_EL1_CM) && !(mm_flags & FAULT_FLAG_USER))) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		vm_flags = VM_WRITE;
 		mm_flags |= FAULT_FLAG_WRITE;
 	}

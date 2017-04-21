@@ -17,14 +17,11 @@
  * The list_for_each() macro wasn't appropriate for the sysctl loop.
  *  Removed it and replaced it with older style, 03/23/00, Bill Wendling
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/module.h>
 #include <linux/mm.h>
@@ -122,12 +119,9 @@ extern int sysctl_nr_open_min, sysctl_nr_open_max;
 #ifndef CONFIG_MMU
 extern int sysctl_nr_trim_pages;
 #endif
-<<<<<<< HEAD
 #ifdef CONFIG_SWAP_CONSIDER_CMA_FREE
 extern int swap_thresh_cma_free_pages;
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 /* Constants used for minimum and  maximum */
 #ifdef CONFIG_LOCKUP_DETECTOR
@@ -292,13 +286,10 @@ static int min_extfrag_threshold;
 static int max_extfrag_threshold = 1000;
 #endif
 
-<<<<<<< HEAD
 #ifdef CONFIG_SWAP_CONSIDER_CMA_FREE
 static int max_swap_thresh_cma_free_pages = INT_MAX;
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct ctl_table kern_table[] = {
 	{
 		.procname	= "sched_child_runs_first",
@@ -1625,7 +1616,6 @@ static struct ctl_table vm_table[] = {
 		.extra1		= &min_extfrag_threshold,
 		.extra2		= &max_extfrag_threshold,
 	},
-<<<<<<< HEAD
 	{
 		.procname	= "compact_unevictable_allowed",
 		.data		= &sysctl_compact_unevictable_allowed,
@@ -1635,8 +1625,6 @@ static struct ctl_table vm_table[] = {
 		.extra1		= &zero,
 		.extra2		= &one,
 	},
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #endif /* CONFIG_COMPACTION */
 	{
@@ -1876,7 +1864,6 @@ static struct ctl_table vm_table[] = {
 		.extra2		= (void *)&mmap_rnd_compat_bits_max,
 	},
 #endif
-<<<<<<< HEAD
 #ifdef CONFIG_SWAP_CONSIDER_CMA_FREE
 	{
 		.procname	= "swap_thresh_cma_free_pages",
@@ -1888,8 +1875,6 @@ static struct ctl_table vm_table[] = {
 		.extra2		= &max_swap_thresh_cma_free_pages,
 	},
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	{ }
 };
 

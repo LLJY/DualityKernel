@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef _MSM_PCM_ROUTING_H
 #define _MSM_PCM_ROUTING_H
 #include <sound/apr_audio-v2.h>
@@ -323,7 +320,6 @@ enum {
 	EXT_EC_REF_SLIM_1_TX,
 };
 
-<<<<<<< HEAD
 enum {
 	SONY_CUSTOM_STEREO_NORMAL = 0,
 	SONY_CUSTOM_STEREO_MIX,
@@ -331,8 +327,6 @@ enum {
 	SONY_CUSTOM_STEREO_MAX,
 };
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define INVALID_SESSION -1
 #define SESSION_TYPE_RX 0
 #define SESSION_TYPE_TX 1

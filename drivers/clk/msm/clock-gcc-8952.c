@@ -91,12 +91,6 @@ static DEFINE_CLK_VOTER(pnoc_usb_clk, &pnoc_clk.c, LONG_MAX);
 static DEFINE_CLK_VOTER(snoc_usb_clk, &snoc_clk.c, LONG_MAX);
 static DEFINE_CLK_VOTER(bimc_usb_clk, &bimc_clk.c, LONG_MAX);
 
-<<<<<<< HEAD
-=======
-static DEFINE_CLK_VOTER(snoc_wcnss_a_clk, &snoc_a_clk.c, LONG_MAX);
-static DEFINE_CLK_VOTER(bimc_wcnss_a_clk, &bimc_a_clk.c, LONG_MAX);
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Branch Voter clocks */
 static DEFINE_CLK_BRANCH_VOTER(xo_gcc, &xo_clk_src.c);
 static DEFINE_CLK_BRANCH_VOTER(xo_otg_clk, &xo_clk_src.c);
@@ -772,30 +766,6 @@ static struct clk_freq_tbl ftbl_gcc_oxili_gfx3d_clk_8937_475MHz[] = {
 	F_END
 };
 
-<<<<<<< HEAD
-=======
-static struct clk_freq_tbl ftbl_gcc_oxili_gfx3d_clk_8940_500MHz[] = {
-	F_SLEW( 19200000,  FIXED_CLK_SRC, xo,		1,	0,	0),
-	F_SLEW( 50000000,  FIXED_CLK_SRC, gpll0,	16,	0,	0),
-	F_SLEW( 80000000,  FIXED_CLK_SRC, gpll0,	10,	0,	0),
-	F_SLEW( 100000000, FIXED_CLK_SRC, gpll0,	8,	0,	0),
-	F_SLEW( 160000000, FIXED_CLK_SRC, gpll0,	5,	0,	0),
-	F_SLEW( 200000000, FIXED_CLK_SRC, gpll0,	4,	0,	0),
-	F_SLEW( 216000000, FIXED_CLK_SRC, gpll6_aux,	5,	0,	0),
-	F_SLEW( 228570000, FIXED_CLK_SRC, gpll0,	3.5,	0,	0),
-	F_SLEW( 240000000, FIXED_CLK_SRC, gpll6_aux,	4.5,	0,	0),
-	F_SLEW( 266670000, FIXED_CLK_SRC, gpll0,	3,	0,	0),
-	F_SLEW( 300000000, 600000000,	  gpll3,	1,	0,	0),
-	F_SLEW( 320000000, FIXED_CLK_SRC, gpll0,	2.5,	0,	0),
-	F_SLEW( 375000000, 750000000,	  gpll3,	1,	0,	0),
-	F_SLEW( 400000000, FIXED_CLK_SRC, gpll0,	2,	0,	0),
-	F_SLEW( 450000000, 900000000,	  gpll3,	1,	0,	0),
-	F_SLEW( 475000000, 950000000,	  gpll3,	1,	0,	0),
-	F_SLEW( 500000000, 1000000000,	  gpll3,	1,	0,	0),
-	F_END
-};
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static struct clk_freq_tbl ftbl_gcc_oxili_gfx3d_clk_8917[] = {
 	F_SLEW( 19200000,  FIXED_CLK_SRC, xo,		1,	0,	0),
 	F_SLEW( 50000000,  FIXED_CLK_SRC, gpll0,	16,	0,	0),
@@ -1305,10 +1275,6 @@ static struct rcg_clk jpeg0_clk_src = {
 };
 
 static struct clk_freq_tbl ftbl_gcc_camss_mclk0_2_clk[] = {
-<<<<<<< HEAD
-=======
-	F( 19200000,	xo,	1,	0,	0),
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	F( 24000000,	gpll6,	1,	1,	45),
 	F( 66670000,	gpll0,	12,	0,	0),
 	F_END
@@ -3795,12 +3761,6 @@ static struct clk_lookup msm_clocks_lookup_common[] = {
 	CLK_LIST(snoc_usb_clk),
 	CLK_LIST(bimc_usb_clk),
 
-<<<<<<< HEAD
-=======
-	CLK_LIST(snoc_wcnss_a_clk),
-	CLK_LIST(bimc_wcnss_a_clk),
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	CLK_LIST(qdss_clk),
 	CLK_LIST(qdss_a_clk),
 
@@ -4333,11 +4293,7 @@ static int msm_gcc_probe(struct platform_device *pdev)
 	if (ret < 0)
 		return ret;
 
-<<<<<<< HEAD
 	if (compat_bin2)
-=======
-	if (compat_bin2 || compat_bin4)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		nbases = APCS_C0_PLL_BASE;
 
 	ret = get_mmio_addr(pdev, nbases);
@@ -4419,23 +4375,9 @@ static int msm_gcc_probe(struct platform_device *pdev)
 		override_for_8937(speed_bin);
 
 		if (compat_bin3) {
-<<<<<<< HEAD
 			gfx3d_clk_src.freq_tbl =
 					ftbl_gcc_oxili_gfx3d_clk_8937_475MHz;
 			gfx3d_clk_src.c.fmax[VDD_DIG_SUPER_TUR] = 475000000;
-=======
-			if (speed_bin) {
-				gfx3d_clk_src.freq_tbl =
-					ftbl_gcc_oxili_gfx3d_clk_8940_500MHz;
-				gfx3d_clk_src.c.fmax[VDD_DIG_SUPER_TUR] =
-								500000000;
-			} else {
-				gfx3d_clk_src.freq_tbl =
-					ftbl_gcc_oxili_gfx3d_clk_8937_475MHz;
-				gfx3d_clk_src.c.fmax[VDD_DIG_SUPER_TUR] =
-								475000000;
-			}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		}
 	} else if (compat_bin2 || compat_bin4) {
 		gpll0_clk_src.c.parent = &gpll0_clk_src_8937.c;

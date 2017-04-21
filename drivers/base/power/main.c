@@ -16,14 +16,11 @@
  * domain dependencies may differ from the ancestral dependencies that the
  * subsystem list maintains.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/device.h>
 #include <linux/kallsyms.h>
@@ -41,13 +38,10 @@
 #include <linux/cpuidle.h>
 #include <linux/timer.h>
 #include <linux/wakeup_reason.h>
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 #include <linux/math64.h>
 #include <linux/wait.h>
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include "../base.h"
 #include "power.h"
@@ -71,14 +65,11 @@ static LIST_HEAD(dpm_late_early_list);
 static LIST_HEAD(dpm_noirq_list);
 
 struct suspend_stats suspend_stats;
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 struct suspend_stats_queue suspend_stats_queue;
 static ktime_t suspend_start_time;
 static ktime_t resume_start_time;
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static DEFINE_MUTEX(dpm_list_mtx);
 static pm_message_t pm_transition;
 
@@ -414,7 +405,6 @@ static void dpm_show_time(ktime_t starttime, pm_message_t state, char *info)
 		usecs / USEC_PER_MSEC, usecs % USEC_PER_MSEC);
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 void dpm_log_start_time(pm_message_t state)
 {
@@ -509,8 +499,6 @@ void dpm_log_wakeup_stats(pm_message_t state)
 EXPORT_SYMBOL_GPL(dpm_log_wakeup_stats);
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static int dpm_run_callback(pm_callback_t cb, struct device *dev,
 			    pm_message_t state, char *info)
 {
@@ -557,7 +545,6 @@ static void dpm_watchdog_handler(unsigned long data)
 
 	dev_emerg(wd->dev, "**** DPM device timeout ****\n");
 	show_stack(wd->tsk, NULL);
-<<<<<<< HEAD
 	/*
 	 * Original code was following:
 	 * panic("%s %s: unrecoverable failure\n",
@@ -565,10 +552,6 @@ static void dpm_watchdog_handler(unsigned long data)
 	 */
 	dev_warn(wd->dev, "Applying workaround to force cpu out of idle loop\n");
 	kick_all_cpus_sync();
-=======
-	panic("%s %s: unrecoverable failure\n",
-		dev_driver_string(wd->dev), dev_name(wd->dev));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 /**
@@ -693,11 +676,8 @@ void dpm_resume_noirq(pm_message_t state)
 {
 	struct device *dev;
 	ktime_t starttime = ktime_get();
-<<<<<<< HEAD
   
     pm_print_active_wakeup_sources();
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, true);
 	mutex_lock(&dpm_list_mtx);
@@ -820,10 +800,6 @@ void dpm_resume_early(pm_message_t state)
 {
 	struct device *dev;
 	ktime_t starttime = ktime_get();
-<<<<<<< HEAD
-=======
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	trace_suspend_resume(TPS("dpm_resume_early"), state.event, true);
 	mutex_lock(&dpm_list_mtx);
 	pm_transition = state;
@@ -1432,23 +1408,15 @@ int dpm_suspend_late(pm_message_t state)
 		error = device_suspend_late(dev);
 
 		mutex_lock(&dpm_list_mtx);
-<<<<<<< HEAD
 		if (!list_empty(&dev->power.entry))
 			list_move(&dev->power.entry, &dpm_late_early_list);
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (error) {
 			pm_dev_err(dev, state, " late", error);
 			dpm_save_failed_dev(dev_name(dev));
 			put_device(dev);
 			break;
 		}
-<<<<<<< HEAD
-=======
-		if (!list_empty(&dev->power.entry))
-			list_move(&dev->power.entry, &dpm_late_early_list);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		put_device(dev);
 
 		if (async_error)

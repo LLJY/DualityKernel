@@ -133,14 +133,11 @@ config TRACING
 	select EVENT_TRACING
 	select TRACE_CLOCK
 
-<<<<<<< HEAD
 config TRACE_PRINTK
 	bool "Enable trace_printk"
 	depends on TRACING
 	default y
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config GENERIC_TRACER
 	bool
 	select TRACING

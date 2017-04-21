@@ -18,10 +18,6 @@
 #include <linux/mmc/sdio_func.h>
 
 #ifdef CONFIG_CNSS
-<<<<<<< HEAD
-=======
-#define MAX_FIRMWARE_SIZE (1 * 1024 * 1024)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #define CNSS_MAX_FILE_NAME	20
 #define PINCTRL_SLEEP  0
 #define PINCTRL_ACTIVE 1

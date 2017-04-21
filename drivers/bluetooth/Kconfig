@@ -128,7 +128,6 @@ config BT_HCIBPA10X
 	  Say Y here to compile support for HCI BPA10x devices into the
 	  kernel or say M to compile it as module (bpa10x).
 
-<<<<<<< HEAD
 config BT_MSM_SLEEP
 	tristate "MSM Bluesleep driver"
 	depends on BT && SERIAL_MSM_HS
@@ -139,8 +138,6 @@ config BT_MSM_SLEEP
 	  Say Y here to compile support for BTS sleep into the
 	  kernel or say M to compile it as module (bfusb).
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config BT_HCIBFUSB
 	tristate "HCI BlueFRITZ! USB driver"
 	depends on USB
@@ -275,7 +272,6 @@ config MSM_BT_POWER
 	  Provides a parameter to switch on/off power from PMIC
 	  to Bluetooth device.
 
-<<<<<<< HEAD
 config BT_BCM43XX
 	tristate "Broadcom BCM43xx control driver"
 	depends on SERIAL_MSM_HS && RFKILL
@@ -286,8 +282,6 @@ config BT_BCM43XX
 	  Say Y here to compile support for Broadcom BCM43xx control driver
 	  into the kernel or say M to compile it as module.
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config BTFM_SLIM
 	tristate "MSM Bluetooth/FM Slimbus Driver"
 	depends on MSM_BT_POWER

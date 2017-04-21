@@ -498,10 +498,6 @@ struct cpr3_aging_sensor_info {
  * @name:	Register name
  * @addr:	Register physical address
  * @value:	Register content
-<<<<<<< HEAD
-=======
- * @virt_addr:	Register virtual address
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  * This data structure is used to dump some critical register contents
  * when the device crashes due to a kernel panic.
@@ -510,10 +506,6 @@ struct cpr3_reg_info {
 	const char	*name;
 	u32		addr;
 	u32		value;
-<<<<<<< HEAD
-=======
-	void __iomem	*virt_addr;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 /**

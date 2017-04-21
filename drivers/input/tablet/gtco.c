@@ -868,7 +868,6 @@ static int gtco_probe(struct usb_interface *usbinterface,
 		goto err_free_buf;
 	}
 
-<<<<<<< HEAD
 	/* Sanity check that a device has an endpoint */
 	if (usbinterface->altsetting[0].desc.bNumEndpoints < 1) {
 		dev_err(&usbinterface->dev,
@@ -877,8 +876,6 @@ static int gtco_probe(struct usb_interface *usbinterface,
 		goto err_free_urb;
 	}
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	/*
 	 * The endpoint is always altsetting 0, we know this since we know
 	 * this device only has one interrupt endpoint
@@ -900,11 +897,7 @@ static int gtco_probe(struct usb_interface *usbinterface,
 	 * HID report descriptor
 	 */
 	if (usb_get_extra_descriptor(usbinterface->cur_altsetting,
-<<<<<<< HEAD
 				     HID_DEVICE_TYPE, &hid_desc) != 0) {
-=======
-				     HID_DEVICE_TYPE, &hid_desc) != 0){
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		dev_err(&usbinterface->dev,
 			"Can't retrieve exta USB descriptor to get hid report descriptor length\n");
 		error = -EIO;

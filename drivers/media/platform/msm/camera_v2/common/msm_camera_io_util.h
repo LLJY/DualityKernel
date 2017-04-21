@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef __MSM_CAMERA_IO_UTIL_H
 #define __MSM_CAMERA_IO_UTIL_H
@@ -24,12 +21,9 @@
 #include <linux/regulator/consumer.h>
 #include <linux/gpio.h>
 #include <linux/clk.h>
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 #include <linux/io.h>
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <linux/slab.h>
 #include <linux/interrupt.h>
 #include <soc/qcom/camera2.h>
@@ -50,7 +44,6 @@ struct msm_cam_dump_string_info {
 	uint32_t offset;
 };
 
-<<<<<<< HEAD
 #if defined(CONFIG_SONY_CAM_V4L2)
 static inline void msm_camera_io_w(u32 data, void __iomem *addr)
 {
@@ -70,11 +63,6 @@ static inline u32 msm_camera_io_r(void __iomem *addr)
 #else
 u32 msm_camera_io_r(void __iomem *addr);
 #endif
-=======
-void msm_camera_io_w(u32 data, void __iomem *addr);
-void msm_camera_io_w_mb(u32 data, void __iomem *addr);
-u32 msm_camera_io_r(void __iomem *addr);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 u32 msm_camera_io_r_mb(void __iomem *addr);
 void msm_camera_io_dump(void __iomem *addr, int size, int enable);
 void msm_camera_io_memcpy(void __iomem *dest_addr,

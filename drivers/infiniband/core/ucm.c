@@ -48,10 +48,7 @@
 
 #include <asm/uaccess.h>
 
-<<<<<<< HEAD
 #include <rdma/ib.h>
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <rdma/ib_cm.h>
 #include <rdma/ib_user_cm.h>
 #include <rdma/ib_marshall.h>
@@ -1108,12 +1105,9 @@ static ssize_t ib_ucm_write(struct file *filp, const char __user *buf,
 	struct ib_ucm_cmd_hdr hdr;
 	ssize_t result;
 
-<<<<<<< HEAD
 	if (WARN_ON_ONCE(!ib_safe_file_access(filp)))
 		return -EACCES;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (len < sizeof(hdr))
 		return -EINVAL;
 

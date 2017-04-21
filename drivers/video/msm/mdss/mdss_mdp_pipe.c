@@ -2664,35 +2664,20 @@ int mdss_mdp_pipe_queue_data(struct mdss_mdp_pipe *pipe,
 		pipe->params_changed = 0;
 		mdss_mdp_pipe_solidfill_setup(pipe);
 
-<<<<<<< HEAD
 		MDSS_XLOG(pipe->num, pipe->mixer_left->num, pipe->play_cnt,
 			0x111);
-=======
-		MDSS_XLOG(pipe->num, pipe->multirect.num,
-			pipe->mixer_left->num, pipe->play_cnt, 0x111);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		goto update_nobuf;
 	}
 
-<<<<<<< HEAD
 	MDSS_XLOG(pipe->num, pipe->mixer_left->num, pipe->play_cnt, 0x222);
-=======
-	MDSS_XLOG(pipe->num, pipe->multirect.num, pipe->mixer_left->num,
-						pipe->play_cnt, 0x222);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	if (params_changed) {
 		pipe->params_changed = 0;
 
 		ret = mdss_mdp_pipe_pp_setup(pipe, &opmode);
 		if (ret) {
-<<<<<<< HEAD
 			pr_err("pipe pp setup error for pnum=%d\n", pipe->num);
-=======
-			pr_err("pipe pp setup error for pnum=%d rect=%d\n",
-					pipe->num, pipe->multirect.num);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			goto done;
 		}
 

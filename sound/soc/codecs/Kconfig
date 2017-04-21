@@ -872,11 +872,8 @@ config SND_SOC_MSM_HDMI_CODEC_RX
 config SND_SOC_MSM_HDMI_DBA_CODEC_RX
 	bool "HDMI DBA Audio Playback"
 	depends on MSM_DBA
-<<<<<<< HEAD
 
 config SOUND_CONTROL
 	bool "Sound control for wcd9335"
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endmenu

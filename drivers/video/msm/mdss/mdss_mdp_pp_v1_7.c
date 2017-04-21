@@ -11,14 +11,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #define pr_fmt(fmt)	"%s: " fmt, __func__
 
@@ -841,11 +838,6 @@ static int pp_gamut_set_config(char __iomem *base_addr,
 	struct mdp_gamut_cfg_data *gamut_cfg_data = NULL;
 	struct mdp_gamut_data_v1_7 *gamut_data = NULL;
 	char __iomem *base_addr_scale = base_addr;
-<<<<<<< HEAD
-=======
-	uint64_t gamut_val;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (!base_addr || !cfg_data || !pp_sts) {
 		pr_err("invalid params base_addr %pK cfg_data %pK pp_sts_type %pK\n",
 		      base_addr, cfg_data, pp_sts);
@@ -913,27 +905,12 @@ static int pp_gamut_set_config(char __iomem *base_addr,
 		val = index_start;
 		val |= GAMUT_TABLE_SELECT(i);
 		writel_relaxed(val, (base_addr + GAMUT_TABLE_INDEX));
-<<<<<<< HEAD
 		for (j = 0; j < gamut_data->tbl_size[i]; j++) {
 			writel_relaxed(gamut_data->c1_c2_data[i][j],
 				       base_addr + GAMUT_TABLE_LOWER_GB);
 			writel_relaxed(gamut_data->c0_data[i][j],
 				      base_addr + GAMUT_TABLE_UPPER_R);
 		}
-=======
-
-		writel_relaxed(gamut_data->c1_c2_data[i][0],
-				base_addr + GAMUT_TABLE_LOWER_GB);
-		for (j = 0; j < gamut_data->tbl_size[i] - 1; j++) {
-			gamut_val = gamut_data->c1_c2_data[i][j + 1];
-			gamut_val = (gamut_val << 32) |
-					gamut_data->c0_data[i][j];
-			writeq_relaxed(gamut_val,
-					base_addr + GAMUT_TABLE_UPPER_R);
-		}
-		writel_relaxed(gamut_data->c0_data[i][j],
-				base_addr + GAMUT_TABLE_UPPER_R);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if ((i >= MDP_GAMUT_SCALE_OFF_TABLE_NUM) ||
 				(!gamut_data->map_en))
 			continue;
@@ -1125,7 +1102,6 @@ static int pp_pcc_get_config(char __iomem *base_addr, void *cfg_data,
 	return 0;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 int __pp_pcc_get_config(char __iomem *base_addr, void *cfg_data,
 			u32 block_type, u32 disp_num)
@@ -1193,8 +1169,6 @@ int __pp_pcc_get_config(char __iomem *base_addr, void *cfg_data,
 }
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void pp_pa_set_global_adj_regs(char __iomem *base_addr,
 				struct mdp_pa_data_v1_7 *pa_data, u32 flags,
 				int block_type)

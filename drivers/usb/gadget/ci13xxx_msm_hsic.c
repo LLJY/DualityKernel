@@ -379,11 +379,7 @@ static void msm_hsic_start(void)
 		while (seq[0] >= 0 && seq_count > 0) {
 			val = readl_relaxed(mhsic->tlmm_regs + seq[0]);
 			val |= seq[1];
-<<<<<<< HEAD
 			dev_dbg(mhsic->dev, "%s: writing %x to %p\n",
-=======
-			dev_dbg(mhsic->dev, "%s: writing %x to %pK\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				__func__, val, mhsic->tlmm_regs + seq[0]);
 			writel_relaxed(val, mhsic->tlmm_regs + seq[0]);
 			seq += 2;
@@ -952,11 +948,7 @@ static int msm_hsic_probe(struct platform_device *pdev)
 		ret = -ENOMEM;
 		goto error;
 	}
-<<<<<<< HEAD
 	dev_info(&pdev->dev, "HSIC Peripheral regs = %p\n", mhsic->regs);
-=======
-	dev_info(&pdev->dev, "HSIC Peripheral regs = %pK\n", mhsic->regs);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
 	if (!res && pdata->tlmm_init_seq) {

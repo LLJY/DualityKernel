@@ -4,14 +4,11 @@
  * Copyright 2006-2010	Johannes Berg <johannes@sipsolutions.net>
  * Copyright 2013-2014  Intel Mobile Communications GmbH
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/if.h>
 #include <linux/module.h>
@@ -6467,13 +6464,9 @@ static int nl80211_dump_survey(struct sk_buff *skb,
 static bool nl80211_valid_wpa_versions(u32 wpa_versions)
 {
 	return !(wpa_versions & ~(NL80211_WPA_VERSION_1 |
-<<<<<<< HEAD
 				NL80211_WPA_VERSION_2 |
 /*WAPI*/
 				NL80211_WAPI_VERSION_1 ));
-=======
-				  NL80211_WPA_VERSION_2));
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 }
 
 static int nl80211_authenticate(struct sk_buff *skb, struct genl_info *info)
@@ -12093,11 +12086,7 @@ static int nl80211_netlink_notify(struct notifier_block * nb,
 	struct wireless_dev *wdev;
 	struct cfg80211_beacon_registration *reg, *tmp;
 
-<<<<<<< HEAD
 	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
-=======
-	if (state != NETLINK_URELEASE)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return NOTIFY_DONE;
 
 	rcu_read_lock();

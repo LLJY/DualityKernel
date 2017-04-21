@@ -5,10 +5,7 @@
  *
  *   Copyright(C) 2005, Thomas Gleixner <tglx@linutronix.de>
  *   Copyright(C) 2005, Red Hat, Inc., Ingo Molnar
-<<<<<<< HEAD
  *   Copyright (C) 2014, NVIDIA CORPORATION.  All rights reserved.
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
  *
  *  data type definitions, declarations, prototypes
  *
@@ -27,10 +24,7 @@
 #include <linux/percpu.h>
 #include <linux/timer.h>
 #include <linux/timerqueue.h>
-<<<<<<< HEAD
 #include <asm/relaxed.h>
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 struct hrtimer_clock_base;
 struct hrtimer_cpu_base;
@@ -422,14 +416,11 @@ static inline int hrtimer_callback_running(struct hrtimer *timer)
 	return timer->state & HRTIMER_STATE_CALLBACK;
 }
 
-<<<<<<< HEAD
 static inline int hrtimer_callback_running_relaxed(struct hrtimer *timer)
 {
 	return cpu_relaxed_read_long(&timer->state) & HRTIMER_STATE_CALLBACK;
 }
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /* Forward a hrtimer so it expires after now: */
 extern u64
 hrtimer_forward(struct hrtimer *timer, ktime_t now, ktime_t interval);

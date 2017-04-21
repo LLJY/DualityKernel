@@ -10,8 +10,4 @@ mmc_core-y			:= core.o bus.o host.o \
 				   quirks.o slot-gpio.o
 
 mmc_core-$(CONFIG_DEBUG_FS)	+= debugfs.o
-<<<<<<< HEAD
 obj-$(CONFIG_MMC_FFU) += mmc_ffu.o
-=======
-obj-$(CONFIG_MMC_RING_BUFFER)	+= ring_buffer.o
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353

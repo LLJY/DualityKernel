@@ -10,14 +10,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef MDSS_FB_H
 #define MDSS_FB_H
@@ -65,7 +62,6 @@
 #define MDP_PP_AD_BL_LINEAR	0x0
 #define MDP_PP_AD_BL_LINEAR_INV	0x1
 
-<<<<<<< HEAD
 /* Enables Sonys feature Early Unblank for quick wakeup */
 #define SOMC_FEATURE_EARLY_UNBLANK
 
@@ -73,8 +69,6 @@
 #include <linux/workqueue.h>
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * enum mdp_notify_event - Different frame events to indicate frame update state
  *
@@ -271,15 +265,12 @@ struct msm_fb_backup_type {
 	bool   atomic_commit;
 };
 
-<<<<<<< HEAD
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 struct fb_specific_data {
 	bool off_sts;
 };
 #endif /* CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 struct msm_fb_data_type {
 	u32 key;
 	u32 index;
@@ -385,7 +376,6 @@ struct msm_fb_data_type {
 	bool pending_switch;
 	struct mutex switch_lock;
 	struct input_handler *input_handler;
-<<<<<<< HEAD
 
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
 	struct fb_specific_data spec_mfd;
@@ -399,8 +389,6 @@ struct msm_fb_data_type {
 	struct work_struct unblank_work;
 	bool early_unblank_completed;
 #endif /* SOMC_FEATURE_EARLY_UNBLANK */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 static inline void mdss_fb_update_notify_update(struct msm_fb_data_type *mfd)

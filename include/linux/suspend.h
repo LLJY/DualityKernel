@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifndef _LINUX_SUSPEND_H
 #define _LINUX_SUSPEND_H
 
@@ -15,13 +12,10 @@
 #include <linux/pm.h>
 #include <linux/mm.h>
 #include <linux/freezer.h>
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 #include <linux/ktime.h>
 #include <linux/wait.h>
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #include <asm/errno.h>
 
 #ifdef CONFIG_VT
@@ -66,7 +60,6 @@ enum suspend_stat_step {
 	SUSPEND_RESUME
 };
 
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 struct stats_wakeup_time {
 	ktime_t start;
@@ -81,8 +74,6 @@ struct suspend_stats_queue {
 extern struct suspend_stats_queue suspend_stats_queue;
 #endif
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 struct suspend_stats {
 	int	success;
 	int	fail;
@@ -101,7 +92,6 @@ struct suspend_stats {
 	int	errno[REC_FAILED_NUM];
 	int	last_failed_step;
 	enum suspend_stat_step	failed_steps[REC_FAILED_NUM];
-<<<<<<< HEAD
 #ifdef CONFIG_PM_WAKEUP_TIMES
 	struct stats_wakeup_time suspend_min_time;
 	struct stats_wakeup_time suspend_max_time;
@@ -112,8 +102,6 @@ struct suspend_stats {
 	struct stats_wakeup_time resume_last_time;
 	ktime_t resume_avg_time;
 #endif
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 };
 
 extern struct suspend_stats suspend_stats;

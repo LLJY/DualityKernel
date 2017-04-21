@@ -10,14 +10,11 @@
  * GNU General Public License for more details.
  *
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/delay.h>
 #include <linux/err.h>
@@ -155,14 +152,6 @@ static void set_dload_mode(int on)
 	dload_mode_enabled = on;
 }
 
-<<<<<<< HEAD
-=======
-static bool get_dload_mode(void)
-{
-	return dload_mode_enabled;
-}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void enable_emergency_dload_mode(void)
 {
 	int ret;
@@ -277,11 +266,6 @@ static void halt_spmi_pmic_arbiter(void)
 
 static void msm_restart_prepare(const char *cmd)
 {
-<<<<<<< HEAD
-=======
-	bool need_warm_reset = false;
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifdef CONFIG_MSM_DLOAD_MODE
 
 	/* Write download mode flags if we're panic'ing
@@ -293,7 +277,6 @@ static void msm_restart_prepare(const char *cmd)
 			(in_panic || restart_mode == RESTART_DLOAD));
 #endif
 
-<<<<<<< HEAD
 	qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
 
 	if (in_panic) {
@@ -303,27 +286,6 @@ static void msm_restart_prepare(const char *cmd)
 		if (prev_reason != 0xABADF00D)
 			__raw_writel(0xC0DEDEAD, restart_reason);
 	} else if (cmd != NULL) {
-=======
-	if (qpnp_pon_check_hard_reset_stored()) {
-		/* Set warm reset as true when device is in dload mode */
-		if (get_dload_mode() ||
-			((cmd != NULL && cmd[0] != '\0') &&
-			!strcmp(cmd, "edl")))
-			need_warm_reset = true;
-	} else {
-		need_warm_reset = (get_dload_mode() ||
-				(cmd != NULL && cmd[0] != '\0'));
-	}
-
-	/* Hard reset the PMIC unless memory contents must be maintained. */
-	if (need_warm_reset) {
-		qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
-	} else {
-		qpnp_pon_system_pwr_off(PON_POWER_OFF_HARD_RESET);
-	}
-
-	if (cmd != NULL) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		if (!strncmp(cmd, "bootloader", 10)) {
 			qpnp_pon_set_restart_reason(
 				PON_RESTART_REASON_BOOTLOADER);
@@ -360,11 +322,8 @@ static void msm_restart_prepare(const char *cmd)
 		} else {
 			__raw_writel(0x77665501, restart_reason);
 		}
-<<<<<<< HEAD
 	} else {
 		__raw_writel(0x776655AA, restart_reason);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	flush_cache_all();

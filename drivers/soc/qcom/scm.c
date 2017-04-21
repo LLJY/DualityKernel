@@ -9,14 +9,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/slab.h>
 #include <linux/io.h>
@@ -64,22 +61,9 @@ DEFINE_MUTEX(scm_lmh_lock);
 #define SMC_ATOMIC_MASK 0x80000000
 #define IS_CALL_AVAIL_CMD 1
 
-<<<<<<< HEAD
 #define SCM_BUF_LEN(__cmd_size, __resp_size)	\
 	(sizeof(struct scm_command) + sizeof(struct scm_response) + \
 		__cmd_size + __resp_size)
-=======
-#define SCM_BUF_LEN(__cmd_size, __resp_size) ({ \
-	size_t x =  __cmd_size + __resp_size; \
-	size_t y = sizeof(struct scm_command) + sizeof(struct scm_response); \
-	size_t result; \
-	if (x < __cmd_size || (x + y) < x) \
-		result = 0; \
-	else \
-		result = x + y; \
-	result; \
-	})
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 /**
  * struct scm_command - one SCM command buffer
  * @len: total available memory for command and response
@@ -378,12 +362,8 @@ int scm_call_noalloc(u32 svc_id, u32 cmd_id, const void *cmd_buf,
 	int ret;
 	size_t len = SCM_BUF_LEN(cmd_len, resp_len);
 
-<<<<<<< HEAD
 	if (cmd_len > scm_buf_len || resp_len > scm_buf_len ||
 	    len > scm_buf_len)
-=======
-	if (len == 0)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return -EINVAL;
 
 	if (!IS_ALIGNED((unsigned long)scm_buf, PAGE_SIZE))
@@ -718,10 +698,6 @@ int scm_call2(u32 fn_id, struct scm_desc *desc)
 	if (ret < 0)
 		pr_err("scm_call failed: func id %#llx, ret: %d, syscall returns: %#llx, %#llx, %#llx\n",
 			x0, ret, desc->ret[0], desc->ret[1], desc->ret[2]);
-<<<<<<< HEAD
-=======
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (arglen > N_REGISTER_ARGS)
 		kfree(desc->extra_arg_buf);
 	if (ret < 0)
@@ -747,12 +723,9 @@ int scm_call2_atomic(u32 fn_id, struct scm_desc *desc)
 	if (unlikely(!is_scm_armv8()))
 		return -ENODEV;
 
-<<<<<<< HEAD
 	if (unlikely(oops_in_progress && mutex_is_locked(&scm_lock)))
 		return -EBUSY;
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	ret = allocate_extra_arg_buffer(desc, GFP_ATOMIC);
 	if (ret)
 		return ret;
@@ -811,11 +784,7 @@ int scm_call(u32 svc_id, u32 cmd_id, const void *cmd_buf, size_t cmd_len,
 	int ret;
 	size_t len = SCM_BUF_LEN(cmd_len, resp_len);
 
-<<<<<<< HEAD
 	if (cmd_len > len || resp_len > len)
-=======
-	if (len == 0 || PAGE_ALIGN(len) < len)
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		return -EINVAL;
 
 	cmd = kzalloc(PAGE_ALIGN(len), GFP_KERNEL);

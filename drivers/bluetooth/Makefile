@@ -20,12 +20,9 @@ obj-$(CONFIG_BT_MRVL)		+= btmrvl.o
 obj-$(CONFIG_BT_MRVL_SDIO)	+= btmrvl_sdio.o
 obj-$(CONFIG_BT_WILINK)		+= btwilink.o
 obj-$(CONFIG_MSM_BT_POWER)	+= bluetooth-power.o
-<<<<<<< HEAD
 obj-$(CONFIG_BT_BCM43XX)	+= bcm43xx.o
 obj-$(CONFIG_BT_MSM_SLEEP)	+= msm_bt_sleep.o
 msm_bt_sleep-objs		:= bluesleep.o
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 obj-$(CONFIG_BTFM_SLIM)				+= btfm_slim.o
 obj-$(CONFIG_BTFM_SLIM)				+= btfm_slim_codec.o

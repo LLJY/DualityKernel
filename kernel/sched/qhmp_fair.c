@@ -3883,26 +3883,7 @@ int sched_hmp_proc_update_handler(struct ctl_table *table, int write,
 	int ret;
 	unsigned int old_val;
 	unsigned int *data = (unsigned int *)table->data;
-<<<<<<< HEAD
 	int update_min_nice = 0;
-=======
-	int update_task_count = 0;
-
-	if (!sched_enable_hmp)
-		return 0;
-
-	/*
-	 * The policy mutex is acquired with cpu_hotplug.lock
-	 * held from cpu_up()->cpufreq_governor_interactive()->
-	 * sched_set_window(). So enforce the same order here.
-	 */
-	if (write && (data == &sysctl_sched_upmigrate_pct ||
-	    data == &sysctl_sched_small_task_pct ||
-	    data == (unsigned int *)&sysctl_sched_upmigrate_min_nice)) {
-		update_task_count = 1;
-		get_online_cpus();
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	mutex_lock(&policy_mutex);
 
@@ -3927,10 +3908,7 @@ int sched_hmp_proc_update_handler(struct ctl_table *table, int write,
 			ret = -EINVAL;
 			goto done;
 		}
-<<<<<<< HEAD
 		update_min_nice = 1;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	} else {
 		/* all tunables other than min_nice are in percentage */
 		if (sysctl_sched_downmigrate_pct >
@@ -3949,7 +3927,6 @@ int sched_hmp_proc_update_handler(struct ctl_table *table, int write,
 	 * includes taking runqueue lock of all online cpus and re-initiatizing
 	 * their big/small counter values based on changed criteria.
 	 */
-<<<<<<< HEAD
 	if ((data == &sysctl_sched_upmigrate_pct ||
 	     data == &sysctl_sched_small_task_pct || update_min_nice)) {
 		get_online_cpus();
@@ -3965,19 +3942,6 @@ int sched_hmp_proc_update_handler(struct ctl_table *table, int write,
 	}
 
 done:
-=======
-	if (update_task_count)
-		pre_big_small_task_count_change(cpu_online_mask);
-
-	set_hmp_defaults();
-
-	if (update_task_count)
-		post_big_small_task_count_change(cpu_online_mask);
-
-done:
-	if (update_task_count)
-		put_online_cpus();
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_unlock(&policy_mutex);
 	return ret;
 }

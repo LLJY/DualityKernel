@@ -10,14 +10,11 @@
  * Changed:
  * 10-Mar-94: Arno Griffioen: Conversion for vt100 emulator port from PC LINUX
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #ifndef _LINUX_CONSOLE_H_
 #define _LINUX_CONSOLE_H_ 1
@@ -176,10 +173,7 @@ extern bool console_suspend_enabled;
 
 /* Suspend and resume console messages over PM events */
 extern void suspend_console(void);
-<<<<<<< HEAD
 extern int is_console_suspended(void);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 extern void resume_console(void);
 
 int mda_console_init(void);

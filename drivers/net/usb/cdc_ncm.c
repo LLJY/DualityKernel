@@ -849,11 +849,7 @@ advance:
 			dev_dbg(&intf->dev, "failed to get mac address\n");
 			goto error2;
 		}
-<<<<<<< HEAD
 		dev_info(&intf->dev, "MAC-Address: %pM\n", dev->net->dev_addr);
-=======
-		dev_info(&intf->dev, "MAC-Address: %pKM\n", dev->net->dev_addr);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 
 	/* finish setting up the device specific data */
@@ -1395,11 +1391,7 @@ next_ndp:
 		if (((offset + len) > skb_in->len) ||
 				(len > ctx->rx_max) || (len < ETH_HLEN)) {
 			netif_dbg(dev, rx_err, dev->net,
-<<<<<<< HEAD
 				  "invalid frame detected (ignored) offset[%u]=%u, length=%u, skb=%p\n",
-=======
-				  "invalid frame detected (ignored) offset[%u]=%u, length=%u, skb=%pK\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 				  x, offset, len, skb_in);
 			if (!x)
 				goto err_ndp;

@@ -14,10 +14,7 @@
 
 #define is_hugepage_only_range(mm, addr, len)	0
 #define hugetlb_free_pgd_range			free_pgd_range
-<<<<<<< HEAD
 #define hugepages_supported()			(MACHINE_HAS_HPAGE)
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 void set_huge_pte_at(struct mm_struct *mm, unsigned long addr,
 		     pte_t *ptep, pte_t pte);

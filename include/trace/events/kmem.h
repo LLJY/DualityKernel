@@ -1,12 +1,9 @@
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #undef TRACE_SYSTEM
 #define TRACE_SYSTEM kmem
 
@@ -200,7 +197,6 @@ TRACE_EVENT(mm_page_free_batched,
 			__entry->cold)
 );
 
-<<<<<<< HEAD
 TRACE_EVENT(mm_page_alloc_highorder,
 
 	TP_PROTO(struct page *page, unsigned int order,
@@ -229,8 +225,6 @@ TRACE_EVENT(mm_page_alloc_highorder,
 		show_gfp_flags(__entry->gfp_flags))
 );
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 TRACE_EVENT(mm_page_alloc,
 
 	TP_PROTO(struct page *page, unsigned int order,
@@ -304,7 +298,6 @@ DEFINE_EVENT_PRINT(mm_page, mm_page_pcpu_drain,
 		__entry->order, __entry->migratetype)
 );
 
-<<<<<<< HEAD
 TRACE_EVENT(mm_page_alloc_fail,
 
 	TP_PROTO(int alloc_order),
@@ -324,8 +317,6 @@ TRACE_EVENT(mm_page_alloc_fail,
 		pageblock_order)
 );
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 TRACE_EVENT(mm_page_alloc_extfrag,
 
 	TP_PROTO(struct page *page,

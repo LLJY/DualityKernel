@@ -847,11 +847,7 @@ int msm_jpeg_hw_exec_cmds(struct msm_jpeg_hw_cmd *hw_cmd_p, uint32_t m_cmds,
 	uint32_t data;
 
 	while (m_cmds--) {
-<<<<<<< HEAD
 		if (hw_cmd_p->offset > max_size) {
-=======
-		if (hw_cmd_p->offset >= max_size) {
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			JPEG_PR_ERR("%s:%d] %d exceed hw region %d\n", __func__,
 				__LINE__, hw_cmd_p->offset, max_size);
 			return -EFAULT;

@@ -240,11 +240,7 @@ static int ksm_nr_node_ids = 1;
 #define KSM_RUN_MERGE	1
 #define KSM_RUN_UNMERGE	2
 #define KSM_RUN_OFFLINE	4
-<<<<<<< HEAD
 static unsigned long ksm_run = KSM_RUN_STOP;
-=======
-static unsigned long ksm_run = KSM_RUN_MERGE;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 static void wait_while_offlining(void);
 
 static DECLARE_WAIT_QUEUE_HEAD(ksm_thread_wait);

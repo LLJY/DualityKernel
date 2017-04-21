@@ -2969,7 +2969,6 @@ xfs_iflush_cluster(
 		 * We need to check under the i_flags_lock for a valid inode
 		 * here. Skip it if it is not valid or the wrong inode.
 		 */
-<<<<<<< HEAD
 		spin_lock(&iq->i_flags_lock);
 		if (!iq->i_ino ||
 		    __xfs_iflags_test(iq, XFS_ISTALE) ||
@@ -2978,15 +2977,6 @@ xfs_iflush_cluster(
 			continue;
 		}
 		spin_unlock(&iq->i_flags_lock);
-=======
-		spin_lock(&ip->i_flags_lock);
-		if (!ip->i_ino ||
-		    (XFS_INO_TO_AGINO(mp, iq->i_ino) & mask) != first_index) {
-			spin_unlock(&ip->i_flags_lock);
-			continue;
-		}
-		spin_unlock(&ip->i_flags_lock);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 		/*
 		 * Do an un-protected check to see if the inode is dirty and
@@ -3102,11 +3092,7 @@ xfs_iflush(
 	struct xfs_buf		**bpp)
 {
 	struct xfs_mount	*mp = ip->i_mount;
-<<<<<<< HEAD
 	struct xfs_buf		*bp = NULL;
-=======
-	struct xfs_buf		*bp;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	struct xfs_dinode	*dip;
 	int			error;
 
@@ -3148,7 +3134,6 @@ xfs_iflush(
 	}
 
 	/*
-<<<<<<< HEAD
 	 * Get the buffer containing the on-disk inode. We are doing a try-lock
 	 * operation here, so we may get  an EAGAIN error. In that case, we
 	 * simply want to return with the inode still dirty.
@@ -3165,16 +3150,6 @@ xfs_iflush(
 	}
 	if (error)
 		goto corrupt_out;
-=======
-	 * Get the buffer containing the on-disk inode.
-	 */
-	error = xfs_imap_to_bp(mp, NULL, &ip->i_imap, &dip, &bp, XBF_TRYLOCK,
-			       0);
-	if (error || !bp) {
-		xfs_ifunlock(ip);
-		return error;
-	}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/*
 	 * First flush out the inode that xfs_iflush was called with.
@@ -3202,12 +3177,8 @@ xfs_iflush(
 	return 0;
 
 corrupt_out:
-<<<<<<< HEAD
 	if (bp)
 		xfs_buf_relse(bp);
-=======
-	xfs_buf_relse(bp);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	xfs_force_shutdown(mp, SHUTDOWN_CORRUPT_INCORE);
 cluster_corrupt_out:
 	error = -EFSCORRUPTED;

@@ -21,14 +21,11 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-<<<<<<< HEAD
 /*
  * NOTE: This file has been modified by Sony Mobile Communications Inc.
  * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 #include <linux/bcd.h>
 #include <linux/module.h>
@@ -923,11 +920,7 @@ static void usb_bus_init (struct usb_bus *bus)
 	bus->bandwidth_allocated = 0;
 	bus->bandwidth_int_reqs  = 0;
 	bus->bandwidth_isoc_reqs = 0;
-<<<<<<< HEAD
 	mutex_init(&bus->devnum_next_mutex);
-=======
-	mutex_init(&bus->usb_address0_mutex);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	INIT_LIST_HEAD (&bus->bus_list);
 }
@@ -1655,11 +1648,7 @@ int usb_hcd_unlink_urb (struct urb *urb, int status)
 		if (retval == 0)
 			retval = -EINPROGRESS;
 		else if (retval != -EIDRM && retval != -EBUSY)
-<<<<<<< HEAD
 			dev_dbg(&udev->dev, "hcd_unlink_urb %p fail %d\n",
-=======
-			dev_dbg(&udev->dev, "hcd_unlink_urb %pK fail %d\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 					urb, retval);
 		usb_put_dev(udev);
 	}
@@ -1828,11 +1817,7 @@ rescan:
 		/* kick hcd */
 		unlink1(hcd, urb, -ESHUTDOWN);
 		dev_dbg (hcd->self.controller,
-<<<<<<< HEAD
 			"shutdown urb %p ep%d%s%s\n",
-=======
-			"shutdown urb %pK ep%d%s%s\n",
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 			urb, usb_endpoint_num(&ep->desc),
 			is_in ? "in" : "out",
 			({	char *s;
@@ -2174,70 +2159,8 @@ int usb_hcd_get_frame_number (struct usb_device *udev)
 	return hcd->driver->get_frame_number (hcd);
 }
 
-<<<<<<< HEAD
 /*-------------------------------------------------------------------------*/
 
-=======
-int usb_hcd_sec_event_ring_setup(struct usb_device *udev,
-	unsigned intr_num)
-{
-	struct usb_hcd	*hcd = bus_to_hcd(udev->bus);
-
-	if (!HCD_RH_RUNNING(hcd))
-		return 0;
-
-	return hcd->driver->sec_event_ring_setup(hcd, intr_num);
-}
-
-int usb_hcd_sec_event_ring_cleanup(struct usb_device *udev,
-	unsigned intr_num)
-{
-	struct usb_hcd	*hcd = bus_to_hcd(udev->bus);
-
-	if (!HCD_RH_RUNNING(hcd))
-		return 0;
-
-	return hcd->driver->sec_event_ring_cleanup(hcd, intr_num);
-}
-
-/*-------------------------------------------------------------------------*/
-
-dma_addr_t
-usb_hcd_get_sec_event_ring_dma_addr(struct usb_device *udev,
-	unsigned intr_num)
-{
-	struct usb_hcd	*hcd = bus_to_hcd(udev->bus);
-
-	if (!HCD_RH_RUNNING(hcd))
-		return 0;
-
-	return hcd->driver->get_sec_event_ring_dma_addr(hcd, intr_num);
-}
-
-dma_addr_t
-usb_hcd_get_dcba_dma_addr(struct usb_device *udev)
-{
-	struct usb_hcd	*hcd = bus_to_hcd(udev->bus);
-
-	if (!HCD_RH_RUNNING(hcd))
-		return 0;
-
-	return hcd->driver->get_dcba_dma_addr(hcd, udev);
-}
-
-dma_addr_t
-usb_hcd_get_xfer_ring_dma_addr(struct usb_device *udev,
-		struct usb_host_endpoint *ep)
-{
-	struct usb_hcd	*hcd = bus_to_hcd(udev->bus);
-
-	if (!HCD_RH_RUNNING(hcd))
-		return 0;
-
-	return hcd->driver->get_xfer_ring_dma_addr(hcd, udev, ep);
-}
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 #ifdef	CONFIG_PM
 
 int hcd_bus_suspend(struct usb_device *rhdev, pm_message_t msg)
@@ -2536,7 +2459,6 @@ struct usb_hcd *usb_create_shared_hcd(const struct hc_driver *driver,
 		return NULL;
 	}
 	if (primary_hcd == NULL) {
-<<<<<<< HEAD
 		hcd->address0_mutex = kmalloc(sizeof(*hcd->address0_mutex),
 				GFP_KERNEL);
 		if (!hcd->address0_mutex) {
@@ -2545,8 +2467,6 @@ struct usb_hcd *usb_create_shared_hcd(const struct hc_driver *driver,
 			return NULL;
 		}
 		mutex_init(hcd->address0_mutex);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		hcd->bandwidth_mutex = kmalloc(sizeof(*hcd->bandwidth_mutex),
 				GFP_KERNEL);
 		if (!hcd->bandwidth_mutex) {
@@ -2558,10 +2478,7 @@ struct usb_hcd *usb_create_shared_hcd(const struct hc_driver *driver,
 		dev_set_drvdata(dev, hcd);
 	} else {
 		mutex_lock(&usb_port_peer_mutex);
-<<<<<<< HEAD
 		hcd->address0_mutex = primary_hcd->address0_mutex;
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		hcd->bandwidth_mutex = primary_hcd->bandwidth_mutex;
 		hcd->primary_hcd = primary_hcd;
 		primary_hcd->primary_hcd = primary_hcd;
@@ -2628,15 +2545,10 @@ static void hcd_release(struct kref *kref)
 	struct usb_hcd *hcd = container_of (kref, struct usb_hcd, kref);
 
 	mutex_lock(&usb_port_peer_mutex);
-<<<<<<< HEAD
 	if (usb_hcd_is_primary_hcd(hcd)) {
 		kfree(hcd->address0_mutex);
 		kfree(hcd->bandwidth_mutex);
 	}
-=======
-	if (hcd->primary_hcd == hcd)
-		kfree(hcd->bandwidth_mutex);
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	if (hcd->shared_hcd) {
 		struct usb_hcd *peer = hcd->shared_hcd;
 
@@ -2973,12 +2885,6 @@ void usb_remove_hcd(struct usb_hcd *hcd)
 	cancel_work_sync(&hcd->wakeup_work);
 #endif
 
-<<<<<<< HEAD
-=======
-	/* handle any pending hub events before XHCI stops */
-	usb_flush_hub_wq();
-
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	mutex_lock(&usb_bus_list_lock);
 	usb_disconnect(&rhdev);		/* Sets rhdev to NULL */
 	mutex_unlock(&usb_bus_list_lock);
@@ -3004,10 +2910,7 @@ void usb_remove_hcd(struct usb_hcd *hcd)
 
 	hcd->driver->stop(hcd);
 	hcd->state = HC_STATE_HALT;
-<<<<<<< HEAD
 	clear_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 
 	/* In case the HCD restarted the timer, stop it again. */
 	clear_bit(HCD_FLAG_POLL_RH, &hcd->flags);

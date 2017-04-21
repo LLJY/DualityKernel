@@ -1107,10 +1107,6 @@ static int32_t msm_sensor_driver_parse(struct msm_sensor_ctrl_t *s_ctrl)
 	if (!s_ctrl->msm_sensor_mutex) {
 		pr_err("failed: no memory msm_sensor_mutex %pK",
 			s_ctrl->msm_sensor_mutex);
-<<<<<<< HEAD
-=======
-		rc = -ENOMEM;
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 		goto FREE_SENSOR_I2C_CLIENT;
 	}
 
@@ -1235,7 +1231,6 @@ static int32_t msm_sensor_driver_i2c_probe(struct i2c_client *client,
 	if (s_ctrl->sensor_i2c_client != NULL) {
 		s_ctrl->sensor_i2c_client->client = client;
 		s_ctrl->sensordata->power_info.dev = &client->dev;
-<<<<<<< HEAD
 	}
 	/* Get clocks information */
 	rc = msm_camera_i2c_dev_get_clk_info(
@@ -1246,20 +1241,6 @@ static int32_t msm_sensor_driver_i2c_probe(struct i2c_client *client,
 	if (rc < 0) {
 		pr_err("failed: msm_camera_i2c_dev_get_clk_info rc %d", rc);
 		goto FREE_S_CTRL;
-=======
-
-		/* Get clocks information */
-		rc = msm_camera_i2c_dev_get_clk_info(
-			&s_ctrl->sensor_i2c_client->client->dev,
-			&s_ctrl->sensordata->power_info.clk_info,
-			&s_ctrl->sensordata->power_info.clk_ptr,
-			&s_ctrl->sensordata->power_info.clk_info_size);
-		if (rc < 0) {
-			pr_err("failed: msm_camera_i2c_dev_get_clk_info rc %d",
-				rc);
-			goto FREE_S_CTRL;
-		}
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 	}
 	return rc;
 FREE_S_CTRL:

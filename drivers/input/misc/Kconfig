@@ -114,7 +114,6 @@ config HBTP_INPUT_SECURE_TOUCH
 	  Say Y to enable this functionality.
 	  If unsure, say N.
 
-<<<<<<< HEAD
 config INPUT_BU520X1NVX
 	tristate "BU520X1NVX driver support"
 	default n
@@ -135,8 +134,6 @@ config INPUT_HBTP_INPUT
 	  To compile this driver as a module, choose M here: the
 	  module will be called hbtp_input.
 
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 config INPUT_PCSPKR
 	tristate "PC Speaker support"
 	depends on PCSPKR_PLATFORM
@@ -779,12 +776,9 @@ config INPUT_DRV2667_HAPTICS
 	  To compile this driver as a module, choose M here: the
 	  module will be called drv260x-haptics.
 
-<<<<<<< HEAD
 config FPC1145_PLATFORM
 	tristate "Platform FPC1145 finger print driver"
 	default n
 	help
 	  Select this module to enable FPC1145 tee finger print driver
-=======
->>>>>>> 132f55c417fd9d9f65c56927b69313b211be9353
 endif
