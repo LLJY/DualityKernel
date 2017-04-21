@@ -16,24 +16,23 @@
 #include <linux/debugfs.h>
 #include <linux/types.h>
 #include <linux/moduleparam.h>
+#include <linux/display_state.h>
 #include <trace/events/power.h>
-#include <linux/moduleparam.h>
-
-static bool enable_si_ws = true;
-module_param(enable_si_ws, bool, 0644);
-static bool enable_msm_hsic_ws = true;
-module_param(enable_msm_hsic_ws, bool, 0644);
-static bool wlan_rx_wake = true;
-module_param(wlan_rx_wake, bool, 0644);
-static bool wlan_ctrl_wake = true;
-module_param(wlan_ctrl_wake, bool, 0644);
-static bool wlan_wake = true;
-module_param(wlan_wake, bool, 0644);
 
 #include "power.h"
 
-static bool enable_ipa_ws = false;
+static bool enable_qcom_rx_wakelock_ws = true;
+module_param(enable_qcom_rx_wakelock_ws, bool, 0644);
+static bool enable_wlan_extscan_wl_ws = true;
+module_param(enable_wlan_extscan_wl_ws, bool, 0644);
+static bool enable_ipa_ws = true;
 module_param(enable_ipa_ws, bool, 0644);
+static bool enable_wlan_ws = true;
+module_param(enable_wlan_ws, bool, 0644);
+static bool enable_timerfd_ws = true;
+module_param(enable_timerfd_ws, bool, 0644);
+static bool enable_netlink_ws = true;
+module_param(enable_netlink_ws, bool, 0644);
 
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
@@ -494,6 +493,8 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
 
 	return false;
 }
+
+/*
  * The functions below use the observation that each wakeup event starts a
  * period in which the system should not be suspended.  The moment this period
  * will end depends on how the wakeup event is going to be processed after being
@@ -533,13 +534,6 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
 
-	if (!enable_ipa_ws && !strncmp(ws->name, "IPA_WS", 6)) {
-		if (ws->active)
-			wakeup_source_deactivate(ws);
-
-		return;
-	}
-
 	/*
 	 * active wakeup source should bring the system
 	 * out of PM_SUSPEND_FREEZE state
@@ -564,16 +558,14 @@ static void wakeup_source_activate(struct wakeup_source *ws)
  */
 static void wakeup_source_report_event(struct wakeup_source *ws)
 {
-	if (!is_display_on()) {
-		if (!wakeup_source_blocker(ws)) {
-			ws->event_count++;
-			/* This is racy, but the counter is approximate anyway. */
-			if (events_check_enabled)
-				ws->wakeup_count++;
+	if (!wakeup_source_blocker(ws)) {
+		ws->event_count++;
+		/* This is racy, but the counter is approximate anyway. */
+		if (events_check_enabled)
+			ws->wakeup_count++;
 
-			if (!ws->active)
-				wakeup_source_activate(ws);
-		}
+		if (!ws->active)
+			wakeup_source_activate(ws);
 	}
 }
 
@@ -791,15 +783,17 @@ void pm_print_active_wakeup_sources(void)
 	int active = 0;
 	struct wakeup_source *last_activity_ws = NULL;
 
+	// kinda pointless to force this routine during screen on
+	if (is_display_on())
+		return;
+
 	rcu_read_lock();
 	list_for_each_entry_rcu(ws, &wakeup_sources, entry) {
 		if (ws->active) {
 			pr_info("active wakeup source: %s\n", ws->name);
+
 			if (!wakeup_source_blocker(ws))
-				pr_info("forcefully deactivate wakeup source: %s\n", ws->name);
-			} else {
 				active = 1;
-			}
 		} else if (!active &&
 			   (!last_activity_ws ||
 			    ktime_to_ns(ws->last_time) >
@@ -986,7 +980,7 @@ static int print_wakeup_source_stats(struct seq_file *m,
 		active_time = ktime_set(0, 0);
 	}
 
-	ret = seq_printf(m, "%-12s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
+	ret = seq_printf(m, "%-32s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
 			"%lld\t\t%lld\t\t%lld\t\t%lld\t\t%lld\n",
 			ws->name, active_count, ws->event_count,
 			ws->wakeup_count, ws->expire_count,
@@ -1007,7 +1001,7 @@ static int wakeup_sources_stats_show(struct seq_file *m, void *unused)
 {
 	struct wakeup_source *ws;
 
-	seq_puts(m, "name\t\tactive_count\tevent_count\twakeup_count\t"
+	seq_puts(m, "name\t\t\t\t\tactive_count\tevent_count\twakeup_count\t"
 		"expire_count\tactive_since\ttotal_time\tmax_time\t"
 		"last_change\tprevent_suspend_time\n");
 
@@ -1039,4 +1033,4 @@ static int __init wakeup_sources_debugfs_init(void)
 	return 0;
 }
 
-postcore_initcall(wakeup_sources_debugfs_init);<<
+postcore_initcall(wakeup_sources_debugfs_init);
