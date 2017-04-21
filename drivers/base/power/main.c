@@ -676,7 +676,7 @@ void dpm_resume_noirq(pm_message_t state)
 {
 	struct device *dev;
 	ktime_t starttime = ktime_get();
-
+  
     pm_print_active_wakeup_sources();
 
 	trace_suspend_resume(TPS("dpm_resume_noirq"), state.event, true);
