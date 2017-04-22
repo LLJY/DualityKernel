@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2015, 2017 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -530,11 +530,6 @@ void rmnet_config_netlink_msg_handler(struct sk_buff *skb)
 	response_data_length = 0;
 	nlmsg_header = (struct nlmsghdr *) skb->data;
 	rmnet_header = (struct rmnet_nl_msg_s *) nlmsg_data(nlmsg_header);
-
-	if (!nlmsg_header->nlmsg_pid ||
-	    (nlmsg_header->nlmsg_len < sizeof(struct nlmsghdr) +
-				       sizeof(struct rmnet_nl_msg_s)))
-		return;
 
 	LOGL("Netlink message pid=%d, seq=%d, length=%d, rmnet_type=%d",
 		nlmsg_header->nlmsg_pid,
@@ -1123,7 +1118,6 @@ static void rmnet_force_unassociate_device(struct net_device *dev)
 {
 	int i, j;
 	struct net_device *vndev;
-	struct rmnet_phys_ep_conf_s *config;
 	struct rmnet_logical_ep_conf_s *cfg;
 	struct rmnet_free_vnd_work *vnd_work;
 	ASSERT_RTNL();
@@ -1177,16 +1171,6 @@ static void rmnet_force_unassociate_device(struct net_device *dev)
 		schedule_work(&vnd_work->work);
 	} else {
 		kfree(vnd_work);
-	}
-
-	config = _rmnet_get_phys_ep_config(dev);
-
-	if (config) {
-		cfg = &config->local_ep;
-
-		if (cfg && cfg->refcount)
-			rmnet_unset_logical_endpoint_config
-			(cfg->egress_dev, RMNET_LOCAL_LOGICAL_ENDPOINT);
 	}
 
 	/* Clear the mappings on the phys ep */
