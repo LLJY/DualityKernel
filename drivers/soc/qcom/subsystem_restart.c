@@ -1056,7 +1056,7 @@ int subsystem_restart_dev(struct subsys_device *dev)
 		return -EBUSY;
 	}
 
-	pr_info("Restart sequence requested for %s, restart_level = %s.\n",
+	pr_err("Restart sequence requested for %s, restart_level = %s.\n",
 		name, restart_levels[dev->restart_level]);
 
 	if (WARN(disable_restart_work == DISABLE_SSR,

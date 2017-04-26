@@ -206,7 +206,11 @@
 #define QPNP_WLED_AVDD_SET_BIT			BIT(4)
 
 #define QPNP_WLED_BL_SCALE_MAX	1000
-#define QPNP_WLED_BUFF_SIZE	50
+#define QPNP_WLED_BUFF_SIZE	128
+
+#define DEFAULT_MAX_AREA 21
+#define BR_MAX_FIGURE	9
+#define AREA_COUNT_MAX	9999999
 
 /* output feedback mode */
 enum qpnp_wled_fdbk_op {
@@ -251,6 +255,12 @@ static u8 qpnp_wled_ovp_reg_settings[NUM_SUPPORTED_AVDD_VOLTAGES] = {
 static int qpnp_wled_avdd_trim_adjustments[NUM_SUPPORTED_AVDD_VOLTAGES] = {
 	3, 0, -2, 7, 3, 3,
 };
+
+static unsigned long *area_count;
+static int *area_count_table;
+static int area_count_table_size;
+static int now_area;
+static unsigned long start_jiffies;
 
 /**
  *  qpnp_wled - wed data structure
@@ -838,6 +848,57 @@ exit:
 	return ret;
 }
 
+static void update_areacount(int new_area)
+{
+	unsigned long now;
+	unsigned long duration;
+
+	now = jiffies;
+	duration = (now - start_jiffies) >= 0 ?
+			(now - start_jiffies) : (now + start_jiffies);
+	area_count[now_area] = area_count[now_area]
+			+ jiffies_to_msecs(duration);
+
+	now_area = new_area;
+	start_jiffies = now;
+}
+
+static ssize_t qpnp_wled_area_count_show(struct device *dev,
+		struct device_attribute *attr, char *buf)
+{
+	struct qpnp_wled *wled = dev_get_drvdata(dev);
+	int i;
+	char area_count_str[QPNP_WLED_BUFF_SIZE];
+	char count_data[BR_MAX_FIGURE];
+
+	mutex_lock(&wled->cdev.led_access);
+	/* fixed statistics */
+	update_areacount(now_area);
+
+	memset(area_count_str, 0, sizeof(char) * QPNP_WLED_BUFF_SIZE);
+	for (i = 0; i < area_count_table_size; i++) {
+		dev_dbg(&wled->spmi->dev, "%ld, ", area_count[i]);
+		memset(count_data, 0, sizeof(char) * BR_MAX_FIGURE);
+		if (area_count[i] > AREA_COUNT_MAX) {
+			/* over 167 min */
+			area_count[i] = AREA_COUNT_MAX;
+		}
+		if (i == 0) {
+			snprintf(count_data, BR_MAX_FIGURE,
+				"%ld", area_count[i]);
+			strlcpy(area_count_str, count_data, QPNP_WLED_BUFF_SIZE);
+		} else {
+			snprintf(count_data, BR_MAX_FIGURE,
+				",%ld", area_count[i]);
+			strlcat(area_count_str, count_data, QPNP_WLED_BUFF_SIZE);
+		}
+	}
+
+	memset(area_count, 0, sizeof(unsigned long) * area_count_table_size);
+	mutex_unlock(&wled->cdev.led_access);
+	return snprintf(buf, QPNP_WLED_BUFF_SIZE, "%s\n", area_count_str);
+}
+
 /* sysfs attributes exported by wled */
 static struct device_attribute qpnp_wled_attrs[] = {
 	__ATTR(dump_regs, (S_IRUGO | S_IWUSR | S_IWGRP),
@@ -861,8 +922,35 @@ static struct device_attribute qpnp_wled_attrs[] = {
 	__ATTR(bl_scale, (S_IRUGO | S_IWUSR | S_IWGRP),
 			qpnp_wled_bl_scale_show,
 			qpnp_wled_bl_scale_store),
+	__ATTR(area_count, (S_IRUSR | S_IRGRP),
+			qpnp_wled_area_count_show,
+			NULL),
 };
 
+static int get_area(int level)
+{
+	int i;
+
+	for (i = 0; i < area_count_table_size; i++) {
+		if (i == 0) {
+			if (level == area_count_table[i])
+				break;
+		} else {
+			if (level <= area_count_table[i])
+				break;
+		}
+	}
+
+	return i;
+}
+
+static void qpnp_wled_update_area(int level)
+{
+	int new_area = get_area(level);
+
+	if (now_area != new_area)
+		update_areacount(new_area);
+}
 /* worker for setting wled brightness */
 static void qpnp_wled_work(struct work_struct *work)
 {
@@ -873,6 +961,7 @@ static void qpnp_wled_work(struct work_struct *work)
 	mutex_lock(&wled->cdev.led_access);
 
 	level = wled->cdev.brightness;
+	qpnp_wled_update_area(level);
 
 	if (level) {
 		rc = qpnp_wled_set_level(wled, level);
@@ -1790,6 +1879,40 @@ static int qpnp_wled_parse_dt(struct qpnp_wled *wled)
 		dev_err(&spmi->dev, "Unable to read init ua\n");
 		return rc;
 	}
+
+	area_count_table_size = DEFAULT_MAX_AREA;
+	rc = of_property_read_u32(spmi->dev.of_node,
+			"somc,area_count_table_size", &temp_val);
+	if (!rc) {
+		area_count_table_size = temp_val;
+	} else if (rc != -EINVAL) {
+		dev_err(&spmi->dev, "Unable to read area_count_table_size\n");
+		return rc;
+	}
+
+	area_count_table = devm_kzalloc(&spmi->dev,
+		sizeof(int) * area_count_table_size, GFP_KERNEL);
+	if (!area_count_table)
+		return -ENOMEM;
+
+	area_count = devm_kzalloc(&spmi->dev,
+		sizeof(unsigned long) * area_count_table_size, GFP_KERNEL);
+	if (!area_count_table)
+		return -ENOMEM;
+
+	rc = of_property_read_u32_array(spmi->dev.of_node, "somc,area_count_table",
+				area_count_table, area_count_table_size);
+	if (rc < 0) {
+		dev_err(&spmi->dev, "Unable to read somc,area_count_table\n");
+		temp_val = (WLED_MAX_LEVEL_4095 % (area_count_table_size - 1) > 0 ?
+			((WLED_MAX_LEVEL_4095 / (area_count_table_size - 1)) + 1) :
+			(WLED_MAX_LEVEL_4095 / (area_count_table_size - 1)));
+		area_count_table[0] = 0;
+		for (i = 1; i < area_count_table_size; i++) {
+			area_count_table[i] = temp_val * i;
+		}
+	}
+
 	return 0;
 }
 
@@ -1845,6 +1968,8 @@ static int qpnp_wled_probe(struct spmi_device *spmi)
 	wled->cdev.brightness_get = qpnp_wled_get;
 
 	wled->cdev.max_brightness = WLED_MAX_LEVEL_4095;
+	now_area = 0;
+	start_jiffies = jiffies;
 
 	rc = led_classdev_register(&spmi->dev, &wled->cdev);
 	if (rc) {
@@ -1887,6 +2012,8 @@ static int qpnp_wled_remove(struct spmi_device *spmi)
 
 	led_classdev_unregister(&wled->cdev);
 	cancel_work_sync(&wled->work);
+	devm_kfree(&spmi->dev, area_count_table);
+	devm_kfree(&spmi->dev, area_count);
 
 	return 0;
 }

@@ -103,7 +103,7 @@ void mdss_dsi_panel_driver_detection(
 	parent = of_get_parent(*np);
 
 	adc_uv = lcdid_adc;
-	pr_info("%s: physical:%d\n", __func__, adc_uv);
+	pr_notice("%s: physical:%d\n", __func__, adc_uv);
 
 	for_each_child_of_node(parent, next) {
 		rc = of_property_read_u32(next, "somc,dsi-index", &dsi_index);
@@ -1637,7 +1637,7 @@ int mdss_dsi_panel_pcc_setup(struct mdss_panel_data *pdata)
 
 	if (!spec_pdata->pcc_enable) {
 		if (pdata->panel_info.dsi_master == pdata->panel_info.pdest)
-			pr_info("%s (%d): pcc isn't enabled.\n",
+			pr_notice("%s (%d): pcc isn't enabled.\n",
 				__func__, __LINE__);
 		goto exit;
 	}
@@ -1665,13 +1665,13 @@ int mdss_dsi_panel_pcc_setup(struct mdss_panel_data *pdata)
 		goto exit;
 
 	if (pcc_data->u_data == 0 && pcc_data->v_data == 0) {
-		pr_info("%s (%d): u,v is flashed 0.\n",
+		pr_notice("%s (%d): u,v is flashed 0.\n",
 			__func__, __LINE__);
 		goto exit;
 	}
 	if (!pcc_data->color_tbl) {
 		if (pdata->panel_info.dsi_master == pdata->panel_info.pdest)
-			pr_info("%s (%d): color_tbl isn't found.\n",
+			pr_notice("%s (%d): color_tbl isn't found.\n",
 				__func__, __LINE__);
 		goto exit;
 	}
@@ -1864,7 +1864,7 @@ ssize_t mdss_dsi_panel_driver_vsyncs_per_ksecs_store(struct device *dev,
 		if (!vpsd.vps_en && (ctl->ops.add_vsync_handler)) {
 			ctl->ops.add_vsync_handler(ctl, &vs_handle);
 			vpsd.vps_en = true;
-			pr_info("%s: vsyncs_per_ksecs is valid\n", __func__);
+			pr_notice("%s: vsyncs_per_ksecs is valid\n", __func__);
 		}
 	} else {
 		vs_handle.enabled = true;
@@ -1872,7 +1872,7 @@ ssize_t mdss_dsi_panel_driver_vsyncs_per_ksecs_store(struct device *dev,
 			ctl->ops.remove_vsync_handler(ctl, &vs_handle);
 			vpsd.vps_en = false;
 			fpsd.fpks = 0;
-			pr_info("%s: vsyncs_per_ksecs is invalid\n", __func__);
+			pr_notice("%s: vsyncs_per_ksecs is invalid\n", __func__);
 		}
 	}
 exit:
@@ -1894,7 +1894,7 @@ static void mdss_dsi_panel_driver_fps_cmd_send(
 				&ctrl_pdata->spec_pdata->fps_cmds,
 				CMD_REQ_COMMIT);
 	}
-	pr_info("%s: change fpks=%d\n", __func__, dfpks);
+	pr_notice("%s: change fpks=%d\n", __func__, dfpks);
 
 	pinfo->new_fps		= dfps;
 	spec_pdata->input_fpks	= dfpks;
@@ -2068,7 +2068,7 @@ static int mdss_dsi_panel_chg_fps_check_state
 		goto error;
 
 	if (dfpks == ctrl->spec_pdata->input_fpks) {
-		pr_info("%s: fpks is already %d\n", __func__, dfpks);
+		pr_notice("%s: fpks is already %d\n", __func__, dfpks);
 		goto end;
 	}
 
@@ -2461,7 +2461,7 @@ void mdss_dsi_panel_driver_off(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 		ctl->ops.remove_vsync_handler(ctl, &vs_handle);
 		vpsd.vps_en = false;
 		fpsd.fpks = 0;
-		pr_info("%s: vsyncs_per_ksecs is invalid\n", __func__);
+		pr_notice("%s: vsyncs_per_ksecs is invalid\n", __func__);
 	}
 	display_onoff_state = false;
 }

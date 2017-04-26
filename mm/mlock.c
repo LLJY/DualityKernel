@@ -66,9 +66,6 @@ void clear_page_mlock(struct page *page)
 
 	mod_zone_page_state(page_zone(page), NR_MLOCK,
 			    -hpage_nr_pages(page));
-	if (page_is_file_cache(page))
-		mod_zone_page_state(page_zone(page), NR_MLOCK_FILE,
-			-hpage_nr_pages(page));
 	count_vm_event(UNEVICTABLE_PGCLEARED);
 	if (!isolate_lru_page(page)) {
 		putback_lru_page(page);
@@ -93,9 +90,6 @@ void mlock_vma_page(struct page *page)
 	if (!TestSetPageMlocked(page)) {
 		mod_zone_page_state(page_zone(page), NR_MLOCK,
 				    hpage_nr_pages(page));
-		if (page_is_file_cache(page))
-			mod_zone_page_state(page_zone(page), NR_MLOCK_FILE,
-				hpage_nr_pages(page));
 		count_vm_event(UNEVICTABLE_PGMLOCKED);
 		if (!isolate_lru_page(page))
 			putback_lru_page(page);
@@ -202,8 +196,6 @@ unsigned int munlock_vma_page(struct page *page)
 
 	__mod_zone_page_state(zone, NR_MLOCK, -nr_pages);
 
-	if (page_is_file_cache(page))
-		__mod_zone_page_state(zone, NR_MLOCK_FILE, -nr_pages);
 	if (__munlock_isolate_lru_page(page, true)) {
 		spin_unlock_irq(&zone->lru_lock);
 		__munlock_isolated_page(page);
@@ -349,7 +341,6 @@ static void __munlock_pagevec(struct pagevec *pvec, struct zone *zone)
 	int delta_munlocked;
 	struct pagevec pvec_putback;
 	int pgrescued = 0;
-	int nr_pages;
 
 	pagevec_init(&pvec_putback, 0);
 
@@ -376,13 +367,10 @@ static void __munlock_pagevec(struct pagevec *pvec, struct zone *zone)
 		 * the last pin, __page_cache_release() would deadlock.
 		 */
 		pagevec_add(&pvec_putback, pvec->pages[i]);
-		if (page_is_file_cache(page))
-			nr_pages += hpage_nr_pages(page);
 		pvec->pages[i] = NULL;
 	}
 	delta_munlocked = -nr + pagevec_count(&pvec_putback);
 	__mod_zone_page_state(zone, NR_MLOCK, delta_munlocked);
-	__mod_zone_page_state(zone, NR_MLOCK_FILE, -nr_pages);
 	spin_unlock_irq(&zone->lru_lock);
 
 	/* Now we can release pins of pages that we are not munlocking */
