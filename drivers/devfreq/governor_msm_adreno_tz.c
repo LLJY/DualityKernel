@@ -82,7 +82,6 @@ struct gpu_load_queue {
 	int head;
 	int tail;
 };
->>>>>>> b509708... 41.2.A.2.199
 
 static u64 suspend_time;
 static u64 suspend_start;
