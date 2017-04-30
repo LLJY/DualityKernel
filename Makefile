@@ -355,6 +355,7 @@ include $(srctree)/scripts/Kbuild.include
 AS		        = $(CROSS_COMPILE)as
 LD		        = $(CROSS_COMPILE)ld
 <<<<<<< HEAD
+<<<<<<< HEAD
 LD		       += -Ofast --strip-debug
 CC		        = ccache $(CROSS_COMPILE)gcc
 CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
@@ -363,6 +364,11 @@ LD		       += -O3 --strip-debug
 CC		        = ccache $(CROSS_COMPILE)gcc
 CC		       += -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves
 >>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
+=======
+LD		       += -Ofast --strip-debug
+CC		        = ccache $(CROSS_COMPILE)gcc
+CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
+>>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
 CPP		        = $(CC) -E
 AR		        = $(CROSS_COMPILE)ar
 NM		        = $(CROSS_COMPILE)nm
@@ -400,6 +406,7 @@ CFLAGS_MODULE   = $(GRAPHITE)
 AFLAGS_MODULE   = $(GRAPHITE)
 LDFLAGS_MODULE  = --strip-debug
 <<<<<<< HEAD
+<<<<<<< HEAD
 CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
@@ -415,6 +422,9 @@ CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4 \ 
                   -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model \ 
 				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
+=======
+CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
+>>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
@@ -447,10 +457,14 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -Wno-memset-transposed-args -Wno-unused-const-variable -Wno-misleading-indentation -Wno-tautological-compare \
                    -fgcse-after-reload -fno-delete-null-pointer-checks -ftree-loop-vectorize -ftree-loop-distribute-patterns \
 <<<<<<< HEAD
+<<<<<<< HEAD
                    -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
 =======
                    -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable= -Wno-misleading-indentation -fgcse-lm \
 >>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
+=======
+                   -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
+>>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
  		           -fgcse-sm -fsched-spec-load \
                    -fmodulo-sched-allow-regmoves -ffast-math -funswitch-loops -fpredictive-commoning -fsingle-precision-constant \
 		           -Wno-declaration-after-statement -Wno-format-extra-args -Wno-int-conversion -Wno-discarded-qualifiers \
@@ -459,10 +473,14 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		           -fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
 <<<<<<< HEAD
+<<<<<<< HEAD
 		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
 =======
 		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4
 >>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
+=======
+		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
+>>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -676,10 +694,14 @@ KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 KBUILD_CFLAGS += -Ofast
 =======
 KBUILD_CFLAGS += -O3
 >>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
+=======
+KBUILD_CFLAGS += -Ofast
+>>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning,unused-function)
