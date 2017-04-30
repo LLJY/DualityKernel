@@ -421,6 +421,7 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
+<<<<<<< HEAD
 KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing \
                    -fno-common -Wno-implicit-function-declaration -Wno-format-security -Wno-incompatible-pointer-types -fmodulo-sched -Wno-bool-compare \
 		           -Wno-memset-transposed-args -Wno-unused-const-variable -Wno-misleading-indentation -Wno-tautological-compare \
@@ -434,6 +435,16 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		           -fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
 		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
+=======
+KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+		   -fno-strict-aliasing -fno-common \
+		   -Werror-implicit-function-declaration \
+		   -Wno-format-security \
+		   -mcpu=cortex-a57 -mtune=cortex-a57 \
+		   -std=gnu89 \
+		   -Wno-memset-transposed-args -Wno-bool-compare -Wno-logical-not-parentheses -Wno-discarded-array-qualifiers \
+		   -Wno-unused-const-variable -Wno-array-bounds -Wno-incompatible-pointer-types -Wno-misleading-indentation -Wno-tautological-compare -Wno-error=misleading-indentation
+>>>>>>> 5766e56... Fixed safetynet
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
