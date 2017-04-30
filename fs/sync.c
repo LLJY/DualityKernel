@@ -215,6 +215,8 @@ int vfs_fsync_range(struct file *file, loff_t start, loff_t end, int datasync)
 	if (likely(dyn_fsync_active && suspend_active))
 		return 0;
 #endif
+	if (!fsync_enabled)
+		return 0;
 	if (!file->f_op->fsync)
 		return -EINVAL;
 	return file->f_op->fsync(file, start, end, datasync);
@@ -258,15 +260,19 @@ SYSCALL_DEFINE1(fsync, unsigned int, fd)
 	if (!fsync_enabled)
 		return 0;
 
+<<<<<<< HEAD
 #ifdef CONFIG_DYNAMIC_FSYNC
 	if (likely(dyn_fsync_active && suspend_active))
 		return 0;
 #endif
+=======
+>>>>>>> 86b8387... Added fsync on/off support.
 	return do_fsync(fd, 0);
 }
 
 SYSCALL_DEFINE1(fdatasync, unsigned int, fd)
 {
+<<<<<<< HEAD
 
 	if (!fsync_enabled)
 		return 0;
@@ -275,6 +281,11 @@ SYSCALL_DEFINE1(fdatasync, unsigned int, fd)
 	if (likely(dyn_fsync_active && suspend_active))
 		return 0;
 #endif
+=======
+	if (!fsync_enabled)
+		return 0;
+		
+>>>>>>> 86b8387... Added fsync on/off support.
 	return do_fsync(fd, 1);
 }
 
@@ -337,11 +348,14 @@ SYSCALL_DEFINE4(sync_file_range, int, fd, loff_t, offset, loff_t, nbytes,
 	if (!fsync_enabled)
 		return 0;
 
+<<<<<<< HEAD
 #ifdef CONFIG_DYNAMIC_FSYNC
 	if (likely(dyn_fsync_active && suspend_active))
 		return 0;
 #endif
 
+=======
+>>>>>>> 86b8387... Added fsync on/off support.
 	ret = -EINVAL;
 	if (flags & ~VALID_FLAGS)
 		goto out;
