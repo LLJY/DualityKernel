@@ -381,6 +381,13 @@ CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
+		  -Wbitwise -Wno-return-void $(CF)
+CFLAGS_MODULE   =
+AFLAGS_MODULE   =
+LDFLAGS_MODULE  =
+CFLAGS_KERNEL	= -mcpu=cortex-a57 -mtune=cortex-a57
+AFLAGS_KERNEL	=
+CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE    := \
