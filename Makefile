@@ -354,9 +354,15 @@ include $(srctree)/scripts/Kbuild.include
 # Make variables (CC, etc...)
 AS		        = $(CROSS_COMPILE)as
 LD		        = $(CROSS_COMPILE)ld
+<<<<<<< HEAD
 LD		       += -Ofast --strip-debug
 CC		        = ccache $(CROSS_COMPILE)gcc
 CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
+=======
+LD		       += -O3 --strip-debug
+CC		        = ccache $(CROSS_COMPILE)gcc
+CC		       += -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 CPP		        = $(CC) -E
 AR		        = $(CROSS_COMPILE)ar
 NM		        = $(CROSS_COMPILE)nm
@@ -365,6 +371,7 @@ OBJCOPY		    = $(CROSS_COMPILE)objcopy
 OBJDUMP		    = $(CROSS_COMPILE)objdump
 AWK		        = awk
 GENKSYMS	    = scripts/genksyms/genksyms
+<<<<<<< HEAD
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
 LD		+= -O3 --strip-debug
@@ -378,6 +385,8 @@ OBJCOPY		= $(CROSS_COMPILE)objcopy
 OBJDUMP		= $(CROSS_COMPILE)objdump
 AWK		= awk
 GENKSYMS	= scripts/genksyms/genksyms
+=======
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 INSTALLKERNEL  := installkernel
 DEPMOD		    = /sbin/depmod
 PERL		    = perl
@@ -390,6 +399,7 @@ GRAPHITE	    = -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -fl
 CFLAGS_MODULE   = $(GRAPHITE)
 AFLAGS_MODULE   = $(GRAPHITE)
 LDFLAGS_MODULE  = --strip-debug
+<<<<<<< HEAD
 CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
@@ -401,6 +411,14 @@ LDFLAGS_MODULE  =
 CFLAGS_KERNEL	= -mcpu=cortex-a57 -mtune=cortex-a57
 AFLAGS_KERNEL	=
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
+=======
+CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4 \ 
+                  -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model \ 
+				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
+AFLAGS_KERNEL	=  $(GRAPHITE)
+CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
+CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE    := \
@@ -420,11 +438,19 @@ LINUXINCLUDE    := \
 		$(USERINCLUDE)
 
 KBUILD_CPPFLAGS := -D__KERNEL__
+<<<<<<< HEAD
+=======
+
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing \
                    -fno-common -Wno-implicit-function-declaration -Wno-format-security -Wno-incompatible-pointer-types -fmodulo-sched -Wno-bool-compare \
 		           -Wno-memset-transposed-args -Wno-unused-const-variable -Wno-misleading-indentation -Wno-tautological-compare \
                    -fgcse-after-reload -fno-delete-null-pointer-checks -ftree-loop-vectorize -ftree-loop-distribute-patterns \
+<<<<<<< HEAD
                    -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
+=======
+                   -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable= -Wno-misleading-indentation -fgcse-lm \
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
  		           -fgcse-sm -fsched-spec-load \
                    -fmodulo-sched-allow-regmoves -ffast-math -funswitch-loops -fpredictive-commoning -fsingle-precision-constant \
 		           -Wno-declaration-after-statement -Wno-format-extra-args -Wno-int-conversion -Wno-discarded-qualifiers \
@@ -432,7 +458,11 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
 		           -fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		           -fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
+<<<<<<< HEAD
 		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
+=======
+		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -645,14 +675,21 @@ ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
 <<<<<<< HEAD
+<<<<<<< HEAD
 KBUILD_CFLAGS += -Ofast
+=======
+KBUILD_CFLAGS += -O3
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning,unused-function)
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-variable)
+<<<<<<< HEAD
 =======
 KBUILD_CFLAGS	+= -O3
 >>>>>>> 21a14b3... Fixed Flags in Makefile
+=======
+>>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 endif
 
 # Tell gcc to never replace conditional load with a non-conditional one
