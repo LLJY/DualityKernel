@@ -297,10 +297,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = ccache gcc
 HOSTCXX      = ccache g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 \
-               -fomit-frame-pointer -fgcse-las -fgraphite -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block \ 
-			   -pipe -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value
-HOSTCXXFLAGS = -O3 -fgcse-las -fgraphite -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -Ofast -fomit-frame-pointer -fgcse-las -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block  -pipe -Wno-unused-parameter -Wno-sign-compare -Wno-missing-field-initializers -Wno-unused-variable -Wno-unused-value
+HOSTCXXFLAGS = -Ofast -fgcse-las -fgraphite -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -floop-interchange -floop-strip-mine -floop-block -pipe
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
@@ -357,6 +355,7 @@ include $(srctree)/scripts/Kbuild.include
 AS		        = $(CROSS_COMPILE)as
 LD		        = $(CROSS_COMPILE)ld
 <<<<<<< HEAD
+<<<<<<< HEAD
 LD		       += -Ofast --strip-debug
 CC		        = ccache $(CROSS_COMPILE)gcc
 CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
@@ -372,6 +371,11 @@ LD		       += -O3 --strip-debug
 CC		        = ccache $(CROSS_COMPILE)gcc
 CC		       += -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves
 >>>>>>> ae26b7f... Revert "makefile fix"
+=======
+LD		       += -Ofast --strip-debug
+CC		        = ccache $(CROSS_COMPILE)gcc
+CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
+>>>>>>> fa6569a... Revert "makefile, AGAIN"
 CPP		        = $(CC) -E
 AR		        = $(CROSS_COMPILE)ar
 NM		        = $(CROSS_COMPILE)nm
@@ -411,12 +415,16 @@ LDFLAGS_MODULE  = --strip-debug
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
 =======
 CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4 \ 
                   -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model \ 
 				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
 >>>>>>> 02dea43... makefile, AGAIN
+=======
+CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
+>>>>>>> fa6569a... Revert "makefile, AGAIN"
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
@@ -476,6 +484,7 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                    -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
 =======
                    -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable= -Wno-misleading-indentation -fgcse-lm \
@@ -488,6 +497,9 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 02dea43... makefile, AGAIN
+=======
+                   -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
+>>>>>>> fa6569a... Revert "makefile, AGAIN"
  		           -fgcse-sm -fsched-spec-load \
 =======
  		           -fgcse-sm -fsched-spec-load -flto \
@@ -501,6 +513,7 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
 		           -fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		           -fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -524,6 +537,9 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4
 				   -mfix-cortex-a53-835769 -mfix-cortex-a53-843419
 >>>>>>> ae26b7f... Revert "makefile fix"
+=======
+		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
+>>>>>>> fa6569a... Revert "makefile, AGAIN"
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -741,6 +757,7 @@ else
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 KBUILD_CFLAGS += -Ofast
 =======
 KBUILD_CFLAGS += -O3
@@ -757,6 +774,9 @@ KBUILD_CFLAGS += -ofast
 =======
 KBUILD_CFLAGS += -O3
 >>>>>>> ae26b7f... Revert "makefile fix"
+=======
+KBUILD_CFLAGS += -Ofast
+>>>>>>> fa6569a... Revert "makefile, AGAIN"
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning,unused-function)
