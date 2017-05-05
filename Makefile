@@ -354,28 +354,9 @@ include $(srctree)/scripts/Kbuild.include
 # Make variables (CC, etc...)
 AS		        = $(CROSS_COMPILE)as
 LD		        = $(CROSS_COMPILE)ld
-<<<<<<< HEAD
-<<<<<<< HEAD
 LD		       += -Ofast --strip-debug
 CC		        = ccache $(CROSS_COMPILE)gcc
 CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
-LD		       += -Ofast --strip-debug
-CC		        = ccache $(CROSS_COMPILE)gcc
-CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
-LD		       += -ofast --strip-debug
-CC		        = ccache $(CROSS_COMPILE)gcc
-CC		       += -ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
->>>>>>> eea41a9... makefile fix
-=======
-LD		       += -O3 --strip-debug
-CC		        = ccache $(CROSS_COMPILE)gcc
-CC		       += -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves
->>>>>>> ae26b7f... Revert "makefile fix"
-=======
-LD		       += -Ofast --strip-debug
-CC		        = ccache $(CROSS_COMPILE)gcc
-CC		       += -Ofast -fmodulo-sched -fmodulo-sched-allow-regmoves
->>>>>>> fa6569a... Revert "makefile, AGAIN"
 CPP		        = $(CC) -E
 AR		        = $(CROSS_COMPILE)ar
 NM		        = $(CROSS_COMPILE)nm
@@ -384,22 +365,6 @@ OBJCOPY		    = $(CROSS_COMPILE)objcopy
 OBJDUMP		    = $(CROSS_COMPILE)objdump
 AWK		        = awk
 GENKSYMS	    = scripts/genksyms/genksyms
-<<<<<<< HEAD
-AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld
-LD		+= -O3 --strip-debug
-CC		= ccache $(CROSS_COMPILE)gcc
-CC		+= -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves
-CPP		= $(CC) -E
-AR		= $(CROSS_COMPILE)ar
-NM		= $(CROSS_COMPILE)nm
-STRIP		= $(CROSS_COMPILE)strip
-OBJCOPY		= $(CROSS_COMPILE)objcopy
-OBJDUMP		= $(CROSS_COMPILE)objdump
-AWK		= awk
-GENKSYMS	= scripts/genksyms/genksyms
-=======
->>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 INSTALLKERNEL  := installkernel
 DEPMOD		    = /sbin/depmod
 PERL		    = perl
@@ -412,48 +377,10 @@ GRAPHITE	    = -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -fl
 CFLAGS_MODULE   = $(GRAPHITE)
 AFLAGS_MODULE   = $(GRAPHITE)
 LDFLAGS_MODULE  = --strip-debug
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
-=======
-CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4 \ 
-                  -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model \ 
-				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
->>>>>>> 02dea43... makefile, AGAIN
-=======
-CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
->>>>>>> fa6569a... Revert "makefile, AGAIN"
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
-		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   =
-AFLAGS_MODULE   =
-LDFLAGS_MODULE  =
-CFLAGS_KERNEL	= -mcpu=cortex-a57 -mtune=cortex-a57
-AFLAGS_KERNEL	=
-CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage -fno-tree-loop-im
-=======
-CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4 \ 
-                  -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model \ 
-<<<<<<< HEAD
-<<<<<<< HEAD
-				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
-=======
-CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
->>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
-=======
-				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -flto -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
->>>>>>> eea41a9... makefile fix
-=======
-				  -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning
->>>>>>> ae26b7f... Revert "makefile fix"
-AFLAGS_KERNEL	=  $(GRAPHITE)
-CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
-CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
->>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE    := \
@@ -473,73 +400,20 @@ LINUXINCLUDE    := \
 		$(USERINCLUDE)
 
 KBUILD_CPPFLAGS := -D__KERNEL__
-<<<<<<< HEAD
-=======
 
->>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing \
                    -fno-common -Wno-implicit-function-declaration -Wno-format-security -Wno-incompatible-pointer-types -fmodulo-sched -Wno-bool-compare \
 		           -Wno-memset-transposed-args -Wno-unused-const-variable -Wno-misleading-indentation -Wno-tautological-compare \
                    -fgcse-after-reload -fno-delete-null-pointer-checks -ftree-loop-vectorize -ftree-loop-distribute-patterns \
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                    -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
-=======
-                   -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable= -Wno-misleading-indentation -fgcse-lm \
->>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
-=======
-                   -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
->>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
-=======
-                   -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable= -Wno-misleading-indentation -fgcse-lm \
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 02dea43... makefile, AGAIN
-=======
-                   -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -Wno-unused-const-variable -Wno-misleading-indentation -fgcse-lm \
->>>>>>> fa6569a... Revert "makefile, AGAIN"
  		           -fgcse-sm -fsched-spec-load \
-=======
- 		           -fgcse-sm -fsched-spec-load -flto \
->>>>>>> eea41a9... makefile fix
-=======
- 		           -fgcse-sm -fsched-spec-load \
->>>>>>> ae26b7f... Revert "makefile fix"
                    -fmodulo-sched-allow-regmoves -ffast-math -funswitch-loops -fpredictive-commoning -fsingle-precision-constant \
 		           -Wno-declaration-after-statement -Wno-format-extra-args -Wno-int-conversion -Wno-discarded-qualifiers \
 		           -fmodulo-sched -fmodulo-sched-allow-regmoves -ffast-math \
 		           -funswitch-loops -fpredictive-commoning -fgcse-after-reload \
 		           -fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		           -fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
-=======
-		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4
->>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
-=======
-		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
->>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
-=======
-		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4
-				   -mfix-cortex-a53-835769 -mfix-cortex-a53-843419
->>>>>>> 02dea43... makefile, AGAIN
-=======
-		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfix-cortex-a53-835769 -mfix-cortex-a53-843419 -mstrict-align -mcmse
->>>>>>> eea41a9... makefile fix
-=======
-		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 -mfpu=neon-vfpv4
-				   -mfix-cortex-a53-835769 -mfix-cortex-a53-843419
->>>>>>> ae26b7f... Revert "makefile fix"
-=======
-		           -mcpu=cortex-a57.cortex-a53 -mtune=cortex-a57.cortex-a53 
->>>>>>> fa6569a... Revert "makefile, AGAIN"
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
@@ -751,42 +625,11 @@ KBUILD_CFLAGS	+= $(call cc-option,-fno-delete-null-pointer-checks,)
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 KBUILD_CFLAGS += -Ofast
-=======
-KBUILD_CFLAGS += -O3
->>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
-=======
-KBUILD_CFLAGS += -Ofast
->>>>>>> acb6301... Made Changes to fix Makefile compilation for linaro
-=======
-KBUILD_CFLAGS += -O3
->>>>>>> 02dea43... makefile, AGAIN
-=======
-KBUILD_CFLAGS += -ofast
->>>>>>> eea41a9... makefile fix
-=======
-KBUILD_CFLAGS += -O3
->>>>>>> ae26b7f... Revert "makefile fix"
-=======
-KBUILD_CFLAGS += -Ofast
->>>>>>> fa6569a... Revert "makefile, AGAIN"
 KBUILD_CFLAGS += $(call cc-disable-warning,maybe-uninitialized)
 KBUILD_CFLAGS += $(call cc-disable-warning,array-bounds)
 KBUILD_CFLAGS += $(call cc-disable-warning,unused-function)
 KBUILD_CFLAGS += $(call cc-disable-warning, unused-variable)
-<<<<<<< HEAD
-=======
-KBUILD_CFLAGS	+= -O3
->>>>>>> 21a14b3... Fixed Flags in Makefile
-=======
->>>>>>> 93c4bcc... Misc Changes to Makefile to improve performance
 endif
 
 # Tell gcc to never replace conditional load with a non-conditional one
