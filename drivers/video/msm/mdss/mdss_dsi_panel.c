@@ -28,7 +28,6 @@
 #include <linux/err.h>
 #include <linux/string.h>
 
-#include <linux/display_state.h>
 #include "mdss_dsi.h"
 #include "mdss_dba_utils.h"
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
@@ -44,14 +43,6 @@
 
 DEFINE_LED_TRIGGER(bl_led_trigger);
 
-extern void lazyplug_enter_lazy(bool enter);
-
-bool display_on = true;
-
-bool is_display_on()
-{
-	return display_on;
-}
 
 void mdss_dsi_panel_pwm_cfg(struct mdss_dsi_ctrl_pdata *ctrl)
 {
@@ -761,9 +752,6 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 		return -EINVAL;
 	}
 
-	display_on = true;
-    lazyplug_enter_lazy(false);
-
 	pinfo = &pdata->panel_info;
 	ctrl = container_of(pdata, struct mdss_dsi_ctrl_pdata,
 				panel_data);
@@ -903,9 +891,6 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 		mdss_dba_utils_video_off(pinfo->dba_data);
 		mdss_dba_utils_hdcp_enable(pinfo->dba_data, false);
 	}
-
-	display_on = false;
-    lazyplug_enter_lazy(false);
 
 end:
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL

@@ -32,7 +32,6 @@ config ARM64
 	select GENERIC_EARLY_IOREMAP
 	select GENERIC_IOMAP
 	select GENERIC_IRQ_PROBE
-    select GENERIC_IRQ_MIGRATION if SMP && HOTPLUG_CPU
 	select GENERIC_IRQ_SHOW
 	select GENERIC_SCHED_CLOCK
 	select GENERIC_SMP_IDLE_THREAD
@@ -787,7 +786,10 @@ config ARCH_NR_GPIO
 
 
 source kernel/Kconfig.preempt
-source kernel/Kconfig.hz
+
+config HZ
+	int
+	default 100
 
 config ARCH_HAS_HOLES_MEMORYMODEL
 	def_bool y if SPARSEMEM

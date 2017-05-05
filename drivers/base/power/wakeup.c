@@ -16,35 +16,30 @@
 #include <linux/debugfs.h>
 #include <linux/types.h>
 #include <linux/moduleparam.h>
-#include <linux/display_state.h>
 #include <trace/events/power.h>
-#include <linux/moduleparam.h>
-
-static bool enable_si_ws = true;
-module_param(enable_si_ws, bool, 0644);
-static bool enable_msm_hsic_ws = true;
-module_param(enable_msm_hsic_ws, bool, 0644);
-static bool wlan_rx_wake = true;
-module_param(wlan_rx_wake, bool, 0644);
-static bool wlan_ctrl_wake = true;
-module_param(wlan_ctrl_wake, bool, 0644);
-static bool wlan_wake = true;
-module_param(wlan_wake, bool, 0644);
 
 #include "power.h"
 
-static bool enable_qcom_rx_wakelock_ws = true;
+#ifdef CONFIG_STATE_NOTIFIER
+#include <linux/state_notifier.h>
+#endif
+
+static bool enable_qcom_rx_wakelock_ws = false;
 module_param(enable_qcom_rx_wakelock_ws, bool, 0644);
-static bool enable_wlan_extscan_wl_ws = true;
+static bool enable_wlan_extscan_wl_ws = false;
 module_param(enable_wlan_extscan_wl_ws, bool, 0644);
-static bool enable_ipa_ws = true;
+static bool enable_ipa_ws = false;
 module_param(enable_ipa_ws, bool, 0644);
-static bool enable_wlan_ws = true;
+static bool enable_wlan_wow_wl_ws = false;
+module_param(enable_wlan_wow_wl_ws, bool, 0644);
+static bool enable_wlan_ws = false;
 module_param(enable_wlan_ws, bool, 0644);
-static bool enable_timerfd_ws = true;
+static bool enable_timerfd_ws = false;
 module_param(enable_timerfd_ws, bool, 0644);
-static bool enable_netlink_ws = true;
+static bool enable_netlink_ws = false;
 module_param(enable_netlink_ws, bool, 0644);
+static bool enable_netmgr_wl_ws = false;
+module_param(enable_netmgr_wl_ws, bool, 0644);
 
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
@@ -489,6 +484,8 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
 				!strncmp(ws->name, "qcom_rx_wakelock", wslen)) ||
 			(!enable_wlan_ws &&
 				!strncmp(ws->name, "wlan", wslen)) ||
+			(!enable_netmgr_wl_ws &&
+				!strncmp(ws->name, "netmgr_wl", wslen)) ||
 			(!enable_timerfd_ws &&
 				!strncmp(ws->name, "[timerfd]", wslen)) ||
 			(!enable_netlink_ws &&
@@ -545,21 +542,6 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
 static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
-	
-	if (!enable_si_ws && !strcmp(ws->name, "sensor_ind"))
-		return;
-
-	if (!enable_msm_hsic_ws && !strcmp(ws->name, "msm_hsic_host"))
-                return;
-
-	if (!wlan_rx_wake && !strcmp(ws->name, "wlan_rx_wake"))
-                return;
-
-	if (!wlan_ctrl_wake && !strcmp(ws->name, "wlan_ctrl_wake"))
-                return;
-
-	if (!wlan_wake && !strcmp(ws->name, "wlan_wake"))
-                return;
 
 	/*
 	 * active wakeup source should bring the system
@@ -811,7 +793,7 @@ void pm_print_active_wakeup_sources(void)
 	struct wakeup_source *last_activity_ws = NULL;
 
 	// kinda pointless to force this routine during screen on
-	if (is_display_on())
+	if (!state_suspended)
 		return;
 
 	rcu_read_lock();
@@ -1007,7 +989,7 @@ static int print_wakeup_source_stats(struct seq_file *m,
 		active_time = ktime_set(0, 0);
 	}
 
-	ret = seq_printf(m, "%-32s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
+	ret = seq_printf(m, "%-12s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
 			"%lld\t\t%lld\t\t%lld\t\t%lld\t\t%lld\n",
 			ws->name, active_count, ws->event_count,
 			ws->wakeup_count, ws->expire_count,
@@ -1028,7 +1010,7 @@ static int wakeup_sources_stats_show(struct seq_file *m, void *unused)
 {
 	struct wakeup_source *ws;
 
-	seq_puts(m, "name\t\t\t\t\tactive_count\tevent_count\twakeup_count\t"
+	seq_puts(m, "name\t\tactive_count\tevent_count\twakeup_count\t"
 		"expire_count\tactive_since\ttotal_time\tmax_time\t"
 		"last_change\tprevent_suspend_time\n");
 
