@@ -1027,12 +1027,15 @@ static void audit_log_execve_info(struct audit_context *context,
 	unsigned int arg;
 	char *buf_head;
 	char *buf;
-	const char __user *p = (const char __user *)current->mm->arg_start;
+
+	const char __user *p;
 
 	/* NOTE: this buffer needs to be large enough to hold all the non-arg
 	 *       data we put in the audit record for this argument (see the
 	 *       code below) ... at this point in time 96 is plenty */
 	char abuf[96];
+
+	p = (const char __user *)current->mm->arg_start;
 
 	/* NOTE: we set MAX_EXECVE_AUDIT_LEN to a rather arbitrary limit, the
 	 *       current value of 7500 is not as important as the fact that it
@@ -1049,7 +1052,7 @@ static void audit_log_execve_info(struct audit_context *context,
 	}
 	buf = buf_head;
 
-	audit_log_format(*ab, "argc=%d", context->execve.argc);
+	audit_log_format(*ab, "argc=%d", axi->argc);
 
 	len_rem = len_max;
 	len_buf = 0;
@@ -1178,7 +1181,7 @@ static void audit_log_execve_info(struct audit_context *context,
 			require_data = true;
 			encode = false;
 		}
-	} while (arg < context->execve.argc);
+	} while (arg < axi->argc);
 
 	/* NOTE: the caller handles the final audit_log_end() call */
 

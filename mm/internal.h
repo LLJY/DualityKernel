@@ -18,6 +18,7 @@
 
 #include <linux/fs.h>
 #include <linux/mm.h>
+#include <linux/mm_inline.h>
 
 void free_pgtables(struct mmu_gather *tlb, struct vm_area_struct *start_vma,
 		unsigned long floor, unsigned long ceiling);
@@ -189,8 +190,6 @@ isolate_freepages_range(struct compact_control *cc,
 unsigned long
 isolate_migratepages_range(struct compact_control *cc,
 			   unsigned long low_pfn, unsigned long end_pfn);
-int find_suitable_fallback(struct free_area *area, unsigned int order,
-			int migratetype, bool only_stealable, bool *can_steal);
 
 #endif
 
@@ -269,8 +268,12 @@ static inline void mlock_migrate_page(struct page *newpage, struct page *page)
 
 		local_irq_save(flags);
 		__mod_zone_page_state(page_zone(page), NR_MLOCK, -nr_pages);
+		if (page_is_file_cache(page))
+			__mod_zone_page_state(page_zone(page), NR_MLOCK_FILE, -nr_pages);
 		SetPageMlocked(newpage);
 		__mod_zone_page_state(page_zone(newpage), NR_MLOCK, nr_pages);
+		if (page_is_file_cache(page))
+			__mod_zone_page_state(page_zone(newpage), NR_MLOCK_FILE, nr_pages);
 		local_irq_restore(flags);
 	}
 }

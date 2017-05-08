@@ -551,14 +551,6 @@ config NFC_PN547
 	  The sysfs files provides the interface to send and receive
 	  the data, response and notification.
 
-config NFC_PN553
-	tristate "NFC driver for PN553"
-	depends on I2C
-	default n
-	help
-	  This option enables device driver for PN553.
-	  GPIO, and PMIC GPIO configurations are controlled.
-
 config USB_EXT_TYPE_C_PERICOM
 	tristate "USB Type-C charger detection support using Pericom chip"
 	depends on I2C && POWER_SUPPLY

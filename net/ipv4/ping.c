@@ -19,11 +19,6 @@
  * none of the bugs are Pavel's now.
  *
  */
-/*
- * NOTE: This file has been modified by Sony Mobile Communications Inc.
- * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
- * and licensed under the license of the file.
- */
 
 #include <linux/uaccess.h>
 #include <linux/types.h>
@@ -615,8 +610,6 @@ int ping_getfrag(void *from, char *to,
 	if (offset == 0) {
 		if (fraglen < sizeof(struct icmphdr))
 			BUG();
-		if (pfh->iov->iov_len == 0)
-			return -EINVAL;
 		if (csum_partial_copy_fromiovecend(to + sizeof(struct icmphdr),
 			    pfh->iov, 0, fraglen - sizeof(struct icmphdr),
 			    &pfh->wcheck))

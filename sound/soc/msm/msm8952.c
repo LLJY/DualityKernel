@@ -550,7 +550,7 @@ static bool is_mi2s_rx_port(int port_id)
 
 static uint32_t get_mi2s_rx_clk_val(int port_id)
 {
-	uint32_t clk_val = 0;
+	uint32_t clk_val;
 
 	/*
 	 *  Derive clock value based on sample rate, bits per sample and
@@ -1598,7 +1598,7 @@ static int msm_audrx_init(struct snd_soc_pcm_runtime *rtd)
 			return ret;
 		}
 	}
-	return 0;
+	return msm8x16_wcd_hs_detect(codec, &mbhc_cfg);
 }
 
 static struct snd_soc_ops msm8952_quat_mi2s_be_ops = {

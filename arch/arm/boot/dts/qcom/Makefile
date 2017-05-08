@@ -128,34 +128,10 @@ dtb-$(CONFIG_MACH_SONY_DORA) += msm8996-v3.0-tone-dora_generic.dtb \
 	msm8996-v3.0-pmi8996-tone-dora_generic.dtb \
 	msm8996-v3-tone-dora_generic.dtb \
 	msm8996-v3-pmi8996-tone-dora_generic.dtb
-dtb-$(CONFIG_MACH_SONY_DORA_DCM) += msm8996-v3.0-tone-dora_dcm.dtb \
-	msm8996-v3.0-pmi8996-tone-dora_dcm.dtb \
-	msm8996-v3-tone-dora_dcm.dtb \
-	msm8996-v3-pmi8996-tone-dora_dcm.dtb
-dtb-$(CONFIG_MACH_SONY_DORA_KDDI) += msm8996-v3.0-tone-dora_kddi.dtb \
-	msm8996-v3.0-pmi8996-tone-dora_kddi.dtb \
-	msm8996-v3-tone-dora_kddi.dtb \
-	msm8996-v3-pmi8996-tone-dora_kddi.dtb
-dtb-$(CONFIG_MACH_SONY_DORA_SBM) += msm8996-v3.0-tone-dora_sbm.dtb \
-	msm8996-v3.0-pmi8996-tone-dora_sbm.dtb \
-	msm8996-v3-tone-dora_sbm.dtb \
-	msm8996-v3-pmi8996-tone-dora_sbm.dtb
 dtb-$(CONFIG_MACH_SONY_KAGURA) += msm8996-v3.0-tone-kagura_generic.dtb \
 	msm8996-v3.0-pmi8996-tone-kagura_generic.dtb \
 	msm8996-v3-tone-kagura_generic.dtb \
 	msm8996-v3-pmi8996-tone-kagura_generic.dtb
-dtb-$(CONFIG_MACH_SONY_KAGURA_DCM) += msm8996-v3.0-tone-kagura_dcm.dtb \
-	msm8996-v3.0-pmi8996-tone-kagura_dcm.dtb \
-	msm8996-v3-tone-kagura_dcm.dtb \
-	msm8996-v3-pmi8996-tone-kagura_dcm.dtb
-dtb-$(CONFIG_MACH_SONY_KAGURA_KDDI) += msm8996-v3.0-tone-kagura_kddi.dtb \
-	msm8996-v3.0-pmi8996-tone-kagura_kddi.dtb \
-	msm8996-v3-tone-kagura_kddi.dtb \
-	msm8996-v3-pmi8996-tone-kagura_kddi.dtb
-dtb-$(CONFIG_MACH_SONY_KAGURA_SBM) += msm8996-v3.0-tone-kagura_sbm.dtb \
-	msm8996-v3.0-pmi8996-tone-kagura_sbm.dtb \
-	msm8996-v3-tone-kagura_sbm.dtb \
-	msm8996-v3-pmi8996-tone-kagura_sbm.dtb
 endif
 
 dtb-$(CONFIG_ARCH_MSMCOBALT) += msmcobalt-sim.dtb \
@@ -228,8 +204,7 @@ dtb-$(CONFIG_ARCH_MSM8920) += msm8920-pmi8937-cdp.dtb \
 	msm8920-pmi8950-cdp.dtb \
 	msm8920-pmi8950-mtp.dtb \
 	msm8920-pmi8937-rcm.dtb \
-	msm8920-pmi8950-rcm.dtb \
-	msm8920-pmi8940-qrd-sku7.dtb
+	msm8920-pmi8950-rcm.dtb
 
 dtb-$(CONFIG_ARCH_MSM8940) += msm8940-pmi8937-cdp.dtb \
 	msm8940-pmi8937-mtp.dtb \

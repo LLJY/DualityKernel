@@ -10,9 +10,11 @@
  * GNU General Public License for more details.
  */
 /*
- * NOTE: This file has been modified by Sony Mobile Communications Inc.
- * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
- * and licensed under the license of the file.
+ * Copyright (C) 2014 Sony Mobile Communications Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2, as
+ * published by the Free Software Foundation.
  */
 / {
 	aliases {
@@ -210,8 +212,6 @@
 
 		/delete-node/ synaptics@20;
 
-#include "clearpad-ic-default-regoffset.dtsi"
-
 		synaptics_clearpad@2c {
 			compatible = "synaptics,clearpad";
 			reg = <0x2c>;
@@ -266,7 +266,6 @@
 				calibration_supported = <0>;
 				hwreset_delay_for_powerup_ms = <220>;
 				interrupt_default_wait_ms = <1000>;
-				charger_only_delay_ms = <200>;
 			};
 			S3330 {
 				flash_default_timeout_ms = <20000>;
@@ -274,7 +273,6 @@
 				calibration_supported = <0>;
 				hwreset_delay_for_powerup_ms = <220>;
 				interrupt_default_wait_ms = <1000>;
-				charger_only_delay_ms = <200>;
 			};
 			S332U {
 				flash_default_timeout_ms = <20000>;
@@ -282,7 +280,6 @@
 				calibration_supported = <1>;
 				hwreset_delay_for_powerup_ms = <220>;
 				interrupt_default_wait_ms = <1000>;
-				charger_only_delay_ms = <200>;
 			};
 		};
 	};
@@ -316,24 +313,25 @@
 				&msm_gpio_14 &msm_gpio_15 &msm_gpio_16 &msm_gpio_17
 				&msm_gpio_18 &msm_gpio_19 &msm_gpio_20 &msm_gpio_21
 				&msm_gpio_22 &msm_gpio_23 &msm_gpio_24 &msm_gpio_25
-				&msm_gpio_27 &msm_gpio_28 &msm_gpio_29 &msm_gpio_30
-				&msm_gpio_31 &msm_gpio_32 &msm_gpio_33 &msm_gpio_34
-				&msm_gpio_38 &msm_gpio_39 &msm_gpio_40 &msm_gpio_41
-				&msm_gpio_42 &msm_gpio_43 &msm_gpio_44_suspend &msm_gpio_45
-				&msm_gpio_46 &msm_gpio_47 &msm_gpio_48 &msm_gpio_49
-				&msm_gpio_50 &msm_gpio_51 &msm_gpio_52 &msm_gpio_55
-				&msm_gpio_56 &msm_gpio_57 &msm_gpio_58 &msm_gpio_59
-				&msm_gpio_60 &msm_gpio_61 &msm_gpio_62 &msm_gpio_63
-				&msm_gpio_69_suspend &msm_gpio_73 &msm_gpio_74 &msm_gpio_75
-				&msm_gpio_76 &msm_gpio_77 &msm_gpio_78 &msm_gpio_79
-				&msm_gpio_81 &msm_gpio_82_suspend &msm_gpio_83 &msm_gpio_84
-				&msm_gpio_85 &msm_gpio_86 &msm_gpio_87 &msm_gpio_88
-				&msm_gpio_89 &msm_gpio_90 &msm_gpio_91 &msm_gpio_92
-				&msm_gpio_93 &msm_gpio_94 &msm_gpio_95 &msm_gpio_96
-				&msm_gpio_108 &msm_gpio_112 &msm_gpio_116 &msm_gpio_120
-				&msm_gpio_121 &msm_gpio_122 &msm_gpio_123 &msm_gpio_124
-				&msm_gpio_125 &msm_gpio_126 &msm_gpio_130 &msm_gpio_131
-				&msm_gpio_132 &msm_gpio_141 &msm_gpio_142 &msm_gpio_143>;
+				&msm_gpio_26 &msm_gpio_27 &msm_gpio_28 &msm_gpio_29
+				&msm_gpio_30 &msm_gpio_31 &msm_gpio_32 &msm_gpio_33
+				&msm_gpio_34 &msm_gpio_38 &msm_gpio_39 &msm_gpio_40
+				&msm_gpio_41 &msm_gpio_42 &msm_gpio_43 &msm_gpio_44_suspend
+				&msm_gpio_45 &msm_gpio_46 &msm_gpio_47 &msm_gpio_48
+				&msm_gpio_49 &msm_gpio_50 &msm_gpio_51 &msm_gpio_52
+				&msm_gpio_55 &msm_gpio_56 &msm_gpio_57 &msm_gpio_58
+				&msm_gpio_59 &msm_gpio_60 &msm_gpio_61 &msm_gpio_62
+				&msm_gpio_63 &msm_gpio_69 &msm_gpio_73 &msm_gpio_74
+				&msm_gpio_75 &msm_gpio_76 &msm_gpio_77 &msm_gpio_78
+				&msm_gpio_79 &msm_gpio_81 &msm_gpio_82_suspend &msm_gpio_83
+				&msm_gpio_84 &msm_gpio_85 &msm_gpio_86 &msm_gpio_87
+				&msm_gpio_88 &msm_gpio_89 &msm_gpio_90 &msm_gpio_91
+				&msm_gpio_92 &msm_gpio_93 &msm_gpio_94 &msm_gpio_95
+				&msm_gpio_96 &msm_gpio_108 &msm_gpio_112 &msm_gpio_116
+				&msm_gpio_120 &msm_gpio_121 &msm_gpio_122 &msm_gpio_123
+				&msm_gpio_124 &msm_gpio_125 &msm_gpio_126 &msm_gpio_130
+				&msm_gpio_131 &msm_gpio_132 &msm_gpio_141 &msm_gpio_142
+				&msm_gpio_143>;
 
 		/* If product common default setting is needed,
 		   fill pinctrl-1 value in <product>_common.dtsi */
@@ -641,8 +639,6 @@
 			cell-index = <0>;
 			compatible = "qcom,sony_camera_0";
 			reg = <0x0>;
-			interrupt-parent = <&tlmm>;
-			interrupts = <69 0x0>;
 			status = "ok";
 			qcom,slave-id = <0x20 0x0 0x0000>;
 			qcom,csiphy-sd-index = <0>;
@@ -655,18 +651,18 @@
 			cam_vaf-supply = <&pm8994_l23>;
 			qcom,cam-vreg-name = "cam_vdig", "cam_vana", "cam_vio", "cam_vaf";
 			qcom,cam-vreg-type = <0 0 1 0>;
-			qcom,cam-vreg-min-voltage = <1100000 2500000 0 2700000>;
-			qcom,cam-vreg-max-voltage = <1100000 2500000 0 2700000>;
+			qcom,cam-vreg-min-voltage = <1100000 2200000 0 2700000>;
+			qcom,cam-vreg-max-voltage = <1100000 2200000 0 2700000>;
 			qcom,cam-vreg-op-mode = <105000 85600 0 300000>;
 			qcom,gpio-no-mux = <0>;
 			pinctrl-names = "cam_default", "cam_suspend";
-			pinctrl-0 = <&cam_sensor_mclk0_active &cam_sensor_rear_active &msm_gpio_69>;
-			pinctrl-1 = <&cam_sensor_mclk0_suspend &cam_sensor_rear_suspend &msm_gpio_69_suspend>;
-			gpios = <&tlmm 13 0>, <&tlmm 30 0>, <&tlmm 69 0>;
+			pinctrl-0 = <&cam_sensor_mclk0_active &cam_sensor_rear_active>;
+			pinctrl-1 = <&cam_sensor_mclk0_suspend &cam_sensor_rear_suspend>;
+			gpios = <&tlmm 13 0>, <&tlmm 30 0>;
 			qcom,gpio-reset = <1>;
-			qcom,gpio-req-tbl-num = <0 1 2>;
-			qcom,gpio-req-tbl-flags = <1 0 1>;
-			qcom,gpio-req-tbl-label = "CAMIF_MCLK0", "CAM_RESET0", "CAM_SOF_IRQ";
+			qcom,gpio-req-tbl-num = <0 1>;
+			qcom,gpio-req-tbl-flags = <1 0>;
+			qcom,gpio-req-tbl-label = "CAMIF_MCLK0", "CAM_RESET0";
 			qcom,csi-lane-assign = <0x4320>;
 			qcom,csi-lane-mask = <0x1F>;
 			qcom,sensor-position = <0>;
@@ -676,8 +672,8 @@
 			clock-names = "cam_src_clk", "cam_clk";
 			qcom,clock-rates = <24000000 0>;
 			sony,i2c_addr = <0x20>;
-			sony,eeprom_addr = <0xA2>;
-			sony,eeprom_type = <2>;
+			sony,eeprom_addr = <0xA0>;
+			sony,eeprom_type = <0>;
 			sony,eeprom_max_len = <2048>;
 			sony,gpio_af = <0>;
 			sony,subdev_code = <0x3007>;
@@ -699,11 +695,11 @@
 			cam_vdig-supply = <&pm8994_l27>;
 			cam_vana-supply = <&pm8994_l29>;
 			cam_vio-supply = <&pm8994_lvs1>;
-			cam_vaf-supply = <&pm8994_l19>;
+			cam_vaf-supply = <&pm8994_l23>;
 			qcom,cam-vreg-name = "cam_vdig", "cam_vana", "cam_vio", "cam_vaf";
 			qcom,cam-vreg-type = <0 0 1 0>;
-			qcom,cam-vreg-min-voltage = <1200000 2700000 0 2700000>;
-			qcom,cam-vreg-max-voltage = <1200000 2700000 0 2700000>;
+			qcom,cam-vreg-min-voltage = <1000000 2700000 0 2700000>;
+			qcom,cam-vreg-max-voltage = <1000000 2700000 0 2700000>;
 			qcom,cam-vreg-op-mode = <76700 39200 0 100000>;
 			qcom,gpio-no-mux = <0>;
 			pinctrl-names = "cam_default", "cam_suspend";
@@ -743,57 +739,37 @@
 };
 
 &sony_camera_module_0 {
-	module_names = "GENERIC", "SOI20BS2";
-	default_module_name = "SOI20BS2";
+	module_names = "GENERIC", "SOI25BS4";
+	default_module_name = "SOI25BS4";
 
 	GENERIC {
-		mount_angle = <90>;
-		sensor_rotation = <0>;
-		sensor_facing = <0x00>;
-		sensor_config_delay_num = <12>;
-		sensor_config_delay = <4 3 4 4 4 4 4 4 4 4 4 4>;
-		temperature_check_skip_num = <0>;
-		total_pixel_number_w = <5520>;
-		total_pixel_number_h = <4032>;
-		active_pixel_number_x = <8>;
-		active_pixel_number_y = <176>;
-		active_pixel_number_w = <5504>;
-		active_pixel_number_h = <3808>;
+		mount_angle = <270>;
+		sensor_rotation = <180>;
+		sensor_facing = <0>;
+		total_pixel_number_w = <6048>;
+		total_pixel_number_h = <4264>;
+		active_pixel_number_x = <56>;
+		active_pixel_number_y = <88>;
+		active_pixel_number_w = <5984>;
+		active_pixel_number_h = <4160>;
 		min_focus_distance = <120>;
-		hyper_focal_distance = <4321>;
-		diagonal_len = "7.73";
-		unit_cell_size_w = "1.22";
-		unit_cell_size_h = "1.22";
+		hyper_focal_distance = <3720>;
+		diagonal_len = "8.17";
+		unit_cell_size_w = "1.12";
+		unit_cell_size_h = "1.12";
 		min_f_number = "2.00";
 		max_f_number = "2.00";
-		min_focus_pos = <1>;
-		max_focus_pos = <1024>;
-		min_focus_dac = <0x0000>;
-		max_focus_dac = <0x03FF>;
-		focus_inf_range_offset = <0x19>;
-		focus_macro_range_offset = <0x38>;
-		focus_lens_stroke_inf_to_1m = <0x14>;
-		focus_lens_stroke_1m_to_macro = <0x95>;
-		focus_lens_stroke_inf_to_macro = <0xA9>;
-		focus_calc_type = <0x01>;
 		has_3a = <0>;
 		has_focus_actuator = <1>;
 		need_standby_af = <0>;
 		i2c_freq_mode = <3>;
 		has_pdaf = <1>;
 		has_rs = <1>;
-		has_multi_output = <0>;
-		has_super_slow = <1>;
-		has_sub_sensor = <0>;
-		has_aube = <0>;
-		has_flicker_detector = <1>;
-		has_hdr = <1>;
-		has_seamless_mode_change = <1>;
 		pdaf_free_area_num = <8>;
 		pdaf_fixed_area_size_w = <16>;
 		pdaf_fixed_area_size_h = <12>;
 		pll_num = <26>;
-		pll = <290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290>;
+		pll = <145 109 112 112 122 109 182 75 112 136 145 182 182 145 142 145 104 182 145 145 182 182 182 182 104 112>;
 		power_off {
 			commands =
 				"GPIO_RESET",
@@ -824,61 +800,41 @@
 				"EXIT";
 			CAM_VDIG = <0 1100 85000 0>;
 			CAM_VIO = <1 0 0 0>;
-			CAM_VANA = <2 2500 103000 0>;
+			CAM_VANA = <2 2200 103000 0>;
 			CAM_VAF = <3 2700 106500 3>;
 			CAM_CLK = <6 0 0 1>;
 			GPIO_RESET = <5 1 0 9>;
 			EXIT = <8 0x0 0 0>;
 		};
 	};
-	SOI20BS2 {
-		mount_angle = <90>;
-		sensor_rotation = <0>;
-		sensor_facing = <0x00>;
-		sensor_config_delay_num = <12>;
-		sensor_config_delay = <4 3 4 4 4 4 4 4 4 4 4 4>;
-		temperature_check_skip_num = <0>;
-		total_pixel_number_w = <5520>;
-		total_pixel_number_h = <4032>;
-		active_pixel_number_x = <8>;
-		active_pixel_number_y = <176>;
-		active_pixel_number_w = <5504>;
-		active_pixel_number_h = <3808>;
+	SOI25BS4 {
+		mount_angle = <270>;
+		sensor_rotation = <180>;
+		sensor_facing = <0>;
+		total_pixel_number_w = <6048>;
+		total_pixel_number_h = <4264>;
+		active_pixel_number_x = <56>;
+		active_pixel_number_y = <88>;
+		active_pixel_number_w = <5984>;
+		active_pixel_number_h = <4160>;
 		min_focus_distance = <120>;
-		hyper_focal_distance = <4321>;
-		diagonal_len = "7.73";
-		unit_cell_size_w = "1.22";
-		unit_cell_size_h = "1.22";
+		hyper_focal_distance = <3720>;
+		diagonal_len = "8.17";
+		unit_cell_size_w = "1.12";
+		unit_cell_size_h = "1.12";
 		min_f_number = "2.00";
 		max_f_number = "2.00";
-		min_focus_pos = <1>;
-		max_focus_pos = <1024>;
-		min_focus_dac = <0x0000>;
-		max_focus_dac = <0x03FF>;
-		focus_inf_range_offset = <0x24>;
-		focus_macro_range_offset = <0x38>;
-		focus_lens_stroke_inf_to_1m = <0x14>;
-		focus_lens_stroke_1m_to_macro = <0x95>;
-		focus_lens_stroke_inf_to_macro = <0xA9>;
-		focus_calc_type = <0x01>;
 		has_3a = <0>;
 		has_focus_actuator = <1>;
 		need_standby_af = <0>;
 		i2c_freq_mode = <3>;
 		has_pdaf = <1>;
 		has_rs = <1>;
-		has_multi_output = <0>;
-		has_super_slow = <1>;
-		has_sub_sensor = <0>;
-		has_aube = <0>;
-		has_flicker_detector = <1>;
-		has_hdr = <1>;
-		has_seamless_mode_change = <1>;
 		pdaf_free_area_num = <8>;
 		pdaf_fixed_area_size_w = <16>;
 		pdaf_fixed_area_size_h = <12>;
 		pll_num = <26>;
-		pll = <290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290 290>;
+		pll = <145 109 112 112 122 109 182 75 112 136 145 182 182 145 142 145 104 182 145 145 182 182 182 182 104 112>;
 		power_off {
 			commands =
 				"GPIO_RESET",
@@ -896,7 +852,6 @@
 			CAM_VAF = <3 0xFFFFFFFF 0 0>;
 			GPIO_RESET = <5 0x0 0 5>;
 			CAM_CLK = <6 0xFFFFFFFF 0 0>;
-			I2C_WRITE = <7 0x0100 0 100>;
 			EXIT = <8 0x0 0 0>;
 		};
 		power_on {
@@ -910,30 +865,27 @@
 				"EXIT";
 			CAM_VDIG = <0 1100 85000 0>;
 			CAM_VIO = <1 0 0 0>;
-			CAM_VANA = <2 2500 103000 0>;
+			CAM_VANA = <2 2200 103000 0>;
 			CAM_VAF = <3 2700 106500 3>;
 			CAM_CLK = <6 0 0 1>;
-			GPIO_RESET = <5 1 0 1>;
+			GPIO_RESET = <5 1 0 9>;
 			EXIT = <8 0x0 0 0>;
 		};
 	};
 };
 
 &sony_camera_module_1 {
-	module_names = "GENERIC", "SOI13BS1", "SEM13BS1";
-	default_module_name = "SOI13BS1";
+	module_names = "GENERIC", "SOI13BS0", "SEM13BS0";
+	default_module_name = "SOI13BS0";
 
 	GENERIC {
 		mount_angle = <270>;
 		sensor_rotation = <180>;
 		sensor_facing = <1>;
-		sensor_config_delay_num = <12>;
-		sensor_config_delay = <3 3 3 3 3 3 3 3 3 3 3 3>;
-		temperature_check_skip_num = <8>;
 		total_pixel_number_w = <4224>;
-		total_pixel_number_h = <3192>;
+		total_pixel_number_h = <3200>;
 		active_pixel_number_x = <8>;
-		active_pixel_number_y = <56>;
+		active_pixel_number_y = <72>;
 		active_pixel_number_w = <4208>;
 		active_pixel_number_h = <3120>;
 		min_focus_distance = <100>;
@@ -943,29 +895,12 @@
 		unit_cell_size_h = "1.12";
 		min_f_number = "2.00";
 		max_f_number = "2.00";
-		min_focus_pos = <1>;
-		max_focus_pos = <1024>;
-		min_focus_dac = <0x0000>;
-		max_focus_dac = <0x03FF>;
-		focus_inf_range_offset = <0x24>;
-		focus_macro_range_offset = <0x24>;
-		focus_lens_stroke_inf_to_1m = <0x09>;
-		focus_lens_stroke_1m_to_macro = <0x55>;
-		focus_lens_stroke_inf_to_macro = <0x5E>;
-		focus_calc_type = <0x01>;
 		has_3a = <0>;
 		has_focus_actuator = <1>;
-		need_standby_af = <0>;
+		need_standby_af = <1>;
 		i2c_freq_mode = <1>;
 		has_pdaf = <0>;
 		has_rs = <1>;
-		has_multi_output = <0>;
-		has_super_slow = <0>;
-		has_sub_sensor = <0>;
-		has_aube = <0>;
-		has_flicker_detector = <0>;
-		has_hdr = <0>;
-		has_seamless_mode_change = <0>;
 		pdaf_free_area_num = <0>;
 		pdaf_fixed_area_size_w = <0>;
 		pdaf_fixed_area_size_h = <0>;
@@ -997,7 +932,7 @@
 				"CAM_CLK",
 				"GPIO_RESET",
 				"EXIT";
-			CAM_VDIG = <0 1200 76700 0>;
+			CAM_VDIG = <0 1000 76700 0>;
 			CAM_VIO = <1 0 0 0>;
 			CAM_VANA = <2 2700 39200 0>;
 			CAM_VAF = <3 2700 100000 3>;
@@ -1006,17 +941,14 @@
 			EXIT = <8 0x0 0 0>;
 		};
 	};
-	SOI13BS1 {
+	SOI13BS0 {
 		mount_angle = <270>;
 		sensor_rotation = <180>;
 		sensor_facing = <1>;
-		sensor_config_delay_num = <12>;
-		sensor_config_delay = <3 3 3 3 3 3 3 3 3 3 3 3>;
-		temperature_check_skip_num = <8>;
 		total_pixel_number_w = <4224>;
-		total_pixel_number_h = <3192>;
+		total_pixel_number_h = <3200>;
 		active_pixel_number_x = <8>;
-		active_pixel_number_y = <56>;
+		active_pixel_number_y = <72>;
 		active_pixel_number_w = <4208>;
 		active_pixel_number_h = <3120>;
 		min_focus_distance = <100>;
@@ -1026,29 +958,12 @@
 		unit_cell_size_h = "1.12";
 		min_f_number = "2.00";
 		max_f_number = "2.00";
-		min_focus_pos = <1>;
-		max_focus_pos = <1024>;
-		min_focus_dac = <0x0000>;
-		max_focus_dac = <0x03FF>;
-		focus_inf_range_offset = <0x24>;
-		focus_macro_range_offset = <0x24>;
-		focus_lens_stroke_inf_to_1m = <0x09>;
-		focus_lens_stroke_1m_to_macro = <0x55>;
-		focus_lens_stroke_inf_to_macro = <0x5E>;
-		focus_calc_type = <0x01>;
 		has_3a = <0>;
 		has_focus_actuator = <1>;
-		need_standby_af = <0>;
+		need_standby_af = <1>;
 		i2c_freq_mode = <1>;
 		has_pdaf = <0>;
 		has_rs = <1>;
-		has_multi_output = <0>;
-		has_super_slow = <0>;
-		has_sub_sensor = <0>;
-		has_aube = <0>;
-		has_flicker_detector = <0>;
-		has_hdr = <0>;
-		has_seamless_mode_change = <0>;
 		pdaf_free_area_num = <0>;
 		pdaf_fixed_area_size_w = <0>;
 		pdaf_fixed_area_size_h = <0>;
@@ -1080,7 +995,7 @@
 				"CAM_CLK",
 				"GPIO_RESET",
 				"EXIT";
-			CAM_VDIG = <0 1200 76700 0>;
+			CAM_VDIG = <0 1000 76700 0>;
 			CAM_VIO = <1 0 0 0>;
 			CAM_VANA = <2 2700 39200 0>;
 			CAM_VAF = <3 2700 100000 3>;
@@ -1089,17 +1004,14 @@
 			EXIT = <8 0x0 0 0>;
 		};
 	};
-	SEM13BS1 {
+	SEM13BS0 {
 		mount_angle = <270>;
 		sensor_rotation = <180>;
 		sensor_facing = <1>;
-		sensor_config_delay_num = <12>;
-		sensor_config_delay = <3 3 3 3 3 3 3 3 3 3 3 3>;
-		temperature_check_skip_num = <8>;
 		total_pixel_number_w = <4224>;
-		total_pixel_number_h = <3192>;
+		total_pixel_number_h = <3200>;
 		active_pixel_number_x = <8>;
-		active_pixel_number_y = <56>;
+		active_pixel_number_y = <72>;
 		active_pixel_number_w = <4208>;
 		active_pixel_number_h = <3120>;
 		min_focus_distance = <100>;
@@ -1109,29 +1021,12 @@
 		unit_cell_size_h = "1.12";
 		min_f_number = "2.00";
 		max_f_number = "2.00";
-		min_focus_pos = <1>;
-		max_focus_pos = <1024>;
-		min_focus_dac = <0x0000>;
-		max_focus_dac = <0x03FF>;
-		focus_inf_range_offset = <0x24>;
-		focus_macro_range_offset = <0x24>;
-		focus_lens_stroke_inf_to_1m = <0x09>;
-		focus_lens_stroke_1m_to_macro = <0x53>;
-		focus_lens_stroke_inf_to_macro = <0x5C>;
-		focus_calc_type = <0x01>;
 		has_3a = <0>;
 		has_focus_actuator = <1>;
-		need_standby_af = <0>;
+		need_standby_af = <1>;
 		i2c_freq_mode = <1>;
 		has_pdaf = <0>;
 		has_rs = <1>;
-		has_multi_output = <0>;
-		has_super_slow = <0>;
-		has_sub_sensor = <0>;
-		has_aube = <0>;
-		has_flicker_detector = <0>;
-		has_hdr = <0>;
-		has_seamless_mode_change = <0>;
 		pdaf_free_area_num = <0>;
 		pdaf_fixed_area_size_w = <0>;
 		pdaf_fixed_area_size_h = <0>;
@@ -1163,7 +1058,7 @@
 				"CAM_CLK",
 				"GPIO_RESET",
 				"EXIT";
-			CAM_VDIG = <0 1200 76700 0>;
+			CAM_VDIG = <0 1000 76700 0>;
 			CAM_VIO = <1 0 0 0>;
 			CAM_VANA = <2 2700 39200 0>;
 			CAM_VAF = <3 2700 100000 3>;
@@ -1676,9 +1571,9 @@
 	qcom,init-ldo-mode = <1>;
 	qcom,init-pin-ctrl-enable = <0>;
 	qcom,init-pin-ctrl-mode = <0>;
-	regulator-min-microvolt = <2500000>;
-	regulator-max-microvolt = <2500000>;
-	qcom,init-voltage = <2500000>;
+	regulator-min-microvolt = <2200000>;
+	regulator-max-microvolt = <2200000>;
+	qcom,init-voltage = <2200000>;
 	status = "okay";
 };
 
@@ -1694,17 +1589,8 @@
 	status = "okay";
 };
 
-&pm8994_l19 {
-	qcom,regulator-type = <0>;	/* LDO */
-	qcom,init-enable = <0>;
-	qcom,init-ldo-mode = <1>;
-	qcom,init-pin-ctrl-enable = <0>;
-	qcom,init-pin-ctrl-mode = <0>;
-	regulator-min-microvolt = <2700000>;
-	regulator-max-microvolt = <2700000>;
-	qcom,init-voltage = <2700000>;
-	status = "okay";
-};
+/* pm8994_l19 */
+/* Follow QTI */
 
 /* pm8994_l20 */
 /* Follow QTI */
@@ -1751,9 +1637,9 @@
 	qcom,init-ldo-mode = <1>;
 	qcom,init-pin-ctrl-enable = <0>;
 	qcom,init-pin-ctrl-mode = <0>;
-	regulator-min-microvolt = <1200000>;
-	regulator-max-microvolt = <1200000>;
-	qcom,init-voltage = <1200000>;
+	regulator-min-microvolt = <1000000>;
+	regulator-max-microvolt = <1000000>;
+	qcom,init-voltage = <1000000>;
 	status = "okay";
 };
 
@@ -1773,16 +1659,7 @@
 };
 
 &pm8994_l30 {
-       qcom,regulator-type = <0>;      /* LDO */
-       qcom,init-enable = <0>;
-       qcom,init-ldo-mode = <1>;
-       qcom,init-pin-ctrl-enable = <0>;
-       qcom,init-pin-ctrl-mode = <0>;
-       regulator-min-microvolt = <2800000>;
-       regulator-max-microvolt = <2800000>;
-       qcom,init-voltage = <2800000>;
-       qcom,pull-down-enable = <1>;
-       status = "okay";
+	status = "disabled";
 };
 
 /* pm8994_l31 */
@@ -2207,7 +2084,7 @@
 		};
 	};
 
-	/* GPIO_26 : NC */
+	/* GPIO_26 : NC (CAM2_STANDBY) */
 	msm_gpio_26: msm_gpio_26 {
 		mux {
 			pins = "gpio26";
@@ -2761,7 +2638,7 @@
 	/* GPIO_68 : BT_PCM_DOUT */
 	/* Follow QTI */
 
-	/* GPIO_69 : CAM_SOF_INT */
+	/* GPIO_69 : NC (backup for AUDIO_REF_CLK) */
 	msm_gpio_69: msm_gpio_69 {
 		mux {
 			pins = "gpio69";
@@ -2771,20 +2648,8 @@
 		config {
 			pins = "gpio69";
 			drive-strength = <2>;
-			bias-pull-up;
-		};
-	};
-	msm_gpio_69_suspend: msm_gpio_69_suspend {
-		mux {
-			pins = "gpio69";
-			function = "gpio";
-		};
-
-		config {
-			pins = "gpio69";
-			drive-strength = <2>;
-			bias-pull-down;
-			input-enable;
+			bias-disable;
+			output-low;
 		};
 	};
 
@@ -3732,16 +3597,6 @@
 	qcom,pmi8994@2 {
 		qcom,power-on@800 {
 			qcom,s3-debounce = <128>;
-		};
-	};
-
-	qcom,pmi8994@3 {
-		qcom,leds@d800 {
-			somc,area_count_table_size = <21>;
-			somc,area_count_table = <0 137 273 410 546 683
-					819 956 1092 1229 1365
-					1638 1911 2184 2457 2730
-					3003 3276 3549 3822 4095>;
 		};
 	};
 };
