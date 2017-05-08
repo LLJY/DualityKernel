@@ -722,10 +722,6 @@ void lru_cache_add_active_or_unevictable(struct page *page,
 		 */
 		__mod_zone_page_state(page_zone(page), NR_MLOCK,
 				    hpage_nr_pages(page));
-		if (page_is_file_cache(page))
-			__mod_zone_page_state(page_zone(page), NR_MLOCK,
-				hpage_nr_pages(page));
-
 		count_vm_event(UNEVICTABLE_PGMLOCKED);
 	}
 	add_page_to_unevictable_list(page);

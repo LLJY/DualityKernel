@@ -14,6 +14,9 @@
  * Modifications are Copyright (c) 2014 Sony Mobile Communications Inc,
  * and licensed under the license of the file.
  */
+#if defined(CONFIG_SONY_CAM_V4L2)
+#include <media/v4l2-event.h>
+#endif
 #include "msm_sensor.h"
 #include "msm_sd.h"
 #include "camera.h"
@@ -674,6 +677,7 @@ static long msm_sensor_subdev_ioctl(struct v4l2_subdev *sd,
 	case MSM_SD_UNNOTIFY_FREEZE:
 		return 0;
 	default:
+		pr_err("%s cmd = %d\n", __func__, cmd);
 		return -ENOIOCTLCMD;
 	}
 }
@@ -685,12 +689,61 @@ static long msm_sensor_subdev_do_ioctl(
 	struct video_device *vdev = video_devdata(file);
 	struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
 	switch (cmd) {
+#if defined(CONFIG_SONY_CAM_V4L2)
+	case VIDIOC_DQEVENT: {
+		struct v4l2_fh *vfh = file->private_data;
+
+		if (!(sd->flags & V4L2_SUBDEV_FL_HAS_EVENTS))
+			return -ENOIOCTLCMD;
+		return v4l2_event_dequeue(vfh, arg,
+				file->f_flags & O_NONBLOCK);
+	}
+	case VIDIOC_SUBSCRIBE_EVENT: {
+		struct v4l2_fh *vfh = file->private_data;
+
+		return v4l2_subdev_call(sd, core, subscribe_event, vfh, arg);
+	}
+	case VIDIOC_UNSUBSCRIBE_EVENT: {
+		struct v4l2_fh *vfh = file->private_data;
+
+		return v4l2_subdev_call(sd, core, unsubscribe_event, vfh, arg);
+	}
+#endif
 	case VIDIOC_MSM_SENSOR_CFG32:
 		cmd = VIDIOC_MSM_SENSOR_CFG;
 	default:
 		return msm_sensor_subdev_ioctl(sd, cmd, arg);
 	}
 }
+
+#if defined(CONFIG_SONY_CAM_V4L2)
+static int msm_sensor_subscribe_event(struct v4l2_subdev *sd,
+	struct v4l2_fh *fh,
+	struct v4l2_event_subscription *sub)
+{
+	struct msm_sensor_ctrl_t *s_ctrl = get_sctrl(sd);
+	int rc = v4l2_event_subscribe(fh, sub, 100, NULL);
+
+	if (rc != 0)
+		pr_err("%s: Subs event_type =0x%x failed\n",
+			__func__, sub->type);
+	if (s_ctrl)
+		s_ctrl->sof_count = 0;
+	return rc;
+}
+
+static int msm_sensor_unsubscribe_event(struct v4l2_subdev *sd,
+	struct v4l2_fh *fh,
+	struct v4l2_event_subscription *sub)
+{
+	int rc = v4l2_event_unsubscribe(fh, sub);
+
+	if (rc != 0)
+		pr_err("%s: Subs event_type =0x%x failed\n",
+			__func__, sub->type);
+	return rc;
+}
+#endif
 
 long msm_sensor_subdev_fops_ioctl(struct file *file,
 	unsigned int cmd, unsigned long arg)
@@ -1858,6 +1911,12 @@ static int msm_sensor_v4l2_enum_fmt(struct v4l2_subdev *sd,
 static struct v4l2_subdev_core_ops msm_sensor_subdev_core_ops = {
 	.ioctl = msm_sensor_subdev_ioctl,
 	.s_power = msm_sensor_power,
+#ifdef CONFIG_COMPAT
+#if defined(CONFIG_SONY_CAM_V4L2)
+	.subscribe_event = msm_sensor_subscribe_event,
+	.unsubscribe_event = msm_sensor_unsubscribe_event,
+#endif
+#endif
 };
 
 static struct v4l2_subdev_video_ops msm_sensor_subdev_video_ops = {
@@ -1970,6 +2029,7 @@ int32_t msm_sensor_platform_probe(struct platform_device *pdev,
 		s_ctrl->sensordata->sensor_name);
 	v4l2_set_subdevdata(&s_ctrl->msm_sd.sd, pdev);
 	s_ctrl->msm_sd.sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+	s_ctrl->msm_sd.sd.flags |= V4L2_SUBDEV_FL_HAS_EVENTS;
 	media_entity_init(&s_ctrl->msm_sd.sd.entity, 0, NULL, 0);
 	s_ctrl->msm_sd.sd.entity.type = MEDIA_ENT_T_V4L2_SUBDEV;
 	s_ctrl->msm_sd.sd.entity.group_id = MSM_CAMERA_SUBDEV_SENSOR;

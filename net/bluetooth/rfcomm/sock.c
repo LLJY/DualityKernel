@@ -20,11 +20,6 @@
    COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS, RELATING TO USE OF THIS
    SOFTWARE IS DISCLAIMED.
 */
-/*
- * NOTE: This file has been modified by Sony Mobile Communications Inc.
- * Modifications are Copyright (c) 2016 Sony Mobile Communications Inc,
- * and licensed under the license of the file.
- */
 
 /*
  * RFCOMM sockets.
@@ -348,12 +343,12 @@ static int rfcomm_sock_bind(struct socket *sock, struct sockaddr *addr, int addr
 	if (!addr || addr->sa_family != AF_BLUETOOTH)
 		return -EINVAL;
 
-    memset(&sa, 0, sizeof(sa));
-    len = min_t(unsigned int, sizeof(sa), addr_len);
-    memcpy(&sa, addr, len);
-    chan = sa.rc_channel;
+	memset(&sa, 0, sizeof(sa));
+	len = min_t(unsigned int, sizeof(sa), addr_len);
+	memcpy(&sa, addr, len);
+	chan = sa.rc_channel;
 
-    BT_DBG("sk %p %pMR", sk, &sa.rc_bdaddr);
+	BT_DBG("sk %pK %pMR", sk, &sa.rc_bdaddr);
 
 	lock_sock(sk);
 

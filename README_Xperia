@@ -5,7 +5,13 @@ Configuration files can be found in arch/arm64/configs.
 
   diffconfigs for each product:
     Xperia X Performance F8131/F8132 => dora_diffconfig
+    Xperia X Performance SO-04H      => dora_dcm_diffconfig
+    Xperia X Performance SOV33       => dora_kddi_diffconfig
+    Xperia X Performance 502SO       => dora_sbm_diffconfig
     Xperia XZ F8331/F8332            => kagura_diffconfig
+    Xperia XZ SO-01J                 => kagura_dcm_diffconfig
+    Xperia XZ SOV34                  => kagura_kddi_diffconfig
+    Xperia XZ 601SO                  => kagura_sbm_diffconfig
 
 
 How to build your kernel:
@@ -24,7 +30,7 @@ How to build your kernel:
 
 
   Step 1: Build Your Kernel
-    $ cd kernel
+    $ cd kernel/msm-<kernel version>
 
     $ export ARCH=arm64
 
@@ -38,9 +44,9 @@ How to build your kernel:
     $ export KBUILD_DIFFCONFIG=kagura_diffconfig
       NOTE: Please set a configuration file you want to build.
 
-    $ make msm-perf_defconfig
+    $ make msm-perf_defconfig O=./out
 
-    $ make
+    $ make O=./out
 
     You can see arch/arm64/boot/Image.gz-dtb if you succeed in building.
 
@@ -48,3 +54,12 @@ How to build your kernel:
   Step 2: Assembling the boot.img
     (In the Linux Kernel directory)
     $ mkbootimg --kernel arch/arm64/boot/Image.gz-dtb --ramdisk boot.img-ramdisk.cpio.gz --cmdline "androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=16M@0-0xffffffff coherent_pool=2M enforcing=0" --base 0x80000000 --pagesize 4096 --ramdisk_offset 0x02200000 --tags_offset 0x02000000 --output boot.img
+    $ mkbootimg \
+      --kernel out/arch/arm64/boot/Image.gz-dtb \
+      --ramdisk ramdisk.img \
+      --cmdline "androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 cma=16M@0-0xffffffff coherent_pool=2M" \
+      --base 0x80000000 \
+      --pagesize 4096 \
+      --ramdisk_offset 0x02200000 \
+      --tags_offset 0x02000000 \
+      --output boot.img

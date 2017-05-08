@@ -1,11 +1,4 @@
 /*
- * Copyright (C) 2016 Sony Mobile Communications Inc.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2, as
- * published by the Free Software Foundation.
- */
-/*
  * Device driver for monitoring ambient light intensity in (lux), RGB, and
  * color temperature (in kelvin) within the AMS-TAOS TCS family of devices.
  *
@@ -255,11 +248,13 @@ struct tcs3490_chip {
     bool als_enabled;
 	int als_thres_enabled;
 	int als_switch_ch_enabled;
+	int vio_enable;
 
     bool als_gain_auto;
 	u8 als_channel;
     u8 device_index;
 	struct regulator *vdd;
+	struct regulator *vio;
 	struct pinctrl *pinctrl;
 	struct pinctrl_state *gpio_state_active;
 	struct pinctrl_state *gpio_state_suspend;
@@ -1264,6 +1259,10 @@ static int tcs3490_pltf_power_on(struct tcs3490_chip *chip)
 
 	mutex_lock(&chip->lock);
 	rc = regulator_enable(chip->vdd);
+	if (chip->vio_enable) {
+		rc = regulator_enable(chip->vio);
+	}
+
 	if (rc) {
 		dev_err(&chip->client->dev,
 		"Regulator vdd enable failed rc=%d\n", rc);
@@ -1274,6 +1273,7 @@ static int tcs3490_pltf_power_on(struct tcs3490_chip *chip)
 		"%s: rgbcir, power init, regulator enable OK\n", __func__);
 
 		/* Enable Oscillator */
+		usleep_range(1000, 1000);
 		tcs3490_i2c_write(chip, TCS3490_CONTROL, 0x01);
 		mutex_unlock(&chip->lock);
 		usleep_range(10000, 11000);
@@ -1297,6 +1297,8 @@ static int tcs3490_power_on(struct tcs3490_chip *chip)
 
 	if (!rc)
 		chip->unpowered = false;
+	else
+		tcs3490_pltf_power_off(chip);
 
     return rc;
 }
@@ -1304,12 +1306,19 @@ static int tcs3490_power_on(struct tcs3490_chip *chip)
 static int tcs3490_pltf_power_off(struct tcs3490_chip *chip)
 {
 	int rc = 0;
+	int rc2 = 0;
 
 	mutex_lock(&chip->lock);
 	/* Disable Oscillator */
 	tcs3490_i2c_write(chip, TCS3490_CONTROL, 0x00);
 	usleep_range(3000, 4000);
 	rc = regulator_disable(chip->vdd);
+	if (chip->vio_enable) {
+		rc2 = regulator_disable(chip->vio);
+		if (!rc && rc2) {
+			rc = rc2;
+		}
+	}
 
 	if (!rc)
 		chip->unpowered = true;
@@ -1366,6 +1375,25 @@ static int tcs3490_probe(struct i2c_client *client,
 	}
 	dev_info(&chip->client->dev,
 		"%s: rgbcir, power init, regulator get OK\n", __func__);
+	rc = of_property_match_string(chip->client->dev.of_node,
+		"ams,rgbcir-supply_name", "rgbcir_vio");
+	if (rc < 0) {
+		chip->vio_enable = 0;
+	} else {
+		chip->vio_enable = 1;
+	}
+	if (chip->vio_enable) {
+		chip->vio = regulator_get(&chip->client->dev, "rgbcir_vio");
+		if (IS_ERR(chip->vio)) {
+			rc = PTR_ERR(chip->vio);
+			dev_err(&chip->client->dev,
+				"Regulator get failed,vio, rc = %d\n", rc);
+				mutex_unlock(&chip->lock);
+			goto init_failed;
+		}
+		dev_info(&chip->client->dev,
+			"%s: rgbcir, power init, regulator vio get OK\n", __func__);
+	}
 	chip->unpowered = true;
 
 	chip->a_idev = input_allocate_device();
@@ -1421,6 +1449,8 @@ static int tcs3490_probe(struct i2c_client *client,
 	return 0;
 
 init_failed:
+	if (chip->vdd)
+		regulator_put(chip->vdd);
 	dev_err(&client->dev, "Probe failed.\n");
 	return rc;
 
@@ -1428,6 +1458,10 @@ exit_unregister_dev_ps:
 	input_unregister_device(chip->a_idev);
 exit_free_dev_ps:
 	input_free_device(chip->a_idev);
+	if (chip->vio_enable && chip->vio)
+		regulator_put(chip->vio);
+	if (chip->vdd)
+		regulator_put(chip->vdd);
 	kfree(chip);
 	return rc;
 }
@@ -1438,6 +1472,10 @@ static int tcs3490_remove(struct i2c_client *client)
 	sysfs_remove_link(&chip->a_idev->dev.kobj,
 		RGBCIR_SENSOR_SYSFS_LINK_NAME);
     free_irq(client->irq, chip);
+    if (chip->vio_enable && chip->vio)
+	regulator_put(chip->vio);
+    if (chip->vdd)
+	regulator_put(chip->vdd);
     if (chip->a_idev) {
         input_unregister_device(chip->a_idev);
     }

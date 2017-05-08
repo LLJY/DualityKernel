@@ -43,6 +43,15 @@
 #include "debug.h"
 #include "io.h"
 
+#define DEBUG_USB_WLV /* enable debug for USB Wakelock */
+#ifdef DEBUG_USB_WLV
+/* define macro for usb wakelock */
+#define pr_info_wl(format, ...) \
+	pr_info("[%d] %s: [USB_WL] " format, current->pid, \
+                __func__, ##__VA_ARGS__)
+
+#endif /* DEBUG_USB_WLV */
+
 static void dwc3_gadget_wakeup_interrupt(struct dwc3 *dwc, bool remote_wakeup);
 static int dwc3_gadget_wakeup_int(struct dwc3 *dwc);
 
@@ -1421,6 +1430,7 @@ static int dwc3_gadget_wakeup(struct usb_gadget *g)
 {
 	struct dwc3		*dwc = gadget_to_dwc(g);
 
+	pr_info_wl("Entry\n");
 	schedule_work(&dwc->wakeup_work);
 	return 0;
 }
@@ -1679,6 +1689,7 @@ static void dwc3_gadget_wakeup_work(struct work_struct *w)
 	int			ret;
 	static int		retry_count;
 
+	pr_info_wl("Entry\n");
 	dwc = container_of(w, struct dwc3, wakeup_work);
 
 	ret = pm_runtime_get_sync(dwc->dev);
@@ -1687,7 +1698,7 @@ static void dwc3_gadget_wakeup_work(struct work_struct *w)
 		 * late_suspend and early_resume, wait for system resume to
 		 * finish and queue work again
 		 */
-		pr_debug("PM runtime get sync failed, ret %d\n", ret);
+		pr_info_wl("PM runtime get sync failed, ret %d\n", ret);
 		if (ret == -EACCES) {
 			pm_runtime_put_noidle(dwc->dev);
 			if (retry_count == DWC3_PM_RESUME_RETRIES) {
@@ -1986,6 +1997,7 @@ static int dwc3_gadget_vbus_draw(struct usb_gadget *g, unsigned mA)
 
 	dwc->vbus_draw = mA;
 	dev_dbg(dwc->dev, "Notify controller from %s. mA = %d\n", __func__, mA);
+	pr_info_wl("Notify controller from %s. mA = %d\n", __func__, mA);
 	dwc3_notify_event(dwc, DWC3_CONTROLLER_SET_CURRENT_DRAW_EVENT, 0);
 	return 0;
 }
@@ -1996,6 +2008,7 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
 	unsigned long		flags;
 	int			ret;
 
+	pr_info_wl("Entry\n");
 	is_on = !!is_on;
 
 	dwc->softconnect = is_on;
