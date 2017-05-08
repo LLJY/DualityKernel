@@ -18,7 +18,6 @@
 
 #ifdef __KERNEL__
 
-#define MAX_CONFIG_DELAY_NUM 20
 #define MAX_PLL_NUM 30
 
 enum sony_camera_cmd {
@@ -47,9 +46,6 @@ struct sony_camera_module {
 	uint32_t		mount_angle;
 	uint32_t		sensor_rotation;
 	uint32_t		sensor_facing;
-	uint32_t		sensor_config_delay_num;
-	uint32_t		sensor_config_delay[MAX_CONFIG_DELAY_NUM];
-	uint32_t		temperature_check_skip_num;
 	uint32_t		total_pixel_number_w;
 	uint32_t		total_pixel_number_h;
 	uint32_t		active_pixel_number_x;
@@ -63,29 +59,12 @@ struct sony_camera_module {
 	const char		*unit_cell_size_h;
 	const char		*min_f_number;
 	const char		*max_f_number;
-	uint32_t		min_focus_pos;
-	uint32_t		max_focus_pos;
-	uint32_t		min_focus_dac;
-	uint32_t		max_focus_dac;
-	uint32_t		focus_inf_range_offset;
-	uint32_t		focus_macro_range_offset;
-	uint32_t		focus_lens_stroke_inf_to_1m;
-	uint32_t		focus_lens_stroke_1m_to_macro;
-	uint32_t		focus_lens_stroke_inf_to_macro;
-	uint32_t		focus_calc_type;
 	uint32_t		has_3a;
 	uint32_t		has_focus_actuator;
 	uint32_t		need_standby_af;
 	uint32_t		i2c_freq_mode;
 	uint32_t		has_pdaf;
 	uint32_t		has_rs;
-	uint32_t		has_multi_output;
-	uint32_t		has_super_slow;
-	uint32_t		has_sub_sensor;
-	uint32_t		has_aube;
-	uint32_t		has_flicker_detector;
-	uint32_t		has_hdr;
-	uint32_t		has_seamless_mode_change;
 	uint32_t		pdaf_free_area_num;
 	uint32_t		pdaf_fixed_area_size_w;
 	uint32_t		pdaf_fixed_area_size_h;

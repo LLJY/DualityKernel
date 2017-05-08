@@ -2226,7 +2226,6 @@ static int rndis_qc_function_bind_config(struct android_usb_function *f,
 	}
 
 	if (rndis->wceis) {
-#ifndef CONFIG_SET_DEFAULT_RNDIS_6
 		/* "Wireless" RNDIS; auto-detected by Windows */
 		rndis_qc_iad_descriptor.bFunctionClass =
 						USB_CLASS_WIRELESS_CONTROLLER;
@@ -2236,15 +2235,6 @@ static int rndis_qc_function_bind_config(struct android_usb_function *f,
 						USB_CLASS_WIRELESS_CONTROLLER;
 		rndis_qc_control_intf.bInterfaceSubClass =	 0x01;
 		rndis_qc_control_intf.bInterfaceProtocol =	 0x03;
-#else
-		/* "Wireless" RNDIS6; auto-detected by Windows */
-		rndis_qc_iad_descriptor.bFunctionClass = 0xef;
-		rndis_qc_iad_descriptor.bFunctionSubClass = 0x04;
-		rndis_qc_iad_descriptor.bFunctionProtocol = 0x01;
-		rndis_qc_control_intf.bInterfaceClass = 0xef;
-		rndis_qc_control_intf.bInterfaceSubClass = 0x04;
-		rndis_qc_control_intf.bInterfaceProtocol = 0x01;
-#endif
 	}
 
 	return rndis_qc_bind_config_vendor(c, rndis->ethaddr, rndis->vendorID,

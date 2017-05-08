@@ -647,12 +647,8 @@ static int mmc_read_ext_csd(struct mmc_card *card, u8 *ext_csd)
 	if (card->ext_csd.rev >= 6) {
 		card->ext_csd.feature_support |= MMC_DISCARD_FEATURE;
 
-		if (card->cid.manfid == CID_MANFID_HYNIX) {
-			card->ext_csd.generic_cmd6_time = 100;
-		} else {
-			card->ext_csd.generic_cmd6_time = 10 *
-				ext_csd[EXT_CSD_GENERIC_CMD6_TIME];
-		}
+		card->ext_csd.generic_cmd6_time = 10 *
+			ext_csd[EXT_CSD_GENERIC_CMD6_TIME];
 		card->ext_csd.power_off_longtime = 10 *
 			ext_csd[EXT_CSD_POWER_OFF_LONG_TIME];
 
@@ -691,7 +687,7 @@ static int mmc_read_ext_csd(struct mmc_card *card, u8 *ext_csd)
 		card->ext_csd.strobe_support = ext_csd[EXT_CSD_STROBE_SUPPORT];
 		card->ext_csd.cmdq_support = ext_csd[EXT_CSD_CMDQ_SUPPORT];
 		card->ext_csd.fw_version = ext_csd[EXT_CSD_FW_VERSION];
-		pr_err("%s: eMMC FW version: 0x%02x\n",
+		pr_info("%s: eMMC FW version: 0x%02x\n",
 			mmc_hostname(card->host),
 			card->ext_csd.fw_version);
 		if (card->ext_csd.cmdq_support) {
@@ -2515,6 +2511,12 @@ static int _mmc_suspend(struct mmc_host *host, bool is_suspend)
 			goto out;
 	}
 
+	if (mmc_card_doing_auto_bkops(host->card)) {
+		err = mmc_set_auto_bkops(host->card, false);
+		if (err)
+			goto out;
+	}
+
 	err = mmc_cache_ctrl(host, 0);
 	if (err)
 		goto out;
@@ -2600,6 +2602,9 @@ static int mmc_partial_init(struct mmc_host *host)
 		    mmc_hostname(host), __func__, err);
 		goto out;
 	}
+
+	if (mmc_card_support_auto_bkops(host->card))
+		(void)mmc_set_auto_bkops(host->card, true);
 
 	if (host->card->cmdq_init) {
 		mmc_host_clk_hold(host);

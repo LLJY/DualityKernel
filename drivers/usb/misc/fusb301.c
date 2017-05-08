@@ -194,9 +194,6 @@
 
 #define SW_RESET_DONE			1
 
-#define DRP_BOOT_CHK_CONNECTED_TIMEOUT	1000
-#define DRP_BOOT_DRP_SECT_TIMEOUT	30000
-
 struct fusb301_data {
 	int int_gpio;
 	u8 init_mode;
@@ -210,7 +207,6 @@ struct fusb301_data {
 	bool cbl_sns_enabled;
 	int cbl_sns_gpio;
 	bool ext_typec_ctrl_enabled;
-	bool drp_boot_enabled;
 };
 
 struct fusb301_chip {
@@ -252,8 +248,6 @@ struct fusb301_chip {
 	struct delayed_work bwork;
 	bool is_bs;
 	bool sw_resetting;
-	struct delayed_work dbdrpwork;
-	struct delayed_work dbsnkwork;
 };
 
 #define fusb_update_state(chip, st) \
@@ -1658,10 +1652,6 @@ static void fusb301_attach(struct fusb301_chip *chip)
 
 	switch (type) {
 	case FUSB301_TYPE_SRC:
-		if (chip->pdata->drp_boot_enabled) {
-			dev_info(cdev, "drp_boot: cancel drp work.\n");
-			cancel_delayed_work(&chip->dbdrpwork);
-		}
 		fusb301_src_detected(chip);
 		break;
 	case FUSB301_TYPE_SNK:
@@ -1829,8 +1819,8 @@ static int fusb301_init_gpio(struct fusb301_chip *chip)
 			return rc;
 		}
 	}
-	if (chip->pdata->cbl_sns_enabled &&
-				gpio_is_valid(chip->pdata->cbl_sns_gpio)) {
+
+	if (gpio_is_valid(chip->pdata->cbl_sns_gpio)) {
 		rc = gpio_request_one(chip->pdata->cbl_sns_gpio,
 				GPIOF_OUT_INIT_LOW, "fusb301_cbl_sns_gpio");
 		if (rc)
@@ -1912,26 +1902,13 @@ static int fusb301_parse_dt(struct fusb301_chip *chip)
 		goto out;
 	}
 
-	data->drp_boot_enabled = of_property_read_bool(dev_node,
-						"fusb301,drp_boot-enabled");
-	if (data->drp_boot_enabled) {
-		if (data->cbl_det_gpio) {
-			dev_info(cdev, "dpr_boot is enabled\n");
-		} else {
-			dev_warn(cdev,
-				"dpr_boot is enabled but cbl_det is disabled\n");
-			data->drp_boot_enabled = false;
-		}
-	}
-
 	data->cbl_sns_enabled = of_property_read_bool(dev_node,
 						"fusb301,cbl_sns-enabled");
 
 	data->cbl_sns_gpio = of_get_named_gpio(dev_node,
 						"fusb301,cbl_sns-gpio", 0);
-	if (data->cbl_sns_enabled &&
-				!gpio_is_valid(chip->pdata->cbl_sns_gpio)) {
-		dev_err(cdev, "cbl_sns_gpio is not available.\n");
+	if (data->cbl_sns_gpio < 0) {
+		dev_err(cdev, "cbl_sns_gpio is not available\n");
 		rc = data->cbl_sns_gpio;
 		goto out;
 	}
@@ -2263,41 +2240,6 @@ static void fusb301_typec_ctrl_bs_work(struct work_struct *work)
 	mutex_unlock(&chip->mlock);
 }
 
-static void fusb301_typec_drp_boot_drp_work(struct work_struct *work)
-{
-	struct fusb301_chip *chip =
-			container_of(work, struct fusb301_chip, dbdrpwork.work);
-	struct device *cdev = &chip->client->dev;
-
-	mutex_lock(&chip->mlock);
-	if (chip->state == FUSB_STATE_ERROR_RECOVERY) {
-		dev_info(cdev, "drp_boot: nothing is connected, set DRP.\n");
-		fusb301_set_mode(chip, FUSB301_DRP);
-		schedule_delayed_work(&chip->dbsnkwork,
-				msecs_to_jiffies(DRP_BOOT_DRP_SECT_TIMEOUT));
-	} else {
-		dev_info(cdev, "drp_boot: something connected, do nothing\n");
-	}
-	mutex_unlock(&chip->mlock);
-}
-
-static void fusb301_typec_drp_boot_snk_work(struct work_struct *work)
-{
-	struct fusb301_chip *chip =
-			container_of(work, struct fusb301_chip, dbsnkwork.work);
-	struct device *cdev = &chip->client->dev;
-
-	mutex_lock(&chip->mlock);
-	if (chip->state == FUSB_STATE_ERROR_RECOVERY) {
-		dev_info(cdev,
-			"drp_boot: expired and nothing connected, set SNK.\n");
-		fusb301_set_mode(chip, FUSB301_SNK);
-	} else {
-		dev_info(cdev, "drp_boot: something connected, do nothing\n");
-	}
-	mutex_unlock(&chip->mlock);
-}
-
 static int fusb301_set_property(struct power_supply *psy,
 				enum power_supply_property prop,
 				const union power_supply_propval *val)
@@ -2458,16 +2400,6 @@ static int fusb301_probe(struct i2c_client *client,
 		goto err4;
 	}
 
-	INIT_DELAYED_WORK(&chip->dbsnkwork, fusb301_typec_drp_boot_snk_work);
-	INIT_DELAYED_WORK(&chip->dbdrpwork, fusb301_typec_drp_boot_drp_work);
-	if (chip->pdata->drp_boot_enabled) {
-		dev_info(cdev,
-			"drp_boot: wait %d msecs to check something connected.\n",
-						DRP_BOOT_CHK_CONNECTED_TIMEOUT);
-		schedule_delayed_work(&chip->dbdrpwork,
-			msecs_to_jiffies(DRP_BOOT_CHK_CONNECTED_TIMEOUT));
-	}
-
 	chip->bclvl_masked = FUSB301_INT_ENABLE;
 	ret = devm_request_irq(cdev, chip->irq_gpio,
 				fusb301_interrupt,
@@ -2610,8 +2542,7 @@ static int fusb301_remove(struct i2c_client *client)
 
 	power_supply_unregister(&chip->type_c_psy);
 
-	if (chip->pdata->cbl_sns_enabled &&
-				gpio_is_valid(chip->pdata->cbl_sns_gpio))
+	if (gpio_is_valid(chip->pdata->cbl_sns_gpio))
 		gpio_direction_output(chip->pdata->cbl_sns_gpio, 0);
 	if (chip->irq_cbl_det > 0) {
 		disable_irq_wake(chip->irq_cbl_det);

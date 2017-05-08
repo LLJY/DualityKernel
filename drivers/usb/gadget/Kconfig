@@ -442,13 +442,6 @@ config USB_ANDROID_RNDIS_DWORD_ALIGNED
 	help
 		Provides dword aligned for DMA controller.
 
-config SET_DEFAULT_RNDIS_6
-	boolean "Set default rndis version 6"
-	depends on USB_G_ANDROID
-	help
-		Change the Interface descriptor to make Windows install RNDIS6
-		driver.
-
 source "drivers/usb/gadget/legacy/Kconfig"
 
 endchoice
