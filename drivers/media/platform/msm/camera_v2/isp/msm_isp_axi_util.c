@@ -1830,8 +1830,10 @@ static int msm_isp_cfg_ping_pong_address(struct vfe_device *vfe_dev,
 			for (vfe_id = 0; vfe_id < MAX_VFE; vfe_id++) {
 				if (vfe_id != vfe_dev->pdev->id)
 					spin_lock_irqsave(
-						&vfe_dev->common_data->
-						common_dev_axi_lock, flags);
+						&dual_vfe_res->
+						axi_data[vfe_id]->
+						stream_info[stream_idx].
+						lock, flags);
 
 				if (buf)
 					vfe_dev->hw_info->vfe_ops.axi_ops.
@@ -1860,8 +1862,10 @@ static int msm_isp_cfg_ping_pong_address(struct vfe_device *vfe_dev,
 				}
 				if (vfe_id != vfe_dev->pdev->id)
 					spin_unlock_irqrestore(
-						&vfe_dev->common_data->
-						common_dev_axi_lock, flags);
+						&dual_vfe_res->
+						axi_data[vfe_id]->
+						stream_info[stream_idx].
+						lock, flags);
 			}
 		} else {
 			if (buf)

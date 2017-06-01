@@ -45,7 +45,7 @@
 /* Globals */
 static int zram_major;
 static struct zram *zram_devices;
-static const char *default_compressor = "lz4";
+static const char *default_compressor = "lzo";
 #define BACKEND_PARAM_BUF_SIZE	32
 static char backend_param_buf[BACKEND_PARAM_BUF_SIZE];
 
@@ -529,13 +529,13 @@ static int zram_decompress_page(struct zram *zram, char *mem, u32 index)
 
 	if (!handle || zram_test_flag(meta, index, ZRAM_ZERO)) {
 		bit_spin_unlock(ZRAM_ACCESS, &meta->table[index].value);
-		memset(mem, 0, PAGE_SIZE);
+		clear_page(mem);
 		return 0;
 	}
 
 	cmem = zpool_map_handle(meta->mem_pool, handle, ZPOOL_MM_RO);
 	if (size == PAGE_SIZE)
-		memcpy(mem, cmem, PAGE_SIZE);
+		copy_page(mem, cmem);
 	else
 		ret = zcomp_decompress(zram->comp, cmem, size, mem);
 	zpool_unmap_handle(meta->mem_pool, handle);
@@ -734,7 +734,7 @@ compress_again:
 
 	if ((clen == PAGE_SIZE) && !is_partial_io(bvec)) {
 		src = kmap_atomic(page);
-		memcpy(cmem, src, PAGE_SIZE);
+		copy_page(cmem, src);
 		kunmap_atomic(src);
 	} else {
 		memcpy(cmem, src, clen);

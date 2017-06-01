@@ -36,7 +36,7 @@
 #include <sound/q6core.h>
 #include <sound/pcm_params.h>
 #include <sound/info.h>
-#include "device_event.h"
+#include <device_event.h>
 #include "qdsp6v2/msm-pcm-routing-v2.h"
 #include "../codecs/wcd9xxx-common.h"
 #include "../codecs/wcd9330.h"
@@ -361,7 +361,7 @@ static int msm8996_get_spk(struct snd_kcontrol *kcontrol,
 static int msm8996_set_spk(struct snd_kcontrol *kcontrol,
 			      struct snd_ctl_elem_value *ucontrol)
 {
-	struct snd_soc_codec *codec = snd_soc_kcontrol_codec(kcontrol);
+	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
 
 	pr_debug("%s() ucontrol->value.integer.value[0] = %ld\n",
 		 __func__, ucontrol->value.integer.value[0]);

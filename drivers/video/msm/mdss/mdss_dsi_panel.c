@@ -27,8 +27,8 @@
 #include <linux/qpnp/pwm.h>
 #include <linux/err.h>
 #include <linux/string.h>
-
 #include <linux/display_state.h>
+
 #include "mdss_dsi.h"
 #include "mdss_dba_utils.h"
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL
@@ -44,10 +44,7 @@
 
 DEFINE_LED_TRIGGER(bl_led_trigger);
 
-extern void lazyplug_enter_lazy(bool enter);
-
 bool display_on = true;
-
 bool is_display_on()
 {
 	return display_on;
@@ -762,7 +759,6 @@ static int mdss_dsi_panel_on(struct mdss_panel_data *pdata)
 	}
 
 	display_on = true;
-    lazyplug_enter_lazy(false);
 
 	pinfo = &pdata->panel_info;
 	ctrl = container_of(pdata, struct mdss_dsi_ctrl_pdata,
@@ -905,7 +901,6 @@ static int mdss_dsi_panel_off(struct mdss_panel_data *pdata)
 	}
 
 	display_on = false;
-    lazyplug_enter_lazy(false);
 
 end:
 #ifdef CONFIG_FB_MSM_MDSS_SPECIFIC_PANEL

@@ -25,8 +25,6 @@
 
 #define MAX_EVENTS 30
 
-extern void lazyplug_enter_lazy(bool enter);
-
 static int get_poll_flags(void *instance)
 {
 	struct msm_vidc_inst *inst = instance;
@@ -360,7 +358,7 @@ static struct msm_smem *map_buffer(struct msm_vidc_inst *inst,
 	struct msm_smem *handle = NULL;
 	handle = msm_comm_smem_user_to_kernel(inst,
 				p->reserved[0],
-				p->length,
+				p->reserved[1],
 				buffer_type);
 	if (!handle) {
 		dprintk(VIDC_ERR,
@@ -428,10 +426,8 @@ int map_and_register_buf(struct msm_vidc_inst *inst, struct v4l2_buffer *b)
 		goto exit;
 	}
 
-	dprintk(VIDC_DBG,
-		"[MAP] Create binfo = %pK fd = %d size = %d type = %d\n",
-		binfo, b->m.planes[0].reserved[0],
-		b->m.planes[0].length, b->type);
+	dprintk(VIDC_DBG, "[MAP] Create binfo = %pK fd = %d type = %d\n",
+			binfo, b->m.planes[0].reserved[0], b->type);
 
 	for (i = 0; i < b->length; ++i) {
 		rc = 0;
@@ -1221,8 +1217,6 @@ void *msm_vidc_open(int core_id, int session_type)
 
 	setup_event_queue(inst, &core->vdev[session_type].vdev);
 
-    lazyplug_enter_lazy(true);
-
 	mutex_lock(&core->lock);
 	list_add_tail(&inst->list, &core->instances);
 	mutex_unlock(&core->lock);
@@ -1335,7 +1329,6 @@ int msm_vidc_destroy(struct msm_vidc_inst *inst)
 	pr_info(VIDC_DBG_TAG "Closed video instance: %pK\n",
 			VIDC_MSG_PRIO2STRING(VIDC_INFO), inst);
 	kfree(inst);
-    lazyplug_enter_lazy(false);
 	return 0;
 }
 

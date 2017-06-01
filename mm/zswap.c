@@ -82,38 +82,7 @@ module_param_named(enabled, zswap_enabled, bool, 0444);
 /* Compressor to be used by zswap (fixed at boot for now) */
 #define ZSWAP_COMPRESSOR_DEFAULT "lzo"
 static char *zswap_compressor = ZSWAP_COMPRESSOR_DEFAULT;
- module_param_named(compressor, zswap_compressor, charp, 0444);
- 
- /* The maximum percentage of memory that the compressed pool can occupy */
- static unsigned int zswap_max_pool_percent = 20;
- module_param_named(max_pool_percent,
- 		        zswap_max_pool_percent, uint, 0644);
-static int zswap_compressor_param_set(const char *,
-				      const struct kernel_param *);
-static struct kernel_param_ops zswap_compressor_param_ops = {
-	.set =		zswap_compressor_param_set,
-	.get =		param_get_string,
-};
-module_param_cb(compressor, &zswap_compressor_param_ops,
-		&zswap_compressor_kparam, 0644);
-
-/* Compressed storage zpool to use */
-#define ZSWAP_ZPOOL_DEFAULT "zbud"
-static char zswap_zpool_type[32 /* arbitrary */] = ZSWAP_ZPOOL_DEFAULT;
-static struct kparam_string zswap_zpool_kparam = {
-	.string =	zswap_zpool_type,
-	.maxlen =	sizeof(zswap_zpool_type),
-};
-static int zswap_zpool_param_set(const char *, const struct kernel_param *);
-static struct kernel_param_ops zswap_zpool_param_ops = {
-	.set =	zswap_zpool_param_set,
-	.get =	param_get_string,
-};
-module_param_cb(zpool, &zswap_zpool_param_ops, &zswap_zpool_kparam, 0644);
-=======
-static char *zswap_compressor = ZSWAP_COMPRESSOR_DEFAULT;
 module_param_named(compressor, zswap_compressor, charp, 0444);
->>>>>>> parent of 9051e67... zswap: change zpool/compressor at runtime
 
 /* The maximum percentage of memory that the compressed pool can occupy */
 static unsigned int zswap_max_pool_percent = 20;

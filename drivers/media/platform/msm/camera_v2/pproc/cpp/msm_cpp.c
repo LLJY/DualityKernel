@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -2851,6 +2851,7 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 		struct msm_cpp_stream_buff_info_t *u_stream_buff_info = NULL;
 		struct msm_cpp_stream_buff_info_t k_stream_buff_info;
 		struct msm_cpp_buff_queue_info_t *buff_queue_info = NULL;
+
 		memset(&k_stream_buff_info, 0, sizeof(k_stream_buff_info));
 		CPP_DBG("VIDIOC_MSM_CPP_ENQUEUE_STREAM_BUFF_INFO\n");
 		if (sizeof(struct msm_cpp_stream_buff_info_t) !=
@@ -2931,14 +2932,6 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 				cpp_dev->state = CPP_STATE_ACTIVE;
 				msm_cpp_clear_timer(cpp_dev);
 				msm_cpp_clean_queue(cpp_dev);
-
-				disable_irq(cpp_dev->irq->start);
-				cpp_load_fw(cpp_dev, cpp_dev->fw_name_bin);
-				enable_irq(cpp_dev->irq->start);
-				msm_camera_io_w_mb(0x7C8, cpp_dev->base +
-					MSM_CPP_MICRO_IRQGEN_MASK);
-				msm_camera_io_w_mb(0xFFFF, cpp_dev->base +
-					MSM_CPP_MICRO_IRQGEN_CLR);
 			}
 			cpp_dev->stream_cnt++;
 			CPP_DBG("stream_cnt:%d\n", cpp_dev->stream_cnt);
@@ -2970,10 +2963,8 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 		}
 
 STREAM_BUFF_END:
-		if (k_stream_buff_info.buffer_info)
-			kfree(k_stream_buff_info.buffer_info);
-		if (u_stream_buff_info)
-			kfree(u_stream_buff_info);
+		kfree(k_stream_buff_info.buffer_info);
+		kfree(u_stream_buff_info);
 
 		break;
 	}
@@ -3560,7 +3551,6 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 	struct msm_cpp_frame_info32_t k32_frame_info;
 	struct msm_cpp_frame_info_t k64_frame_info;
 	uint32_t identity_k = 0;
-	bool is_copytouser_req = true;
 	void __user *up = (void __user *)arg;
 
 	if (sd == NULL) {
@@ -3694,8 +3684,9 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 				break;
 			}
 		}
-		if (copy_to_user((void __user *)kp_ioctl.ioctl_ptr,
-			&inst_info, sizeof(struct msm_cpp_frame_info32_t))) {
+		if (copy_to_user(
+				(void __user *)kp_ioctl.ioctl_ptr, &inst_info,
+				sizeof(struct msm_cpp_frame_info32_t))) {
 			mutex_unlock(&cpp_dev->mutex);
 			return -EFAULT;
 		}
@@ -3731,7 +3722,6 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 				  sizeof(struct msm_cpp_stream_buff_info_t);
 			}
 		}
-		is_copytouser_req = false;
 		if (cmd == VIDIOC_MSM_CPP_ENQUEUE_STREAM_BUFF_INFO32)
 			cmd = VIDIOC_MSM_CPP_ENQUEUE_STREAM_BUFF_INFO;
 		else if (cmd == VIDIOC_MSM_CPP_DELETE_STREAM_BUFF32)
@@ -3746,7 +3736,6 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 		get_user(identity_k, identity_u);
 		kp_ioctl.ioctl_ptr = (void *)&identity_k;
 		kp_ioctl.len = sizeof(uint32_t);
-		is_copytouser_req = false;
 		cmd = VIDIOC_MSM_CPP_DEQUEUE_STREAM_BUFF_INFO;
 		break;
 	}
@@ -3805,7 +3794,6 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 					sizeof(struct msm_cpp_clock_settings_t);
 			}
 		}
-		is_copytouser_req = false;
 		cmd = VIDIOC_MSM_CPP_SET_CLOCK;
 		break;
 	}
@@ -3831,7 +3819,6 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 
 		kp_ioctl.ioctl_ptr = (void *)&k_queue_buf;
 		kp_ioctl.len = sizeof(struct msm_pproc_queue_buf_info);
-		is_copytouser_req = false;
 		cmd = VIDIOC_MSM_CPP_QUEUE_BUF;
 		break;
 	}
@@ -3856,8 +3843,6 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 		k64_frame_info.frame_id = k32_frame_info.frame_id;
 
 		kp_ioctl.ioctl_ptr = (void *)&k64_frame_info;
-
-		is_copytouser_req = false;
 		cmd = VIDIOC_MSM_CPP_POP_STREAM_BUFFER;
 		break;
 	}
@@ -3911,16 +3896,13 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 		break;
 	}
 
-	if (is_copytouser_req) {
-		up32_ioctl.id = kp_ioctl.id;
-		up32_ioctl.len = kp_ioctl.len;
-		up32_ioctl.trans_code = kp_ioctl.trans_code;
-		up32_ioctl.ioctl_ptr = ptr_to_compat(kp_ioctl.ioctl_ptr);
+	up32_ioctl.id = kp_ioctl.id;
+	up32_ioctl.len = kp_ioctl.len;
+	up32_ioctl.trans_code = kp_ioctl.trans_code;
+	up32_ioctl.ioctl_ptr = ptr_to_compat(kp_ioctl.ioctl_ptr);
 
-		if (copy_to_user((void __user *)up, &up32_ioctl,
-			sizeof(up32_ioctl)))
-			return -EFAULT;
-	}
+	if (copy_to_user((void __user *)up, &up32_ioctl, sizeof(up32_ioctl)))
+		return -EFAULT;
 
 	return rc;
 }

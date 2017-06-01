@@ -136,6 +136,4 @@ static inline void prefetchw(const void *ptr)
 
 #endif
 
-#include <asm-generic/processor.h>
-
 #endif /* __ASM_ARM_PROCESSOR_H */
