@@ -19,11 +19,6 @@
  *  Adaptive scheduling granularity, math enhancements by Peter Zijlstra
  *  Copyright (C) 2007 Red Hat, Inc., Peter Zijlstra <pzijlstr@redhat.com>
  */
-/*
- * NOTE: This file has been modified by Sony Mobile Communications Inc.
- * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
- * and licensed under the license of the file.
- */
 
 #include <linux/latencytop.h>
 #include <linux/sched.h>
@@ -41,7 +36,7 @@
 
 /*
  * Targeted preemption latency for CPU-bound tasks:
- * (default: 4ms * (1 + ilog(ncpus)), units: nanoseconds)
+ * (default: 6ms * (1 + ilog(ncpus)), units: nanoseconds)
  *
  * NOTE: this latency value is not the same as the concept of
  * 'timeslice length' - timeslices in CFS are of variable length
@@ -51,8 +46,8 @@
  * (to see the precise effective timeslice length of your workload,
  *  run vmstat and monitor the context-switches (cs) field)
  */
-unsigned int sysctl_sched_latency = 4000000ULL;
-unsigned int normalized_sysctl_sched_latency = 4000000ULL;
+unsigned int sysctl_sched_latency = 6000000ULL;
+unsigned int normalized_sysctl_sched_latency = 6000000ULL;
 
 /*
  * The initial- and re-scaling of tunables is configurable
@@ -2381,7 +2376,7 @@ unsigned int __read_mostly sysctl_sched_big_waker_task_load_pct = 25;
  * task. This eliminates the LPM exit latency associated with the idle
  * CPUs in the waker cluster.
  */
-unsigned int __read_mostly sysctl_sched_prefer_sync_wakee_to_waker = 1;
+unsigned int __read_mostly sysctl_sched_prefer_sync_wakee_to_waker;
 
 /*
  * CPUs with load greater than the sched_spill_load_threshold are not
@@ -2584,24 +2579,11 @@ static DEFINE_MUTEX(boost_mutex);
 
 static void boost_kick_cpus(void)
 {
-	u32 nr_running;
 	int i;
 
 	for_each_online_cpu(i) {
-		/*
-		 * kick only "small" cluster
-		 */
-		if (cpu_capacity(i) != max_capacity) {
-			nr_running = ACCESS_ONCE(cpu_rq(i)->nr_running);
-
-			/*
-			 * make sense to interrupt CPU if its runqueue
-			 * has something running in order to check for
-			 * migration afterwards, otherwise skip it.
-			 */
-			if (nr_running)
-				boost_kick(i);
-		}
+		if (cpu_capacity(i) != max_capacity)
+			boost_kick(i);
 	}
 }
 
@@ -3275,10 +3257,11 @@ bias_to_prev_cpu(struct cpu_select_env *env, struct cluster_cpu_stats *stats)
 }
 
 static inline bool
-wake_to_waker_cluster(struct cpu_select_env *env, int this_cpu)
+wake_to_waker_cluster(struct cpu_select_env *env)
 {
 	return !env->need_idle && !env->reason && env->sync &&
-		task_will_fit(env->p, this_cpu);
+	       task_load(current) > sched_big_waker_task_load &&
+	       task_load(env->p) < sched_small_wakee_task_load;
 }
 
 static inline int
@@ -3332,7 +3315,7 @@ static int select_best_cpu(struct task_struct *p, int target, int reason,
 			env.rtg = grp;
 	} else {
 		cluster = cpu_rq(cpu)->cluster;
-		if (wake_to_waker_cluster(&env, cpu)) {
+		if (wake_to_waker_cluster(&env)) {
 			if (sysctl_sched_prefer_sync_wakee_to_waker &&
 				cpu_rq(cpu)->nr_running == 1 &&
 				cpumask_test_cpu(cpu, tsk_cpus_allowed(p)) &&
@@ -7524,13 +7507,6 @@ static int detach_tasks(struct lb_env *env)
 
 redo:
 	while (!list_empty(tasks)) {
-		/*
-		 * We don't want to steal all, otherwise we may be treated likewise,
-		 * which could at worst lead to a livelock crash.
-		 */
-		if (env->idle != CPU_NOT_IDLE && env->src_rq->nr_running <= 1)
-			break;
-
 		p = list_first_entry(tasks, struct task_struct, se.group_node);
 
 		env->loop++;
