@@ -377,7 +377,7 @@ GRAPHITE	    = -fgraphite-identity -floop-parallelize-all -ftree-loop-linear -fl
 CFLAGS_MODULE   = $(GRAPHITE)
 AFLAGS_MODULE   = $(GRAPHITE)
 LDFLAGS_MODULE  = --strip-debug
-CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57 -mtune=cortex-a57 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning -mvectorize-with-neon-quad -ftree-vectorize
+CFLAGS_KERNEL	= $(GRAPHITE) -mcpu=cortex-a57 -mtune=cortex-a57 -fmodulo-sched -fmodulo-sched-allow-regmoves -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize -fvect-cost-model -ftree-partial-pre -fgcse-after-reload -fgcse-lm -fgcse-sm -fsched-spec-load -ffast-math -fsingle-precision-constant -fpredictive-commoning -ftree-vectorize
 AFLAGS_KERNEL	=  $(GRAPHITE)
 CFLAGS_GCOV	    = -fprofile-arcs -ftest-coverage -fno-tree-loop-im
 CFLAGS_KCOV	    = -fsanitize-coverage=trace-pc 
@@ -413,7 +413,7 @@ KBUILD_CFLAGS   := $(GRAPHITE) -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs 
 		-funswitch-loops -fpredictive-commoning -fgcse-after-reload \
 		-fno-delete-null-pointer-checks -Wno-error=bool-compare -ftree-loop-vectorize -ftree-loop-distribute-patterns -ftree-slp-vectorize \
  		-fvect-cost-model -ftree-partial-pre -fgcse-lm -fgcse-sm -fsched-spec-load -fsingle-precision-constant -std=gnu89 \
-		-mcpu=cortex-a57 -mtune=cortex-a57 -mvectorize-with-neon-quad -ftree-vectorize -pipe
+		-mcpu=cortex-a57 -mtune=cortex-a57 -ftree-vectorize -pipe
 
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
