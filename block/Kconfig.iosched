@@ -103,6 +103,7 @@ config IOSCHED_SWITCHER
 	  on. It requires being manually initialized from a different driver
 	  in order to grab the request_queue pointer that should have its I/O
 	  scheduler switched to Noop when the screen turns off.
+
 config IOSCHED_FIOPS
 	tristate "IOPS based I/O scheduler"
 	default y
@@ -111,13 +112,6 @@ config IOSCHED_FIOPS
           IOPS equally among all processes in the system. It's mainly for
           Flash based storage.
 
-config IOSCHED_FIFO
-	tristate "FIFO I/O scheduler"
-	default y
-	---help---
-	  Fifo is similar to no-op I/O scheduler and it's a minimal scheduler that does basic merging
-	  and sorting. Ported from: https://github.com/AndroidDeveloperAlliance/ZenKernel_TUNA/blob/master/block/fifo-iosched.c
-  
 config IOSCHED_SIOPLUS
 	tristate "Simple I/O scheduler plus"
 	default y
@@ -182,6 +176,7 @@ choice
 
 	config DEFAULT_FIOPS
 		bool "FIOPS" if IOSCHED_FIOPS=y
+<<<<<<< HEAD
 
 	config DEFAULT_FIFO
 		bool "fifo" if IOSCHED_FIFO=y
@@ -197,6 +192,8 @@ choice
 
 	config DEFAULT_ZEN
 		bool "ZEN" if IOSCHED_ZEN=y
+=======
+>>>>>>> parent of 7e701e3... block: add fifo scheduler
 
 endchoice
 
@@ -209,11 +206,14 @@ config DEFAULT_IOSCHED
 	default "fiops" if DEFAULT_FIOPS
 	default "sio" if DEFAULT_SIO
 	default "maple" if DEFAULT_MAPLE
+<<<<<<< HEAD
 	default "fifo" if DEFAULT_FIFO
 	default "sioplus" if DEFAULT_SIOPLUS
 	default "tripndroid" if DEFAULT_TRIPNDROID
 	default "vr" if DEFAULT_VR
 	default "zen" if DEFAULT_ZEN
+=======
+>>>>>>> parent of 7e701e3... block: add fifo scheduler
 
 endmenu
 
