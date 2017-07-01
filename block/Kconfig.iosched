@@ -122,12 +122,6 @@ config IOSCHED_SIOPLUS
 	  basic merging, trying to keep a minimum overhead. It is aimed
 	  mainly for aleatory access devices (eg: flash devices).  
 
-config IOSCHED_TRIPNDROID
-	tristate "Tripndroid"
-	default y
-	---help---
-	  The Trip N Droid scheduler
-  
 config IOSCHED_VR
 	tristate "V(R) I/O scheduler"
 	default y
@@ -176,25 +170,16 @@ choice
 
 	config DEFAULT_FIOPS
 		bool "FIOPS" if IOSCHED_FIOPS=y
-<<<<<<< HEAD
-
-	config DEFAULT_FIFO
-		bool "fifo" if IOSCHED_FIFO=y
 
 	config DEFAULT_SIOPLUS
 		bool "SIOPLUS" if IOSCHED_SIOPLUS=y
 
-	config DEFAULT_TRIPNDROID
-		bool "TRIPNDROID" if IOSCHED_TRIPNDROID=y
 
 	config DEFAULT_VR
 		bool "V(R)" if IOSCHED_VR=y
 
 	config DEFAULT_ZEN
 		bool "ZEN" if IOSCHED_ZEN=y
-=======
->>>>>>> parent of 7e701e3... block: add fifo scheduler
-
 endchoice
 
 config DEFAULT_IOSCHED
@@ -205,15 +190,27 @@ config DEFAULT_IOSCHED
 	default "noop" if DEFAULT_NOOP
 	default "fiops" if DEFAULT_FIOPS
 	default "sio" if DEFAULT_SIO
+<<<<<<< HEAD
 	default "maple" if DEFAULT_MAPLE
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 37bdaa3... block: add tripndroid scheduler
 	default "fifo" if DEFAULT_FIFO
+<<<<<<< HEAD
+>>>>>>> 42ce0fe774c3... block: add fifo scheduler
+=======
 	default "sioplus" if DEFAULT_SIOPLUS
+<<<<<<< HEAD
 	default "tripndroid" if DEFAULT_TRIPNDROID
 	default "vr" if DEFAULT_VR
 	default "zen" if DEFAULT_ZEN
 =======
 >>>>>>> parent of 7e701e3... block: add fifo scheduler
+=======
+>>>>>>> 3a054732dd16... block: add sioplus scheduler
+>>>>>>> parent of 37bdaa3... block: add tripndroid scheduler
 
 endmenu
 
